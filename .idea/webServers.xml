@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a5ac36c4-08f9-488f-b62f-63af03a6eec1" name="CAT" url="http://cat.ml-codesign.com/">
+        <fileTransfer host="cat.ml-codesign.com" port="22" privateKey="C:\Users\hoangtu92\.ssh\cat_key" rootFolder="/home/catad/httpdocs" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="CAT">
+    <serverData>
+      <paths name="CAT">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/bootstrap" />
+            <excludedPath path="/vendor" />
+            <excludedPath path="/storage" />
+            <excludedPath path="/tests" />
+            <excludedPath path="/.editorconfig" />
+            <excludedPath path="/.env" />
+            <excludedPath path="/.env.example" />
+            <excludedPath path="/.gitattributes" />
+            <excludedPath path="/.gitignore" />
+            <excludedPath path="/.styleci.yml" />
+            <excludedPath path="/artisan" />
+            <excludedPath path="/composer.json" />
+            <excludedPath path="/composer.lock" />
+            <excludedPath path="/package-lock.json" />
+            <excludedPath path="/package.json" />
+            <excludedPath path="/phpunit.xml" />
+            <excludedPath path="/README.md" />
+            <excludedPath path="/server.php" />
+            <excludedPath path="/webpack.mix.js" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
