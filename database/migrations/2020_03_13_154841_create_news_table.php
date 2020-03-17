@@ -17,6 +17,8 @@ class CreateNewsTable extends Migration
             $table->id();
             $table->string("title")->collation("utf8_unicode_ci")->unique();
             $table->longText("content")->collation("utf8_unicode_ci")->nullable(true);
+            $table->foreignId("author_id");
+            $table->foreign("author_id")->references("id")->on("users");
             $table->boolean("display")->default(true);
             $table->string("image")->collation("utf8_unicode_ci")->nullable(true);
             $table->timestamps();

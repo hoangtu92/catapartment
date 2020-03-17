@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\NewsRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class NewsCrudController
@@ -30,6 +29,25 @@ class NewsCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
+
+        $this->crud->removeColumn("content");
+
+        $this->crud->modifyColumn("image", [
+            'type' => 'image'
+        ]);
+
+        $this->crud->modifyColumn("author_id", [
+            'type' => 'model_function',
+            "function_name" => "getAuthorName"
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "tags",
+            "label" => "Tags",
+            "type" => "select_multiple",
+            "entity" => "tags",
+            "attribute" => "name",
+        ]);
     }
 
     protected function setupCreateOperation()
@@ -38,6 +56,27 @@ class NewsCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
+
+        $this->crud->removeField("author_id");
+
+        $this->crud->addField([
+            "label" => "Tags",
+            "name" => "tags",
+            "type" => "select2_multiple",
+            "entity" => "tags",
+            "attribute" => "name",
+            "pivot" => true
+        ]);
+
+        $this->crud->modifyField("content", [
+            "type" => "wysiwyg"
+        ]);
+
+        $this->crud->modifyField("image", [
+            "type" => "browse",
+            "label" => "Upload Image"
+        ]);
+
     }
 
     protected function setupUpdateOperation()

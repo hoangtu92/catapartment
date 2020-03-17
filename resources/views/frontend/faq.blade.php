@@ -24,81 +24,22 @@
                 <div class="col-lg-6">
                     <h3>Shopping Information</h3>
                     <ul class="faq">
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is dummy text?</li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
+                        @foreach($shopping_faqs as $item)
+                        <li class="q"><img src="images/arrow.png">{{ $item->question }}</li>
+                        <li class="a">{!! $item->answer !!}
                         </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry.
-                        </li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.
-                        </li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text.</li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text of the printing.</li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
+                        @endforeach
 
                     </ul>
                 </div>
                 <div class="col-lg-6">
                     <h3>Payment Information</h3>
                     <ul class="faq">
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is dummy text?</li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry.
-                        </li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.
-                        </li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text.</li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
-
-                        <li class="q"><img src="images/arrow.png">Lorem Ipsum is simply dummy text of the printing.</li>
-                        <li class="a">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                            dummy text of the printing and typesetting industry.
-                        </li>
+                        @foreach($payment_faqs as $item)
+                            <li class="q"><img src="images/arrow.png">{{ $item->question }}</li>
+                            <li class="a">{!! $item->answer !!}
+                            </li>
+                        @endforeach
 
 
                     </ul>

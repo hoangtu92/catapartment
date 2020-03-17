@@ -34,6 +34,9 @@ class ProductCategory extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function products(){
+        return $this->hasMany("App\Models\Product", "category_id");
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -16,174 +16,23 @@
 
                     <div class="plist">
                         <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img01.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
+                            @foreach($news as $item)
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="guide-box">
+                                        <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img01.jpg") }}"
+                                                                                              alt=""/></div>
+                                        <div class="gb-text">
+                                            <h4>{{ $item->getTagsName() }}</h4>
+                                            <h3><a href="#">{{ $item->title }}</a></h3>
+                                            <h6>Posted by {{ $item->author->name }} </h6>
+                                            <div>{!! mb_substr($item->content, 0, 70, "utf-8") !!}</div>
+                                            <h5><a href="{{ route("news")  }}/{{ $item->title }}">Continue Reading</a></h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img02.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img03.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img01.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img02.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img03.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img01.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img02.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img03.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img01.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img02.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="guide-box">
-                                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img03.jpg") }}"
-                                                                                          alt=""/></div>
-                                    <div class="gb-text">
-                                        <h4>Design Trends, Furniture</h4>
-                                        <h3><a href="#">Seating Collections Inspiration</a></h3>
-                                        <h6>Posted by S.Roger </h6>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum is simply dummy text.</p>
-                                        <h5><a href="#">Continue Reading</a></h5>
-                                    </div>
-                                </div>
-                            </div>
+                                @endforeach
+
+
 
                             <div class="col-lg-12">
                                 <div class="pagination">

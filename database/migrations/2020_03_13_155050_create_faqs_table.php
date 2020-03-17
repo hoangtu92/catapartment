@@ -15,6 +15,9 @@ class CreateFaqsTable extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
+            $table->string("question")->nullable(false)->collation("utf8_unicode_ci");
+            $table->text("answer")->collation("utf8_unicode_ci");
+            $table->enum("type", ["SHOPPING", "PAYMENT"])->default("SHOPPING");
             $table->timestamps();
         });
     }

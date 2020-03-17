@@ -30,6 +30,10 @@ class ProductCategoryCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
+
+        $this->crud->modifyColumn("icon", [
+            "type" => "image"
+        ]);
     }
 
     protected function setupCreateOperation()
@@ -38,6 +42,11 @@ class ProductCategoryCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
+
+        $this->crud->modifyField("icon", [
+            "type" => "browse"
+        ]);
+
     }
 
     protected function setupUpdateOperation()

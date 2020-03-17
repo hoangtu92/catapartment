@@ -15,6 +15,11 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("category_id")->references("id")->on("product_categories");
+            $table->string("name")->nullable(false)->collation("utf8_unicode_ci")->unique();
+            $table->double("price")->default(0);
+            $table->double("sale_price")->default(0);
+            $table->string("image")->collation("utf8_unicode_ci");
             $table->timestamps();
         });
     }

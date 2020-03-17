@@ -3,11 +3,23 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faq;
+use App\Models\News;
+use App\Models\ProductCategory;
 use App\Models\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class FrontController extends Controller
 {
+
+    private $product_categories;
+
+    public function __construct(){
+        $product_categories = ProductCategory::all();
+        View::share('product_categories', $product_categories);
+    }
+
     //Index
     public function home(){
         $slides = Slide::all();
@@ -16,7 +28,10 @@ class FrontController extends Controller
     }
 
     public function news(){
-        return view("frontend.news");
+
+        $news = News::where("display", 1)->get();
+
+        return view("frontend.news")->with(compact("news"));
     }
 
     public function news_detail($slug){
@@ -25,6 +40,11 @@ class FrontController extends Controller
 
     public function products(){
         return view("frontend.products");
+    }
+
+    public function product_category($category_name){
+        $category = ProductCategory::where("name", $category_name)->first();
+        return view("frontend.products")->with(compact("category"));
     }
 
     public function pre_order_products(){
@@ -52,7 +72,9 @@ class FrontController extends Controller
     }
 
     public function faq(){
-        return view("frontend.faq");
+        $payment_faqs = Faq::where("type", "PAYMENT")->get();
+        $shopping_faqs = Faq::where("type", "SHOPPING")->get();
+        return view("frontend.faq")->with(compact("payment_faqs", "shopping_faqs"));
     }
 
     public function contact(){

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="CAT">
+  <component name="PublishConfigData" autoUpload="Always" serverName="CAT" compareModeInSync="TIMESTAMP">
     <serverData>
       <paths name="CAT">
         <serverdata>
@@ -54,6 +54,17 @@
             <excludedPath path="/public/packages" />
             <excludedPath path="/public/uploads" />
             <excludedPath path="/database/factories" />
+            <excludedPath path="/config" />
+            <excludedPath path="/public/js" />
+            <excludedPath path="/public/css/bootstrap.css" />
+            <excludedPath path="/public/css/owl.theme.css" />
+            <excludedPath path="/public/css/price_range_style.css" />
+            <excludedPath path="/public/css/owl.carousel.css" />
+            <excludedPath path="/public/css/stellarnav.css" />
+            <excludedPath path="/public/css/animate.css" />
+            <excludedPath path="/public/css/radio-btn.css" />
+            <excludedPath path="/public/css/smoothproducts.css" />
+            <excludedPath path="/public/css/easy-responsive-tabs.css" />
           </excludedPaths>
         </serverdata>
       </paths>

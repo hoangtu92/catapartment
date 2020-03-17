@@ -34,6 +34,9 @@ class Product extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function category(){
+        return $this->belongsTo("App\Models\ProductCategory", 'category_id');
+    }
 
     /*
     |--------------------------------------------------------------------------

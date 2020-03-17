@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
             'phone' => '0947556511',
             'name' => Str::random(10),
             'email' => 'ml-codesign6@gmail.com',
-            'password' => bcrypt('ASDFvcx2z!'),
+            'password' => bcrypt('123456'),
         ]);
 
 

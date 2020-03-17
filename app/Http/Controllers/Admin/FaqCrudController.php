@@ -38,6 +38,15 @@ class FaqCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
+
+        $this->crud->modifyField("type", [
+            "type" => "select2_from_array",
+            "options" => ["SHIPPING", "PAYMENT"]
+        ]);
+
+        $this->crud->modifyField("answer", [
+            "type" => "wysiwyg"
+        ]);
     }
 
     protected function setupUpdateOperation()

@@ -21,6 +21,7 @@ Route::get('/news', "Frontend\FrontController@news")->name("news");
 Route::get('/news/{slug}', "Frontend\FrontController@news_detail");
 
 Route::get('/products', "Frontend\FrontController@products")->name("products");
+Route::get('/product-category/{category_name}', "Frontend\FrontController@product_category")->name("product_cat");
 Route::get('/pre-order-products', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
 Route::get('/recommend-products', "Frontend\FrontController@recommend_products")->name("recommend_products");
 Route::get('/customized-products', "Frontend\FrontController@customized_products")->name("customized_products");
