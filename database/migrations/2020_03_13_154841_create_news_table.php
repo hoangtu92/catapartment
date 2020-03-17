@@ -15,6 +15,10 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
+            $table->string("title")->collation("utf8_unicode_ci")->unique();
+            $table->longText("content")->collation("utf8_unicode_ci")->nullable(true);
+            $table->boolean("display")->default(true);
+            $table->string("image")->collation("utf8_unicode_ci")->nullable(true);
             $table->timestamps();
         });
     }

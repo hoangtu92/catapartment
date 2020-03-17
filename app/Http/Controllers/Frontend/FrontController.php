@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Slide;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
     //Index
     public function home(){
-        return view("frontend.home");
+        $slides = Slide::all();
+
+        return view("frontend.home")->with(compact(['slides']));
     }
 
     public function news(){

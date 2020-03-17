@@ -23,6 +23,13 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * Login username to be used by the controller.
+     *
+     * @var string
+     */
+    protected $username;
+
+    /**
      * Where to redirect users after login.
      *
      * @return string
@@ -48,37 +55,35 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->username = $this->findUsername();
     }
 
-    public function username()
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function findUsername()
     {
-        return 'username';
+        $login = request()->input('username');
+
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        request()->merge([$fieldType => $login]);
+
+        return $fieldType;
     }
 
     /**
-     * Handle an authentication attempt.
+     * Get username property.
      *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return Response
+     * @return string
      */
-    public function authenticate(Request $request)
+    public function username()
     {
-
-        if(preg_match('/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/', $request->input("username")) ){
-            $credentials = [
-                "email" => $request->input('username'),
-                "password" => $request->input("password")
-            ];
-        }
-        else $credentials = $request->only('username', 'password');
-
-
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('account');
-        }
-
-
+        return $this->username;
     }
+
+
 }

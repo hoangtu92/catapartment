@@ -15,6 +15,7 @@ class CreateNewsTagsTable extends Migration
     {
         Schema::create('news_tags', function (Blueprint $table) {
             $table->id();
+            $table->string("name")->collation("utf8_unicode_ci")->unique();
             $table->timestamps();
         });
     }

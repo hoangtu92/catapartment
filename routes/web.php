@@ -42,6 +42,6 @@ Route::middleware(["auth"])->prefix('account')->group(function () {
     Route::get('/orders', "Frontend\UserController@orders")->name("orders");
 });
 
-Route::middleware(["auth", "role:admin"])->prefix('admin')->group(function () {
+/*Route::middleware(["auth", "role:admin"])->prefix('admin')->group(function () {
     Route::get('/', "Backend\AdminController@dashboard")->name("dashboard");
-});
+});*/

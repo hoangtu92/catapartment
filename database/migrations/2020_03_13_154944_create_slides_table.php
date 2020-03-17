@@ -15,6 +15,9 @@ class CreateSlidesTable extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
+            $table->string("title")->collation("utf8_unicode_ci")->nullable(true);
+            $table->string("link")->nullable(true)->collation("utf8_unicode_ci");
+            $table->string("image")->collation("utf8_unicode_ci");
             $table->timestamps();
         });
     }

@@ -7,16 +7,11 @@
                 @include("frontend.global.product_category")
             </div>
             <div id="home-slider" class="owl-carousel">
-                <div class="item" data-aos="fade-up"
-                     style="background:url({{ asset("images/home-slider-img01.jpg") }}) no-repeat center top;"></div>
-                <div class="item" data-aos="fade-up"
-                     style="background:url({{ asset("images/home-slider-img02.jpg") }}) no-repeat center top;"></div>
-                <div class="item" data-aos="fade-up"
-                     style="background:url({{ asset("images/home-slider-img01.jpg") }}) no-repeat center top;"></div>
-                <div class="item" data-aos="fade-up"
-                     style="background:url({{ asset("images/home-slider-img02.jpg") }}) no-repeat center top;"></div>
-                <div class="item" data-aos="fade-up"
-                     style="background:url({{ asset("images/home-slider-img01.jpg") }}) no-repeat center top;"></div>
+                @foreach($slides as $slide)
+                    <div class="item" data-aos="fade-up" title="{{ $slide->title }}"
+                         @if($slide->link != null) onclick="window.location.href='{{$slide->link}}'" @endif
+                         style="background:url({{ asset($slide->image) }}) no-repeat center top; @if($slide->link != null) cursor: pointer; @endif"></div>
+                @endforeach
             </div>
         </div>
     </div>
