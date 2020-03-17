@@ -27,6 +27,30 @@
             <excludedPath path="/README.md" />
             <excludedPath path="/server.php" />
             <excludedPath path="/webpack.mix.js" />
+            <excludedPath path="/public/vendor" />
+            <excludedPath path="/public/html" />
+            <excludedPath path="/node_modules" />
+            <excludedPath path="/public/.htaccess" />
+            <excludedPath path="/public/checkout.html" />
+            <excludedPath path="/public/composer.json" />
+            <excludedPath path="/public/composer.lock" />
+            <excludedPath path="/public/contact-us.html" />
+            <excludedPath path="/public/customized-products.html" />
+            <excludedPath path="/public/faq.html" />
+            <excludedPath path="/public/favicon.ico" />
+            <excludedPath path="/public/index.html" />
+            <excludedPath path="/public/index.php" />
+            <excludedPath path="/public/news-detail.html" />
+            <excludedPath path="/public/news.html" />
+            <excludedPath path="/public/points.html" />
+            <excludedPath path="/public/pre-order-products.html" />
+            <excludedPath path="/public/product-detail.html" />
+            <excludedPath path="/public/product-list.html" />
+            <excludedPath path="/public/recommend-products.html" />
+            <excludedPath path="/public/robots.txt" />
+            <excludedPath path="/public/user-dashboard.html" />
+            <excludedPath path="/public/wishlist.html" />
+            <excludedPath path="/public/images" />
           </excludedPaths>
         </serverdata>
       </paths>
