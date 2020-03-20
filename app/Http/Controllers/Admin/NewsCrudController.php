@@ -22,31 +22,39 @@ class NewsCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\News');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/news');
-        $this->crud->setEntityNameStrings('news', 'news');
+        $this->crud->setEntityNameStrings(trans('backpack::site.news'), trans('backpack::site.news'));
     }
 
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
 
-        $this->crud->removeColumn("content");
 
-        $this->crud->modifyColumn("image", [
-            'type' => 'image'
+        $this->crud->addColumn([
+            "name" => "title",
+            'type' => 'text',
+            "label" => trans("backpack::site.news_title")
         ]);
 
-        $this->crud->modifyColumn("author_id", [
+        $this->crud->addColumn([
+            "name" => "author_id",
             'type' => 'model_function',
-            "function_name" => "getAuthorName"
+            "function_name" => "getAuthorName",
+            "label" => trans("backpack::site.author")
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "image",
+            'type' => 'image',
+            "label" => trans("backpack::site.image")
         ]);
 
         $this->crud->addColumn([
             "name" => "tags",
-            "label" => "Tags",
             "type" => "select_multiple",
             "entity" => "tags",
             "attribute" => "name",
+            "label" => trans("backpack::site.tags")
         ]);
     }
 
@@ -55,26 +63,32 @@ class NewsCrudController extends CrudController
         $this->crud->setValidation(NewsRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
-
-        $this->crud->removeField("author_id");
 
         $this->crud->addField([
-            "label" => "Tags",
+            "name" => "title",
+            "type" => "text",
+            "label" => trans("backpack::site.news_title")
+        ]);
+
+        $this->crud->addField([
             "name" => "tags",
             "type" => "select2_multiple",
             "entity" => "tags",
             "attribute" => "name",
-            "pivot" => true
+            "pivot" => true,
+            "label" => trans("backpack::site.tags")
         ]);
 
-        $this->crud->modifyField("content", [
-            "type" => "wysiwyg"
+        $this->crud->addField([
+            "name" => "content",
+            "type" => "wysiwyg",
+            "label" => trans("backpack::site.news_content")
         ]);
 
-        $this->crud->modifyField("image", [
+        $this->crud->addField([
+            "name" => "image",
             "type" => "browse",
-            "label" => "Upload Image"
+            "label" => trans("backpack::site.upload_image")
         ]);
 
     }

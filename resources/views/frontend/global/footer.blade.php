@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom">Copyright © 2020 Cats Apartment. All Rights Reserved.</div>
+    <div class="footer-bottom">{{ __("Copyright © 2020 Cats Apartment. All Rights Reserved.") }}</div>
 
 
 </footer>

@@ -54,8 +54,6 @@
             <excludedPath path="/public/packages" />
             <excludedPath path="/public/uploads" />
             <excludedPath path="/database/factories" />
-            <excludedPath path="/config" />
-            <excludedPath path="/public/js" />
             <excludedPath path="/public/css/bootstrap.css" />
             <excludedPath path="/public/css/owl.theme.css" />
             <excludedPath path="/public/css/price_range_style.css" />

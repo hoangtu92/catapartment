@@ -9,11 +9,11 @@
 
 @section("content")
 
-    <section class="inner-banner checkout-banner" style="background:url(images/catshop-banner13.jpg) no-repeat center top;">
+    <section class="inner-banner checkout-banner" style="background:url({{ asset("images/catshop-banner13.jpg") }}) no-repeat center top;">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="#">SHOPPING CART</a>   >    <a href="#" class="active"> CHECKOUT</a>   >    <a href="#">ORDER COMPLETE</a>
+                    <a href="#">{{ __("SHOPPING CART") }}</a>   >    <a href="#" class="active"> {{ __("CHECKOUT") }}</a>   >    <a href="#">{{ __("ORDER COMPLETE") }}</a>
                 </div>
             </div>
         </div>
@@ -23,38 +23,38 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <h3>Billing Details</h3>
+                    <h3>{{ __("Billing Details") }}</h3>
                     <form action="#">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>First Name<em>*</em></label>
+                                    <label>{{ __("First Name") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Last Name<em>*</em></label>
+                                    <label>{{ __("Last Name") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Company Name (optional)</label>
+                                    <label>{{ __("Company Name (optional)") }}</label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Country<em>*</em></label>
+                                    <label>{{ __("Country") }}<em>*</em></label>
                                     <select class="form-control">
-                                        <option>Select Country</option>
+                                        <option>{{ __("Select Country") }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Street Address<em>*</em></label>
+                                    <label>{{ __("Street Address") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                                 <div class="form-group">
@@ -63,37 +63,37 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Town / City<em>*</em></label>
+                                    <label>{{ __("Town / City") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>State / County<em>*</em></label>
+                                    <label>{{ __("State / County") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Postal Code / ZIP<em>*</em></label>
+                                    <label>{{ __("Postal Code / ZIP") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Phone<em>*</em></label>
+                                    <label>{{ __("Phone") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Email Address<em>*</em></label>
+                                    <label>{{ __("Email Address") }}<em>*</em></label>
                                     <input type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group form-check">
-                                    <label class="checkbox-btn">Create an Account
+                                    <label class="checkbox-btn">{{ __("Create an Account") }}
                                         <input type="checkbox" checked="checked">
                                         <span class="checkmark"></span>
                                     </label>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="col-md-12 mt-4">
                                 <div class="form-group form-check">
-                                    <label class="checkbox-btn"><h3 class="mb-0">Ship to a different address</h3>
+                                    <label class="checkbox-btn"><h3 class="mb-0">{{ __("Ship to a different address") }}</h3>
                                         <input type="checkbox" checked="checked">
                                         <span class="checkmark"></span>
                                     </label>
@@ -109,7 +109,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Order Notes (optional)</label>
+                                    <label>{{ __("Order Notes (optional)") }}</label>
                                     <textarea class="form-control"></textarea>
                                 </div>
                             </div>
@@ -117,39 +117,39 @@
                     </form>
                 </div>
                 <div class="col-lg-6" style="background:#f8f8f8;">
-                    <h3>Your Order</h3>
+                    <h3>{{ __("Your Order") }}</h3>
                     <div class="cart-tb">
                         <table class="table full-width">
                             <tbody>
                             <tr>
-                                <th>Product</th>
-                                <th>Total</th>
+                                <th>{{ __("Product") }}</th>
+                                <th>{{ __("Total") }}</th>
                             </tr>
                             <tr>
-                                <td>Best Clock</td>
+                                <td>{{ __("Best Clock") }}</td>
                                 <td>$555.00</td>
                             </tr>
                             <tr>
-                                <td><b>Sub Total</b></td>
+                                <td><b>{{ __("Sub Total") }}</b></td>
                                 <td><strong>$555.00</strong></td>
                             </tr>
                             <tr>
-                                <td>Shipping</td>
-                                <td><label class="rd-btn">Flat rate : <strong>$20.00</strong>
+                                <td>{{ __("Shipping") }}</td>
+                                <td><label class="rd-btn">{{ __("Flat rate") }} : <strong>$20.00</strong>
                                         <input type="radio" checked="checked" name="radio">
                                         <span class="checkmark"></span>
                                     </label>
-                                    <label class="rd-btn">Free Shipping
+                                    <label class="rd-btn">{{ __("Free Shipping") }}
                                         <input type="radio" name="radio">
                                         <span class="checkmark"></span>
                                     </label>
-                                    <label class="rd-btn">Local Pickup : <strong>$25.00</strong>
+                                    <label class="rd-btn">{{ __("Local Pickup") }} : <strong>$25.00</strong>
                                         <input type="radio" name="radio">
                                         <span class="checkmark"></span>
                                     </label></td>
                             </tr>
                             <tr>
-                                <td><b>Total</b></td>
+                                <td><b>{{ __("Total") }}</b></td>
                                 <td><strong>$575.00</strong></td>
                             </tr>
                             </tbody>
@@ -165,30 +165,30 @@
                         <div class="cre-box"><input type="text"><button>抵用</button></div>
                     </div>
 
-                    <label class="rd-btn">Cheque Payment
+                    <label class="rd-btn">{{ __("Cheque Payment") }}
                         <input type="radio" checked="checked" name="radio">
                         <span class="checkmark"></span>
                     </label>
 
-                    <label class="rd-btn">Cash on delivery
+                    <label class="rd-btn">{{ __("Cash on delivery") }}
                         <input type="radio" checked="checked" name="radio">
                         <span class="checkmark"></span>
                     </label>
 
-                    <label class="rd-btn">Paypal
+                    <label class="rd-btn">{{ __("Paypal") }}
                         <input type="radio" checked="checked" name="radio">
                         <span class="checkmark"></span>
                     </label>
 
                     <hr>
-                    <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="#"><strong>privacy policy</strong></a>.</p>
+                    <p>{!! __("privacy_notice", ["privacy_url" => '<a href="#"><strong>'.__("privacy policy").'</strong></a>']) !!}.</p>
                     <hr>
-                    <label class="checkbox-btn">I have read and agree to the website <a href="#"><strong>terms and conditions*</strong></a>
+                    <label class="checkbox-btn">{!! __("term_condition_agreement", ["term_link" => '<a href="#"><strong>'.__("terms and conditions").'*</strong></a>']) !!}
                         <input type="checkbox" checked="checked">
                         <span class="checkmark"></span>
                     </label>
 
-                    <button class="btn02">Place Order</button>
+                    <button class="btn02">{{ __("Place Order") }}</button>
 
                 </div>
             </div>

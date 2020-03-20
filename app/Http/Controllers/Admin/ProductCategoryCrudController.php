@@ -23,16 +23,22 @@ class ProductCategoryCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\ProductCategory');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/product-category');
-        $this->crud->setEntityNameStrings('product_category', 'product_categories');
+        $this->crud->setEntityNameStrings(trans('backpack::site.product_category'), trans('backpack::site.product_category'));
     }
 
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        $this->crud->addColumn([
+            "name" => "name",
+            "type" => "text",
+            "label" => trans('backpack::site.category_name')
+        ]);
 
-        $this->crud->modifyColumn("icon", [
-            "type" => "image"
+        $this->crud->addColumn([
+            "name" => "icon",
+            "type" => "image",
+            "label" => trans('backpack::site.category_icon')
         ]);
     }
 
@@ -41,10 +47,16 @@ class ProductCategoryCrudController extends CrudController
         $this->crud->setValidation(ProductCategoryRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+        $this->crud->addField([
+            "name" => "name",
+            "type" => "text",
+            "label" => trans('backpack::site.category_name')
+        ]);
 
-        $this->crud->modifyField("icon", [
-            "type" => "browse"
+        $this->crud->addField([
+            "name" => "icon",
+            "type" => "browse",
+            "label" => trans('backpack::site.category_icon')
         ]);
 
     }

@@ -31,10 +31,14 @@ Route::get('/checkout', "Frontend\FrontController@checkout")->name("checkout");
 Route::get('/wishlist', "Frontend\FrontController@wishlist")->name("wishlist");
 
 Route::get('/faq', "Frontend\FrontController@faq")->name("faq");
-Route::get('/contact-us', "Frontend\FrontController@contact")->name("contact");
-
+Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
 
 Auth::routes();
+
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+
 Route::middleware(["auth"])->prefix('account')->group(function () {
     Route::get('/', "Frontend\UserController@dashboard")->name("account");
     Route::get('/points', "Frontend\UserController@points")->name("points");
@@ -42,7 +46,3 @@ Route::middleware(["auth"])->prefix('account')->group(function () {
     Route::get('/profile', "Frontend\UserController@dashboard")->name("profile");
     Route::get('/orders', "Frontend\UserController@orders")->name("orders");
 });
-
-/*Route::middleware(["auth", "role:admin"])->prefix('admin')->group(function () {
-    Route::get('/', "Backend\AdminController@dashboard")->name("dashboard");
-});*/

@@ -23,7 +23,7 @@ class NewsletterCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Newsletter');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/newsletter');
-        $this->crud->setEntityNameStrings('newsletter', 'newsletters');
+        $this->crud->setEntityNameStrings(trans('backpack:site.newsletter'), trans('backpack:site.newsletter'));
     }
 
     protected function setupListOperation()

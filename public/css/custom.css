@@ -137,13 +137,18 @@ header.sticky .header-top {
 }
 
 .top-left span {
-    border-left: #9f8f5a thin solid;
     padding: 5px 10px;
     display: inline-block;
+    max-height: 34px;
+    overflow: hidden;
+}
+.top-left > span {
+    border-left: #9f8f5a thin solid;
 }
 
 .top-left span a {
     color: #231916;
+    display: block;
 }
 
 .top-left span a:hover {
@@ -564,13 +569,15 @@ header.sticky {
 }
 
 #pl-slider {
-    background: #77ae37;
+    /* background: #77ae37; */
     padding: 20px;
 }
 
 #pl-slider img {
-    max-width: 350px;
+    /* max-width: 350px; */
     width: 100%;
+    height: 400px;
+    object-fit: cover;
 }
 
 .product-d {
@@ -2347,6 +2354,11 @@ a:focus, a:hover {
 
 .full-width{
     width: 100%;
+}
+
+
+.invalid-feedback{
+    color: red;
 }
 
 

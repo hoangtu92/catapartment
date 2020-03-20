@@ -3,24 +3,27 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactUs;
+use App\Models\Advertisement;
 use App\Models\Faq;
 use App\Models\News;
 use App\Models\ProductCategory;
 use App\Models\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 
-class FrontController extends Controller
+class FrontController extends CatController
 {
 
-    private $product_categories;
-
+    //Index
+    /**
+     * FrontController constructor.
+     */
     public function __construct(){
-        $product_categories = ProductCategory::all();
-        View::share('product_categories', $product_categories);
+        parent::__construct();
     }
 
-    //Index
     public function home(){
         $slides = Slide::all();
 
@@ -77,9 +80,19 @@ class FrontController extends Controller
         return view("frontend.faq")->with(compact("payment_faqs", "shopping_faqs"));
     }
 
-    public function contact(){
+    public function contact(Request $request){
+
+        if($request->isMethod("post") && $request->filled("action")){
+            $contact_info = (object) $request->only(["customer_name", "customer_email", "customer_phone", "customer_free_time", "customer_message"]);
+
+            Mail::send(new ContactUs($contact_info));
+
+            $request->session()->flash('message', trans("frontend.contact_us_success"));
+        }
+
         return view("frontend.contact");
     }
+
 
 
 

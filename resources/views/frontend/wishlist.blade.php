@@ -18,10 +18,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <img src="{{ asset("images/wishlist-icon.jpg") }}" alt=""/>
-                    <h2>Wishlist is empty.</h2>
-                    <p>You don't have any products in the wishlist yet.<br>
-                        You will find a lot of interesting products on our "Shop" page.</p>
-                    <a href="#">Return to Shop</a>
+                    <h2>{{ __("Wishlist is empty.") }}</h2>
+                    <p>{!! __("wishlist_empty_notice") !!}</p>
+                    <a href="#">{{ __("Return to Shop") }}</a>
                 </div>
             </div>
         </div>

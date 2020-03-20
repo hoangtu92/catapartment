@@ -25,7 +25,7 @@ class SlideCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Slide');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/slide');
-        $this->crud->setEntityNameStrings('slide', 'slides');
+        $this->crud->setEntityNameStrings(trans('backpack::site.slide'), trans('backpack::site.slide'));
     }
 
     protected function setupListOperation()
@@ -33,19 +33,19 @@ class SlideCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->addColumn([
             'name' => 'title',
-            'label' => "Slide Title",
-            'type' => 'Text'
+            "label" => trans('backpack::site.slide_title'),
+            'type' => 'text'
         ]);
 
         $this->crud->addColumn([
             'name' => 'link',
-            'label' => "Slide Link",
-            'type' => 'Text'
+            "label" => trans('backpack::site.slide_link'),
+            'type' => 'url'
         ]);
 
         $this->crud->addColumn([
             'name' => 'image',
-            'label' => "Slide Image",
+            "label" => trans('backpack::site.slide_image'),
             'type' => 'image'
         ]);
     }
@@ -55,10 +55,22 @@ class SlideCrudController extends CrudController
         $this->crud->setValidation(SlideRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
-        $this->crud->modifyField('image',[
-            'type' => 'browse',
-            'label' => 'Upload image'
+        $this->crud->addField([
+            'name' => 'title',
+            "label" => trans('backpack::site.slide_title'),
+            'type' => 'text'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'link',
+            "label" => trans('backpack::site.slide_link'),
+            'type' => 'url'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'image',
+            "label" => trans('backpack::site.upload_image'),
+            'type' => 'browse'
         ]);
     }
 

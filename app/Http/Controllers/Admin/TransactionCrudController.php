@@ -23,7 +23,7 @@ class TransactionCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Transaction');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/transaction');
-        $this->crud->setEntityNameStrings('transaction', 'transactions');
+        $this->crud->setEntityNameStrings(trans('backpack::site.transaction'), trans('backpack::site.transactions'));
     }
 
     protected function setupListOperation()

@@ -22,7 +22,7 @@
             </div>
             <div class="row faq-page">
                 <div class="col-lg-6">
-                    <h3>Shopping Information</h3>
+                    <h3>{{ __("Shopping Information") }}</h3>
                     <ul class="faq">
                         @foreach($shopping_faqs as $item)
                         <li class="q"><img src="images/arrow.png">{{ $item->question }}</li>
@@ -33,7 +33,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-6">
-                    <h3>Payment Information</h3>
+                    <h3>{{ __("Payment Information") }}</h3>
                     <ul class="faq">
                         @foreach($payment_faqs as $item)
                             <li class="q"><img src="images/arrow.png">{{ $item->question }}</li>

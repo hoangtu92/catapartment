@@ -15,5 +15,4 @@ return [
 
     'failed' => '帳號或密碼有誤，請重新輸入。',
     'throttle' => '登錄嘗試次數太多 請再試一次 :seconds seconds.',
-
 ];

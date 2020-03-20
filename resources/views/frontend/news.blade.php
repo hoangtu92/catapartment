@@ -26,7 +26,7 @@
                                             <h3><a href="#">{{ $item->title }}</a></h3>
                                             <h6>Posted by {{ $item->author->name }} </h6>
                                             <div>{!! mb_substr($item->content, 0, 70, "utf-8") !!}</div>
-                                            <h5><a href="{{ route("news")  }}/{{ $item->title }}">Continue Reading</a></h5>
+                                            <h5><a href="{{ route("news")  }}/{{ $item->title }}">{{ __("Continue Reading") }}</a></h5>
                                         </div>
                                     </div>
                                 </div>

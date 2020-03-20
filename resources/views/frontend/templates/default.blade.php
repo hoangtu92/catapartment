@@ -23,6 +23,32 @@
     <link rel="stylesheet" href="{{ asset("css/easy-responsive-tabs.css") }}">
 
     @yield("stylesheet")
+
+@if(!empty(env("FACEBOOK_PAGE_ID")))
+    <!-- Load Facebook SDK for JavaScript -->
+        <div id="fb-root"></div>
+        <script>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    xfbml            : true,
+                    version          : 'v6.0'
+                });
+            };
+
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+        <!-- Your customer chat code -->
+        <div class="fb-customerchat"
+             attribution=setup_tool
+             page_id="{{ env("FACEBOOK_PAGE_ID") }}">
+        </div>
+    @endif
 </head>
 
 <body>
@@ -44,13 +70,45 @@
 
 <!-- JS Part Start -->
 <script src="{{ asset("js/jquery-2.1.3.min.js") }}"></script>
-<!--<script src="{{ asset("js/bootstrap.min.js") }}"></script>-->
+<script src="{{ asset("js/bootstrap.min.js") }}"></script>
 <script src="{{ asset("js/viewportchecker.js") }}"></script>
+
 <script src="{{ asset("js/owl.carousel.js") }}"></script>
+<script src="{{ asset("js/jquery.easy-ticker.min.js") }}"></script>
 <script src="{{ asset("js/custom.js") }}"></script>
 
+
+
 <!--Begin Modal-->
+@if(Session::has('message'))
+    <div class="modal fade" id="infoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-toggle="dismiss">x</button>
+                </div>
+                <div class="modal-body">
+                    <div class="message text-center">
+                        {{ Session::get('message') }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        jQuery(document).ready(function ($) {
+            $("#infoModal").modal();
+        })
+    </script>
+@endif
+
+@auth
+    @else
 @include("frontend.global.modal")
+@endauth
 <!--End Modal-->
 
 <!-- Menu JS Part Start -->
@@ -101,9 +159,17 @@
         $(".logout-link").click(function (e) {
             e.preventDefault();
             $("#frm-logout").submit();
-        })
+        });
+
+        $('.announcements').easyTicker({
+            visible: 1,
+            interval: 3000,
+            mousePause: 1,
+            height: 34,
+        });
     })
 </script>
+
 @yield("scripts")
 </body>
 </html>

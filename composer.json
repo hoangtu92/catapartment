@@ -9,12 +9,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-curl": "*",
+        "ext-json": "*",
         "backpack/crud": "4.0.*",
         "barryvdh/laravel-elfinder": "^0.4.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
+        "hoangtu92/laravel-fb-messenger": "*",
+        "hoangtu92/laravel-line-login": "dev-master",
         "laravel/framework": "^7.0",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0"
     },
@@ -64,5 +69,15 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/hoangtu92/laravel-fb-messenger.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/hoangtu92/Laravel-Line-Login.git"
+        }
+    ]
 }

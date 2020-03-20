@@ -23,13 +23,17 @@ class NewsTagCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\NewsTag');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/news-tag');
-        $this->crud->setEntityNameStrings('news_tag', 'news_tags');
+        $this->crud->setEntityNameStrings(trans('backpack::site.news_tag'), trans('backpack::site.news_tags'));
     }
 
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        $this->crud->addColumn([
+           "name" => "name",
+           "type" => "text",
+           "label" => trans('backpack::site.tag_name')
+        ]);
     }
 
     protected function setupCreateOperation()
@@ -37,7 +41,11 @@ class NewsTagCrudController extends CrudController
         $this->crud->setValidation(NewsTagRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+        $this->crud->addField([
+            "name" => "name",
+            "type" => "text",
+            "label" => trans('backpack::site.tag_name')
+        ]);
     }
 
     protected function setupUpdateOperation()

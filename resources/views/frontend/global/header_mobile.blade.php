@@ -11,13 +11,13 @@
                 <p>$0.00</p></a>
             <div class="mob-search">
                 <div class="search-box">
-                    <form method="get">
+                    <form method="get" action="{{ route("home") }}">
                         <input type="text" placeholder="搜尋">
-                        <select>
-                            <option>目錄</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                        <select name="cat">
+                            <option>{{ __("Select Category") }}</option>
+                            @foreach($product_categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                         <button type="submit"><img src="{{ asset("images/search-icon.jpg") }}" alt=""/></button>
                     </form>

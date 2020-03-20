@@ -23,11 +23,11 @@
                             <table class="table full-width">
                                 <thead>
                                 <tr>
-                                    <th>{{ __("order.no") }}</th>
-                                    <th>{{ __("order.order_id") }}</th>
-                                    <th>{{ __("order.order_date") }}</th>
-                                    <th>{{ __("order.order_amount") }}</th>
-                                    <th>{{ __("order.order_info") }}</th>
+                                    <th>{{ __("No.") }}</th>
+                                    <th>{{ __("Order ID") }}</th>
+                                    <th>{{ __("Order Date") }}</th>
+                                    <th>{{ __("Order Amount") }}</th>
+                                    <th>{{ __("Order Info") }}</th>
                                     <th></th>
                                 </tr>
                                 </thead>

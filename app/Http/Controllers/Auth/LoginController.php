@@ -3,12 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Frontend\CatController;
+
 use App\Providers\RouteServiceProvider;
+use App\User;
+use Hoangtu92\LaravelLineLogin\Line\API\v2\LineAPIService;
+use Hoangtu92\LaravelLineLogin\Line\API\v2\Response\AccessToken;
+use Hoangtu92\LaravelLineLogin\Line\API\v2\Response\Profile;
+use Hoangtu92\LaravelLineLogin\Utils\CommonUtils;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use Laravel\Socialite\Facades\Socialite;
 
-class LoginController extends Controller
+class LoginController extends CatController
 {
+
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -21,6 +34,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+
 
     /**
      * Login username to be used by the controller.
@@ -54,6 +68,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('guest')->except('logout');
         $this->username = $this->findUsername();
     }
@@ -75,6 +90,7 @@ class LoginController extends Controller
         return $fieldType;
     }
 
+
     /**
      * Get username property.
      *
@@ -85,5 +101,111 @@ class LoginController extends Controller
         return $this->username;
     }
 
+    /**
+     * @param $getInfo
+     * @param $provider
+     * @return mixed
+     */
+    function createUser($getInfo, $provider){
+        $user = User::where('username', $getInfo->id)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'username' => $getInfo->id,
+                'name'     => $getInfo->name,
+                'email'    => $getInfo->email,
+                'provider' => $provider
+            ]);
+        }
+        return $user;
+    }
+
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @param Request $request
+     * @param $provider
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function redirectToProvider(Request $request, $provider)
+    {
+        if($provider === "facebook"){
+            return Socialite::driver("facebook")->redirect();
+        }
+        else if($provider === "line"){
+            //Redirect to line auth
+            $commonUtils = new CommonUtils;
+            $state = $commonUtils->getToken();
+            $lineAPIService = new LineAPIService;
+            $url = $lineAPIService->getLineWebLoginUrl($state);
+            return Redirect::to($url);
+        }
+        else{
+            return redirect(route("login"));
+        }
+
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @param Request $request
+     * @param $provider
+     * @return array
+     */
+    public function handleProviderCallback(Request $request, $provider)
+    {
+
+        if($provider === "facebook"){
+            $getInfo = Socialite::driver($provider)->user();
+
+            // $user->token;
+            // OAuth One Providers
+            //$token = $user->token;
+            //$tokenSecret = $user->tokenSecret;
+
+            $user = $this->createUser($getInfo, "facebook");
+            auth()->login($user);
+        }
+        else if($provider === "line"){
+
+            $code = $request->input('code');
+            /*$state = $request->input('state');
+            $scope = $request->input('scope');
+            $error = $request->input('error');*/
+            $errorCode = $request->input('errorCode');
+            $errorMessage = $request->input('errorMessage');
+
+            if (is_null($code) || !is_null($errorCode) || !is_null($errorMessage)){
+                return redirect('register');
+            }
+
+            $lineAPIService = new LineAPIService;
+            $token = new AccessToken($lineAPIService->accessToken($code));
+
+            //$request->session()->put('ACCESS_TOKEN', $token->access_token);
+            //$request->session()->put('REFRESH_TOKEN', $token->refresh_token);
+            //$token = $request->session()->get('ACCESS_TOKEN');
+
+            if (is_null($token->access_token)){
+                return redirect('/');
+            }
+
+            $getInfo = new Profile($lineAPIService->profile($token->access_token));
+
+            $user = $this->createUser($getInfo, "line");
+
+            Auth::login($user);
+            return redirect(route("account"));
+        }
+        else{
+            //Redirect to home
+            redirect(route("home"));
+        }
+
+        return redirect()->to('/account');
+
+    }
 
 }
