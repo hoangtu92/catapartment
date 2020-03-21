@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\NewsletterRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class NewsletterCrudController
@@ -23,13 +22,22 @@ class NewsletterCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Newsletter');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/newsletter');
-        $this->crud->setEntityNameStrings(trans('backpack:site.newsletter'), trans('backpack:site.newsletter'));
+        $this->crud->setEntityNameStrings(trans('backpack::site.newsletter'), trans('backpack::site.newsletter'));
     }
 
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        //$this->crud->setFromDb();
+        $this->crud->addColumn([
+            'name' => 'email',
+            'type' => 'email',
+            'label' => trans("backpack::site.email")
+        ]);
+
+        $this->crud->removeButton("create");
+        $this->crud->enableExportButtons();
+
     }
 
     protected function setupCreateOperation()
@@ -37,7 +45,12 @@ class NewsletterCrudController extends CrudController
         $this->crud->setValidation(NewsletterRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+       //$this->crud->setFromDb();
+        $this->crud->addField([
+            'name' => 'email',
+            'type' => 'email',
+            'label' => trans("backpack::site.email")
+        ]);
     }
 
     protected function setupUpdateOperation()

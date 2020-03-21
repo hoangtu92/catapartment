@@ -18,3 +18,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('newsletter') }}'><i class='nav-icon fa fa-envelope-o'></i> {{ trans('backpack::site.newsletter') }}</a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('advertisement') }}'><i class='nav-icon fa fa-external-link-square'></i> {{ trans('backpack::site.advertisements') }}</a></li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('message') }}'><i class='nav-icon fa fa-question'></i> Messages</a></li>

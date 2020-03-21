@@ -52,5 +52,15 @@ return [
     "slide_link" => "輪播連結",
     "slide_image" => "輪播圖檔",
 
+    "message" => "Message",
+    "messages" => "Messages",
 
+    "customer_ip" => "Customer IP",
+    "customer_name" => "Customer Name",
+    "customer_email" => "Customer Email",
+    "customer_phone" => "Customer Phone",
+    "customer_message" => "Customer message",
+    "customer_free_time" => "Free time",
+
+    "email" => "Email"
 ];

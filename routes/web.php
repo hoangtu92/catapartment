@@ -30,6 +30,8 @@ Route::get('/products/{slug}', "Frontend\FrontController@product_detail");
 Route::get('/checkout', "Frontend\FrontController@checkout")->name("checkout");
 Route::get('/wishlist', "Frontend\FrontController@wishlist")->name("wishlist");
 
+Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
+
 Route::get('/faq', "Frontend\FrontController@faq")->name("faq");
 Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
 

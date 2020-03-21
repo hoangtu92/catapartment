@@ -46,7 +46,10 @@
         <!-- Your customer chat code -->
         <div class="fb-customerchat"
              attribution=setup_tool
-             page_id="{{ env("FACEBOOK_PAGE_ID") }}">
+             page_id="{{ env("FACEBOOK_PAGE_ID") }}"
+             theme_color="#0084ff"
+             logged_in_greeting="歡迎來到貓公寓拼圖坊！有什麼我可以為您服務的嗎？"
+             logged_out_greeting="歡迎來到貓公寓拼圖坊！有什麼我可以為您服務的嗎？">
         </div>
     @endif
 </head>
@@ -77,33 +80,9 @@
 <script src="{{ asset("js/jquery.easy-ticker.min.js") }}"></script>
 <script src="{{ asset("js/custom.js") }}"></script>
 
-
-
 <!--Begin Modal-->
-@if(Session::has('message'))
-    <div class="modal fade" id="infoModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button data-toggle="dismiss">x</button>
-                </div>
-                <div class="modal-body">
-                    <div class="message text-center">
-                        {{ Session::get('message') }}
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        jQuery(document).ready(function ($) {
-            $("#infoModal").modal();
-        })
-    </script>
-@endif
+@include("frontend.global.newsletter")
+@include("frontend.global.popup_message")
 
 @auth
     @else
@@ -120,6 +99,38 @@
             breakpoint: 991,
             position: 'right',
         });
+
+        jQuery('.overlay .close').click(function(){
+            jQuery('.overlay').hide()
+        });
+
+        if(localStorage.subscribed !== "1"){
+            jQuery('.overlay').css('visibility','visible').css('opacity',1);
+        }
+        $("#subscribeForm").submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{ route("subscribe") }}",
+                type: "post",
+                data: {
+                    email: this.email.value,
+                    _token: this._token.value
+                },
+                success: function () {
+                    $("#infoModal .message").html("您已成功訂閱貓公寓電子報");
+                    $("#infoModal").modal("show");
+                    localStorage.subscribed = "1";
+                },
+                complete: function () {
+                    $("#infoModal .message").html("發生了一個錯誤。請稍後重試");
+                    jQuery('.overlay').hide()
+                }
+            });
+
+            return false;
+
+        })
+
     });
 </script>
 
@@ -132,6 +143,22 @@
     function closeNav() {
         document.getElementById("signin").style.width = "0%";
     }
+</script>
+
+<script>
+    $(document).ready(function ($) {
+        $(".logout-link").click(function (e) {
+            e.preventDefault();
+            $("#frm-logout").submit();
+        });
+
+        $('.announcements').easyTicker({
+            visible: 1,
+            interval: 3000,
+            mousePause: 1,
+            height: 34,
+        });
+    })
 </script>
 
 <!-- Tab JS Part Start -->
@@ -152,22 +179,6 @@
             }
         });
     });
-</script>
-
-<script>
-    $(document).ready(function ($) {
-        $(".logout-link").click(function (e) {
-            e.preventDefault();
-            $("#frm-logout").submit();
-        });
-
-        $('.announcements').easyTicker({
-            visible: 1,
-            interval: 3000,
-            mousePause: 1,
-            height: 34,
-        });
-    })
 </script>
 
 @yield("scripts")

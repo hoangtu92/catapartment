@@ -107,7 +107,7 @@ class LoginController extends CatController
      * @return mixed
      */
     function createUser($getInfo, $provider){
-        $user = User::where('username', $getInfo->id)->first();
+        $user = User::where('username', $getInfo->id)->orWhere("email", $getInfo->email)->first();
 
         if (!$user) {
             $user = User::create([
@@ -158,53 +158,65 @@ class LoginController extends CatController
     {
 
         if($provider === "facebook"){
-            $getInfo = Socialite::driver($provider)->user();
+            try{
+                $getInfo = Socialite::driver($provider)->user();
+                // $user->token;
+                // OAuth One Providers
+                //$token = $user->token;
+                //$tokenSecret = $user->tokenSecret;
 
-            // $user->token;
-            // OAuth One Providers
-            //$token = $user->token;
-            //$tokenSecret = $user->tokenSecret;
+                $user = $this->createUser($getInfo, "facebook");
+                auth()->login($user);
+            }
+            catch (\Exception $e){
+                $request->session()->flash("message", __("An error occurred, please try again later"));
+                return redirect(route("register"));
+            }
 
-            $user = $this->createUser($getInfo, "facebook");
-            auth()->login($user);
         }
         else if($provider === "line"){
 
-            $code = $request->input('code');
-            /*$state = $request->input('state');
-            $scope = $request->input('scope');
-            $error = $request->input('error');*/
-            $errorCode = $request->input('errorCode');
-            $errorMessage = $request->input('errorMessage');
+            try{
+                $code = $request->input('code');
+                /*$state = $request->input('state');
+                $scope = $request->input('scope');
+                $error = $request->input('error');*/
+                $errorCode = $request->input('errorCode');
+                $errorMessage = $request->input('errorMessage');
 
-            if (is_null($code) || !is_null($errorCode) || !is_null($errorMessage)){
-                return redirect('register');
+                if (is_null($code) || !is_null($errorCode) || !is_null($errorMessage)){
+                    return redirect(route('register'));
+                }
+
+                $lineAPIService = new LineAPIService;
+                $token = new AccessToken($lineAPIService->accessToken($code));
+
+                //$request->session()->put('ACCESS_TOKEN', $token->access_token);
+                //$request->session()->put('REFRESH_TOKEN', $token->refresh_token);
+                //$token = $request->session()->get('ACCESS_TOKEN');
+
+                if (is_null($token->access_token)){
+                    return redirect(route("home"));
+                }
+
+                $getInfo = new Profile($lineAPIService->profile($token->access_token));
+
+                $user = $this->createUser($getInfo, "line");
+
+                Auth::login($user);
+                return redirect(route("account"));
+            }
+            catch(\Exception $e){
+                return redirect(route("register"));
             }
 
-            $lineAPIService = new LineAPIService;
-            $token = new AccessToken($lineAPIService->accessToken($code));
-
-            //$request->session()->put('ACCESS_TOKEN', $token->access_token);
-            //$request->session()->put('REFRESH_TOKEN', $token->refresh_token);
-            //$token = $request->session()->get('ACCESS_TOKEN');
-
-            if (is_null($token->access_token)){
-                return redirect('/');
-            }
-
-            $getInfo = new Profile($lineAPIService->profile($token->access_token));
-
-            $user = $this->createUser($getInfo, "line");
-
-            Auth::login($user);
-            return redirect(route("account"));
         }
         else{
             //Redirect to home
             redirect(route("home"));
         }
 
-        return redirect()->to('/account');
+        return redirect(route("account"));
 
     }
 

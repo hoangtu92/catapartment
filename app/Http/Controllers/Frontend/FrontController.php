@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactUs;
 use App\Models\Advertisement;
 use App\Models\Faq;
+use App\Models\Message;
 use App\Models\News;
+use App\Models\Newsletter;
 use App\Models\ProductCategory;
 use App\Models\Slide;
 use Illuminate\Http\Request;
@@ -80,14 +82,39 @@ class FrontController extends CatController
         return view("frontend.faq")->with(compact("payment_faqs", "shopping_faqs"));
     }
 
+    public function subscribe(Request $request){
+        if($request->filled("email")){
+            Newsletter::create([
+                "email" => $request->input("email")
+            ]);
+        }
+
+        return redirect(route("home"));
+    }
+
     public function contact(Request $request){
 
         if($request->isMethod("post") && $request->filled("action")){
             $contact_info = (object) $request->only(["customer_name", "customer_email", "customer_phone", "customer_free_time", "customer_message"]);
 
-            Mail::send(new ContactUs($contact_info));
 
-            $request->session()->flash('message', trans("frontend.contact_us_success"));
+            try{
+                Message::create([
+                    "customer_ip"   => $request->ip(),
+                    "customer_name" => $contact_info->customer_name,
+                    "customer_email" => $contact_info->customer_email,
+                    "customer_phone" => $contact_info->customer_phone,
+                    "customer_free_time" => $contact_info->customer_free_time,
+                    "customer_message" => $contact_info->customer_message
+                ]);
+            }
+            catch(\Exception $e){
+
+            }
+            if(env("RECEIVE_CONTACT_EMAIL") == 1)
+                Mail::send(new ContactUs($contact_info));
+
+            $request->session()->flash('message', __("Your message has been sent successfully"));
         }
 
         return view("frontend.contact");
