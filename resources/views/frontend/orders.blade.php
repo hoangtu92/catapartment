@@ -32,7 +32,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                {{--<tr>
                                     <td>1</td>
                                     <td>CAT-23944974356</td>
                                     <td>2020/03/10</td>
@@ -41,17 +41,7 @@
                                         0986756453
                                         123 St, District 4, London
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>CAT-23944974356</td>
-                                    <td>2020/03/10</td>
-                                    <td>TWD 3,000</td>
-                                    <td>Tom Holland,
-                                        0986756453
-                                        123 St, District 4, London
-                                    </td>
-                                </tr>
+                                </tr>--}}
                                 </tbody>
 
                             </table>

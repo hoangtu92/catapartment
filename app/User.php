@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property mixed role
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -50,7 +50,30 @@ class User extends Authenticatable
         return $role === $this->role;
     }
 
+    /**
+     * @return bool
+     */
     public function isAdmin(){
         return $this->role === "admin";
     }
+
+    /**
+     * @return bool
+     */
+    public function hasVerifiedEmail()
+    {
+        return $this->provider === "line" || !is_null($this->email_verified_at) ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasUpdatedAddress(){
+        return (!is_null($this->phone) || !is_null($this->address) || !is_null($this->birthday));
+    }
+
+    public function getName(){
+        return $this->name;
+    }
+
 }

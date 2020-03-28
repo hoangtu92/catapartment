@@ -45,6 +45,8 @@ class FaqCrudController extends CrudController
             "type" => "text",
             "label" => trans("backpack::site.faq_type")
         ]);
+
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

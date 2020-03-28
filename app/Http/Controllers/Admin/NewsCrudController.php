@@ -56,6 +56,8 @@ class NewsCrudController extends CrudController
             "attribute" => "name",
             "label" => trans("backpack::site.tags")
         ]);
+
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

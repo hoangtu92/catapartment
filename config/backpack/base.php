@@ -24,7 +24,7 @@ return [
     // ----
 
     // Project name. Shown in the window title.
-    'project_name' => 'Cat Admin Panel',
+    'project_name' => '貓公寓管理後台',
 
     // When clicking on the admin panel's top-left logo/name,
     // where should the user be redirected?
@@ -71,7 +71,7 @@ return [
     // ------
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo'   => '<b>Cat</b>admin',
+    'project_logo'   => '<img width="150" src="/images/logo.jpg" />',
 
     // Show / hide breadcrumbs on admin panel pages.
     'breadcrumbs' => true,
@@ -111,7 +111,7 @@ return [
     'developer_link' => 'http://ml-codesign.com',
 
     // Show powered by Laravel Backpack in the footer? true/false
-    'show_powered_by' => true,
+    'show_powered_by' => false,
 
     // -------
     // SCRIPTS
@@ -163,7 +163,7 @@ return [
     | By default the registration is open only on localhost.
     */
 
-    'registration_open' => env('BACKPACK_REGISTRATION_OPEN', env('APP_ENV') === 'local'),
+    'registration_open' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -227,7 +227,7 @@ return [
     // Other options:
     // - placehold (generic image with his first letter)
     // - example_method_name (specify the method on the User model that returns the URL)
-    'avatar_type' => 'gravatar',
+    'avatar_type' => 'getName',
 
     /*
     |--------------------------------------------------------------------------

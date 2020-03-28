@@ -41,7 +41,7 @@ return [
 
     "transaction" => "交易",
     "order" => "訂單",
-    "slide" => "倫波圖",
+    "slide" => "輪播圖",
 
     "product" => "商品",
     "product_category" => "商品目錄",
@@ -56,11 +56,21 @@ return [
     "messages" => "Messages",
 
     "customer_ip" => "Customer IP",
-    "customer_name" => "Customer Name",
-    "customer_email" => "Customer Email",
-    "customer_phone" => "Customer Phone",
+    "customer_name" => "姓名",
+    "customer_email" => "Email",
+    "customer_phone" => "電話",
     "customer_message" => "Customer message",
-    "customer_free_time" => "Free time",
+    "customer_free_time" => "聯絡時間",
 
-    "email" => "Email"
+    "email" => "Email",
+    "contact_message" => "留言管理",
+    "user" => "會員",
+    "users" => "會員",
+    "user_manager" => "會員管理",
+
+    "username" => "用戶名",
+    "name" => "名稱",
+    "phone" => "電話",
+    "role" => "角色",
+    "password" => "密碼"
 ];

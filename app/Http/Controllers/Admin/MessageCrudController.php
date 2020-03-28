@@ -30,11 +30,11 @@ class MessageCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
-        $this->crud->addColumn([
+        /*$this->crud->addColumn([
             'name' => 'customer_ip',
             'type' => 'text',
             'label' => trans("backpack::site.customer_ip")
-        ]);
+        ]);*/
 
         $this->crud->addColumn([
             'name' => 'customer_name',
@@ -66,8 +66,7 @@ class MessageCrudController extends CrudController
             'label' => trans("backpack::site.customer_message")
         ]);
 
-        $this->crud->removeButton('create');
-        $this->crud->removeButton('edit');
+        $this->crud->removeButtons(['create', "show", 'update']);
     }
 
     protected function setupCreateOperation()

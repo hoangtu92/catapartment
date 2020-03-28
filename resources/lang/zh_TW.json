@@ -27,17 +27,20 @@
     "Register" : "註冊",
 
     "Your Name" : "姓名",
-    "Your E-mail" : "E-mail",
+    "Your Email" : "Email",
     "Phone Number" : "電話",
     "Free Time" : "聯絡時間",
     "Customer Message" : "留言內容",
-    "Ask a question" : "主旨",
+    "Ask a question" : "送出",
 
     "Your email address": "電子信箱",
 
     "Your message has been sent successfully" : "表單已成功送出！",
     "An error occurred, please try again later": "發生了一個錯誤。請稍後重試",
 
+
+    "Reset Password": "忘記密碼",
+    "Send Password Reset Link": "重新寄送驗證信",
 
     "SHOPPING CART": "購物車",
     "CHECKOUT": "結帳",
@@ -76,7 +79,6 @@
 
     "Shopping Information": "購物資訊",
     "Payment Information": "付款資訊",
-    "Continue Reading": "更多",
 
 
     "welcome_user_msg": "Hello :username (不是 :username嗎? :logout_link)",
@@ -99,6 +101,27 @@
     "Order Date": "訂單日期",
     "Order Amount": "消費金額",
     "Order Info": "詳細資訊",
+
+    "Verify Your Email Address": "註冊確認",
+    "A fresh verification link has been sent to your email address.": "註冊確認信已經發送至您信箱",
+    "Before proceeding, please check your email for a verification link.": "請先完成電子郵件註冊確認",
+    "If you did not receive the email": "如果沒有收到註冊確認信",
+    "click here to request another": "請點擊重新發送",
+    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser: [:actionURL](:actionURL)": "若您的電腦無法點擊按鈕，請複製網址貼上瀏覽器 [:actionURL](:actionURL)",
+
+    "Verify Email Address": "驗證連結",
+    "Please click the button below to verify your email address.":"感謝您註冊貓公寓會員！請點擊以下連結完成會員註冊",
+    "If you did not create an account, no further action is required.": "If you did not create an account, no further action is required.",
+    "Regards": "問候",
+
+    "Birthday": "生日",
+    "Address": "地址",
+    "Zip Code": "郵遞區號",
+    "Save": "送出",
+
+    "Account Details": "我的帳戶",
+
+    "Continue Reading" : "閱讀更多",
 
     "Copyright © 2020 Cats Apartment. All Rights Reserved.": "Copyright © 2020 貓公寓拼圖坊. All Rights Reserved."
 }

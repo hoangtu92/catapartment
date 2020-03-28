@@ -204,7 +204,7 @@ class LoginController extends CatController
                 $user = $this->createUser($getInfo, "line");
 
                 Auth::login($user);
-                return redirect(route("account"));
+                return redirect(route("address"));
             }
             catch(\Exception $e){
                 return redirect(route("register"));
@@ -216,7 +216,7 @@ class LoginController extends CatController
             redirect(route("home"));
         }
 
-        return redirect(route("account"));
+        return redirect(route("address"));
 
     }
 

@@ -48,6 +48,8 @@ class AdvertisementCrudController extends CrudController
             "type" => "number",
             "label" => trans("backpack::site.timing")
         ]);
+
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

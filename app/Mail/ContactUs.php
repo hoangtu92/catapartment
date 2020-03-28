@@ -32,7 +32,8 @@ class ContactUs extends Mailable
      */
     public function build()
     {
-        return $this->replyTo($this->contact_info->customer_email, $this->contact_info->customer_name)
-            ->view('email.contact_us');
+        return $this->to(env("MAIL_CONTACT_US"))
+            ->replyTo($this->contact_info->customer_email, $this->contact_info->customer_name)
+            ->view('emails.contact_us');
     }
 }

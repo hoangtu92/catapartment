@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
             'name' => Str::random(10),
             'email' => 'ml-codesign3@gmail.com',
             'password' => bcrypt('12121212'),
+            'email_verified_at' => now()
         ]);
         DB::table('users')->insert([
             'username' => 'administrator',
@@ -28,6 +29,7 @@ class UsersTableSeeder extends Seeder
             'name' => Str::random(10),
             'email' => 'ml-codesign6@gmail.com',
             'password' => bcrypt('123456'),
+            'email_verified_at' => now()
         ]);
 
 

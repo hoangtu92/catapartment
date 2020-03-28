@@ -19,14 +19,16 @@
                             @foreach($news as $item)
                                 <div class="col-sm-6 col-md-4">
                                     <div class="guide-box">
-                                        <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/guide-img01.jpg") }}"
-                                                                                              alt=""/></div>
+                                        <div class="img-box"><span><em>{{ $item->created_at->format("d") }}</em> {{ $item->created_at->format("M") }}</span>
+
+                                            <a href="{{ route("news_details", ["slug" => $item->title]) }}">
+                                                <img src="{{ asset("images/guide-img01.jpg") }}" alt=""/></a></div>
                                         <div class="gb-text">
                                             <h4>{{ $item->getTagsName() }}</h4>
-                                            <h3><a href="#">{{ $item->title }}</a></h3>
-                                            <h6>Posted by {{ $item->author->name }} </h6>
+                                            <h3><a href="{{ route("news_details", ["slug" => $item->title]) }}">{{ $item->title }}</a></h3>
+                                            {{--<h6>Posted by {{ $item->author->name }} </h6>--}}
                                             <div>{!! mb_substr($item->content, 0, 70, "utf-8") !!}</div>
-                                            <h5><a href="{{ route("news")  }}/{{ $item->title }}">{{ __("Continue Reading") }}</a></h5>
+                                            <h5><a href="{{ route("news_details", ["slug" => $item->title]) }}">{{ __("Continue Reading") }}</a></h5>
                                         </div>
                                     </div>
                                 </div>

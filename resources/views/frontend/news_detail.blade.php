@@ -16,72 +16,16 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="blog-box">
-                    <h5>Design Trends, Furniture</h5>
-                    <h2>Seating Collections Inspiration</h2>
-                    <div class="img-box"><span><em>23</em> JUL</span><img src="{{ asset("images/blog-detial-image.jpg") }}" alt="">
+                    <h5>{{ $news->getTagsName() }}</h5>
+                    <h2>{{ $news->title }}</h2>
+                    <div class="img-box"><span><em>{{ $news->created_at->format("d") }}</em> {{ $news->created_at->format("M") }}</span>
+                        <img src="{{ asset($news->image) }}" alt="">
                     </div>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                        and more recently with desktop publishing software like Aldus PageMaker including versions of
-                        Lorem Ipsum.</p>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting.</p>
-
-
+                    {!! $news->content !!}
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="blog-detail-right">
-                    <h3>Tags</h3>
-                    <div class="bcategories">
-                        <a href="#">Decoration</a>, <a href="#">Design trends</a>, <a href="#">Furniture</a>, <a
-                            href="#">Hand made</a>, <a href="#">Inspiration</a>, <a href="#">Wooden accessories</a>
-                    </div>
-                    <hr>
-                    <h3>Recent Post</h3>
-                    <div class="re-post"><a href="#"><img src="{{ asset("images/blog-right1.jpg") }}" alt=""/></a>
-                        <a href="#"><h4>A companion for extra sleeping</h4></a>
-                        <p>July 23, 2019 <strong></strong></p>
-                    </div>
-                    <div class="re-post"><a href="#"><img src="{{ asset("images/blog-right2.jpg") }}" alt=""/></a>
-                        <a href="#"><h4>A companion for extra sleeping</h4></a>
-                        <p>July 23, 2019 <strong></strong></p>
-                    </div>
-                    <div class="re-post"><a href="#"><img src="{{ asset("images/blog-right3.jpg") }}" alt=""/></a>
-                        <a href="#"><h4>A companion for extra sleeping</h4></a>
-                        <p>July 23, 2019 <strong></strong></p>
-                    </div>
-                    <div class="re-post"><a href="#"><img src="{{ asset("images/blog-right4.jpg") }}" alt=""/></a>
-                        <a href="#"><h4>A companion for extra sleeping</h4></a>
-                        <p>July 23, 2019 <strong></strong></p>
-                    </div>
-                    <div class="re-post"><a href="#"><img src="{{ asset("images/blog-right5.jpg") }}" alt=""/></a>
-                        <a href="#"><h4>A companion for extra sleeping</h4></a>
-                        <p>July 23, 2019 <strong></strong></p>
-                    </div>
-
-                    <h3 class="mt-3">Our Instagram</h3>
-                    <ul class="insta">
-                        <li><img src="{{ asset("images/insta-img01.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img02.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img03.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img01.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img02.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img03.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img01.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img02.jpg") }}" alt=""/></li>
-                        <li><img src="{{ asset("images/insta-img03.jpg") }}" alt=""/></li>
-                    </ul>
-                    <h5><a href="https://www.instagram.com/catsapartment_puzzle/" target="blank"><img
-                                src="{{ asset("images/instagram-icon.png") }}" alt=""/> View Profile</a></h5>
-
-                </div>
-
+                @include("frontend.global.news_sidebar")
             </div>
         </div>
     </div>

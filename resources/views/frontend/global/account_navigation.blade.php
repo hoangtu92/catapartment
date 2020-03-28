@@ -1,5 +1,5 @@
 <div class="dash-left">
-    <h3>My Account <img src="{{ asset("images/nav-icon.png") }}" alt=""/></h3>
+    <h3>{{ __("My Account") }} <img src="{{ asset("images/nav-icon.png") }}" alt=""/></h3>
     <ul>
         <li><a href="{{ route("account") }}" class="@if (Route::currentRouteName() == 'account') active @endif">{{ __("Dashboard") }}</a></li>
         <li><a href="{{ route("orders") }}" class="@if (Route::currentRouteName() == 'orders') active @endif">{{ __("Orders") }}</a></li>

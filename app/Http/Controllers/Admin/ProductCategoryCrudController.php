@@ -40,6 +40,8 @@ class ProductCategoryCrudController extends CrudController
             "type" => "image",
             "label" => trans('backpack::site.category_icon')
         ]);
+
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

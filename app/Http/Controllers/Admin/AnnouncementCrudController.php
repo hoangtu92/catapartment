@@ -41,6 +41,8 @@ class AnnouncementCrudController extends CrudController
             "label" => trans("backpack::site.url")
         ]);
 
+        $this->crud->removeButton("show");
+
     }
 
     protected function setupCreateOperation()

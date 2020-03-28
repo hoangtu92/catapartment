@@ -19,8 +19,8 @@
                 <div class="col-md-12">
                     @include("frontend.global.account_navigation")
                     <div class="dash-right">
-                        <p><strong>親愛的Ariel你好：</strong></p>
-                        <p class="pl-3">你的消費已經累積 <input type="text" class="sp-am" placeholder="8,000"> 積分</p>
+                        <p><strong>親愛的{{ Auth::user()->name }}你好：</strong></p>
+                        <p class="pl-3">你的消費已經累積 <input type="text" class="sp-am"  readonly value="{{ Auth::user()->points }}"> 積分</p>
                         <p class="pl-3">積分累積到10,000，立馬自動晉級為貓公寓拼圖坊的VIP，終身享有9折優惠，並優先參加換季出清競拍。</p>
                         <hr>
                         <div class="row">
@@ -35,36 +35,13 @@
                                             <th>購買金額</th>
                                             <th>積分</th>
                                         </tr>
-                                        <tr>
+                                        {{--<tr>
                                             <td>2018/10/10</td>
                                             <td>人魚公主3000片拼圖</td>
                                             <td>3,000</td>
                                             <td>3,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2018/10/10</td>
-                                            <td>人魚公主3000片拼圖</td>
-                                            <td>3,000</td>
-                                            <td>3,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2018/10/10</td>
-                                            <td>人魚公主3000片拼圖</td>
-                                            <td>3,000</td>
-                                            <td>3,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2018/10/10</td>
-                                            <td>人魚公主3000片拼圖</td>
-                                            <td>3,000</td>
-                                            <td>3,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong>積分累計</strong></td>
-                                            <td><strong>12,000</strong></td>
-                                        </tr>
+                                        </tr>--}}
+
                                         </tbody>
                                     </table>
                                 </div>

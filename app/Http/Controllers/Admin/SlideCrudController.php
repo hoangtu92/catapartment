@@ -48,6 +48,8 @@ class SlideCrudController extends CrudController
             "label" => trans('backpack::site.slide_image'),
             'type' => 'image'
         ]);
+
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

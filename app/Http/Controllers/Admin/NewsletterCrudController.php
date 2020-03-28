@@ -36,6 +36,7 @@ class NewsletterCrudController extends CrudController
         ]);
 
         $this->crud->removeButton("create");
+        $this->crud->removeButton("show");
         $this->crud->enableExportButtons();
 
     }

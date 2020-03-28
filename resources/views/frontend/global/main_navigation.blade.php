@@ -13,7 +13,7 @@
                 <li><a href="">Option 3</a></li>
             </ul>
         </li>
-        <li><a href="">裱框服務</a>
+        <li><a href="{{ route("customized_products") }}">裱框服務</a>
             <ul>
                 <li><a href="">Option 1</a></li>
                 <li><a href="">Option 2</a></li>
@@ -21,7 +21,7 @@
                 <li><a href="">Option 4</a></li>
             </ul>
         </li>
-        <li><a href="">拼圖情報</a>
+        <li><a href="{{ route("news") }}">拼圖情報</a>
             <ul>
                 <li><a href="">Option 1</a></li>
                 <li><a href="">Option 2</a></li>

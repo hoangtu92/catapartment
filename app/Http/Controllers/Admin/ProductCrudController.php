@@ -38,6 +38,7 @@ class ProductCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
+        $this->crud->removeButton("show");
     }
 
     protected function setupUpdateOperation()

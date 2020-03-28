@@ -35,7 +35,7 @@ class NewsTag extends Model
     |--------------------------------------------------------------------------
     */
     public function news(){
-        return $this->belongsToMany("App\Models\News", 'news_tag', 'tag_id', 'news_id');
+        return $this->belongsToMany("App\Models\News", 'news_tag', 'tag_id', 'news_id')->where("display", "=", true);
     }
 
     /*

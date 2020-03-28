@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset("favicon.ico") }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset("favicon.jpg") }}">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800&display=swap" rel="stylesheet">
     <!-- CSS Part Start -->
     <link rel="stylesheet" href="{{ asset("css/bootstrap.css") }}">
@@ -104,8 +104,9 @@
             jQuery('.overlay').hide()
         });
 
-        if(localStorage.subscribed !== "1"){
+        if(sessionStorage.subscribed !== "1" && localStorage.subscribed !== "1"){
             jQuery('.overlay').css('visibility','visible').css('opacity',1);
+            sessionStorage.subscribed = '1';
         }
         $("#subscribeForm").submit(function (e) {
             e.preventDefault();
@@ -118,11 +119,13 @@
                 },
                 success: function () {
                     $("#infoModal .message").html("您已成功訂閱貓公寓電子報");
-                    $("#infoModal").modal("show");
                     localStorage.subscribed = "1";
                 },
-                complete: function () {
+                error: function(){
                     $("#infoModal .message").html("發生了一個錯誤。請稍後重試");
+                },
+                complete: function () {
+                    $("#infoModal").modal("show");
                     jQuery('.overlay').hide()
                 }
             });
@@ -135,6 +138,28 @@
 </script>
 
 <script>
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
     //SignIn Action
     function openNav() {
         document.getElementById("signin").style.width = "100%";

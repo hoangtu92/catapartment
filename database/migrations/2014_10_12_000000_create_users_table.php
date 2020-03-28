@@ -22,6 +22,13 @@ class CreateUsersTable extends Migration
             $table->string('role')->default("user");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable(true);
+            //$table->enum("gender", ["male", "female"])->default("male");
+            $table->date("birthday")->nullable(true);
+            //$table->string("city")->nullable(true)->collation("utf8_unicode_ci");
+            $table->string("zipcode")->nullable(true);
+            $table->string("address")->nullable(true)->collation("utf8_unicode_ci");
+
+            $table->bigInteger("points")->default(0);
             $table->rememberToken();
 
             $table->string('provider')->nullable(true);

@@ -28,13 +28,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">{{ __("Your Name") }}</label>
-                                <input type="email" name="customer_name" class="form-control" id="name">
+                                <input type="text" name="customer_name" class="form-control" id="name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email">{{ __("Your Email") }}</label>
-                                <input type="email" name="customer_email" class="form-control" id="email">
+                                <input type="email" name="customer_email" class="form-control" id="email" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -52,12 +52,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="message">{{ __("Customer Message") }}</label>
-                                <textarea name="customer_message" id="message" cols="" rows="" class="form-control"></textarea>
+                                <textarea name="customer_message" id="message" cols="" rows="" class="form-control" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-default">{{ __("Ask a question") }}</button>
+                                <button type="submit" class="btn-cat">{{ __("Ask a question") }}</button>
                             </div>
                         </div>
                     </div>

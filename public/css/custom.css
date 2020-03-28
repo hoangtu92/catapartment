@@ -137,18 +137,26 @@ header.sticky .header-top {
 }
 
 .top-left span {
-    padding: 5px 10px;
-    display: inline-block;
-    max-height: 34px;
-    overflow: hidden;
+
+
 }
 .top-left > span {
     border-left: #9f8f5a thin solid;
+    margin: 5px 0;
+    max-height: 24px;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0 10px;
 }
+
+.top-left > span > span{height: 24px;}
 
 .top-left span a {
     color: #231916;
     display: block;
+    line-height: 24px;
+    height: 24px;
+    white-space: nowrap;
 }
 
 .top-left span a:hover {
@@ -1219,11 +1227,7 @@ strong {
     border: 2px solid rgba(0, 0, 0, 0.15);
 }
 
-.form-part button {
-    border-radius: 0px;
-    background: #d6d7d7;
-    padding: 10px 25px;
-}
+
 
 .faq {
     width: 100%;
@@ -1700,7 +1704,7 @@ strong {
     width: 100%;
 }
 
-.wishlist-page a {
+.wishlist-page a, .btn-cat {
     background: #fdcd00;
     color: #000;
     width: auto;
@@ -1712,7 +1716,7 @@ strong {
     margin-top: 10px;
 }
 
-.wishlist-page a:hover {
+.wishlist-page a:hover, .btn-cat:hover {
     background: #2e2a2a;
     color: #fff;
 }
@@ -2361,6 +2365,19 @@ a:focus, a:hover {
     color: red;
 }
 
+.user-profile-table{
+    border-collapse: separate;
+    border-spacing: 25px;
+}
+.user-profile-table td{
+    vertical-align: middle;
+}
+
+@media (min-width: 992px){
+    .border-right{
+        border-right: 1px solid rgba(221, 221, 221, 0.35);
+    }
+}
 
 /*====== Responsive CSS =====*/
 
@@ -2391,6 +2408,13 @@ a:focus, a:hover {
 
 
 @media (max-width: 991px) {
+
+    .row.register{
+        flex-direction: column-reverse;
+    }
+    .row.register > div{
+        text-align: center;
+    }
 
     .top-right span a {
         font-size: 13px;
