@@ -15,7 +15,7 @@
 @section("content")
 
     <section class="inner-banner">
-        <img src="{{ asset("images/catshop-banner02.jpg") }}" alt=""/>
+        <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_product_list")) }}" alt=""/>
     </section>
 
     <section>

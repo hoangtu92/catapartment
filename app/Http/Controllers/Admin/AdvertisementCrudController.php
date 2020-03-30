@@ -32,21 +32,17 @@ class AdvertisementCrudController extends CrudController
         //$this->crud->setFromDb();
 
         $this->crud->addColumn([
-            "name" => "image",
-            "type" => "image",
-            "label" => trans("backpack::site.image")
-        ]);
-
-        $this->crud->addColumn([
-            "name" => "url",
+            "name" => "type",
             "type" => "text",
-            "label" => trans("backpack::site.url")
+            "label" => trans("backpack::site.ads_type")
         ]);
 
+
         $this->crud->addColumn([
-            "name" => "timing",
-            "type" => "number",
-            "label" => trans("backpack::site.timing")
+            'name' => 'display',
+            'format' => 'j, M Y',
+            'label' => trans("backpack::site.display"),
+            'type' => 'item_visibility'
         ]);
 
         $this->crud->removeButton("show");
@@ -60,22 +56,64 @@ class AdvertisementCrudController extends CrudController
         //$this->crud->setFromDb();
 
         $this->crud->addField([
+            "name" => "type",
+            "type" => "ads_type",
+            "label" => trans("backpack::site.ads_type"),
+            "id" => "ads_type"
+        ]);
+
+        $this->crud->addField([
+            "name" => "code",
+            "type" => "code",
+            "label" => trans("backpack::site.google_ads")
+        ]);
+
+        $this->crud->addField([
             "name" => "image",
             "type" => "browse",
-            "label" => trans("backpack::site.image")
+            "wrapperAttributes" => [
+                "id" => "ads_image"
+            ],
+            "label" => trans("backpack::site.image")." <span>(1920x440)</span>"
         ]);
 
         $this->crud->addField([
             "name" => "url",
-            "type" => "text",
+            "type" => "url",
+            "wrapperAttributes" => [
+                "id" => "ads_url"
+            ],
             "label" => trans("backpack::site.url")
         ]);
 
         $this->crud->addField([
-            "name" => "timing",
-            "type" => "number",
-            "label" => trans("backpack::site.timing")
+            'name' => 'display',
+            "label" => trans('backpack::site.display'),
+            'type' => 'checkbox',
+            'wrapper_attributes' => [
+                'id' => "item_display"
+            ]
         ]);
+
+        $this->crud->addField([
+            'name' => 'valid_from',
+            "label" => trans('backpack::site.valid_from'),
+            'type' => 'date_picker',
+            'wrapper_attributes' => [
+                'id' => "valid_from"
+            ]
+        ]);
+
+        $this->crud->addField([
+            'name' => 'valid_until',
+            "label" => trans('backpack::site.valid_until'),
+            'type' => 'date_picker',
+            'wrapper_attributes' => [
+                'id' => "valid_until"
+            ]
+        ]);
+
+
     }
 
     protected function setupUpdateOperation()

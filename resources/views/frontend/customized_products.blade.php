@@ -10,7 +10,7 @@
 @section("content")
 
     <section class="inner-banner">
-        <img src="{{ asset("images/catshop-banner03.jpg") }}" alt=""/>
+        <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_customized_product")) }}" alt=""/>
     </section>
 
     <section>
@@ -37,16 +37,18 @@
                     </div>
                     <div class="sprice"><h2><span>裱框訂製估價</span></h2></div>
 
-                    <div class="ssearch-box">
-                        <form>
-                            <select>
-                                <option>請選擇材質</option>
+                    <div class="ssearch-box"  ng-init="getFrames(); getThickness()">
+                        <form method="post" name="customProduct" id="customProduct" ng-submit="calculatePrice()">
+                            <select ng-model="product.frame">
+                                <option value="">請選擇材質</option>
+                                <option ng-repeat="item in frames" ng-value="item.name" ng-bind="item.name"></option>
                             </select>
-                            <select>
-                                <option>請選擇框厚度</option>
+                            <select ng-model="product.thickness">
+                                <option ng-value="0">請選擇框厚度</option>
+                                <option ng-repeat="item in thickness" ng-value="item.value" ng-bind="item.name"></option>
                             </select>
-                            <input type="text" placeholder="請填寫單邊長+寬尺寸">
-                            <button>立刻估價</button>
+                            <input type="number" ng-model="product.totalLength" placeholder="請填寫單邊長+寬尺寸">
+                            <button type="submit">立刻估價</button>
                         </form>
                     </div>
 
@@ -55,17 +57,17 @@
                         <div class="row">
                             <div class="col-md-4"><img src="{{ asset("images/image02.jpg") }}" alt=""/></div>
                             <div class="col-md-8">
-                                <h3>你選擇的框是白橡木，寬3.5公分，長30x寬20公分的訂製，含透明壓克力表層，數量一組。</h3>
-                                <span>價格：2,600</span>
+                                <h3>你選擇的框是<i ng-bind="result.frame"></i>，寬<i ng-bind="result.thickness"></i>公分，長<i ng-bind="result.totalLength"></i>公分的訂製，含透明壓克力表層，數量一組。</h3>
+                                <span>價格：<i ng-bind="result.price"></i></span>
                                 <span>元工作天：10天</span>
                                 <span>物流：
 <div class="rbtn">
 <label class="rd-btn">自取無運費
-  <input type="radio" checked="checked" name="radio">
+  <input type="radio" checked="checked" ng-model="order.delivery" value="pickup" name="delivery">
   <p class="checkmark"></p>
 </label>
 <label class="rd-btn">貨運需另行估算運費
-  <input type="radio" name="radio">
+  <input type="radio" name="delivery" ng-model="order.delivery" value="shipping">
   <p class="checkmark"></p>
 </label>
 </div>
@@ -192,9 +194,11 @@
 @endsection
 
 @section("scripts")
+
     <!-- Price Rengebar JS Part Start -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
             type="text/javascript"></script>
     <script src="{{ asset("js/price_range_script.js") }}" type="text/javascript"></script>
+
 
 @endsection

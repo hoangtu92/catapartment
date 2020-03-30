@@ -8,7 +8,7 @@
 
 @section("content")
     <section class="inner-banner">
-        <img src="images/catshop-banner07.jpg" alt=""/>
+        <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_faq")) }}" alt=""/>
     </section>
 
     <section>
@@ -43,6 +43,22 @@
 
 
                     </ul>
+                </div>
+            </div>
+            <div class="row faq-page">
+                <div class="col-lg-6">
+                    <h3>{{ __("Membership Information") }}</h3>
+                    <ul class="faq">
+                        @foreach($membership_faq as $item)
+                            <li class="q"><img src="images/arrow.png">{{ $item->question }}</li>
+                            <li class="a">{!! $item->answer !!}
+                            </li>
+                        @endforeach
+
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <h3><a href="{{ route("contact") }}">需要客服</a></h3>
                 </div>
             </div>
         </div>

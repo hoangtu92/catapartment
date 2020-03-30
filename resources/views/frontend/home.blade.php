@@ -266,3 +266,43 @@
         </div>
     </section>
 @endsection
+
+@section("scripts")
+    <script>
+        jQuery(document).ready(function($){
+            jQuery('.overlay .close').click(function(){
+                jQuery('.overlay').hide()
+            });
+
+            if(1 || (sessionStorage.subscribed !== "1" && localStorage.subscribed !== "1")){
+                jQuery('.overlay').css('visibility','visible').css('opacity',1);
+                sessionStorage.subscribed = '1';
+            }
+            $("#subscribeForm").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "{{ route("subscribe") }}",
+                    type: "post",
+                    data: {
+                        email: this.email.value,
+                        _token: this._token.value
+                    },
+                    success: function () {
+                        $("#infoModal .message").html("您已成功訂閱貓公寓電子報");
+                        localStorage.subscribed = "1";
+                    },
+                    error: function(){
+                        $("#infoModal .message").html("發生了一個錯誤。請稍後重試");
+                    },
+                    complete: function () {
+                        $("#infoModal").modal("show");
+                        jQuery('.overlay').hide()
+                    }
+                });
+
+                return false;
+
+            })
+        })
+    </script>
+    @endsection

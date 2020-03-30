@@ -15,9 +15,13 @@ class CreateAdvertisementsTable extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
-            $table->string("image")->collation("utf8_unicode_ci");
-            $table->string("url")->collation("utf8_unicode_ci");
-            $table->integer("timing")->default(20);
+            $table->enum("type", ['code', 'image'])->default("code");
+            $table->longText("code")->collation("utf8_unicode_ci")->nullable(true);
+            $table->string("image")->collation("utf8_unicode_ci")->nullable(true);
+            $table->string("url")->collation("utf8_unicode_ci")->nullable(true);
+            $table->boolean("display")->nullable(true)->default(true);
+            $table->date("valid_from")->nullable(true);
+            $table->date("valid_until")->nullable(true);
             $table->timestamps();
         });
     }

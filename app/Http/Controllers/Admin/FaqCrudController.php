@@ -23,7 +23,7 @@ class FaqCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Faq');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/faq');
-        $this->crud->setEntityNameStrings(trans('faq'), trans('faqs'));
+        $this->crud->setEntityNameStrings(trans('backpack::site.faq'), trans('backpack::site.faqs'));
     }
 
     protected function setupListOperation()
@@ -69,8 +69,7 @@ class FaqCrudController extends CrudController
 
         $this->crud->addField([
             "name" => "type",
-            "type" => "select2_from_array",
-            "options" => ["SHIPPING", "PAYMENT"],
+            "type" => "enum",
             "label" => trans("backpack::site.faq_type")
         ]);
     }

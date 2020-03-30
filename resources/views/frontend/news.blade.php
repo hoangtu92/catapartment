@@ -3,7 +3,7 @@
 @section("content")
 
     <section class="inner-banner">
-        <img src="{{ asset("images/catshop-banner04.jpg") }}" alt=""/>
+        <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_news")) }}" alt=""/>
     </section>
 
     <section>

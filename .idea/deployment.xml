@@ -27,7 +27,6 @@
             <excludedPath path="/README.md" />
             <excludedPath path="/server.php" />
             <excludedPath path="/webpack.mix.js" />
-            <excludedPath path="/public/vendor" />
             <excludedPath path="/public/html" />
             <excludedPath path="/node_modules" />
             <excludedPath path="/public/.htaccess" />

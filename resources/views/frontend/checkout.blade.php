@@ -9,7 +9,7 @@
 
 @section("content")
 
-    <section class="inner-banner checkout-banner" style="background:url({{ asset("images/catshop-banner13.jpg") }}) no-repeat center top;">
+    <section class="inner-banner checkout-banner" style="background:url({{ asset(\Backpack\Settings\app\Models\Setting::get("banner_checkout")) }}) no-repeat center top;">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">

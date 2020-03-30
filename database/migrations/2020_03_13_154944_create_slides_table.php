@@ -18,6 +18,9 @@ class CreateSlidesTable extends Migration
             $table->string("title")->collation("utf8_unicode_ci")->nullable(true);
             $table->string("link")->nullable(true)->collation("utf8_unicode_ci");
             $table->string("image")->collation("utf8_unicode_ci");
+            $table->boolean("display")->nullable(true)->default(true);
+            $table->date("valid_from")->nullable(true);
+            $table->date("valid_until")->nullable(true);
             $table->timestamps();
         });
     }

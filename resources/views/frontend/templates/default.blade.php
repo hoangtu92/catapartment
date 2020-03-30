@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" ng-app="cat" ng-controller="catCtrl" ng-cloak="true">
 <head>
 
     <meta charset="UTF-8">
@@ -52,6 +52,15 @@
              logged_out_greeting="歡迎來到貓公寓拼圖坊！有什麼我可以為您服務的嗎？">
         </div>
     @endif
+
+    <script src="{{ asset("js/jquery-2.1.3.min.js") }}"></script>
+    <script src="{{ asset("js/bootstrap.min.js") }}"></script>
+    <script src="{{ asset("js/viewportchecker.js") }}"></script>
+
+    <script src="{{ asset("js/owl.carousel.js") }}"></script>
+
+    <!-- JS Part Start -->
+    <script src="{{ asset("js/jquery.easy-ticker.min.js") }}"></script>
 </head>
 
 <body>
@@ -71,13 +80,11 @@
     {{ csrf_field() }}
 </form>
 
-<!-- JS Part Start -->
-<script src="{{ asset("js/jquery-2.1.3.min.js") }}"></script>
-<script src="{{ asset("js/bootstrap.min.js") }}"></script>
-<script src="{{ asset("js/viewportchecker.js") }}"></script>
 
-<script src="{{ asset("js/owl.carousel.js") }}"></script>
-<script src="{{ asset("js/jquery.easy-ticker.min.js") }}"></script>
+
+<script src="{{ asset("js/angular.min.js") }}"></script>
+<script src="{{ asset("js/angular-sanitize.min.js") }}"></script>
+
 <script src="{{ asset("js/custom.js") }}"></script>
 
 <!--Begin Modal-->
@@ -99,40 +106,6 @@
             breakpoint: 991,
             position: 'right',
         });
-
-        jQuery('.overlay .close').click(function(){
-            jQuery('.overlay').hide()
-        });
-
-        if(sessionStorage.subscribed !== "1" && localStorage.subscribed !== "1"){
-            jQuery('.overlay').css('visibility','visible').css('opacity',1);
-            sessionStorage.subscribed = '1';
-        }
-        $("#subscribeForm").submit(function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: "{{ route("subscribe") }}",
-                type: "post",
-                data: {
-                    email: this.email.value,
-                    _token: this._token.value
-                },
-                success: function () {
-                    $("#infoModal .message").html("您已成功訂閱貓公寓電子報");
-                    localStorage.subscribed = "1";
-                },
-                error: function(){
-                    $("#infoModal .message").html("發生了一個錯誤。請稍後重試");
-                },
-                complete: function () {
-                    $("#infoModal").modal("show");
-                    jQuery('.overlay').hide()
-                }
-            });
-
-            return false;
-
-        })
 
     });
 </script>
@@ -204,7 +177,66 @@
             }
         });
     });
+
 </script>
+
+
+@if(isset($advertisements))
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        var ads = $('#pl-slider');
+
+        if(ads){
+
+            ads.on('initialized.owl.carousel', function(event) {
+
+                var timeout = $(event.currentTarget).find(".owl-item.active .item").data("timeout");
+                setTimeout(function () {
+                    event.relatedTarget.next();
+                }, timeout*1000);
+
+            });
+
+            var owl = ads.owlCarousel({
+
+                margin: 0,
+                loop: true,
+                autoplay: false,
+                dots: true,
+                autoplayTimeout: 2000,
+                animateOut: 'fadeOut',
+                animateIn: 'fadeIn',
+                navigation: false,
+                nav: false,
+                responsive: {
+
+                    0: {
+
+                        items: 1
+
+                    }
+
+                }
+
+            });
+
+            owl.on('changed.owl.carousel', function(event) {
+
+                var timeout = $(event.currentTarget).find(".owl-item.active .item").data("timeout");
+                setTimeout(function () {
+                    event.relatedTarget.next();
+                }, timeout*1000);
+
+
+            });
+
+        }
+    });
+</script>
+@endif
 
 @yield("scripts")
 </body>

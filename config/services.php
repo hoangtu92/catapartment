@@ -41,6 +41,10 @@ return [
         'client_id' => env('LINE_CHANNEL_ID'),
         'client_secret' => env('LINE_CHANNEL_SECRET'),
         'redirect' => env('APP_URL').'/login/line/callback',
+    ],
+
+    'google_places' => [
+        'key' => "AIzaSyB5st5tDtTf9REtoOPoyfhavtEOeLBGmno"
     ]
 
 ];

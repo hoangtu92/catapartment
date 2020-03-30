@@ -4,7 +4,7 @@
 @section("content")
 
     <section class="inner-banner">
-        <img src="{{ asset("images/catshop-banner05.jpg") }}" alt=""/>
+        <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_search")) }}" alt=""/>
     </section>
 
     <section>

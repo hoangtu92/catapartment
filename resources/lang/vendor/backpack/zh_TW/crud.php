@@ -197,6 +197,9 @@ return [
     'intro' => '介紹',
     'color' => '顏色',
 	'ads'  => 'Advertisement',
-	'position' => 'Position'
+	'position' => 'Position',
+    "export" => [
+        "export" => "匯出"
+    ]
 
 ];

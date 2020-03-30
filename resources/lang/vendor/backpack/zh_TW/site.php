@@ -52,14 +52,14 @@ return [
     "slide_link" => "輪播連結",
     "slide_image" => "輪播圖檔",
 
-    "message" => "Message",
-    "messages" => "Messages",
+    "message" => "留言管理",
+    "messages" => "留言管理",
 
     "customer_ip" => "Customer IP",
     "customer_name" => "姓名",
     "customer_email" => "Email",
     "customer_phone" => "電話",
-    "customer_message" => "Customer message",
+    "customer_message" => "留言內容",
     "customer_free_time" => "聯絡時間",
 
     "email" => "Email",
@@ -72,5 +72,15 @@ return [
     "name" => "名稱",
     "phone" => "電話",
     "role" => "角色",
-    "password" => "密碼"
+    "password" => "密碼",
+
+    "setting"=> "基本設定",
+    "settings" => "基本設定",
+    "google_ads" => "Google ads",
+    "custom_html" => "Custom html",
+    "ads_type" => "Ads type",
+
+    "display" => "Display",
+    "valid_from" => "Valid from",
+    "valid_until" => "Valid until"
 ];

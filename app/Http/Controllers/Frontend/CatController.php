@@ -16,6 +16,7 @@ class CatController extends Controller
         $announcements = Announcement::all();
         $advertisements = Advertisement::all();
 
+
         View::share('product_categories', $product_categories);
         View::share('announcements', $announcements);
         View::share('advertisements', $advertisements);

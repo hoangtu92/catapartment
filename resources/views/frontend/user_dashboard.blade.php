@@ -10,7 +10,7 @@
 @section("content")
 
     <section class="inner-banner">
-        <img src="{{ asset("images/catshop-banner08.jpg") }}" alt=""/>
+        <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_account")) }}" alt=""/>
     </section>
 
     <section class="dashboard-page">

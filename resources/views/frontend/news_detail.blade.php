@@ -8,7 +8,7 @@
 
 @section("content")
 <section class="inner-banner">
-    <img src="{{ asset("images/catshop-banner15.jpg") }}" alt=""/>
+    <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_single_news")) }}" alt=""/>
 </section>
 
 <section class="blog-details">

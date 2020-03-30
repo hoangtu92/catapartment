@@ -4,10 +4,16 @@
             <div class="col-lg-12">
                 <div id="pl-slider" class="owl-carousel">
                     @foreach($advertisements as $ads)
-                        <div class="item" data-aos="fade-up">
-                            <a href="{{ $ads->url }}">
-                                <img src="{{ asset($ads->image) }}" alt="ads">
-                            </a>
+                        <div class="item" data-aos="fade-up" data-timeout="{{ $ads->timing }}">
+
+                            @if($ads->type == 'code')
+                                {!! $ads->code !!}
+                                @elseif($ads->type == 'image')
+                                <a href="{{ $ads->url }}">
+                                    <img src="{{ asset($ads->image) }}" alt="ads">
+                                </a>
+                                @endif
+
                             {{--<div class="row">
                                 <div class="col-lg-6"><img src="{{ asset("images/chair-img.jpg") }}" alt=""/></div>
                                 <div class="col-lg-6">

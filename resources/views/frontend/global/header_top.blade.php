@@ -13,6 +13,8 @@
         </div>
         <div class="top-right">
             <span class="top-soial">
+                <a href="mailto:{{ Setting::get("contact_email") }}"><img
+                        src="{{ asset("images/mail-icon.png") }}" alt=""/></a>
                 <a href="https://www.facebook.com/Catsapartmentblog/"
                                                           target="blank"><img
                         src="{{ asset("images/facebook-icon.png") }}" alt=""/></a>

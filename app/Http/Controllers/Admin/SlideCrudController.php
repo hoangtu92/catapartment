@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SlideRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 /**
  * Class SlideCrudController
@@ -49,6 +46,13 @@ class SlideCrudController extends CrudController
             'type' => 'image'
         ]);
 
+        $this->crud->addColumn([
+            'name' => 'display',
+            'format' => 'j, M Y',
+            'label' => trans("backpack::site.display"),
+            'type' => 'item_visibility'
+        ]);
+
         $this->crud->removeButton("show");
     }
 
@@ -71,9 +75,43 @@ class SlideCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'image',
-            "label" => trans('backpack::site.upload_image'),
+            "label" => trans('backpack::site.upload_image') . " <span>(1200x567)</span>",
             'type' => 'browse'
         ]);
+
+        $this->crud->addField([
+            'name' => 'display',
+            "label" => trans('backpack::site.display'),
+            'type' => 'checkbox'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'display',
+            "label" => trans('backpack::site.display'),
+            'type' => 'checkbox',
+            'wrapper_attributes' => [
+                'id' => "item_display"
+            ]
+        ]);
+
+        $this->crud->addField([
+            'name' => 'valid_from',
+            "label" => trans('backpack::site.valid_from'),
+            'type' => 'date_picker',
+            'wrapper_attributes' => [
+                'id' => "valid_from"
+            ]
+        ]);
+
+        $this->crud->addField([
+            'name' => 'valid_until',
+            "label" => trans('backpack::site.valid_until'),
+            'type' => 'date_picker',
+            'wrapper_attributes' => [
+                'id' => "valid_until"
+            ]
+        ]);
+
     }
 
     protected function setupUpdateOperation()

@@ -79,6 +79,7 @@
 
     "Shopping Information": "購物資訊",
     "Payment Information": "付款資訊",
+    "Membership Information": "會員問題",
 
 
     "welcome_user_msg": "Hello :username (不是 :username嗎? :logout_link)",

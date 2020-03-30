@@ -12,6 +12,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "backpack/crud": "4.0.*",
+        "backpack/settings": "^3.0",
         "barryvdh/laravel-elfinder": "^0.4.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
@@ -25,6 +26,7 @@
     },
     "require-dev": {
         "backpack/generators": "^2.0",
+        "barryvdh/laravel-ide-helper": "^2.6",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "laracasts/generators": "^1.1",
