@@ -4,7 +4,10 @@
             <div class="col-lg-12">
                 <div id="pl-slider" class="owl-carousel">
                     @foreach($advertisements as $ads)
-                        <div class="item" data-aos="fade-up" data-timeout="{{ $ads->timing }}">
+
+                        @if( $ads->isVisible() )
+
+                        <div class="item" data-aos="fade-up">
 
                             @if($ads->type == 'code')
                                 {!! $ads->code !!}
@@ -38,6 +41,8 @@
                                 </div>
                             </div>--}}
                         </div>
+
+                        @endif
                     @endforeach
                 </div>
             </div>

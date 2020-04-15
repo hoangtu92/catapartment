@@ -13,14 +13,14 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800&display=swap" rel="stylesheet">
     <!-- CSS Part Start -->
     <link rel="stylesheet" href="{{ asset("css/bootstrap.css") }}">
-    <link rel="stylesheet" href="{{ asset("css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/custom.css") }}?v={{date("ymd")}}">
     <link rel="stylesheet" href="{{ asset("css/animate.css") }}">
-    <link rel="stylesheet" href="{{ asset("css/stellarnav.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/stellarnav.css") }}?v={{date("ymd")}}">
     <!-- Slider CSS -->
     <link rel="stylesheet" href="{{ asset("css/owl.carousel.css") }}">
     <link rel="stylesheet" href="{{ asset("css/owl.theme.css") }}">
     <!-- Tab CSS -->
-    <link rel="stylesheet" href="{{ asset("css/easy-responsive-tabs.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/easy-responsive-tabs.css") }}?v={{date("ymd")}}">
 
     @yield("stylesheet")
 
@@ -53,14 +53,6 @@
         </div>
     @endif
 
-    <script src="{{ asset("js/jquery-2.1.3.min.js") }}"></script>
-    <script src="{{ asset("js/bootstrap.min.js") }}"></script>
-    <script src="{{ asset("js/viewportchecker.js") }}"></script>
-
-    <script src="{{ asset("js/owl.carousel.js") }}"></script>
-
-    <!-- JS Part Start -->
-    <script src="{{ asset("js/jquery.easy-ticker.min.js") }}"></script>
 </head>
 
 <body>
@@ -80,7 +72,14 @@
     {{ csrf_field() }}
 </form>
 
+<script src="{{ asset("js/jquery-2.1.3.min.js") }}"></script>
+<script src="{{ asset("js/bootstrap.min.js") }}"></script>
+<script src="{{ asset("js/viewportchecker.js") }}"></script>
 
+<script src="{{ asset("js/owl.carousel.js") }}"></script>
+
+<!-- JS Part Start -->
+<script src="{{ asset("js/jquery.easy-ticker.min.js") }}"></script>
 
 <script src="{{ asset("js/angular.min.js") }}"></script>
 <script src="{{ asset("js/angular-sanitize.min.js") }}"></script>
@@ -144,6 +143,7 @@
 </script>
 
 <script>
+
     $(document).ready(function ($) {
         $(".logout-link").click(function (e) {
             e.preventDefault();
@@ -153,9 +153,36 @@
         $('.announcements').easyTicker({
             visible: 1,
             interval: 3000,
-            mousePause: 1,
+            mousePause: 0,
             height: 34,
+            controls: {
+                up: document.querySelector('.top-left'),
+                down: 'z'
+            }
         });
+
+
+        var timeouts = [];
+        $(".announcements").find("a").each(function () {
+            timeouts.push($(this).data("timeout"))
+        });
+
+        function up(index){
+            if(typeof index === 'undefined') index = 0;
+            if(typeof timeouts[index] !== 'undefined'){
+                setTimeout(function () {
+                    document.querySelector('.top-left').click();
+                    index++;
+                    up(index);
+                }, timeouts[index]*1000)
+
+            }
+            else up(0);
+
+        }
+
+        up();
+
     })
 </script>
 
@@ -181,7 +208,7 @@
 </script>
 
 
-@if(isset($advertisements))
+@if(isset($advertisements) && count($advertisements) > 0)
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -191,14 +218,14 @@
 
         if(ads){
 
-            ads.on('initialized.owl.carousel', function(event) {
+            /*ads.on('initialized.owl.carousel', function(event) {
 
                 var timeout = $(event.currentTarget).find(".owl-item.active .item").data("timeout");
                 setTimeout(function () {
                     event.relatedTarget.next();
                 }, timeout*1000);
 
-            });
+            });*/
 
             var owl = ads.owlCarousel({
 
@@ -223,7 +250,7 @@
 
             });
 
-            owl.on('changed.owl.carousel', function(event) {
+            /*owl.on('changed.owl.carousel', function(event) {
 
                 var timeout = $(event.currentTarget).find(".owl-item.active .item").data("timeout");
                 setTimeout(function () {
@@ -231,7 +258,7 @@
                 }, timeout*1000);
 
 
-            });
+            });*/
 
         }
     });

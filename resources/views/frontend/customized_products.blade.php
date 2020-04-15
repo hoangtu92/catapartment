@@ -41,7 +41,7 @@
                         <form method="post" name="customProduct" id="customProduct" ng-submit="calculatePrice()">
                             <select ng-model="product.frame">
                                 <option value="">請選擇材質</option>
-                                <option ng-repeat="item in frames" ng-value="item.name" ng-bind="item.name"></option>
+                                <option ng-repeat="item in frames" ng-value="item" ng-bind="item.name"></option>
                             </select>
                             <select ng-model="product.thickness">
                                 <option ng-value="0">請選擇框厚度</option>
@@ -52,14 +52,15 @@
                         </form>
                     </div>
 
-                    <div class="vresults">
+                    <div class="vresults" ng-show="result.price >= 0">
                         <h2>估價結果</h2>
                         <div class="row">
                             <div class="col-md-4"><img src="{{ asset("images/image02.jpg") }}" alt=""/></div>
                             <div class="col-md-8">
-                                <h3>你選擇的框是<i ng-bind="result.frame"></i>，寬<i ng-bind="result.thickness"></i>公分，長<i ng-bind="result.totalLength"></i>公分的訂製，含透明壓克力表層，數量一組。</h3>
-                                <span>價格：<i ng-bind="result.price"></i></span>
-                                <span>元工作天：10天</span>
+                                <h3>你選擇的框是<i ng-bind="result.frame.name"></i>，寬<i ng-bind="result.thickness"></i>公分，長<i ng-bind="result.totalLength"></i>公分的訂製，含透明壓克力表層，數量一組。</h3>
+                                <span>價格：<i ng-bind="result.price || 0"></i>元</span>
+                                {{--<span>Shipping Fee：<i ng-bind="result.shipping_fee || 0"></i></span>--}}
+                                <span>工作天：<i ng-bind="result.frame.time"></i>天</span>
                                 <span>物流：
 <div class="rbtn">
 <label class="rd-btn">自取無運費
@@ -72,7 +73,7 @@
 </label>
 </div>
 </span>
-                                <span class="bt"><a href="#" class="btn2">重新估算</a> <a href="#"
+                                <span class="bt"><a href="#" ng-click="resetSelection()" class="btn2">重新估算</a> <a href="#"
                                                                                       class="btn4">我要訂製</a></span>
                             </div>
                         </div>

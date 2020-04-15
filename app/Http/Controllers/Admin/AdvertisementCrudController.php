@@ -40,7 +40,6 @@ class AdvertisementCrudController extends CrudController
 
         $this->crud->addColumn([
             'name' => 'display',
-            'format' => 'j, M Y',
             'label' => trans("backpack::site.display"),
             'type' => 'item_visibility'
         ]);
@@ -90,7 +89,7 @@ class AdvertisementCrudController extends CrudController
             'name' => 'display',
             "label" => trans('backpack::site.display'),
             'type' => 'checkbox',
-            'wrapper_attributes' => [
+            'wrapperAttributes' => [
                 'id' => "item_display"
             ]
         ]);
@@ -99,7 +98,7 @@ class AdvertisementCrudController extends CrudController
             'name' => 'valid_from',
             "label" => trans('backpack::site.valid_from'),
             'type' => 'date_picker',
-            'wrapper_attributes' => [
+            'wrapperAttributes' => [
                 'id' => "valid_from"
             ]
         ]);
@@ -108,7 +107,7 @@ class AdvertisementCrudController extends CrudController
             'name' => 'valid_until',
             "label" => trans('backpack::site.valid_until'),
             'type' => 'date_picker',
-            'wrapper_attributes' => [
+            'wrapperAttributes' => [
                 'id' => "valid_until"
             ]
         ]);

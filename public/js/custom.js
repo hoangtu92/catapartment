@@ -224,17 +224,21 @@ var app = angular.module("cat", ["ngSanitize"]);
 app.controller("catCtrl", function ($scope, $http) {
 
     $scope.product = {};
+    $scope.order = {delivery: "pickup"};
 
     $scope.getFrames = function () {
         $scope.frames = [
             {
-                name: "白橡木"
+                name: "白橡木",
+                time: 3
             },
             {
-                name: "紅柚木"
+                name: "紅柚木",
+                time: 5
             },
             {
-                name: "古銅金"
+                name: "古銅金",
+                time: 7
             }
         ]
     };
@@ -255,6 +259,7 @@ app.controller("catCtrl", function ($scope, $http) {
     $scope.$watch("order.delivery", function (value) {
         if(typeof value === 'undefined') return;
 
+        $scope.order.shipping_fee = value === 'shipping' ? 30 : 0;
         $scope.calculatePrice();
     });
 
@@ -265,7 +270,15 @@ app.controller("catCtrl", function ($scope, $http) {
             frame: $scope.product.frame,
             thickness: $scope.product.thickness,
             totalLength: $scope.product.totalLength,
+            shipping_fee: $scope.order.shipping_fee,
             price: Math.round($scope.product.thickness + $scope.product.totalLength * 2*1.2)
         }
+    };
+
+    $scope.resetSelection = function () {
+        $scope.product = {};
+        $scope.order = {delivery: "pickup"};
+        $scope.calculatePrice();
+
     }
 });

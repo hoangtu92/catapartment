@@ -5,7 +5,7 @@
             <span class="announcements" style="width: 300px">
                 <span>
                     @foreach($announcements as $announcement)
-                        <a href="{{ $announcement->url }}">{{ $announcement->content }}</a>
+                        <a data-timeout="{{ $announcement->timing }}" href="{{ $announcement->url }}">{{ $announcement->content }}</a>
                     @endforeach
                 </span>
             </span>

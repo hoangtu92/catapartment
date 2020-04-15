@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\ExpireModel;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 
-class Announcement extends Model
+class Announcement extends ExpireModel
 {
     use CrudTrait;
 

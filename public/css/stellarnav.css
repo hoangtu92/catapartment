@@ -6,12 +6,12 @@
  */
 /* all nav */
 .stellarnav {position: relative;
-z-index: 9900;
-line-height: normal;
-float: left;
-text-align: left;
-border-top:#eaeaea thin solid;
-width: 100%;
+    z-index: 9900;
+    line-height: normal;
+    float: left;
+    text-align: left;
+    border-top:#eaeaea thin solid;
+    width: 100%;
 }
 .stellarnav a { color: #777; }
 .stellarnav ul { margin: 0; padding: 0; text-align:left; }
@@ -66,9 +66,9 @@ body.stellarnav-noscroll-x { overflow-x: hidden; }
 .stellarnav li.call-btn-mobile, .stellarnav li.location-btn-mobile { display: none; }
 
 .stellarnav li.has-sub ul li a{ border-bottom:#f6f3f3 thin solid; font-size: 14px;
-padding-left: 25px;}
+    padding-left: 25px;}
 
-.stellarnav li.has-sub ul li a:hover{ background:#fcc700;}
+.stellarnav li.has-sub ul li a:hover{background:#fcc700;color: white !important;}
 
 
 /* svg icons */
@@ -95,8 +95,8 @@ padding-left: 25px;}
 /* mobile nav */
 .stellarnav .close-menu { padding:5px 10px; box-sizing: border-box; background:rgba(0, 0, 0, .15);}
 .stellarnav .menu-toggle, .stellarnav .call-btn-mobile, .stellarnav .location-btn-mobile {padding:12px 10px 9px 10px;
-box-sizing: border-box;
-float: right;}
+    box-sizing: border-box;
+    float: right;}
 .stellarnav .menu-toggle span.bars { display: inline-block; margin-right: 7px; position: relative; top: 3px; }
 .stellarnav .menu-toggle span.bars span { display: block; width: 20px; height: 2px; border-radius: 6px; background: #777; margin: 0 0 4px; }
 .stellarnav .full { width: 100%; }
@@ -175,15 +175,15 @@ float: right;}
 
 /* Fallback for slow javascript load */
 @media only screen and (max-width : 768px) {
-	.stellarnav { overflow: hidden; display: block; }
-	.stellarnav ul { position: relative; display: none; }
+    .stellarnav { overflow: hidden; display: block; }
+    .stellarnav ul { position: relative; display: none; }
 }
 
 /* mobile nav */
 @media only screen and (max-width : 479px) {
-.stellarnav .menu-toggle, .stellarnav .call-btn-mobile, .stellarnav .location-btn-mobile{ padding:18px 10px;}	
+    .stellarnav .menu-toggle, .stellarnav .call-btn-mobile, .stellarnav .location-btn-mobile{ padding:18px 10px;}
 }
 
 @media only screen and (max-width : 420px) {
-	.stellarnav.mobile .call-btn-mobile.third span, .stellarnav.mobile .location-btn-mobile.third span { display: none; }
+    .stellarnav.mobile .call-btn-mobile.third span, .stellarnav.mobile .location-btn-mobile.third span { display: none; }
 }

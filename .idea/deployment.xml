@@ -57,7 +57,6 @@
             <excludedPath path="/public/css/owl.theme.css" />
             <excludedPath path="/public/css/price_range_style.css" />
             <excludedPath path="/public/css/owl.carousel.css" />
-            <excludedPath path="/public/css/stellarnav.css" />
             <excludedPath path="/public/css/animate.css" />
             <excludedPath path="/public/css/radio-btn.css" />
             <excludedPath path="/public/css/smoothproducts.css" />

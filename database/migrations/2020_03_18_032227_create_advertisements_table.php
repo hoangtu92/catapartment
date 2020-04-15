@@ -15,7 +15,7 @@ class CreateAdvertisementsTable extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
-            $table->enum("type", ['code', 'image'])->default("code");
+            $table->enum("type", ['google廣告碼', '圖檔'])->default("google廣告碼");
             $table->longText("code")->collation("utf8_unicode_ci")->nullable(true);
             $table->string("image")->collation("utf8_unicode_ci")->nullable(true);
             $table->string("url")->collation("utf8_unicode_ci")->nullable(true);

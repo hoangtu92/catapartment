@@ -18,6 +18,9 @@ class CreateAnnouncementsTable extends Migration
             $table->string("content")->collation("utf8_unicode_ci");
             $table->integer("timing")->default(60);
             $table->string("url")->collation("utf8_unicode_ci")->nullable(true);
+            $table->boolean("display")->nullable(true)->default(true);
+            $table->date("valid_from")->nullable(true);
+            $table->date("valid_until")->nullable(true);
             $table->timestamps();
         });
     }

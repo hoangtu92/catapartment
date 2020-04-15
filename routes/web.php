@@ -30,7 +30,6 @@ Route::get('/customized-products', "Frontend\FrontController@customized_products
 Route::get('/products/{slug}', "Frontend\FrontController@product_detail");
 
 Route::get('/checkout', "Frontend\FrontController@checkout")->name("checkout");
-Route::get('/wishlist', "Frontend\FrontController@wishlist")->name("wishlist");
 
 Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
 
@@ -50,4 +49,5 @@ Route::middleware(["verified"])->prefix('account')->group(function () {
     Route::get('/profile', "Frontend\UserController@profile")->name("profile");
     Route::get('/orders', "Frontend\UserController@orders")->name("orders");
     Route::post('/update', "Frontend\UserController@update")->name("update_user");
+    Route::get('/wishlist', "Frontend\UserController@wishlist")->name("wishlist");
 });

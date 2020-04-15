@@ -41,6 +41,18 @@ class AnnouncementCrudController extends CrudController
             "label" => trans("backpack::site.url")
         ]);
 
+        $this->crud->addColumn([
+            "name" => "timing",
+            "type" => "number",
+            "label" => trans("backpack::site.timing")
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'display',
+            'label' => trans("backpack::site.display"),
+            'type' => 'item_visibility'
+        ]);
+
         $this->crud->removeButton("show");
 
     }
@@ -59,6 +71,39 @@ class AnnouncementCrudController extends CrudController
             "name" => "url",
             "type" => "url",
             "label" => trans("backpack::site.url")
+        ]);
+
+        $this->crud->addField([
+            "name" => "timing",
+            "type" => "number",
+            "label" => trans("backpack::site.timing")
+        ]);
+
+        $this->crud->addField([
+            'name' => 'display',
+            "label" => trans('backpack::site.display'),
+            'type' => 'checkbox',
+            'wrapperAttributes' => [
+                'id' => "item_display"
+            ]
+        ]);
+
+        $this->crud->addField([
+            'name' => 'valid_from',
+            "label" => trans('backpack::site.valid_from'),
+            'type' => 'date_picker',
+            'wrapperAttributes' => [
+                'id' => "valid_from"
+            ]
+        ]);
+
+        $this->crud->addField([
+            'name' => 'valid_until',
+            "label" => trans('backpack::site.valid_until'),
+            'type' => 'date_picker',
+            'wrapperAttributes' => [
+                'id' => "valid_until"
+            ]
         ]);
     }
 

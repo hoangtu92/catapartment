@@ -78,9 +78,13 @@ return [
     "settings" => "基本設定",
     "google_ads" => "Google ads",
     "custom_html" => "Custom html",
-    "ads_type" => "Ads type",
+    "ads_type" => "廣告類型",
 
-    "display" => "Display",
-    "valid_from" => "Valid from",
-    "valid_until" => "Valid until"
+    "display" => "顯示",
+    "valid_from" => "上架",
+    "valid_until" => "下架",
+    "points" => "回饋點數",
+    "submenu" => "補貨上架選單",
+    "submenu_title" => "名稱",
+    "submenu_date" => "篩選條件"
 ];

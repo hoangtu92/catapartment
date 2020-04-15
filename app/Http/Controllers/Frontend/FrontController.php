@@ -30,7 +30,7 @@ class FrontController extends CatController
     }
 
     public function home(){
-        $slides = Slide::all();
+        $slides = Slide::getVisibleList();
         $news = News::where("display", true)
             ->orderBy('created_at', 'desc')
             ->take(10)
@@ -140,10 +140,6 @@ class FrontController extends CatController
 
     public function checkout(){
         return view("frontend.checkout");
-    }
-
-    public function wishlist(){
-        return view("frontend.wishlist");
     }
 
     public function faq(){

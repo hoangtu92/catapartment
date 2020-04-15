@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\ExpireModel;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Model;
 
-class Advertisement extends ExpireModel
+class SubMenu extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Advertisement extends ExpireModel
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'advertisements';
+    protected $table = 'sub_menu';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

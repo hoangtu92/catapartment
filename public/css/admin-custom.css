@@ -1,0 +1,67 @@
+.app-header {
+    background: #fff !important;
+}
+
+.app-header .nav-item {
+    display: none;
+}
+
+.app-body .sidebar {
+    background: #fdcd00 !important;
+}
+.sidebar-pills li {
+    color: #000!important;
+}
+
+.sidebar.sidebar-pills .nav-link.active, .sidebar.sidebar-pills .nav-link:hover {
+    color: #fff!important;
+    background-color: #000 !important;
+}
+.app-footer {
+    background: #000;
+}
+.app-header.bg-light .navbar-brand {
+    width: 225px;
+}
+
+.app-body .main {
+    background: #f8f9fc;
+}
+
+.breadcrumb {
+    display: none !important;
+}
+
+.btn-primary, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: #fdcd00;
+    background-color: #000;
+    border-color: #000;
+}
+
+.btn-primary {
+    color: #fdcd00;
+    background-color: #000;
+    border-color: #000;
+}
+
+.sidebar .nav-link.active .nav-icon{
+    color: white
+}
+
+.sidebar .nav-link:hover,
+.page-item.active .page-link,
+.btn-primary:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    background-color: #000;
+    border-color: #000;
+}
+
+.sidebar .nav-link {
+    color: #000;
+}
+.app-footer {
+    background: #000;
+}
+.bold-labels label > span{
+    color: red;
+}
+

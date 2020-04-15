@@ -92,17 +92,17 @@ class UserCrudController extends CrudController
             'type' => 'text'
         ]);
 
-        $this->crud->addField([
+        /*$this->crud->addField([
             'name' => 'role',
             'label' => trans("backpack::site.role"),
             'type' => 'select_from_array',
             "options" => array("user", "admin")
-        ]);
+        ]);*/
 
         $this->crud->addField([
-            'name' => 'password',
-            'label' => trans("backpack::site.password"),
-            'type' => 'password'
+            'name' => 'points',
+            'label' => trans("backpack::site.points"),
+            'type' => 'number'
         ]);
 
     }

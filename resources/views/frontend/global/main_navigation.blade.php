@@ -4,9 +4,17 @@
         </li>
         <li><a href="">拼圖商店</a>
             <ul>
-                <li><a href="">Option 1</a></li>
-                <li><a href="">Option 2</a></li>
-                <li><a href="">Option 3</a></li>
+                <li><a href="{{ route("products", ["sort" => "latest"]) }}">最新商品</a> </li>
+                <li><a href="{{ route("products", ["sort" => "populated"]) }}">熱門暢銷</a> </li>
+                <li><a href="#">補貨上架拼圖
+                    </a>
+                <ul>
+                    @foreach($sub_menu as $item)
+                        <li><a href="{{ route("products") }}?f={{ $item->date }}">{{ $item->title }}</a></li>
+                    @endforeach
+                </ul>
+                </li>
+
             </ul>
         </li>
         <li><a href="{{ route("customized_products") }}">裱框服務</a>

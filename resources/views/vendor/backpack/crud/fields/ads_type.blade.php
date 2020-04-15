@@ -35,7 +35,7 @@
 <script>
 
     function checkType(value){
-        if(value === "code"){
+        if(value === "google廣告碼"){
             document.querySelector(".ads_code").style.display = "block";
             document.querySelector("#ads_image").style.display = "none";
             document.querySelector("#ads_url").style.display = "none";
@@ -47,10 +47,12 @@
         }
     }
     document.querySelector("#ads_type").onchange = function(){
-        console.log(this.value);
         checkType(this.value)
     };
     window.onload = function () {
-        checkType(document.querySelector("#ads_type").value)
+        if(document.querySelector("#ads_type")){
+            checkType(document.querySelector("#ads_type").value)
+        }
+
     }
 </script>

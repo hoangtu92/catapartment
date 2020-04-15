@@ -46,6 +46,10 @@ class UserController extends CatController
         return view("frontend.profile");
     }
 
+    public function wishlist(){
+        return view("frontend.wishlist");
+    }
+
     public function update(Request $request){
         if($request->filled("action")){
             if($request->input("action") === "update_profile"){
