@@ -86,5 +86,9 @@ return [
     "points" => "回饋點數",
     "submenu" => "補貨上架選單",
     "submenu_title" => "名稱",
-    "submenu_date" => "篩選條件"
+    "submenu_date" => "篩選條件",
+
+    "home_management" => "首頁管理",
+    "home_latest_puzzle" => "首頁最新拼圖",
+    "home_recommend_puzzle" => "首頁推薦拼圖"
 ];

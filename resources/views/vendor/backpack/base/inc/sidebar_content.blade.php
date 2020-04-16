@@ -9,8 +9,17 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('order') }}'><i class='nav-icon fa fa-bar-chart'></i> {{ trans('backpack::site.orders') }}</a></li>
 --}}
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('slide') }}'><i class='nav-icon fa fa-picture-o'></i> {{ trans('backpack::site.slides') }}</a></li>
+<li class='nav-item'></li>
 
+
+<li class="nav-item nav-dropdown">
+    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-home"></i> {{ trans('backpack::site.home_management') }}</a>
+    <ul class="nav-dropdown-items">
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('slide') }}'><i class='nav-icon fa fa-picture-o'></i> {{ trans('backpack::site.slides') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('latestproduct') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_latest_puzzle') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('recommendproduct') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_recommend_puzzle') }}</a></li>
+    </ul>
+</li>
 
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-newspaper-o"></i> {{ trans('backpack::site.news') }}</a>
