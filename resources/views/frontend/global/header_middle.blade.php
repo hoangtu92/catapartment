@@ -16,7 +16,7 @@
         <div class="header-right">
 
             @auth
-                <a href="{{ route("account") }}">{{ __("My Account") }}</a>
+                <a href="{{ route("account") }}">{{ Auth()->user()->name }}</a>
                 <a href="{{ route("points") }}"><img src="{{ asset("images/icon01.jpg") }}" alt="{{ __("Points") }}"/></a>
                 <a href="{{ route("wishlist") }}"><img src="{{ asset("images/icon02.jpg") }}" alt="{{ __("Wishlist") }}"/></a>
             @else

@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactUs;
 use App\Models\Advertisement;
 use App\Models\Faq;
+use App\Models\LatestProduct;
 use App\Models\Message;
 use App\Models\News;
 use App\Models\Newsletter;
 use App\Models\NewsTag;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\RecommendProduct;
 use App\Models\Slide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,8 +37,36 @@ class FrontController extends CatController
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
+        $latest_products = LatestProduct::where("display", true)
+            ->orWHere(function ($query){
+                $query->whereNotNull("valid_from")
+                    ->whereNotNull("valid_until")
+                    ->where("valid_from", "<=", now())
+                    ->where("valid_until", ">=", now());
+            })
+            ->orderBy("lft", "ASC")
+            ->get();
 
-        return view("frontend.home")->with(compact(['slides', 'news']));
+        $rmd = RecommendProduct::where("display", true)
+            ->orWHere(function ($query){
+                $query->whereNotNull("valid_from")
+                    ->whereNotNull("valid_until")
+                    ->where("valid_from", "<=", now())
+                    ->where("valid_until", ">=", now());
+            })
+            ->orderBy("lft", "ASC")
+            ->get();
+
+        $recommend_products = [];
+        for($i=0; $i < count($rmd); $i++){
+            if(!isset($recommend_products[$rmd[$i]->category]))
+                $recommend_products[$rmd[$i]->category] = [];
+
+            $recommend_products[$rmd[$i]->category][] = $rmd[$i];
+        }
+
+
+        return view("frontend.home")->with(compact(['slides', 'news', 'latest_products', 'recommend_products']));
     }
 
     public function search(Request $request){

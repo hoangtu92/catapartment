@@ -1,11 +1,11 @@
 <div class="header-top">
     <div class="container">
         <div class="top-left" style="display: flex; flex-direction: row; align-items: center; min-width: 50%">
-            <span><a href="#">Cats Apartment 貓公寓拼圖坊</a></span>
+            <span class="upClick">Cats Apartment 貓公寓拼圖坊</span>
             <span class="announcements" style="width: 300px">
                 <span>
                     @foreach($announcements as $announcement)
-                        <a data-timeout="{{ $announcement->timing }}" href="{{ $announcement->url }}">{{ $announcement->content }}</a>
+                        <a target="_blank" data-timeout="{{ $announcement->timing }}" href="{{ $announcement->url }}">{{ $announcement->content }}</a>
                     @endforeach
                 </span>
             </span>

@@ -55,4 +55,8 @@ class Product extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function getPermalinkAttribute(){
+        return route("product_detail", ["slug" => $this->slug | $this->name]);
+    }
 }

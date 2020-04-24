@@ -23,7 +23,7 @@
         <li><a href="{{ route("news") }}">拼圖情報</a>
 
         </li>
-        <li><a href="">海外預購</a>
+        <li><a href="{{ route("pre_order_products") }}">海外預購</a>
         </li>
     </ul>
 </div>

@@ -31,9 +31,16 @@ class RecommendProductCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
         $this->crud->addColumn([
-            'name' => 'product',
+            'name' => 'product_id',
+            "entity" => "product",
+            "attribute" => "name",
             'label' => trans("backpack::site.product"),
-            'type' => 'text'
+            'type' => 'select'
+        ]);
+
+        $this->crud->addColumn([
+           'name' => "category",
+           'type' => 'text'
         ]);
 
         $this->crud->addColumn([
@@ -51,11 +58,17 @@ class RecommendProductCrudController extends CrudController
         //$this->crud->setFromDb();
 
         $this->crud->addField([
-            "name" => "product",
-            "type" => "select2_multiple",
-            "entity" => "products",
+            "name" => "product_id",
+            "type" => "select2",
+            "entity" => "product",
             "attribute" => "name",
             "label" => trans("backpack::site.product")
+        ]);
+
+        $this->crud->addField([
+            'name' => "category",
+            'type' => 'select2_from_array',
+            'options' => ["熱賣拼圖", "新品預購", "換季促銷"]
         ]);
 
 

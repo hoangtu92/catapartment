@@ -45,6 +45,11 @@ class LatestProductCrudController extends CrudController
             'type' => 'item_visibility'
         ]);
 
+        if($this->crud->count() >= 5){
+            $this->crud->removeButton("create");
+            $this->crud->addButtonFromView("top", "warning", "warning");
+        }
+
     }
 
     protected function setupCreateOperation()

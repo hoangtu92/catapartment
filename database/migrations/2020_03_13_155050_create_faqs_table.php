@@ -17,7 +17,7 @@ class CreateFaqsTable extends Migration
             $table->id();
             $table->string("question")->nullable(false)->collation("utf8_unicode_ci");
             $table->text("answer")->collation("utf8_unicode_ci");
-            $table->enum("type", ["貨品運送問題", "支付問題", "會員問題"])->default("貨品運送問題");
+            $table->enum("type", ["購物資訊", "付款資訊", "會員問題"])->default("購物資訊");
             $table->timestamps();
         });
     }

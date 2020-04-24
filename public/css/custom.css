@@ -1,3 +1,4 @@
+
 @charset "utf-8";
 /* CSS Document */
 
@@ -2799,4 +2800,8 @@ a:focus, a:hover {
 .home-slider .owl-carousel .owl-item img {
     width: auto;
     height: 100%;
+}
+
+#infoModal .modal-header, #infoModal .modal-footer{
+    border: none;
 }

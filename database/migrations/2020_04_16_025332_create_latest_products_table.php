@@ -15,11 +15,15 @@ class CreateLatestProductsTable extends Migration
     {
         Schema::create('latest_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("product_id")->unique(true);
+            $table->foreignId("product_id")->unique(false);
             $table->foreign("product_id")->references("id")->on("products");
             $table->boolean("display")->nullable(true)->default(true);
             $table->date("valid_from")->nullable(true);
             $table->date("valid_until")->nullable(true);
+            $table->integer("parent_id")->nullable(true)->default(0);
+            $table->integer("lft")->default(0);
+            $table->integer("rgt")->default(0);
+            $table->integer("depth")->default(0);
             $table->timestamps();
         });
     }

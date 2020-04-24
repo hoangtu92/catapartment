@@ -5,13 +5,12 @@
                 <div id="pl-slider" class="owl-carousel">
                     @foreach($advertisements as $ads)
 
-                        @if( $ads->isVisible() )
 
                         <div class="item" data-aos="fade-up">
 
-                            @if($ads->type == 'code')
+                            @if($ads->type == 'google廣告碼')
                                 {!! $ads->code !!}
-                                @elseif($ads->type == 'image')
+                                @else
                                 <a href="{{ $ads->url }}">
                                     <img src="{{ asset($ads->image) }}" alt="ads">
                                 </a>
@@ -42,7 +41,6 @@
                             </div>--}}
                         </div>
 
-                        @endif
                     @endforeach
                 </div>
             </div>

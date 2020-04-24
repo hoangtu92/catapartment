@@ -15,22 +15,22 @@ class FaqSeeder extends Seeder
         DB::table("faqs")->insert([
             "question" => "Lorem Ipsum is dummy text?",
             "answer" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "type" => "貨品運送問題"
+            "type" => "購物資訊"
         ]);
         DB::table("faqs")->insert([
             "question" => "Lorem Ipsum is dummy text?",
             "answer" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "type" => "貨品運送問題"
+            "type" => "購物資訊"
         ]);
         DB::table("faqs")->insert([
             "question" => "Lorem Ipsum is dummy text?",
             "answer" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "type" => "支付問題"
+            "type" => "付款資訊"
         ]);
         DB::table("faqs")->insert([
             "question" => "Lorem Ipsum is dummy text?",
             "answer" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "type" => "支付問題"
+            "type" => "付款資訊"
         ]);
 
         DB::table("faqs")->insert([

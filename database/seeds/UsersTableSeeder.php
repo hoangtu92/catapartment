@@ -22,6 +22,17 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('12121212'),
             'email_verified_at' => now()
         ]);
+
+        DB::table('users')->insert([
+            'username' => 'newskyson',
+            'role' => 'user',
+            'phone' => '0947584711',
+            'name' => "張忠傑",
+            'email' => 'newskyson@gmail.com',
+            'password' => '$2y$10$DySv1k4pH3wVjWN91Tnn4.O8OIscV8P/dB1/KPE7s0Ho1gMDFDMBS',
+            'email_verified_at' => now()
+        ]);
+
         DB::table('users')->insert([
             'username' => 'administrator',
             'role' => 'admin',

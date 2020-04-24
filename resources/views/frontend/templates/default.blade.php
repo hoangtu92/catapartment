@@ -150,13 +150,15 @@
             $("#frm-logout").submit();
         });
 
+        @if(isset($announcements) && count($announcements) > 0)
+
         $('.announcements').easyTicker({
             visible: 1,
             interval: 3000,
             mousePause: 0,
             height: 34,
             controls: {
-                up: document.querySelector('.top-left'),
+                up: document.querySelector('.upClick'),
                 down: 'z'
             }
         });
@@ -171,7 +173,7 @@
             if(typeof index === 'undefined') index = 0;
             if(typeof timeouts[index] !== 'undefined'){
                 setTimeout(function () {
-                    document.querySelector('.top-left').click();
+                    document.querySelector('.upClick').click();
                     index++;
                     up(index);
                 }, timeouts[index]*1000)
@@ -182,9 +184,12 @@
         }
 
         up();
+        @endif
+
 
     })
 </script>
+
 
 <!-- Tab JS Part Start -->
 <script src="{{ asset("js/easy-responsive-tabs.js") }}"></script>
@@ -211,7 +216,7 @@
 @if(isset($advertisements) && count($advertisements) > 0)
 <script type="text/javascript">
 
-    $(document).ready(function () {
+    $('document').ready(function () {
 
 
         var ads = $('#pl-slider');

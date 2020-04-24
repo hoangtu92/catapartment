@@ -27,7 +27,7 @@ Route::get('/product-category/{category_name}', "Frontend\FrontController@produc
 Route::get('/pre-order-products', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
 Route::get('/recommend-products', "Frontend\FrontController@recommend_products")->name("recommend_products");
 Route::get('/customized-products', "Frontend\FrontController@customized_products")->name("customized_products");
-Route::get('/products/{slug}', "Frontend\FrontController@product_detail");
+Route::get('/products/{slug}', "Frontend\FrontController@product_detail")->name("product_detail");
 
 Route::get('/checkout', "Frontend\FrontController@checkout")->name("checkout");
 

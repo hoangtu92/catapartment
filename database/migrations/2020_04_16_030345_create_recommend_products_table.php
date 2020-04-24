@@ -15,11 +15,16 @@ class CreateRecommendProductsTable extends Migration
     {
         Schema::create('recommend_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("product_id")->unique(true);
+            $table->foreignId("product_id")->unique(false);
             $table->foreign("product_id")->references("id")->on("products");
+            $table->enum("category", ["熱賣拼圖", "新品預購", "換季促銷"])->default("熱賣拼圖")->collation("utf8_unicode_ci");
             $table->boolean("display")->nullable(true)->default(true);
             $table->date("valid_from")->nullable(true);
             $table->date("valid_until")->nullable(true);
+            $table->integer("parent_id")->nullable(true)->default(0);
+            $table->integer("lft")->default(0);
+            $table->integer("rgt")->default(0);
+            $table->integer("depth")->default(0);
             $table->timestamps();
         });
     }

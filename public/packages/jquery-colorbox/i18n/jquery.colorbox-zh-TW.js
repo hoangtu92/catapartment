@@ -1,6 +1,6 @@
 /*
 	jQuery Colorbox language configuration
-	language: Chinese Traditional (zh-TW)
+	language: Chinese Traditional (zh_TW)
 	translated by: Atans Chiu
 */
 jQuery.extend(jQuery.colorbox.settings, {

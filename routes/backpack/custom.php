@@ -21,12 +21,11 @@ Route::group([
     Route::crud('faq', 'FaqCrudController');
     Route::crud('newsletter', 'NewsletterCrudController');
     Route::crud('product', 'ProductCrudController');
-    Route::crud('productcategory', 'ProductCategoryCrudController');
     Route::crud('announcement', 'AnnouncementCrudController');
     Route::crud('advertisement', 'AdvertisementCrudController');
     Route::crud('message', 'MessageCrudController');
     Route::crud('user', 'UserCrudController');
     Route::crud('submenu', 'SubMenuCrudController');
-    Route::crud('latestproduct', 'LatestProductCrudController');
-    Route::crud('recommendproduct', 'RecommendProductCrudController');
+    Route::crud('latest-product', 'LatestProductCrudController');
+    Route::crud('recommend-product', 'RecommendProductCrudController');
 }); // this should be the absolute last line of this file

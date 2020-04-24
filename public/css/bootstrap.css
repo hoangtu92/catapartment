@@ -2160,31 +2160,31 @@ pre code {
 .table-success,
 .table-success > th,
 .table-success > td {
-  background-color: #dff0d8;
+  background-color: #fcc700;
 }
 
 .table-hover .table-success:hover {
-  background-color: #d0e9c6;
+  background-color: #fcc700;
 }
 
 .table-hover .table-success:hover > td,
 .table-hover .table-success:hover > th {
-  background-color: #d0e9c6;
+  background-color: #fcc700;
 }
 
 .table-info,
 .table-info > th,
 .table-info > td {
-  background-color: #d9edf7;
+  background-color: #fcc700;
 }
 
 .table-hover .table-info:hover {
-  background-color: #c4e3f3;
+  background-color: #fcc700;
 }
 
 .table-hover .table-info:hover > td,
 .table-hover .table-info:hover > th {
-  background-color: #c4e3f3;
+  background-color: #fcc700;
 }
 
 .table-warning,
@@ -2279,7 +2279,7 @@ pre code {
 }
 
 .form-control:focus {
- 
+
 }
 
 .form-control::-webkit-input-placeholder {
@@ -4982,8 +4982,8 @@ a.badge:focus, a.badge:hover {
 }
 
 .alert-success {
-  background-color: #dff0d8;
-  border-color: #d0e9c6;
+  background-color: #fcc700;
+  border-color: #fcc700;
   color: #3c763d;
 }
 
@@ -4996,9 +4996,9 @@ a.badge:focus, a.badge:hover {
 }
 
 .alert-info {
-  background-color: #d9edf7;
-  border-color: #bcdff1;
-  color: #31708f;
+  background-color: #fcc700;
+  border-color: #fcc700;
+  color: #000000;
 }
 
 .alert-info hr {
@@ -5231,7 +5231,7 @@ a.badge:focus, a.badge:hover {
 
 .list-group-item-success {
   color: #3c763d;
-  background-color: #dff0d8;
+  background-color: #fcc700;
 }
 
 a.list-group-item-success,
@@ -5248,7 +5248,7 @@ a.list-group-item-success:focus, a.list-group-item-success:hover,
 button.list-group-item-success:focus,
 button.list-group-item-success:hover {
   color: #3c763d;
-  background-color: #d0e9c6;
+  background-color: #fcc700;
 }
 
 a.list-group-item-success.active,
@@ -5259,13 +5259,13 @@ button.list-group-item-success.active {
 }
 
 .list-group-item-info {
-  color: #31708f;
-  background-color: #d9edf7;
+  color: #000000;
+  background-color: #fcc700;
 }
 
 a.list-group-item-info,
 button.list-group-item-info {
-  color: #31708f;
+  color: #000000;
 }
 
 a.list-group-item-info .list-group-item-heading,
@@ -5276,15 +5276,15 @@ button.list-group-item-info .list-group-item-heading {
 a.list-group-item-info:focus, a.list-group-item-info:hover,
 button.list-group-item-info:focus,
 button.list-group-item-info:hover {
-  color: #31708f;
-  background-color: #c4e3f3;
+  color: #000000;
+  background-color: #fcc700;
 }
 
 a.list-group-item-info.active,
 button.list-group-item-info.active {
   color: #fff;
-  background-color: #31708f;
-  border-color: #31708f;
+  background-color: #000000;
+  border-color: #000000;
 }
 
 .list-group-item-warning {

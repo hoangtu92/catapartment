@@ -16,8 +16,8 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-home"></i> {{ trans('backpack::site.home_management') }}</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('slide') }}'><i class='nav-icon fa fa-picture-o'></i> {{ trans('backpack::site.slides') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('latestproduct') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_latest_puzzle') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('recommendproduct') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_recommend_puzzle') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('latest-product') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_latest_puzzle') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('recommend-product') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_recommend_puzzle') }}</a></li>
     </ul>
 </li>
 
@@ -29,7 +29,6 @@
     </ul>
 </li>
 
-{{--
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-shopping-cart"></i> {{ trans('backpack::site.products') }}</a>
     <ul class="nav-dropdown-items">
@@ -37,9 +36,6 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product-category') }}'><i class='nav-icon fa fa-tag'></i>{{ trans('backpack::site.product_categories') }}</a></li>
     </ul>
 </li>
---}}
-
-
 
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('faq') }}'><i class='nav-icon fa fa-question'></i> {{ trans('backpack::site.faqs') }}</a></li>

@@ -60,6 +60,6 @@ class LatestProduct extends ExpireModel
     */
 
     public function getProductNameAttribute(){
-        return $this->product()->get()->first()->name;
+        return $this->product->name;
     }
 }

@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string("slug")->nullable(true)->collation("utf8_unicode_ci")->unique();
             $table->double("price")->default(0);
             $table->double("sale_price")->default(0);
+            $table->boolean("is_hot")->default(false);
             $table->string("image")->collation("utf8_unicode_ci");
             $table->timestamps();
         });

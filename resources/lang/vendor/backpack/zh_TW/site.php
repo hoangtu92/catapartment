@@ -90,5 +90,17 @@ return [
 
     "home_management" => "首頁管理",
     "home_latest_puzzle" => "首頁最新拼圖",
-    "home_recommend_puzzle" => "首頁推薦拼圖"
+    "home_recommend_puzzle" => "首頁推薦拼圖",
+
+    "latest-product" => "首頁最新拼圖",
+    "latest-products" => "首頁最新拼圖",
+    "recommend-product" => "首頁推薦拼圖",
+
+    "recommend-products" => "首頁推薦拼圖",
+
+    "product_name" => "Product Name",
+    "product_slug" => "Slug",
+    "product_price" => "Price",
+    "product_sale_price" => "Sale Price",
+    "product_image" => "Image"
 ];
