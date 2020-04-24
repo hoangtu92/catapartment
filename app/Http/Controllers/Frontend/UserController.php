@@ -61,7 +61,7 @@ class UserController extends CatController
 
             $redirect = redirect($request->header("referer"));
 
-            if(!Auth::user()->hasUpdatedAddress()){
+            if(Auth::user()->hasNotUpdatedAddress()){
                 event(new UpdatedAddress());
                 $request->session()->flash("message", "會員資料填寫完成！恭喜您獲得回饋點數5點！");
                 $redirect =  redirect(route("points"));

@@ -53,6 +53,11 @@ class SlideCrudController extends CrudController
         ]);
 
         $this->crud->removeButton("show");
+
+        if($this->crud->count() >= 7){
+            $this->crud->removeButton("create");
+            $this->crud->addButtonFromView("top", "warning", "warning");
+        }
     }
 
     protected function setupCreateOperation()
@@ -110,6 +115,9 @@ class SlideCrudController extends CrudController
                 'id' => "valid_until"
             ]
         ]);
+
+
+
 
     }
 

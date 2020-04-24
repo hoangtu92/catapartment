@@ -143,9 +143,9 @@ class FrontController extends CatController
     }
 
     public function faq(){
-        $payment_faqs = Faq::where("type", "PAYMENT")->get();
-        $shopping_faqs = Faq::where("type", "SHOPPING")->get();
-        $membership_faq = Faq::where("type", "MEMBERSHIP")->get();
+        $payment_faqs = Faq::where("type", "付款資訊")->get();
+        $shopping_faqs = Faq::where("type", "購物資訊")->get();
+        $membership_faq = Faq::where("type", "會員問題")->get();
         return view("frontend.faq")->with(compact("payment_faqs", "shopping_faqs", "membership_faq"));
     }
 

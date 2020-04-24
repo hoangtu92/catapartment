@@ -5,17 +5,23 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Frontend\CatController;
 
+use App\Mail\EmailVerification;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Carbon\Carbon;
 use Hoangtu92\LaravelLineLogin\Line\API\v2\LineAPIService;
 use Hoangtu92\LaravelLineLogin\Line\API\v2\Response\AccessToken;
 use Hoangtu92\LaravelLineLogin\Line\API\v2\Response\Profile;
 use Hoangtu92\LaravelLineLogin\Utils\CommonUtils;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends CatController
@@ -167,6 +173,12 @@ class LoginController extends CatController
 
                 $user = $this->createUser($getInfo, "facebook");
                 auth()->login($user);
+
+                if(!$user->hasVerifiedEmail()){
+                    $user->sendEmailVerificationNotification();
+                }
+
+
             }
             catch (\Exception $e){
                 $request->session()->flash("message", __("An error occurred, please try again later"));
@@ -199,11 +211,15 @@ class LoginController extends CatController
                     return redirect(route("home"));
                 }
 
-                $getInfo = new Profile($lineAPIService->profile($token->access_token));
+                $profile = $lineAPIService->profile($token->access_token);
+                //var_dump($profile);
+
+                $getInfo = new Profile($profile);
 
                 $user = $this->createUser($getInfo, "line");
 
                 Auth::login($user);
+                //exit();
                 return redirect(route("address"));
             }
             catch(\Exception $e){

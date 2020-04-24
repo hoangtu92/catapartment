@@ -29,7 +29,44 @@ class ProductCrudController extends CrudController
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        //$this->crud->setFromDb();
+
+        $this->crud->addColumn([
+            "name" => "image",
+            "type" => "image",
+            "label" => trans("backpack::site.product_image")
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "name",
+            "type" => "text",
+            "label" => trans("backpack::site.product_name")
+        ]);
+        $this->crud->addColumn([
+            "name" => "slug",
+            "type" => "text",
+            "label" => trans("backpack::site.product_slug")
+        ]);
+        $this->crud->addColumn([
+            "name" => "price",
+            "type" => "number",
+            "label" => trans("backpack::site.product_price")
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "sale_price",
+            "type" => "number",
+            "label" => trans("backpack::site.product_sale_price")
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "category",
+            "type" => "select",
+            "entity" => "category",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product_category")
+        ]);
+
     }
 
     protected function setupCreateOperation()
@@ -37,7 +74,42 @@ class ProductCrudController extends CrudController
         $this->crud->setValidation(ProductRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+        //$this->crud->setFromDb();
+        $this->crud->addField([
+            "name" => "category_id",
+            "type" => "select2",
+            "entity" => "category",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product_category")
+        ]);
+        $this->crud->addField([
+            "name" => "name",
+            "type" => "text",
+            "label" => trans("backpack::site.product_name")
+        ]);
+        $this->crud->addField([
+            "name" => "slug",
+            "type" => "text",
+            "label" => trans("backpack::site.product_slug")
+        ]);
+        $this->crud->addField([
+            "name" => "price",
+            "type" => "number",
+            "label" => trans("backpack::site.product_price")
+        ]);
+
+        $this->crud->addField([
+            "name" => "sale_price",
+            "type" => "number",
+            "label" => trans("backpack::site.product_sale_price")
+        ]);
+
+        $this->crud->addField([
+            "name" => "image",
+            "type" => "browse",
+            "label" => trans("backpack::site.product_image")
+        ]);
+
         $this->crud->removeButton("show");
     }
 

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\ExpireModel;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 
-class LatestProduct extends Model
+class LatestProduct extends ExpireModel
 {
     use CrudTrait;
 
@@ -14,6 +14,8 @@ class LatestProduct extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
+
+    private $productName;
 
     protected $table = 'latest_products';
     // protected $primaryKey = 'id';
@@ -35,6 +37,10 @@ class LatestProduct extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function product(){
+        return $this->belongsTo("\App\Models\Product", "product_id");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -52,4 +58,8 @@ class LatestProduct extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function getProductNameAttribute(){
+        return $this->product()->get()->first()->name;
+    }
 }

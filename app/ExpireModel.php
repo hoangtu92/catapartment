@@ -18,10 +18,12 @@ class ExpireModel extends Model {
 
     public static function getVisibleList(){
         return self::where("display", true)
-            ->orWhereNotNull("valid_from")
-            ->WhereNotNull("valid_until")
-            ->wHere("valid_from", "<=", now())
-            ->where("valid_until", ">=", now())
+            ->orWHere(function ($query){
+                $query->whereNotNull("valid_from")
+                    ->whereNotNull("valid_until")
+                    ->where("valid_from", "<=", now())
+                    ->where("valid_until", ">=", now());
+            })
             ->get();
     }
 

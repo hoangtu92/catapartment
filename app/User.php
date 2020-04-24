@@ -69,7 +69,14 @@ class User extends Authenticatable implements MustVerifyEmail
      * @return bool
      */
     public function hasUpdatedAddress(){
-        return (!is_null($this->phone) || !is_null($this->address) || !is_null($this->birthday));
+        return (!is_null($this->address) || !is_null($this->birthday));
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasNotUpdatedAddress(){
+        return (is_null($this->address) && is_null($this->birthday));
     }
 
     public function getName(){

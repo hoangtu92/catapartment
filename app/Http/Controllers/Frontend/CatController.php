@@ -19,7 +19,6 @@ class CatController extends Controller
 
         $sub_menu = SubMenu::all();
 
-
         View::share('product_categories', $product_categories);
         View::share('announcements', $announcements);
         View::share('advertisements', $advertisements);

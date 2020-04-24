@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\ExpireModel;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 
-class RecommendProduct extends Model
+class RecommendProduct extends ExpireModel
 {
     use CrudTrait;
 
@@ -35,6 +35,10 @@ class RecommendProduct extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function product(){
+        return $this->belongsTo("\App\Models\Product", "product_id");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -52,4 +56,7 @@ class RecommendProduct extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function getProductNameAttribute(){
+        return $this->product()->get()->first()->name;
+    }
 }
