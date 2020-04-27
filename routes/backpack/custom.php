@@ -28,4 +28,6 @@ Route::group([
     Route::crud('submenu', 'SubMenuCrudController');
     Route::crud('latest-product', 'LatestProductCrudController');
     Route::crud('recommend-product', 'RecommendProductCrudController');
+    Route::crud('color', 'ColorCrudController');
+    Route::crud('brand', 'BrandCrudController');
 }); // this should be the absolute last line of this file

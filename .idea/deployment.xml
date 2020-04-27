@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="CAT" uploadOnCheckin="a5ac36c4-08f9-488f-b62f-63af03a6eec1" compareModeInSync="TIMESTAMP">
+  <component name="PublishConfigData" serverName="CAT" uploadOnCheckin="a5ac36c4-08f9-488f-b62f-63af03a6eec1" compareModeInSync="TIMESTAMP">
     <serverData>
       <paths name="CAT">
         <serverdata>
@@ -57,6 +57,5 @@
       </paths>
     </serverData>
     <option name="myUploadOnCheckinName" value="CAT" />
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

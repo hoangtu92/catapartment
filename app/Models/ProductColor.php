@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
-class News extends Model
+class ProductColor extends Model
 {
     use CrudTrait;
 
@@ -16,7 +15,7 @@ class News extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'news';
+    protected $table = 'product_colors';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -24,38 +23,17 @@ class News extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
-    /**
-     * The model's default values for attributes.
-     *
-     * @var array
-     */
-    protected $attributes = [];
-
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function __construct(array $attributes = [])
-    {
-
-        $attributes['author_id'] = Auth::id();
-        parent::__construct($attributes);
-
-    }
 
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function tags(){
-        return $this->belongsToMany("App\Models\NewsTag", 'news_tag', 'news_id', 'tag_id');
-    }
-
-    public function author(){
-        return $this->belongsTo("App\User", 'author_id');
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -68,23 +46,10 @@ class News extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    public function getTagsName(){
-
-        $tags = [];
-        foreach($this->tags as $tag){
-            $tags[] = $tag->name;
-        }
-        return implode(", ", $tags);
-    }
-
-    public function getAuthorName(){
-        return $this->author->name;
-    }
 
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\NewsRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class NewsCrudController
@@ -36,12 +37,12 @@ class NewsCrudController extends CrudController
             "label" => trans("backpack::site.news_title")
         ]);
 
-        $this->crud->addColumn([
+        /*$this->crud->addColumn([
             "name" => "author_id",
             'type' => 'model_function',
             "function_name" => "getAuthorName",
             "label" => trans("backpack::site.author")
-        ]);
+        ]);*/
 
         $this->crud->addColumn([
             "name" => "image",

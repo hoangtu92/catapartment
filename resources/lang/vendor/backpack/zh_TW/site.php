@@ -102,5 +102,10 @@ return [
     "product_slug" => "Slug",
     "product_price" => "Price",
     "product_sale_price" => "Sale Price",
-    "product_image" => "Image"
+    "product_image" => "Image",
+
+    "product_brand" => "品牌",
+    "product_color" => "顏色",
+    "product_measures" => "尺寸",
+    "product_origin" => "進口國家"
 ];

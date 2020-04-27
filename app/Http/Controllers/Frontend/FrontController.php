@@ -165,7 +165,10 @@ class FrontController extends CatController
     }
 
     public function product_detail($slug){
-        return view("frontend.product_detail");
+
+        $product = Product::where("slug", $slug)->firstOrFail();
+
+        return view("frontend.product_detail", compact("product"));
     }
 
     public function checkout(){

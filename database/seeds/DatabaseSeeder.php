@@ -14,10 +14,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(SlidesTableSeeder::class);
         $this->call(ProductCategoriesSeeder::class);
+        $this->call(ProductSeeder::class);
         $this->call(FaqSeeder::class);
         $this->call(SettingsTableSeeder::class);
-        $this->call(ProductSeeder::class);
         $this->call(LatestProductSeeder::class);
         $this->call(RecommendProductSeeder::class);
+        $this->call(ColorSeeder::class);
+        $this->call(BrandSeeder::class);
     }
 }

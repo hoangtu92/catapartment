@@ -34,6 +34,9 @@
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product') }}'><i class='nav-icon fa fa-shopping-cart'></i> {{ trans('backpack::site.products') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product-category') }}'><i class='nav-icon fa fa-tag'></i>{{ trans('backpack::site.product_categories') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('color') }}'><i class='nav-icon fa fa-paint-brush'></i> {{ trans('backpack::site.product_color') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('brand') }}'><i class='nav-icon fa fa-coffee'></i> {{ trans('backpack::site.product_brand') }}</a></li>
+
     </ul>
 </li>
 
@@ -49,3 +52,4 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i> <span>{{ trans("backpack::site.settings") }}</span></a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('submenu') }}'><i class='nav-icon fa fa-sitemap'></i> {{ trans("backpack::site.submenu") }}</a></li>
+
