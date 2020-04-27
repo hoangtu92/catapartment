@@ -83,7 +83,7 @@ class Product extends Model
         return json_decode($this->attributes['images']);
     }
 
-    /*public function setImagesAttribute($images){
-        $this->images = json_encode($images);
-    }*/
+    public function setIs_hotAttribute($is_hot){
+        return $this->attributes['is_hot'] = $is_hot;
+    }
 }

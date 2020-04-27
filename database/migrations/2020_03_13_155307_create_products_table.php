@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string("sku")->unique(true);
             $table->decimal("price")->default(0);
             $table->decimal("sale_price")->default(0);
-            $table->boolean("is_hot")->default(false);
+            $table->integer("view")->default(0);
             $table->integer("stock")->default(0);
             $table->string("image")->collation("utf8_unicode_ci");
             $table->json("images")->nullable(true);

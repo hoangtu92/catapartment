@@ -168,6 +168,17 @@ class FrontController extends CatController
 
         $product = Product::where("slug", $slug)->firstOrFail();
 
+        $product->view++;
+        $product->save();
+
+        $hot_products = Product::orderByDesc("view")->limit(6)->get();
+
+        foreach ($hot_products as $hot_product){
+            if($hot_product->id == $product->id){
+                $product->is_hot = true;
+            }
+        }
+
         return view("frontend.product_detail", compact("product"));
     }
 

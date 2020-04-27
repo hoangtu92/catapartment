@@ -2799,6 +2799,33 @@ a:focus, a:hover {
 }
 
 
+.p-badge{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 9;
+    width: 100px;
+}
+
+.p-badge > div{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 13px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+}
+
+.p-badge .badge-hot{
+    background-color: red;
+}
+.p-badge .badge-sales-off{
+    background-color: limegreen;
+}
 .home-slider .owl-carousel .owl-stage {
     display: flex;
 }
