@@ -34,6 +34,15 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <div class="badge">
+                            @if($product->is_hot)
+                            <div class="badge-hot"></div>
+                            @endif
+
+                            @if($product->sale_price >=0 && $product->sale_price < $product->price)
+                            <div class="badge-sales-off">-{{ round(($product->sale_price/$product->price)*100) }}%</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <!--Product slide-->
