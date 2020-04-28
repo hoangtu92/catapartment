@@ -28,7 +28,6 @@ class CreateProductsTable extends Migration
 
             $table->text("short_description")->collation("utf8_unicode_ci")->nullable(true);
             $table->text("content")->collation("utf8_unicode_ci")->nullable(true);
-            $table->text("shipping_info")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->foreignId("brand_id")->nullable(true);
             $table->foreign("brand_id")->references("id")->on("brands");

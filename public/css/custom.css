@@ -50,7 +50,7 @@ html {
 }
 
 body {
-    font-family: Ã¥Â¾Â®Ã¨Â»Å¸Ã¦Â­Â£Ã©Â»â€˜Ã©Â«â€, arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: ÃƒÂ¥Ã‚Â¾Ã‚Â®ÃƒÂ¨Ã‚Â»Ã…Â¸ÃƒÂ¦Ã‚Â­Ã‚Â£ÃƒÂ©Ã‚Â»Ã¢â‚¬ËœÃƒÂ©Ã‚Â«Ã¢â‚¬Â, arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: 400;
     line-height: 24px;
     color: #273044;
@@ -1751,6 +1751,10 @@ strong {
 .points-table table tr td {
     padding: 10px;
     border-right: #fff 2px solid;
+    vertical-align: middle;
+    vertical-align: middle;
+    vertical-align: middle;
+    vertical-align: m;
 }
 
 .points-table table tr:last-child {
@@ -2837,4 +2841,12 @@ a:focus, a:hover {
 
 #infoModal .modal-header, #infoModal .modal-footer{
     border: none;
+}
+.cart-table{
+
+}
+
+.cart-table img{
+    width: 64px;
+    height: auto
 }

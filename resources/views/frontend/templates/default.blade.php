@@ -7,6 +7,12 @@
     <title>{{ config('app.name', '貓公寓拼圖坊') }}</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:url"           content="{{ url($_SERVER["REQUEST_URI"]) }}" />
+    <meta property="og:type"          content="website" />
+
+    @yield("meta")
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ asset("favicon.jpg") }}">
@@ -23,6 +29,42 @@
     <link rel="stylesheet" href="{{ asset("css/easy-responsive-tabs.css") }}?v={{date("ymd")}}">
 
     @yield("stylesheet")
+
+    <script>
+        /**
+         *
+         * @param cname
+         * @param cvalue
+         * @param exdays
+         */
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        /**
+         *
+         * @param cname
+         * @returns {string}
+         */
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+    </script>
 
 @if(!empty(env("FACEBOOK_PAGE_ID")))
     <!-- Load Facebook SDK for JavaScript -->

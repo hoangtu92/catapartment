@@ -107,5 +107,9 @@ return [
     "product_brand" => "品牌",
     "product_color" => "顏色",
     "product_measures" => "尺寸",
-    "product_origin" => "進口國家"
+    "product_origin" => "進口國家",
+
+    "shipping_method" => "運送方式",
+    "shipping_method_description" => "簡介",
+    //"shipping_method_fee" => "Fee",
 ];

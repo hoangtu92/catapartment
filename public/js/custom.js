@@ -223,6 +223,8 @@ function myFunction() {
 var app = angular.module("cat", ["ngSanitize"]);
 app.controller("catCtrl", function ($scope, $http) {
 
+
+
     $scope.product = {};
     $scope.order = {delivery: "pickup"};
 
@@ -279,6 +281,5 @@ app.controller("catCtrl", function ($scope, $http) {
         $scope.product = {};
         $scope.order = {delivery: "pickup"};
         $scope.calculatePrice();
-
     }
 });

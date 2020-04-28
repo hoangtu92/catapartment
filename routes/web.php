@@ -36,6 +36,8 @@ Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe
 Route::get('/faq', "Frontend\FrontController@faq")->name("faq");
 Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
 
+Route::any("/shopping-cart", "Frontend\FrontController@cart")->name("cart");
+
 Auth::routes(['verify' => true]);
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');

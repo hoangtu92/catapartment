@@ -15,6 +15,20 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId("order_id");
+            $table->foreign("order_id")->references("id")->on("orders");
+
+            $table->foreignId("product_id");
+            $table->foreign("product_id")->references("id")->on("products");
+            $table->string("color")->nullable(true)->collation("utf8_unicode_ci");
+            //$table->string("color_value")->nullable(true);
+
+            $table->decimal("price");
+            $table->integer("qty");
+
+            $table->text("review")->nullable(true)->collation("utf8_unicode_ci");
+
             $table->timestamps();
         });
     }

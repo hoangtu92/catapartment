@@ -14,8 +14,10 @@ use App\Models\NewsTag;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
+use App\Models\ShippingMethod;
 use App\Models\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
@@ -167,6 +169,7 @@ class FrontController extends CatController
     public function product_detail($slug){
 
         $product = Product::where("slug", $slug)->firstOrFail();
+        $shipping_methods = ShippingMethod::all();
 
         $product->view++;
         $product->save();
@@ -179,7 +182,93 @@ class FrontController extends CatController
             }
         }
 
-        return view("frontend.product_detail", compact("product"));
+        return view("frontend.product_detail", compact("product", "shipping_methods"));
+    }
+
+    private function getCartDetails($cart_items){
+
+        foreach ($cart_items as $item){
+
+            $item->product = (object) Product::find($item->product_id)->toArray();
+        }
+
+        return $cart_items;
+    }
+
+    private function combine_cart($cart_items){
+
+        return array_reduce($cart_items, function ($t, $e){
+
+            if(isset($t[$e->product_id.$e->color])){
+                $t[$e->product_id.$e->color]->qty+= $e->qty;
+            }
+            else{
+                $t[$e->product_id.$e->color] = $e;
+            }
+
+            return $t;
+        }, []);
+
+    }
+
+    public function cart(Request $request){
+
+        $cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
+
+        if(!$cart_items) $cart_items = [];
+
+
+        // $cart_items = $this->combine_cart($cart_items);
+
+        if($request->isMethod("post")){
+
+            $key = "p_".$request->input("product_id").$request->input("color");
+
+            if($request->input("action") == "add"){
+                if($request->input("qty") > 0) {
+                    $cart_items[$key] = (object)[
+                        "product_id" => $request->input("product_id"),
+                        "qty" => $request->input("qty"),
+                        "color" => $request->input("color")
+                    ];
+                }
+            }
+
+            if($request->input("action") == "Update"){
+
+                $items = $request->input("cart_items");
+
+                foreach($items as $k => $item){
+
+
+                    if(isset($cart_items[$k])){
+
+                        $qty = $item['qty'];
+
+                        if($qty > 0){
+                            $cart_items[$k]->qty = $qty;
+                        }
+                        else{
+                            unset($cart_items[$k]);
+                        }
+                    }
+
+                }
+
+
+            }
+
+
+
+            Cookie::queue("cart_items", json_encode($cart_items), 68400);
+        }
+
+
+        $cart_items = $this->getCartDetails($cart_items);
+
+
+
+        return view("frontend.cart", compact("cart_items"));
     }
 
     public function checkout(){
