@@ -75,10 +75,11 @@ class ProductCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         //$this->crud->setFromDb();
+
         $this->crud->addField([
-            "name" => "sku",
+            "name" => "name",
             "type" => "text",
-            "label" => trans("backpack::site.product_sku")
+            "label" => trans("backpack::site.product_name")
         ]);
 
         $this->crud->addField([
@@ -88,10 +89,11 @@ class ProductCrudController extends CrudController
             "attribute" => "name",
             "label" => trans("backpack::site.product_category")
         ]);
+
         $this->crud->addField([
-            "name" => "name",
+            "name" => "sku",
             "type" => "text",
-            "label" => trans("backpack::site.product_name")
+            "label" => trans("backpack::site.product_sku")
         ]);
 
         $this->crud->addField([
@@ -99,6 +101,24 @@ class ProductCrudController extends CrudController
             "type" => "text",
             "label" => trans("backpack::site.product_slug")
         ]);
+
+        $this->crud->addField([
+            "name" => "status",
+            "type" => "product_status",
+            "label" => trans("backpack::site.product_status"),
+            "id" => "product_status"
+
+        ]);
+
+        $this->crud->addField([
+            "name" => "stock",
+            "type" => "number",
+            "wrapperAttributes" => [
+                "id" => "stock_field"
+            ],
+            "label" => trans("backpack::site.product_stock")
+        ]);
+
         $this->crud->addField([
             "name" => "price",
             "type" => "number",
@@ -109,6 +129,26 @@ class ProductCrudController extends CrudController
             "name" => "sale_price",
             "type" => "number",
             "label" => trans("backpack::site.product_sale_price")
+        ]);
+
+        $this->crud->addField([
+            "name" => "measures",
+            "type" => "text",
+            "label" => trans("backpack::site.product_measures")
+        ]);
+
+        $this->crud->addField([
+            "name" => "origin",
+            "type" => "select2_from_array",
+            "options" => ["日本","台灣","波蘭","義大利","美國","西班牙","加拿大","英國","法國","德國","荷蘭","大陸"],
+            "label" => trans("backpack::site.product_origin")
+        ]);
+
+        $this->crud->addField([
+            "name" => "pieces",
+            "type" => "select2_from_array",
+            "options" => ["0~204片","205~300片","301~500片","501~1000片","1001~1500片","1501～2000片","2001片以上"],
+            "label" => trans("backpack::site.product_pieces")
         ]);
 
         $this->crud->addField([
@@ -126,16 +166,14 @@ class ProductCrudController extends CrudController
             "label" => trans("backpack::site.product_color"),
             "pivot" => true
         ]);
-        $this->crud->addField([
-            "name" => "measures",
-            "type" => "text",
-            "label" => trans("backpack::site.product_measures")
-        ]);
 
         $this->crud->addField([
-            "name" => "origin",
-            "type" => "text",
-            "label" => trans("backpack::site.product_origin")
+            "name" => "shipping_methods",
+            "type" => "select2_multiple",
+            "entity" => "shipping_methods",
+            "attribute" => "name",
+            "label" => trans("backpack::site.shipping_method"),
+            "pivot" => true
         ]);
 
         $this->crud->addField([

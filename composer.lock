@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f92406540d3506912de0cad93d1ac3f",
+    "content-hash": "36b2e520676d367d8d08bfcd88dc1c0c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1021,6 +1021,42 @@
                 "trusted proxy"
             ],
             "time": "2020-02-22T01:51:47+00:00"
+        },
+        {
+            "name": "flamelin/ecpay",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flamelin/ECPay.git",
+                "reference": "6417728c5a43db68b6dc9b4e0683eec82b18191d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flamelin/ECPay/zipball/6417728c5a43db68b6dc9b4e0683eec82b18191d",
+                "reference": "6417728c5a43db68b6dc9b4e0683eec82b18191d",
+                "shasum": ""
+            },
+            "type": "ectool",
+            "autoload": {
+                "classmap": [
+                    "src/lib"
+                ],
+                "psr-4": {
+                    "flamelin\\ECPay\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "AIRO",
+                    "email": "service@airo.com.tw"
+                }
+            ],
+            "description": "ECPay for Laravel 5",
+            "keywords": [
+                "ecpay"
+            ],
+            "time": "2017-05-24T09:57:19+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -7851,6 +7887,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "flamelin/ecpay": 20,
         "hoangtu92/laravel-line-login": 20
     },
     "prefer-stable": true,

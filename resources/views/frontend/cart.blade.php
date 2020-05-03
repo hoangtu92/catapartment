@@ -79,8 +79,9 @@
                                 </tbody>
                             </table>
 
-                                <div class="form-group text-right">
-                                    <input class="btn btn-success" type="submit" name="action" value="Update">
+                                <div class="form-group text-right flex-column align-items-center justify-content-between">
+                                    <input class="m-0 btn-cat" type="submit" name="action" value="{{ __("Update") }}">
+                                    <a class="m-0" href="{{ route("checkout") }}">{{ __("Go to checkout") }}</a>
                                 </div>
                             </form>
                         </div>

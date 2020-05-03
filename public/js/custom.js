@@ -224,9 +224,26 @@ var app = angular.module("cat", ["ngSanitize"]);
 app.controller("catCtrl", function ($scope, $http) {
 
 
-
     $scope.product = {};
-    $scope.order = {delivery: "pickup"};
+    $scope.order = {items: {}, delivery: "pickup", create_account: false, payment_method: "ecpay", preference_discount: 0, country: "Taiwan"};
+
+    $scope.getShippingFee = function(){
+        $http.get("/api/get_shipping_fee").then(function (res) {
+            console.log(res.data);
+        })
+    };
+
+    $scope.toggleCreateAccount = function(){
+        $scope.order.create_account = !$scope.order.create_account;
+    };
+
+    $scope.placeOrder = function(){
+        console.log($scope.order);
+        $http.post("/api/place_order", $scope.order).then(function (res) {
+            console.log(res.data);
+        })
+
+    };
 
     $scope.getFrames = function () {
         $scope.frames = [

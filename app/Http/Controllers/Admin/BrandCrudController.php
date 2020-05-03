@@ -37,6 +37,18 @@ class BrandCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
+            'name' => 'country',
+            'type' => "text",
+            'label' => trans("backpack::site.brand_country")
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'logo',
+            'type' => "image",
+            'label' => trans("backpack::site.brand_logo")
+        ]);
+
+        $this->crud->addColumn([
             'name' => 'description',
             'type' => "text",
             'label' => trans("backpack::site.brand_description")
@@ -54,6 +66,18 @@ class BrandCrudController extends CrudController
             'name' => 'name',
             'type' => "text",
             'label' => trans("backpack::site.product_brand")
+        ]);
+
+        $this->crud->addField([
+            'name' => 'country',
+            'type' => "text",
+            'label' => trans("backpack::site.brand_country")
+        ]);
+
+        $this->crud->addField([
+            'name' => 'logo',
+            'type' => "browse",
+            'label' => trans("backpack::site.brand_logo")
         ]);
 
         $this->crud->addField([

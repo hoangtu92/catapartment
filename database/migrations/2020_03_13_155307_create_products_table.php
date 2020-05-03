@@ -19,10 +19,13 @@ class CreateProductsTable extends Migration
             $table->string("name")->nullable(false)->collation("utf8_unicode_ci")->unique();
             $table->string("slug")->nullable(true)->collation("utf8_unicode_ci")->unique();
             $table->string("sku")->unique(true);
+            $table->enum("status", [IN_STOCK, PRE_ORDER])->default(PRE_ORDER);
+            $table->integer("stock")->default(0);
+
             $table->decimal("price")->default(0);
             $table->decimal("sale_price")->default(0);
             $table->integer("view")->default(0);
-            $table->integer("stock")->default(0);
+
             $table->string("image")->collation("utf8_unicode_ci");
             $table->json("images")->nullable(true);
 
@@ -34,6 +37,7 @@ class CreateProductsTable extends Migration
 
             $table->string("measures")->collation("utf8_unicode_ci")->nullable(true);
             $table->string("origin")->collation("utf8_unicode_ci")->nullable(true);
+            $table->string("pieces")->collation("utf8_unicode_ci")->nullable(true);
             $table->timestamps();
         });
     }

@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use App\Mail\ContactUs;
-use App\Models\Advertisement;
 use App\Models\Faq;
 use App\Models\LatestProduct;
 use App\Models\Message;
 use App\Models\News;
 use App\Models\Newsletter;
 use App\Models\NewsTag;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
-use App\Models\ShippingMethod;
 use App\Models\Slide;
+use App\User;
+use Backpack\Settings\app\Models\Setting;
+use flamelin\ECPay\Ecpay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -169,7 +172,6 @@ class FrontController extends CatController
     public function product_detail($slug){
 
         $product = Product::where("slug", $slug)->firstOrFail();
-        $shipping_methods = ShippingMethod::all();
 
         $product->view++;
         $product->save();
@@ -182,43 +184,13 @@ class FrontController extends CatController
             }
         }
 
-        return view("frontend.product_detail", compact("product", "shipping_methods"));
+        return view("frontend.product_detail", compact("product"));
     }
 
-    private function getCartDetails($cart_items){
-
-        foreach ($cart_items as $item){
-
-            $item->product = (object) Product::find($item->product_id)->toArray();
-        }
-
-        return $cart_items;
-    }
-
-    private function combine_cart($cart_items){
-
-        return array_reduce($cart_items, function ($t, $e){
-
-            if(isset($t[$e->product_id.$e->color])){
-                $t[$e->product_id.$e->color]->qty+= $e->qty;
-            }
-            else{
-                $t[$e->product_id.$e->color] = $e;
-            }
-
-            return $t;
-        }, []);
-
-    }
 
     public function cart(Request $request){
 
-        $cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
-
-        if(!$cart_items) $cart_items = [];
-
-
-        // $cart_items = $this->combine_cart($cart_items);
+       $this->getCartDetails();
 
         if($request->isMethod("post")){
 
@@ -226,11 +198,19 @@ class FrontController extends CatController
 
             if($request->input("action") == "add"){
                 if($request->input("qty") > 0) {
-                    $cart_items[$key] = (object)[
-                        "product_id" => $request->input("product_id"),
-                        "qty" => $request->input("qty"),
-                        "color" => $request->input("color")
-                    ];
+
+                    if(isset($this->cart_items[$key])){
+                        $this->cart_items[$key]->qty += (integer) $request->input("qty");
+                    }
+                    else{
+                        $this->cart_items[$key] = (object)[
+                            "product_id" => $request->input("product_id"),
+                            "qty" => $request->input("qty"),
+                            "color" => $request->input("color"),
+                            "product" => (object) Product::find($request->input("product_id"))->toArray()
+                        ];
+                    }
+
                 }
             }
 
@@ -241,15 +221,15 @@ class FrontController extends CatController
                 foreach($items as $k => $item){
 
 
-                    if(isset($cart_items[$k])){
+                    if(isset($this->cart_items[$k])){
 
                         $qty = $item['qty'];
 
                         if($qty > 0){
-                            $cart_items[$k]->qty = $qty;
+                            $this->cart_items[$k]->qty = $qty;
                         }
                         else{
-                            unset($cart_items[$k]);
+                            unset($this->cart_items[$k]);
                         }
                     }
 
@@ -258,21 +238,118 @@ class FrontController extends CatController
 
             }
 
-
-
-            Cookie::queue("cart_items", json_encode($cart_items), 68400);
+            Cookie::queue("cart_items", json_encode($this->cart_items), 68400);
         }
 
+        View::share('cart_items', $this->cart_items);
+        View::share('cart_total_amount', $this->cart_total_amount);
+        View::share('cart_item_count', $this->cart_item_count);
 
-        $cart_items = $this->getCartDetails($cart_items);
-
-
-
-        return view("frontend.cart", compact("cart_items"));
+        return view("frontend.cart");
     }
 
-    public function checkout(){
+    public function checkout(Request$request){
+
+        if($request->isMethod('post')){
+            $this->getCartDetails();
+            return $this->place_order($request);
+        }
+
         return view("frontend.checkout");
+    }
+
+    public function place_order(Request $request){
+
+        if($request->input('create_account') == true){
+            $user = new User();
+            $user->name = $request->input("name");
+            $user->email = $request->input("email");
+            $user->zipcode = $request->input('zipcode');
+            $user->address = $request->input('address');
+
+            $password = $this->randomPassword();
+            $user->password = bcrypt($password);
+            if(preg_match('/^[^@]+/', $request->input('email'), $match)){
+                $user->username = $match[0];
+            }
+
+            $user->save();
+
+            $user->sendEmailVerificationNotification();
+            $user->sendPasswordResetNotification(null);
+        }
+
+        //Creating order
+        $order = new Order([
+            'order_id' => $this->randomNumber(),
+            'user_id' => Auth::id() != null ? Auth::id() : isset($user) ? $user->id : null,
+            'shipping_fee' => Setting::get("shipping_fee"),
+            'total_amount' => $this->cart_total_amount + (float) Setting::get("shipping_fee"),
+
+            'company_name'      => $request->input('company_name'),
+            'country'      => $request->input('country'),
+            'state'      => $request->input('state'),
+
+            'billing_name' => $request->input('name'),
+            'billing_address' => $request->input('address'),
+            'billing_address2' => $request->input('address2'),
+            'billing_zipcode' => $request->input('zipcode'),
+            'billing_phone' => $request->input('phone'),
+
+            'shipping_name' => $request->input('name'),
+            'shipping_address' => $request->input('address'),
+            'shipping_address2' => $request->input('address2'),
+            'shipping_zipcode' => $request->input('zipcode'),
+            'shipping_phone' => $request->input('phone'),
+            'notes'             => $request->input('notes'),
+
+            'delivery'      => $request->input('delivery'),
+            'payment_method'      => $request->input('payment_method'),
+            "status" => 'pending'
+        ]);
+
+        $order->save();
+
+
+        //基本參數(請依系統規劃自行調整)
+        $ecpay = new Ecpay();
+        $ecpay->i()->Send['ReturnURL']         = url("/payment-complete") ;
+        $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
+        $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
+        $ecpay->i()->Send['TotalAmount']       = $order->total_amount;                     //交易金額
+        $ecpay->i()->Send['TradeDesc']         = "Online goods" ;         //交易描述
+        $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::CVS ;     //付款方式
+
+        $ecpay->i()->Send['Items'] = [];
+
+        //訂單的商品資料
+        foreach($this->cart_items as $item){
+
+            $product = Product::find($item->product_id);
+
+            $order_item = new OrderItem([
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'color'     => $item->color,
+                'price' => $product->sale_price,
+                'qty' => $item->qty
+            ]);
+
+            $order_item->save();
+
+            array_push($ecpay->i()->Send['Items'], array(
+                    'Name' => $product->name,
+                    'Price' => (int) $product->sale_price,
+                    'Currency' => "元",
+                    'Quantity' => (int) $item->qty,
+                    'URL' => $product->permalink
+                )
+            );
+        }
+
+        //Go to ECPay
+        //echo "緑界頁面導向中...";
+        return $ecpay->i()->CheckOutString();
     }
 
     public function faq(){

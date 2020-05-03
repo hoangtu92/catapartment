@@ -98,16 +98,23 @@ return [
 
     "recommend-products" => "首頁推薦拼圖",
 
-    "product_name" => "Product Name",
+    "product_name" => "拼圖名稱",
     "product_slug" => "Slug",
-    "product_price" => "Price",
-    "product_sale_price" => "Sale Price",
-    "product_image" => "Image",
+    "product_price" => "價格",
+    "product_sale_price" => "特價",
+    "product_image" => "圖片",
 
     "product_brand" => "品牌",
     "product_color" => "顏色",
     "product_measures" => "尺寸",
     "product_origin" => "進口國家",
+    "product_sku" => "貨號SKU",
+    "product_status" => "狀態",
+    "product_stock" => "庫存",
+    "product_pieces" => "片數",
+    "product_slide" => "Gallery",
+    "product_description" => "商品簡介",
+    "product_content" => "商品詳細簡介",
 
     "shipping_method" => "運送方式",
     "shipping_method_description" => "簡介",

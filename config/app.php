@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Casperlaitw\LaravelFbMessenger\LaravelFbMessengerServiceProvider::class,
+        flamelin\ECPay\EcpayServiceProvider::class
     ],
 
     /*
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Menu' => Casperlaitw\LaravelFbMessenger\Facades\MessengerMenu::class,
+        'Ecpay' => flamelin\ECPay\Facade\Ecpay::class
     ],
 
 ];

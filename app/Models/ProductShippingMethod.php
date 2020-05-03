@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class ProductShippingMethod extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Order extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'orders';
+    protected $table = 'product_shipping_methods';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -28,6 +28,7 @@ class Order extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

@@ -15,28 +15,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', "Frontend\FrontController@home")->name("home");
-Route::get('/search', "Frontend\FrontController@search")->name("search");
+Route::middleware(["shopping_cart"])->group(function (){
 
-Route::get('/news', "Frontend\FrontController@news")->name("news");
-Route::get('/news/tag/{tagName}', "Frontend\FrontController@news_tag")->name("news_tag");
-Route::get('/news/{slug}', "Frontend\FrontController@news_detail")->name("news_details");
+    Route::get('/', "Frontend\FrontController@home")->name("home");
+    Route::get('/search', "Frontend\FrontController@search")->name("search");
 
-Route::get('/products', "Frontend\FrontController@products")->name("products");
-Route::get('/product-category/{category_name}', "Frontend\FrontController@product_category")->name("product_cat");
-Route::get('/pre-order-products', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
-Route::get('/recommend-products', "Frontend\FrontController@recommend_products")->name("recommend_products");
-Route::get('/customized-products', "Frontend\FrontController@customized_products")->name("customized_products");
-Route::get('/products/{slug}', "Frontend\FrontController@product_detail")->name("product_detail");
+    Route::get('/news', "Frontend\FrontController@news")->name("news");
+    Route::get('/news/tag/{tagName}', "Frontend\FrontController@news_tag")->name("news_tag");
+    Route::get('/news/{slug}', "Frontend\FrontController@news_detail")->name("news_details");
 
-Route::get('/checkout', "Frontend\FrontController@checkout")->name("checkout");
+    Route::get('/products', "Frontend\FrontController@products")->name("products");
+    Route::get('/product-category/{category_name}', "Frontend\FrontController@product_category")->name("product_cat");
+    Route::get('/pre-order-products', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
+    Route::get('/recommend-products', "Frontend\FrontController@recommend_products")->name("recommend_products");
+    Route::get('/customized-products', "Frontend\FrontController@customized_products")->name("customized_products");
+    Route::get('/products/{slug}', "Frontend\FrontController@product_detail")->name("product_detail");
 
-Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
+    Route::any('/checkout', "Frontend\FrontController@checkout")->name("checkout");
 
-Route::get('/faq', "Frontend\FrontController@faq")->name("faq");
-Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
+    Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
 
-Route::any("/shopping-cart", "Frontend\FrontController@cart")->name("cart");
+    Route::get('/faq', "Frontend\FrontController@faq")->name("faq");
+    Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
+
+    Route::any("/shopping-cart", "Frontend\FrontController@cart")->name("cart");
+
+});
 
 Auth::routes(['verify' => true]);
 

@@ -42,6 +42,10 @@ class Product extends Model
         return $this->belongsToMany("App\Models\Color", "product_colors", "product_id", "color_id");
     }
 
+    public function shipping_methods(){
+        return $this->belongsToMany("App\Models\ShippingMethod", "product_shipping_methods", "product_id", "shipping_method_id");
+    }
+
     public function brand(){
         return $this->belongsTo("App\Models\Brand", "brand_id", "id");
     }

@@ -23,7 +23,8 @@ class SettingsTableSeeder extends Seeder
         ['key' => 'footer_about', 'name' => '簡介', 'description' => '頁尾店家簡介敘述', 'value' => '貓公寓是一家位於高雄的拼圖狂熱份子所經營的專業拼圖館。專賣日本、歐美進口拼圖、以及限量收藏拼圖，我們都有。同時貓公寓也服務拼圖迷藝術裱框，歡迎逛逛。', 'field' => '{"name":"value","label":"店家簡介","type":"textarea"}'],
         ['key' => 'footer_working_hour', 'name' => '營業時間', 'description' => '頁尾營業時間', 'value' => '星期一到日，12:00~21:00', 'field' => '{"name":"value","label":"營業時間","type":"text"}'],
         ['key' => 'footer_address', 'name' => '地址', 'description' => '頁尾地址', 'value' => '高雄市三⺠區平等路41號1F', 'field' => '{"name":"value","label":"地址","type":"address_google"}'],
-        ['key' => 'footer_phone', 'name' => '電話', 'description' => '頁尾電話', 'value' => '0908-913-019', 'field' => '{"name":"value","label":"電話","type":"text"}']
+        ['key' => 'footer_phone', 'name' => '電話', 'description' => '頁尾電話', 'value' => '0908-913-019', 'field' => '{"name":"value","label":"電話","type":"text"}'],
+        ['key' => 'shipping_fee', 'name' => 'Shipping Fee', 'description' => '', 'value' => 80, 'field' => '{"name":"value","label":"Fee","type":"number"}'],
     ];
 
     /**

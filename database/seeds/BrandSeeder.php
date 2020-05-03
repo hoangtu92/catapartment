@@ -12,17 +12,48 @@ class BrandSeeder extends Seeder
      */
     public function run()
     {
-        //
-        DB::table("brands")->insert([
-            "name" => "Brand 1",
-            "description" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        ]);
 
-        DB::table("brands")->insert([
-            "name" => "Brand 2",
-            "description" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        $brands = [
+            "日本" => ["Apollo","Appleone","Beverly","Cuties","Epoch","Ensky","Tenyo","Yanoman"],
+
+            "台灣" => ["台旺拼圖", "Puzzle Story","Art Puzzle"],
+
+
+            "波蘭" => ["Castorland","Bluebird Puzzle"],
+
+            "義大利"  => ["Clementoni"],
+
+            "美國" => ["Cobble Hill","D-Toys","Dinotoys","Galison","NYPC","Perre","Sunsaut","Tower Puzzle","Trefl Puzzle"],
+
+            "西班牙" => ["Educa"],
+
+            "加拿大" => ["Eurographics"],
+
+            "英國" => ["Gibsonc"],
+
+            "法國" => ["Grafika", "Nathan"],
+
+            "德國" => ["Heye","Ravensburger","Schmidt-speie"],
+
+            "荷蘭" => ["Jumbo"],
+
+            "大陸" => ["Limited", "若熊"]
+        ];
+
+        foreach($brands as $country => $items){
+
+            foreach($items as $brand_name){
+                DB::table("brands")->insert([
+                    "name" => $brand_name,
+                    "logo" => "",
+                    "country"=> $country,
+                    "description" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        ]);
+                ]);
+            }
+
+        }
+
+
     }
 }

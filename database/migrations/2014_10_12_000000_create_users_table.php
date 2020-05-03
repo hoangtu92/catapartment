@@ -19,12 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('name')->collation("utf8_unicode_ci");
             $table->string('email')->unique()->nullable(true);
             $table->string('phone')->nullable(true);
+
             $table->string('role')->default("user");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable(true);
-            //$table->enum("gender", ["male", "female"])->default("male");
             $table->date("birthday")->nullable(true);
-            //$table->string("city")->nullable(true)->collation("utf8_unicode_ci");
             $table->string("zipcode")->nullable(true);
             $table->string("address")->nullable(true)->collation("utf8_unicode_ci");
 

@@ -159,7 +159,7 @@
                             <li>About Brand</li>
                         @endif
 
-                        @if(count($shipping_methods) > 0)
+                        @if(count($product->shipping_methods) > 0)
                             <li>Shipping & Delivery</li>
                         @endif
                     </ul>
@@ -301,13 +301,13 @@
                             </div>
                         @endif
 
-                        @if(count($shipping_methods) > 0)
+                        @if(count($product->shipping_methods) > 0)
                             <div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <img src="{{ asset("images/shipping-img.jpg") }}" alt=""/></div>
                                     <div class="col-md-6">
-                                        @foreach($shipping_methods as $shipping_method)
+                                        @foreach($product->shipping_methods as $shipping_method)
                                             <div class="mb-2">
                                                 <h3 class="mb-2">{{ $shipping_method->name }}</h3>
                                                 {!! $shipping_method->description !!}
