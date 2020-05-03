@@ -45,7 +45,7 @@ class CreateOrdersTable extends Migration
 
             $table->text("notes")->collation("utf8_unicode_ci")->nullable(true);
 
-            $table->text("status")->collation("utf8_unicode_ci")->nullable(true)->default("pending");
+            $table->text("status")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->timestamps();
         });
