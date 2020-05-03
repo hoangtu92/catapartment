@@ -352,6 +352,10 @@ class FrontController extends CatController
         return $ecpay->i()->CheckOutString();
     }
 
+    public  function payment_complete(Request $request){
+        echo json_encode($request->input());
+    }
+
     public function faq(){
         $payment_faqs = Faq::where("type", "付款資訊")->get();
         $shopping_faqs = Faq::where("type", "購物資訊")->get();

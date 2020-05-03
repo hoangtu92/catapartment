@@ -40,7 +40,10 @@ Route::middleware(["shopping_cart"])->group(function (){
 
     Route::any("/shopping-cart", "Frontend\FrontController@cart")->name("cart");
 
+
 });
+
+Route::any("/payment-complete", "Frontend\FrontController@payment_complete")->name("payment_complete");
 
 Auth::routes(['verify' => true]);
 
