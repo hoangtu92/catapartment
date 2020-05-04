@@ -198,7 +198,6 @@ class FrontController extends CatController
     public function checkout(Request$request){
 
         if($request->isMethod('post')){
-            $this->getCartDetails();
             return $this->place_order($request);
         }
 

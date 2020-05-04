@@ -19,6 +19,8 @@ class ShoppingCart
     public function handle($request, Closure $next)
     {
 
+        $cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
+
         if($request->isMethod("post") && ($request->input("action") == 'add_cart'
                 || $request->input("action") == 'update_cart') ){
 
@@ -28,10 +30,10 @@ class ShoppingCart
                 if($request->input("qty") > 0) {
 
                     if(isset($this->cart_items[$key])){
-                        $this->cart_items[$key]->qty += (integer) $request->input("qty");
+                        $cart_items[$key]->qty += (integer) $request->input("qty");
                     }
                     else{
-                        $this->cart_items[$key] = (object)[
+                        $cart_items[$key] = (object)[
                             "product_id" => $request->input("product_id"),
                             "qty" => $request->input("qty"),
                             "color" => $request->input("color")
@@ -47,16 +49,15 @@ class ShoppingCart
 
                 foreach($items as $k => $item){
 
-
                     if(isset($this->cart_items[$k])){
 
                         $qty = $item['qty'];
 
                         if($qty > 0){
-                            $this->cart_items[$k]->qty = $qty;
+                            $cart_items[$k]->qty = $qty;
                         }
                         else{
-                            unset($this->cart_items[$k]);
+                            unset($cart_items[$k]);
                         }
                     }
 
@@ -65,17 +66,17 @@ class ShoppingCart
 
             }
 
-            Cookie::queue("cart_items", json_encode($this->cart_items), 86400);
+            Cookie::queue("cart_items", json_encode($cart_items), 86400);
         }
 
-        $this->getCartDetails();
+        $this->getCartDetails($cart_items);
 
         return $next($request);
     }
 
-    public function getCartDetails(){
+    public function getCartDetails($cart_items){
 
-        $cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
+
         $cart_item_count = 0;
         $cart_total_amount = 0;
 

@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\View;
 class CatController extends Controller
 {
 
-    public $cart_items;
-    public $cart_total_amount = 0;
-    public $cart_item_count = 0;
-
     public function __construct(){
         $product_categories = ProductCategory::all();
         $announcements = Announcement::getVisibleList();
@@ -31,31 +27,6 @@ class CatController extends Controller
         View::share('advertisements', $advertisements);
         View::share('sub_menu', $sub_menu);
 
-    }
-
-    public function getCartDetails(){
-
-        $this->cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
-
-        foreach ($this->cart_items as &$item){
-
-            $product = Product::find($item->product_id);
-            $permalink = $product->permalink;
-
-            $item->product = $product->toArray();
-            $item->product['permalink'] = $permalink;
-
-            $item->product = (object) $item->product;
-
-            $this->cart_item_count += $item->qty;
-            $this->cart_total_amount += $item->product->sale_price*$item->qty;
-        }
-
-        View::share('cart_items', $this->cart_items);
-        View::share('cart_total_amount', $this->cart_total_amount);
-        View::share('cart_item_count', $this->cart_item_count);
-
-        return $this->cart_items;
     }
 
     function randomPassword() {
