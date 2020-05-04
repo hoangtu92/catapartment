@@ -21,15 +21,14 @@ class ShoppingCart
 
         $cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
 
-        if($request->isMethod("post") && ($request->input("action") == 'add_cart'
-                || $request->input("action") == 'update_cart') ){
+        if($request->isMethod("post") ){
 
             $key = "p_".$request->input("product_id").$request->input("color");
 
             if($request->input("action") == "add_cart"){
                 if($request->input("qty") > 0) {
 
-                    if(isset($this->cart_items[$key])){
+                    if(isset($cart_items[$key])){
                         $cart_items[$key]->qty += (integer) $request->input("qty");
                     }
                     else{
@@ -49,7 +48,7 @@ class ShoppingCart
 
                 foreach($items as $k => $item){
 
-                    if(isset($this->cart_items[$k])){
+                    if(isset($cart_items[$k])){
 
                         $qty = $item['qty'];
 
