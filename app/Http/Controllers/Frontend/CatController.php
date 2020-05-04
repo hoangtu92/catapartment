@@ -35,7 +35,7 @@ class CatController extends Controller
 
     public function getCartDetails(){
 
-        $this->cart_items = (array) json_decode(request()->cookie("cart_items", "[]"));
+        $this->cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
 
         foreach ($this->cart_items as &$item){
 

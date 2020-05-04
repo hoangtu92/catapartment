@@ -52,6 +52,8 @@
             <excludedPath path="/public/images" />
             <excludedPath path="/public/uploads" />
             <excludedPath path="/database/factories" />
+            <excludedPath path="/public/packages" />
+            <excludedPath path="/public/vendor" />
           </excludedPaths>
         </serverdata>
       </paths>

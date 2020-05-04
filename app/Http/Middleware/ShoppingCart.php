@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Product;
 use Closure;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\View;
 
 class ShoppingCart
@@ -19,14 +20,14 @@ class ShoppingCart
      */
     public function handle($request, Closure $next)
     {
-        $this->getCartDetails();
+        $result = $this->getCartDetails();
 
         return $next($request);
     }
 
     public function getCartDetails(){
 
-        $cart_items = (array) json_decode(request()->cookie("cart_items", "[]"));
+        $cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
         $cart_item_count = 0;
         $cart_total_amount = 0;
 
