@@ -113,7 +113,6 @@
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/laravel/socialite" />
       <path value="$PROJECT_DIR$/vendor/league/oauth1-client" />
-      <path value="$PROJECT_DIR$/vendor/hoangtu92/laravel-fb-messenger" />
       <path value="$PROJECT_DIR$/vendor/hoangtu92/laravel-line-login" />
       <path value="$PROJECT_DIR$/vendor/backpack/settings" />
       <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />

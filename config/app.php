@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Casperlaitw\LaravelFbMessenger\LaravelFbMessengerServiceProvider::class,
+        //Casperlaitw\LaravelFbMessenger\LaravelFbMessengerServiceProvider::class,
         flamelin\ECPay\EcpayServiceProvider::class
     ],
 
@@ -229,7 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Menu' => Casperlaitw\LaravelFbMessenger\Facades\MessengerMenu::class,
+        //'Menu' => Casperlaitw\LaravelFbMessenger\Facades\MessengerMenu::class,
         'Ecpay' => flamelin\ECPay\Facade\Ecpay::class
     ],
 

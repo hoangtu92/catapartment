@@ -43,7 +43,8 @@ Route::middleware(["shopping_cart"])->group(function (){
 
 });
 
-Route::any("/payment-complete", "Frontend\FrontController@payment_complete")->name("payment_complete");
+Route::any("/order-complete", "Frontend\FrontController@order_completed")->name("order_completed");
+Route::post("/order-post-back", "Frontend\FrontController@order_post_back")->name("order_post_back");
 
 Auth::routes(['verify' => true]);
 

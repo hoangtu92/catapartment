@@ -17,11 +17,13 @@ use App\Models\RecommendProduct;
 use App\Models\Slide;
 use App\User;
 use Backpack\Settings\app\Models\Setting;
+use ECPay_CheckMacValue;
 use flamelin\ECPay\Ecpay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 
@@ -313,12 +315,15 @@ class FrontController extends CatController
 
         //基本參數(請依系統規劃自行調整)
         $ecpay = new Ecpay();
-        $ecpay->i()->Send['ReturnURL']         = url("/payment-complete") ;
+        $ecpay->i()->Send['ReturnURL']         = route("order_post_back") ;
+        //$ecpay->i()->Send['ClientRedirectURL']         = route("order_completed") ;
+        //$ecpay->i()->Send['ClientBackURL']         = route("order_completed") ;
+        $ecpay->i()->Send['OrderResultURL']    = route("order_completed") ;
         $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
         $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
         $ecpay->i()->Send['TotalAmount']       = $order->total_amount;                     //交易金額
         $ecpay->i()->Send['TradeDesc']         = "Online goods" ;         //交易描述
-        $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::CVS ;     //付款方式
+        $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::ALL ;     //付款方式
 
         $ecpay->i()->Send['Items'] = [];
 
@@ -347,13 +352,57 @@ class FrontController extends CatController
             );
         }
 
+        //echo json_encode($ecpay->i()->Send);
+
         //Go to ECPay
         //echo "緑界頁面導向中...";
+
         return $ecpay->i()->CheckOutString();
     }
 
-    public  function payment_complete(Request $request){
-        echo json_encode($request->input());
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+    MerchantID: 2000132
+    MerchantTradeNo: 01644089
+    PaymentDate: 2020/05/04 10:18:28
+    PaymentType: Credit_CreditCard
+    PaymentTypeChargeFee: 66
+    RtnCode: 1
+    RtnMsg: Succeeded
+    SimulatePaid: 0
+    TradeAmt: 3280
+    TradeDate: 2020/05/04 10:17:43
+    TradeNo: 2005041017434940
+    CheckMacValue: 01B2AC668617E6EDF33FBFE4B662E385
+     */
+    public  function order_completed(Request $request){
+
+        if($request->input("RtnCode") == 1){
+            //Payment success
+            $order = Order::find($request->input('MerchantTradeNo'));
+            if($order){
+                $order->payment_no = $request->input('TradeNo');
+                $order->payment_type = $request->input('PaymentType');
+                $order->payment_date = $request->input('PaymentDate');
+                $order->checksum = $request->input('CheckMacValue');
+                $order->status = PROCESSING;
+
+                $order->save();
+            }
+            return view("frontend.thankyou");
+        }
+        else{
+            //payment failed
+            return view("frontend.payment_failed");
+        }
+
+    }
+
+    public  function order_post_back(Request $request){
+
+        Log::info(json_encode($request->input()));
     }
 
     public function faq(){

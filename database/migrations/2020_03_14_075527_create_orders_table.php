@@ -46,6 +46,10 @@ class CreateOrdersTable extends Migration
             $table->text("notes")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->text("status")->collation("utf8_unicode_ci")->nullable(true);
+            $table->text("payment_no")->nullable(true);
+            $table->text("payment_type")->nullable(true);
+            $table->dateTime("payment_date")->nullable(true);
+            $table->string("checksum")->nullable(true);
 
             $table->timestamps();
         });
