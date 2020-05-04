@@ -192,61 +192,6 @@ class FrontController extends CatController
 
     public function cart(Request $request){
 
-       $this->getCartDetails();
-
-        if($request->isMethod("post")){
-
-            $key = "p_".$request->input("product_id").$request->input("color");
-
-            if($request->input("action") == "add"){
-                if($request->input("qty") > 0) {
-
-                    if(isset($this->cart_items[$key])){
-                        $this->cart_items[$key]->qty += (integer) $request->input("qty");
-                    }
-                    else{
-                        $this->cart_items[$key] = (object)[
-                            "product_id" => $request->input("product_id"),
-                            "qty" => $request->input("qty"),
-                            "color" => $request->input("color"),
-                            "product" => (object) Product::find($request->input("product_id"))->toArray()
-                        ];
-                    }
-
-                }
-            }
-
-            if($request->input("action") == "Update"){
-
-                $items = $request->input("cart_items");
-
-                foreach($items as $k => $item){
-
-
-                    if(isset($this->cart_items[$k])){
-
-                        $qty = $item['qty'];
-
-                        if($qty > 0){
-                            $this->cart_items[$k]->qty = $qty;
-                        }
-                        else{
-                            unset($this->cart_items[$k]);
-                        }
-                    }
-
-                }
-
-
-            }
-
-            Cookie::queue("cart_items", json_encode($this->cart_items), 68400);
-        }
-
-        View::share('cart_items', $this->cart_items);
-        View::share('cart_total_amount', $this->cart_total_amount);
-        View::share('cart_item_count', $this->cart_item_count);
-
         return view("frontend.cart");
     }
 

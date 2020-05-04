@@ -1,7 +1,14 @@
 <?php
 
-define("IN_STOCK", "現貨");
-define("PRE_ORDER", "預購");
-define("PENDING", "Pending");
-define("PROCESSING", "Pending");
+if(!defined("IN_STOCK"))
+    define("IN_STOCK", "現貨");
+
+if(!defined("PRE_ORDER"))
+    define("PRE_ORDER", "預購");
+
+if(!defined("PENDING"))
+    define("PENDING", "Pending");
+
+if(!defined("PROCESSING"))
+    define("PROCESSING", "Pending");
 

@@ -21,7 +21,7 @@
         <div class="container">
             <form class="row" action="{{ route("cart") }}" method="post">
                 @csrf
-                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="action" value="add_cart">
                 <!--Product slide-->
                 <div class="col-lg-6 flex-column justify-content-center align-items-center">
                     @if(count($product->images) > 0)

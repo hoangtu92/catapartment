@@ -51,6 +51,10 @@ class CatController extends Controller
             $this->cart_total_amount += $item->product->sale_price*$item->qty;
         }
 
+        View::share('cart_items', $this->cart_items);
+        View::share('cart_total_amount', $this->cart_total_amount);
+        View::share('cart_item_count', $this->cart_item_count);
+
         return $this->cart_items;
     }
 
