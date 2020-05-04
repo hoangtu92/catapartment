@@ -19,8 +19,8 @@
                 <div class="col-lg-12">
                     <img src="{{ asset("images/wishlist-icon.jpg") }}" alt=""/>
                     <h2>{{ __("Order placed successfully") }}</h2>
-                    <p>Thank you for shopping with us</p>
-                    <a href="#">{{ __("Return to Shop") }}</a>
+                    <p>{{ __("Thank you for shopping with us") }}</p>
+                    <a href="/">{{ __("Return to Shop") }}</a>
                 </div>
             </div>
         </div>

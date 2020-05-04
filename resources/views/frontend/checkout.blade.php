@@ -175,7 +175,7 @@
                             <span class="checkmark"></span>
                         </label>
                         <span>請填入你的優惠折扣：</span>
-                        <div class="cre-box"><input type="text" ng-model="order.preference_discount"><button>抵用</button></div>
+                        <div class="cre-box"><input type="number" name="point_discount" ng-model="order.preference_discount"><button>抵用</button></div>
                     </div>
 
                     <label class="rd-btn">{{ __("Cheque Payment") }}

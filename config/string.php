@@ -10,5 +10,5 @@ if(!defined("PENDING"))
     define("PENDING", "Pending");
 
 if(!defined("PROCESSING"))
-    define("PROCESSING", "Pending");
+    define("PROCESSING", "Processing");
 

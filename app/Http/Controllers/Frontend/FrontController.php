@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 class FrontController extends CatController
@@ -230,7 +231,7 @@ class FrontController extends CatController
             'order_id' => $this->randomNumber(),
             'user_id' => Auth::id() != null ? Auth::id() : isset($user) ? $user->id : null,
             'shipping_fee' => Setting::get("shipping_fee"),
-            'total_amount' => $this->cart_total_amount + (float) Setting::get("shipping_fee"),
+            'total_amount' => Session::get("cart_total_amount") + (float) Setting::get("shipping_fee"),
 
             'company_name'      => $request->input('company_name'),
             'country'      => $request->input('country'),
@@ -271,8 +272,10 @@ class FrontController extends CatController
 
         $ecpay->i()->Send['Items'] = [];
 
+        $cart_items = Session::get("cart_items");
+
         //訂單的商品資料
-        foreach($this->cart_items as $item){
+        foreach($cart_items as $item){
 
             $product = Product::find($item->product_id);
 
@@ -321,26 +324,32 @@ class FrontController extends CatController
     TradeNo: 2005041017434940
     CheckMacValue: 01B2AC668617E6EDF33FBFE4B662E385
      */
-    public  function order_completed(Request $request){
+    public function order_completed(Request $request){
 
-        if($request->input("RtnCode") == 1){
-            //Payment success
-            $order = Order::find($request->input('MerchantTradeNo'));
-            if($order){
-                $order->payment_no = $request->input('TradeNo');
-                $order->payment_type = $request->input('PaymentType');
-                $order->payment_date = $request->input('PaymentDate');
-                $order->checksum = $request->input('CheckMacValue');
-                $order->status = PROCESSING;
+        if($request->isMethod("post")){
+            if($request->input("RtnCode") == 1){
+                //Payment success
+                $order = Order::where("order_id", $request->input('MerchantTradeNo'))->first();
+                if($order){
+                    $order->payment_no = $request->input('TradeNo');
+                    $order->payment_type = $request->input('PaymentType');
+                    $order->payment_date = $request->input('PaymentDate');
+                    $order->checksum = $request->input('CheckMacValue');
+                    $order->status = PROCESSING;
 
-                $order->save();
+                    $order->save();
+                }
+                return view("frontend.thankyou");
             }
-            return view("frontend.thankyou");
+            else{
+                //payment failed
+                return view("frontend.payment_failed");
+            }
         }
         else{
-            //payment failed
-            return view("frontend.payment_failed");
+            return view("frontend.thankyou");
         }
+
 
     }
 

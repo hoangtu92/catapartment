@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Product;
 use Closure;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 class ShoppingCart
@@ -96,6 +97,10 @@ class ShoppingCart
         View::share('cart_items', $cart_items);
         View::share('cart_total_amount', $cart_total_amount);
         View::share('cart_item_count', $cart_item_count);
+
+        Session::put("cart_total_amount", $cart_total_amount);
+        Session::put("cart_item_count", $cart_item_count);
+        Session::put("cart_items", $cart_items);
 
         return $cart_items;
     }
