@@ -15,8 +15,10 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
 use App\Models\Slide;
+use App\Models\Transaction;
 use App\User;
 use Backpack\Settings\app\Models\Setting;
+use Cassandra\Date;
 use ECPay_CheckMacValue;
 use flamelin\ECPay\Ecpay;
 use Illuminate\Http\Request;
@@ -199,7 +201,24 @@ class FrontController extends CatController
     public function checkout(Request$request){
 
         if($request->isMethod('post')){
-            return $this->place_order($request);
+
+            if(Auth::user() && $request->filled("apply_discount") && $request->input("apply_discount") == "抵用"){
+
+                $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
+
+                if(Auth::user()->points >= $discount){
+                    Auth::user()->points -= $discount;
+                    $request->session()->put("discount", $discount);
+                }
+                else{
+                    $request->session()->flash('message', __("Your point is not enough"));
+                }
+
+            }
+            else{
+                return $this->place_order($request);
+            }
+
         }
 
         return view("frontend.checkout");
@@ -207,15 +226,33 @@ class FrontController extends CatController
 
     public function place_order(Request $request){
 
+        foreach($request->input() as $key => $value){
+            $request->session()->put($key, $value);
+        }
+
+        if(!$request->filled("term_agree") || !$request->input("term_agree")){
+
+            $request->session()->flash('message', __("Please check term and conditions"));
+
+            return view("frontend.checkout");
+        }
+
         if($request->input('create_account') == true){
+
+            if($request->input("password") != $request->input("password2")){
+                $request->session()->flash('message', __("Password mismatched!"));
+
+                return view("frontend.checkout");
+            }
+
             $user = new User();
             $user->name = $request->input("name");
+            $user->phone = $request->input("phone");
             $user->email = $request->input("email");
             $user->zipcode = $request->input('zipcode');
             $user->address = $request->input('address');
+            $user->password = bcrypt($request->input("password"));
 
-            $password = $this->randomPassword();
-            $user->password = bcrypt($password);
             if(preg_match('/^[^@]+/', $request->input('email'), $match)){
                 $user->username = $match[0];
             }
@@ -223,19 +260,23 @@ class FrontController extends CatController
             $user->save();
 
             $user->sendEmailVerificationNotification();
-            $user->sendPasswordResetNotification(null);
         }
+
+
+        $discount = $request->session()->get("discount", 0);
 
         //Creating order
         $order = new Order([
             'order_id' => $this->randomNumber(),
-            'user_id' => Auth::id() != null ? Auth::id() : isset($user) ? $user->id : null,
+            'user_id' => isset($user) ? $user->id : Auth::id() != null ? Auth::id() : null,
             'shipping_fee' => Setting::get("shipping_fee"),
-            'total_amount' => Session::get("cart_total_amount") + (float) Setting::get("shipping_fee"),
+            'total_amount' => Session::get("cart_total_amount") + (float) Setting::get("shipping_fee") - $discount,
+            'discount' => $discount,
 
             'company_name'      => $request->input('company_name'),
             'country'      => $request->input('country'),
             'state'      => $request->input('state'),
+            'email'      => $request->input('email'),
 
             'billing_name' => $request->input('name'),
             'billing_address' => $request->input('address'),
@@ -257,54 +298,98 @@ class FrontController extends CatController
 
         $order->save();
 
+        if(Auth::user()){
+            Auth::user()->save();
 
-        //基本參數(請依系統規劃自行調整)
-        $ecpay = new Ecpay();
-        $ecpay->i()->Send['ReturnURL']         = route("order_post_back") ;
-        //$ecpay->i()->Send['ClientRedirectURL']         = route("order_completed") ;
-        //$ecpay->i()->Send['ClientBackURL']         = route("order_completed") ;
-        $ecpay->i()->Send['OrderResultURL']    = route("order_completed") ;
-        $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
-        $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
-        $ecpay->i()->Send['TotalAmount']       = $order->total_amount;                     //交易金額
-        $ecpay->i()->Send['TradeDesc']         = "Online goods" ;         //交易描述
-        $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::ALL ;     //付款方式
-
-        $ecpay->i()->Send['Items'] = [];
-
-        $cart_items = Session::get("cart_items");
-
-        //訂單的商品資料
-        foreach($cart_items as $item){
-
-            $product = Product::find($item->product_id);
-
-            $order_item = new OrderItem([
-                'order_id' => $order->id,
-                'product_id' => $item->product_id,
-                'color'     => $item->color,
-                'price' => $product->sale_price,
-                'qty' => $item->qty
-            ]);
-
-            $order_item->save();
-
-            array_push($ecpay->i()->Send['Items'], array(
-                    'Name' => $product->name,
-                    'Price' => (int) $product->sale_price,
-                    'Currency' => "元",
-                    'Quantity' => (int) $item->qty,
-                    'URL' => $product->permalink
-                )
-            );
+            //Reset discount
+            $request->session()->put("discount", 0);
         }
 
-        //echo json_encode($ecpay->i()->Send);
 
-        //Go to ECPay
-        //echo "緑界頁面導向中...";
+        if($request->input("payment_method") == "ecpay"){
+            //基本參數(請依系統規劃自行調整)
+            $ecpay = new Ecpay();
+            $ecpay->i()->Send['ReturnURL']         = route("order_post_back") ;
+            //$ecpay->i()->Send['ClientRedirectURL']         = route("order_completed") ;
+            //$ecpay->i()->Send['ClientBackURL']         = route("order_completed") ;
+            $ecpay->i()->Send['OrderResultURL']    = route("order_completed") ;
+            $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
+            $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
+            $ecpay->i()->Send['TotalAmount']       = $order->total_amount;                     //交易金額
+            $ecpay->i()->Send['TradeDesc']         = "Online goods" ;         //交易描述
+            $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::ALL ;     //付款方式
 
-        return $ecpay->i()->CheckOutString();
+            $ecpay->i()->Send['Items'] = [];
+
+            $cart_items = Session::get("cart_items");
+
+            //訂單的商品資料
+            foreach($cart_items as $item){
+
+                $product = Product::find($item->product_id);
+
+                $order_item = new OrderItem([
+                    'order_id' => $order->id,
+                    'product_id' => $item->product_id,
+                    'color'     => $item->color,
+                    'price' => $product->sale_price,
+                    'qty' => $item->qty
+                ]);
+
+                $order_item->save();
+
+                array_push($ecpay->i()->Send['Items'], array(
+                        'Name' => $product->name,
+                        'Price' => (int) $product->sale_price,
+                        'Currency' => "元",
+                        'Quantity' => (int) $item->qty,
+                        'URL' => $product->permalink
+                    )
+                );
+            }
+
+            //Generate order checksum
+            $arParameters = $this->getParameters($ecpay->i()->MerchantID, $ecpay->i()->Send);
+            $order->checksum = \ECPay_CheckMacValue::generate($arParameters,$ecpay->i()->HashKey ,$ecpay->i()->HashIV, $arParameters['EncryptType']);
+            Log::info(json_encode($arParameters));
+            $order->save();
+
+            //var_dump($order->checksum);
+            //echo "<textarea>{$ecpay->i()->CheckOutString()}</textarea>";
+
+
+            //Go to ECPay
+            //echo "緑界頁面導向中...";
+            return $ecpay->i()->CheckOutString();
+        }
+        else{
+            return view("frontend.thankyou");
+        }
+
+    }
+
+    private function getParameters($MerchantID, $arParameters, $arExtend = []){
+        //宣告付款方式物件
+        $PaymentMethod    = 'ECPay_'.$arParameters['ChoosePayment'];
+        $PaymentObj = new $PaymentMethod;
+
+        $arParameters["MerchantID"] = $MerchantID;
+
+        //檢查參數
+        $arParameters = $PaymentObj->check_string($arParameters);
+
+        //檢查商品
+        $arParameters = $PaymentObj->check_goods($arParameters);
+
+        //檢查各付款方式的額外參數&電子發票參數
+        $arExtend = $PaymentObj->check_extend_string($arExtend,$arParameters['InvoiceMark']);
+
+        //過濾
+        $arExtend = $PaymentObj->filter_string($arExtend,$arParameters['InvoiceMark']);
+
+        //合併共同參數及延伸參數
+        return array_merge($arParameters,$arExtend) ;
+
     }
 
     /**
@@ -331,15 +416,29 @@ class FrontController extends CatController
                 //Payment success
                 $order = Order::where("order_id", $request->input('MerchantTradeNo'))->first();
                 if($order){
-                    $order->payment_no = $request->input('TradeNo');
-                    $order->payment_type = $request->input('PaymentType');
-                    $order->payment_date = $request->input('PaymentDate');
-                    $order->checksum = $request->input('CheckMacValue');
-                    $order->status = PROCESSING;
 
+                    $transaction = new Transaction();
+                    $transaction->order_id = $order->id;
+
+                    $transaction->payment_no = $request->input('TradeNo');
+                    $transaction->payment_type = $request->input('PaymentType');
+                    $transaction->payment_date = $request->input('PaymentDate');
+                    $transaction->checksum = $request->input('CheckMacValue');
+
+                    $transaction->save();
+
+                    $order->status = PROCESSING;
                     $order->save();
+
+                    return view("frontend.thankyou");
+
                 }
-                return view("frontend.thankyou");
+                //No order found in system. Probably faked order
+                else{
+                    echo "Order not found";
+                    redirect("/");
+                }
+
             }
             else{
                 //payment failed

@@ -34,6 +34,9 @@ class User extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function orders(){
+        return $this->hasMany("App\Models\Order");
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::middleware(["api"])->group(function () {
-    Route::post("/place_order", "Frontend\FrontController@place_order");
+Route::middleware(["api, shopping_cart"])->group(function () {
+    Route::post("/apply_discount", "Frontend\FrontController@apply_discount");
 });

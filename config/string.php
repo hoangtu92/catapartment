@@ -12,3 +12,5 @@ if(!defined("PENDING"))
 if(!defined("PROCESSING"))
     define("PROCESSING", "Processing");
 
+if(!defined("COMPLETED"))
+    define("COMPLETED", "Completed");

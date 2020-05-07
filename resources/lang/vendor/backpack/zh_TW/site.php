@@ -119,4 +119,17 @@ return [
     "shipping_method" => "運送方式",
     "shipping_method_description" => "簡介",
     //"shipping_method_fee" => "Fee",
+    "brand" => "商品管理",
+    "brand_name" => "品牌名稱",
+    "brand_country" => "品牌國家",
+    "brand_logo" => "品牌",
+    "brand_description" => "品牌簡介",
+
+    "order_number" => "Order Number",
+    "shipping_items" => "Items",
+    "total_amount" => "Total Amount",
+    "delivery" => "Delivery",
+    "shipping_info" => "Shipping Info",
+    "notes" => "Notes",
+    "status" => "Status"
 ];

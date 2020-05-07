@@ -1901,6 +1901,7 @@ b {
     padding: 9px 80px 9px 10px;
 }
 
+.cre-box input[type=submit],
 .cre-box button {
     background: #fdcd00;
     color: #232121;
@@ -1911,7 +1912,10 @@ b {
     padding: 10px 20px;
     font-size: 18px;
     top: -2px;
+    width: auto;
 }
+
+
 
 .btn02 {
     background: #fdcd00;

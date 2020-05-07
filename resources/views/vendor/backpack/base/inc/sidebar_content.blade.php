@@ -31,7 +31,7 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product') }}'><i class='nav-icon fa fa-gift'></i> {{ trans('backpack::site.products') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product-category') }}'><i class='nav-icon fa fa-tag'></i>{{ trans('backpack::site.product_categories') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('color') }}'><i class='nav-icon fa fa-paint-brush'></i> {{ trans('backpack::site.product_color') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('brand') }}'><i class='nav-icon fa fa-coffee'></i> {{ trans('backpack::site.product_brand') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('brand') }}'><i class='nav-icon fa fa-coffee'></i> {{ trans('backpack::site.brand') }}</a></li>
     </ul>
 </li>
 

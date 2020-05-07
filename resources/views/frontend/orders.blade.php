@@ -28,20 +28,27 @@
                                     <th>{{ __("Order Date") }}</th>
                                     <th>{{ __("Order Amount") }}</th>
                                     <th>{{ __("Order Info") }}</th>
+                                    <th>{{ __("Order Status") }}</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{--<tr>
-                                    <td>1</td>
-                                    <td>CAT-23944974356</td>
-                                    <td>2020/03/10</td>
-                                    <td>TWD 3,000</td>
-                                    <td>Tom Holland,
-                                        0986756453
-                                        123 St, District 4, London
+
+                                @foreach(App\Models\User::find(Auth::id())->orders as $index =>  $order)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $order->order_id }}</td>
+                                    <td>{{ $order->created_at->format("Y/m/d") }}</td>
+                                    <td>TWD {{ $order->total_amount }}</td>
+                                    <td style="white-space: pre-line">{{ $order->shipping_name }},
+                                        {{ $order->shipping_phone }}
+                                        {{ $order->shipping_zipcode }}
+                                        {{ $order->shipping_address }} {{ $order->shipping_address2 }}
+                                        {{ $order->state }}, {{ $order->country }}
                                     </td>
-                                </tr>--}}
+                                    <td>{{ $order->status }}</td>
+                                </tr>
+                                    @endforeach
                                 </tbody>
 
                             </table>

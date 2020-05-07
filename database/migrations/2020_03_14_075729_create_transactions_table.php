@@ -15,6 +15,17 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId("order_id");
+            $table->foreign("order_id")->references("id")->on("orders");
+
+            $table->decimal("amount")->default(0);
+
+            $table->text("payment_no")->nullable(true);
+            $table->text("payment_type")->nullable(true);
+            $table->dateTime("payment_date")->nullable(true);
+            $table->string("checksum")->nullable(true);
+
             $table->timestamps();
         });
     }

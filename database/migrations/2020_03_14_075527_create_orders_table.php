@@ -17,16 +17,17 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_id')->unique(true);
 
-            $table->decimal("shipping_fee")->default(0);
-
             $table->foreignId('user_id')->nullable(true);
             $table->foreign("user_id")->references("id")->on("users");
 
+            $table->decimal("shipping_fee")->default(0);
+            $table->decimal("discount")->default(0);
             $table->decimal("total_amount")->default(0);
 
             $table->string("country")->collation("utf8_unicode_ci")->default("Taiwan")->nullable(true);
             $table->string("state")->collation("utf8_unicode_ci")->nullable(true);
             $table->string("company_name")->collation("utf8_unicode_ci")->nullable(true);
+            $table->string("email")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->string("billing_name")->collation("utf8_unicode_ci");
             $table->string("billing_address")->collation("utf8_unicode_ci");
@@ -46,9 +47,7 @@ class CreateOrdersTable extends Migration
             $table->text("notes")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->text("status")->collation("utf8_unicode_ci")->nullable(true);
-            $table->text("payment_no")->nullable(true);
-            $table->text("payment_type")->nullable(true);
-            $table->dateTime("payment_date")->nullable(true);
+
             $table->string("checksum")->nullable(true);
 
             $table->timestamps();

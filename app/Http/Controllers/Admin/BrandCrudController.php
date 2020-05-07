@@ -33,7 +33,7 @@ class BrandCrudController extends CrudController
         $this->crud->addColumn([
            'name' => 'name',
            'type' => "text",
-           'label' => trans("backpack::site.product_brand")
+           'label' => trans("backpack::site.brand_name")
         ]);
 
         $this->crud->addColumn([
@@ -65,7 +65,7 @@ class BrandCrudController extends CrudController
         $this->crud->addField([
             'name' => 'name',
             'type' => "text",
-            'label' => trans("backpack::site.product_brand")
+            'label' => trans("backpack::site.brand_name")
         ]);
 
         $this->crud->addField([
