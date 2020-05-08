@@ -31,4 +31,5 @@ Route::group([
     Route::crud('color', 'ColorCrudController');
     Route::crud('brand', 'BrandCrudController');
     Route::crud('shipping-method', 'ShippingMethodCrudController');
+    Route::crud('page', 'PageCrudController');
 }); // this should be the absolute last line of this file

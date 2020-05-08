@@ -1,6 +1,6 @@
 <div class="header-middle hide-mob">
     <div class="container">
-        <div class="logo"><a href="{{ route("home") }}"><img src="{{ asset("images/logo.jpg") }}" alt="{{ env("APP_NAME") }}"/></a></div>
+        <div class="logo"><a href="{{ route("home") }}"><img src="{{ asset( Setting::get("site_logo")) }}" alt="{{ env("APP_NAME") }}"/></a></div>
         <div class="search-box">
             <form method="get" action="{{ route("search") }}">
                 <input type="text" name="s" value="{{ old("s") }}" placeholder="{{ __("Search for products") }}">

@@ -20,16 +20,18 @@ Route::middleware(["shopping_cart"])->group(function (){
     Route::get('/', "Frontend\FrontController@home")->name("home");
     Route::get('/search', "Frontend\FrontController@search")->name("search");
 
-    Route::get('/news', "Frontend\FrontController@news")->name("news");
-    Route::get('/news/tag/{tagName}', "Frontend\FrontController@news_tag")->name("news_tag");
-    Route::get('/news/{slug}', "Frontend\FrontController@news_detail")->name("news_details");
+    Route::get('/news/{page?}', "Frontend\FrontController@news")->name("news");
+    Route::get('/news/tag/{tagName}/{page?}', "Frontend\FrontController@news_tag")->name("news_tag");
+    Route::get('/news/detail/{slug}', "Frontend\FrontController@news_detail")->name("news_details");
 
-    Route::get('/products', "Frontend\FrontController@products")->name("products");
-    Route::get('/product-category/{category_name}', "Frontend\FrontController@product_category")->name("product_cat");
-    Route::get('/pre-order-products', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
-    Route::get('/recommend-products', "Frontend\FrontController@recommend_products")->name("recommend_products");
+    Route::get('/page/{slug}', "Frontend\FrontController@page")->name("page");
+
+    Route::get('/products/{page?}', "Frontend\FrontController@products")->name("products");
+    Route::get('/product-category/{category_name}/{page?}', "Frontend\FrontController@product_category")->name("product_cat");
+    Route::get('/pre-order-products/{page?}', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
+    Route::get('/recommend-products/{page?}', "Frontend\FrontController@recommend_products")->name("recommend_products");
     Route::get('/customized-products', "Frontend\FrontController@customized_products")->name("customized_products");
-    Route::get('/products/{slug}', "Frontend\FrontController@product_detail")->name("product_detail");
+    Route::get('/products/detail/{slug}', "Frontend\FrontController@product_detail")->name("product_detail");
 
     Route::any('/checkout', "Frontend\FrontController@checkout")->name("checkout");
 
@@ -58,6 +60,7 @@ Route::middleware(["verified"])->prefix('account')->group(function () {
     Route::get('/points', "Frontend\UserController@points")->name("points");
     Route::get('/address', "Frontend\UserController@address")->name("address");
     Route::get('/profile', "Frontend\UserController@profile")->name("profile");
+    Route::any('/change-password', "Frontend\UserController@change_password")->name("change_password");
     Route::get('/orders', "Frontend\UserController@orders")->name("orders");
     Route::post('/update', "Frontend\UserController@update")->name("update_user");
     Route::get('/wishlist', "Frontend\UserController@wishlist")->name("wishlist");

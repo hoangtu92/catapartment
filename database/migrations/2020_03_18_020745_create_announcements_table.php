@@ -16,7 +16,7 @@ class CreateAnnouncementsTable extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->string("content")->collation("utf8_unicode_ci");
-            $table->integer("timing")->default(60);
+            $table->integer("timing")->nullable(true)->default(60);
             $table->string("url")->collation("utf8_unicode_ci")->nullable(true);
             $table->boolean("display")->nullable(true)->default(true);
             $table->date("valid_from")->nullable(true);

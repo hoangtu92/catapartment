@@ -7,8 +7,8 @@ return [
     "transactions" => "交易紀錄",
     "orders" => "訂單紀錄",
     "slides" => "輪播圖檔",
-    "news" => "最新消息",
-    "news_tags" => "最新消息標籤",
+    "news" => "拼圖情報",
+    "news_tags" => "拼圖情報標籤",
     "products" => "商品管理",
     "product_categories" => "商品目錄",
     "faqs" => "問與答",
@@ -131,5 +131,11 @@ return [
     "delivery" => "Delivery",
     "shipping_info" => "Shipping Info",
     "notes" => "Notes",
-    "status" => "Status"
+    "status" => "Status",
+
+    "page" => "文章管理",
+    "page_title" => "Title",
+    "page_slug" => "Slug",
+    "page_content" => "Content",
+    "page_display" => "Display"
 ];

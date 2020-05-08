@@ -54,6 +54,10 @@ class Product extends Model
         return $this->belongsToMany("App\Models\Order", "order_items", "product_id", "order_id");
     }
 
+    public function orderItems(){
+        return $this->hasMany("App\Models\OrderItem", "product_id", "id");
+    }
+
     public function reviews(){
         return $this->hasMany("App\Models\OrderItem", "product_id", "id")->select("review");
     }
@@ -110,8 +114,12 @@ class Product extends Model
             return $t;
         }, []);
 
+        if(count($ratings) > 0){
+            return array_sum($ratings) / count($ratings);
+        }
 
-        return array_sum($ratings) / count($ratings);
+        else return null;
+
 
     }
 }

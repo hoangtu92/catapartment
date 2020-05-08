@@ -93,7 +93,7 @@ return [
         'please_fix' => 'Please fix the following errors:',
 
     // global crud - success / error notification bubbles
-        'insert_success' => 'The item has been added successfully.',
+        'insert_success' => '上傳成功！',
         'update_success' => 'The item has been modified successfully.',
 
     // CRUD reorder view

@@ -11,6 +11,7 @@ use App\Models\Newsletter;
 use App\Models\NewsTag;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
@@ -127,23 +128,33 @@ class FrontController extends CatController
         }
     }
 
-    public function news(){
+    public function news($page = 1, Request $request){
 
-        $news = News::where("display", 1)->get();
+        //Pagination variables
+        $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+        $total_items = News::where("display", 1)->count();
+        $route_name = "news";
 
-        return view("frontend.news")->with(compact("news"));
+        $news = News::where("display", 1)->offset(($page-1)*$perPage)->take($perPage)->get();
+
+        return view("frontend.news")->with(compact("news", "page", "perPage", "total_items", "route_name"));
     }
 
-    public function news_tag($tagName){
+    public function news_tag($tagName, $page, Request $request){
 
         $tag = NewsTag::where("name", "=", $tagName)->firstOrFail();
-        $news = $tag->news;
 
-        return view("frontend.news")->with(compact("news"));
+        //Pagination variables
+        $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+        $total_items = $tag->news()->count();
+        $route_name = "news_tag";
+
+        $news = $tag->news()->offset( ($page-1) * $perPage)->take($perPage)->get();
+
+        return view("frontend.news")->with(compact("news", "page", "perPage", "total_items", "route_name"));
     }
 
     public function news_detail($slug){
-
 
         $news = News::where("title", "=", $slug)->firstOrFail();
 
@@ -153,13 +164,35 @@ class FrontController extends CatController
         return view("frontend.news_detail")->with(compact("news", "tags", "recentNews"));
     }
 
-    public function products(){
-        return view("frontend.products");
+    public function page($slug){
+        $page = Page::where("slug", $slug)->firstOrFail();
+
+        return view("frontend.page_detail")->with(compact("page"));
     }
 
-    public function product_category($category_name){
+    public function products($page = 1, Request $request){
+        //Pagination variables
+        $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+        $total_items = Product::count();
+        $route_name = "products";
+
+        $products = Product::offset( ($page-1)*$perPage )->take($perPage)->get();
+
+        return view("frontend.products", compact("products", "page", "perPage", "total_items", "route_name"));
+    }
+
+    public function product_category($category_name, $page = 1, Request $request){
+
+        $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+
         $category = ProductCategory::where("name", $category_name)->first();
-        return view("frontend.products")->with(compact("category"));
+        $products = Product::where("category_id", $category->id)->offset($page*$perPage)->take($perPage)->get();
+
+        $total_items = Product::where("category_id", $category->id)->count();
+        $route_name = "product_cat";
+
+
+        return view("frontend.products")->with(compact("category", "products", "page", "perPage", "total_items", "route_name"));
     }
 
     public function pre_order_products(){

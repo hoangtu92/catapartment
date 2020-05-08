@@ -65,3 +65,7 @@
     color: red;
 }
 
+.sidebar .nav-dropdown-items .nav-item{
+    padding-left: 10px;
+}
+

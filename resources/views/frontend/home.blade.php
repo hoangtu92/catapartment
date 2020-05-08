@@ -4,7 +4,7 @@
         <div class="container">
             <div class="home-slider">
                 <div class="hcat-list t-0">
-                    @include("frontend.global.product_category")
+                    @include("frontend.products.product_category")
                 </div>
                 <div id="home-slider" class="owl-carousel">
                     @foreach($slides as $slide)

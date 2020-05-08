@@ -181,7 +181,7 @@
                                 <li>Additional Information</li>
                             @endif
 
-                            @if($product->review != null)
+                            @if($product->orderItems)
                                 <li>Review</li>
                             @endif
 
@@ -236,11 +236,11 @@
                                 </div>
                             @endif
 
-                            @if($product->review != null)
+                            @if($product->orderItems)
                                 <div>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3>1 Review for best clock parallels</h3>
+                                            <h3>1 Review for {{ $product->name }}</h3>
                                             <div class="re-box">
                                                 <img src="{{ asset("images/user-img.jpg") }}" alt=""/>
                                                 <h4><b>Donald Holmes</b> - July 28,2017</h4><span><img
@@ -257,19 +257,22 @@
                                         <div class="col-lg-6">
                                             <h3 class="mb-3">Add a Review</h3>
                                             <p>Your email address will not be published. Required fields are marked*</p>
-                                            <p class="rating"><strong>Your Rating :</strong> <img
-                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/></p>
+
+                                            {{--<div class="rating">
+                                                <strong>Your Rating :</strong>
+                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 5}" @if($item->rating == 5) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="5"> ☆</label>
+                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 4}" @if($item->rating == 4) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="4"> ☆</label>
+                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 3}" @if($item->rating == 3) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="3"> ☆</label>
+                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 2}" @if($item->rating == 2) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="2"> ☆</label>
+                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 1}" @if($item->rating == 1) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="1"> ☆</label>
+                                            </div>--}}
 
                                             <form action="#">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>Your Review <em>*</em></label>
-                                                            <textarea class="form-control"></textarea>
+                                                            <textarea name="review" class="form-control"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">

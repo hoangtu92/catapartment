@@ -9,8 +9,10 @@ class SettingsTableSeeder extends Seeder
      * The settings to add
      */
     protected $settings = [
+        ['key' => 'site_logo', 'name' => 'Logo', 'description' => 'Site Logo', 'value' => '/images/logo.jpg', 'field' => '{"name":"value","label":"Image","type":"browse"}'],
         ['key' => 'contact_email', 'name' => 'Email', 'description' => '店家聯絡Email', 'value' => 'admin@updivision.com', 'field' => '{"name":"value","label":"聯絡信箱","type":"email"}'],
         ['key' => 'banner_single_news', 'name' => '首圖-最新情報內容頁', 'description' => '首圖-最新情報內容頁', 'value' => 'uploads/banner/catshop-banner15.jpg', 'field' => '{"name":"value","label":"Image <span>(1920x440)</span>","type":"browse"}'],
+        ['key' => 'banner_page', 'name' => 'Page Banner', 'description' => 'Banner for all pages', 'value' => 'uploads/banner/catshop-banner15.jpg', 'field' => '{"name":"value","label":"Image <span>(1920x440)</span>","type":"browse"}'],
         ['key' => 'banner_faq', 'name' => '首圖-問與答', 'description' => '首圖-問與答', 'value' => 'uploads/banner/catshop-banner07.jpg', 'field' => '{"name":"value","label":"Image <span>(1920x440)</span>","type":"browse"}'],
         ['key' => 'banner_wishlist', 'name' => '首圖-願望清單', 'description' => '首圖-願望清單', 'value' => 'uploads/banner/catshop-banner11.jpg', 'field' => '{"name":"value","label":"Image <span>(1920x440)</span>","type":"browse"}'],
         ['key' => 'banner_news', 'name' => '首圖-最新情報列表頁', 'description' => '首圖-最新情報列表頁', 'value' => 'uploads/banner/catshop-banner04.jpg', 'field' => '{"name":"value","label":"Image <span>(1920x440)</span>","type":"browse"}'],
