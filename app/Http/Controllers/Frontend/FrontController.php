@@ -457,6 +457,12 @@ class FrontController extends CatController
         Log::info(json_encode($request->input()));
     }
 
+    public function order_detail($order_id){
+        $order = Order::where("order_id", $order_id)->firstOrFail();
+
+        return view("frontend.order_detail", compact("order"));
+    }
+
     public function faq(){
         $payment_faqs = Faq::where("type", "付款資訊")->get();
         $shopping_faqs = Faq::where("type", "購物資訊")->get();

@@ -39,6 +39,7 @@ Route::middleware(["shopping_cart"])->group(function (){
     Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
 
     Route::any("/shopping-cart", "Frontend\FrontController@cart")->name("cart");
+    Route::any("/order/{order_id}", "Frontend\FrontController@order_detail")->name("order_detail");
 
 
 });

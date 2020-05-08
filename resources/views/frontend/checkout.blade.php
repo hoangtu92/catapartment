@@ -156,9 +156,12 @@
                                 <input type="checkbox" name="use_discount" ng-click="order.use_discount = !order.use_discount">
                                 <span class="checkmark"></span>
                             </label>
-                            <span>請填入你的優惠折扣：</span>
-                            <div class="cre-box"><input type="text" pattern="\d*" name="point_discount"><input
-                                    type="submit" name="apply_discount" value="抵用"></div>
+                            <div ng-if="order.use_discount">
+                                <span>請填入你的優惠折扣：</span>
+                                <div class="cre-box"><input type="text" pattern="\d*" name="point_discount"><input
+                                        type="submit" name="apply_discount" value="抵用"></div>
+                            </div>
+
                         </div>
                         @endauth
 
