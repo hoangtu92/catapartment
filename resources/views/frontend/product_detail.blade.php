@@ -69,11 +69,38 @@
                     <div class="bread"><a href="#">首頁</a> / <a href="#">拼圖商店</a> / <span>{{ $product->name }}</span>
                     </div>
                     <h1>{{ $product->name }}</h1>
-                    <p class="cre"><img src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                            src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                            src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                            src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                            src="{{ asset("images/star-icon01.jpg") }}" alt=""/> ( 1 customer review )</p>
+                    <p class="cre" data-rating="{{$product->averageRating}}">
+                        @if($product->averageRating >= 1)
+                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                        @else
+                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                        @endif
+
+                        @if($product->averageRating >= 2)
+                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                        @else
+                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                        @endif
+
+                        @if($product->averageRating >= 3)
+                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                        @else
+                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                        @endif
+
+                        @if($product->averageRating >= 4)
+                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                        @else
+                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                        @endif
+
+                        @if($product->averageRating >= 5)
+                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                        @else
+                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                        @endif
+
+                                        ( {{ count($product->ratings) }} customer review )</p>
                     <h3 class="price"><span>${{ $product->price }}</span> ${{ $product->sale_price }}</h3>
                     {!! $product->short_description !!}
 
@@ -89,7 +116,7 @@
                             </span>
                             @endforeach
                         </div>
-                    @endif
+                @endif
 
                 <!--Product attribute options-->
                     <div class="input-group">
@@ -136,194 +163,200 @@
                     </h4>
                 </div>
                 <!--Product info-->
+            </form>
         </div>
         <hr>
-        <div class="row">
-            <div class="col-lg-12">
-                <!--Product detail information-->
-                <div id="horizontalTab">
-                    <ul class="resp-tabs-list">
-                        @if($product->content != null)
-                            <li>Description</li>
-                        @endif
+        <div class="container-fluid">
 
-                        @if($product->brand != null)
-                            <li>Additional Information</li>
-                        @endif
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--Product detail information-->
+                    <div id="horizontalTab">
+                        <ul class="resp-tabs-list">
+                            @if($product->content != null)
+                                <li>Description</li>
+                            @endif
 
-                        @if($product->review != null)
-                            <li>Review</li>
-                        @endif
+                            @if($product->brand != null)
+                                <li>Additional Information</li>
+                            @endif
 
-                        @if($product->brand != null && $product->brand->description != null)
-                            <li>About Brand</li>
-                        @endif
+                            @if($product->review != null)
+                                <li>Review</li>
+                            @endif
 
-                        @if(count($product->shipping_methods) > 0)
-                            <li>Shipping & Delivery</li>
-                        @endif
-                    </ul>
-                    <div class="resp-tabs-container">
+                            @if($product->brand != null && $product->brand->description != null)
+                                <li>About Brand</li>
+                            @endif
 
-                        @if($product->content != null)
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        {!! $product->content !!}
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
+                            @if(count($product->shipping_methods) > 0)
+                                <li>Shipping & Delivery</li>
+                            @endif
+                        </ul>
+                        <div class="resp-tabs-container">
 
-                        @if($product->brand != null || $product->colors != null || $product->measures != null || $product->origin != null)
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="cart-tb">
-                                            <table class="table full-width" style="max-width:500px; margin:auto;">
-                                                <tbody>
-                                                <tr>
-                                                    <td><b>Brand</b></td>
-                                                    <td>{{ $product->brand->name }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Color</b></td>
-                                                    <td>{{ implode(", ", $product->colorname) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Measures</b></td>
-                                                    <td>{{ $product->measures }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Origin</b></td>
-                                                    <td>{{ $product->origin }}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                            @if($product->content != null)
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {!! $product->content !!}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
 
-                        @if($product->review != null)
-                            <div>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <h3>1 Review for best clock parallels</h3>
-                                        <div class="re-box">
-                                            <img src="{{ asset("images/user-img.jpg") }}" alt=""/>
-                                            <h4><b>Donald Holmes</b> - July 28,2017</h4><span><img
-                                                    src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                    src="{{ asset("images/star-icon01.jpg") }}" alt=""/></span>
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                industry. Lorem Ipsum has been the industry's standard dummy text </p>
+                            @if($product->brand != null || $product->colors != null || $product->measures != null || $product->origin != null)
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="cart-tb">
+                                                <table class="table full-width" style="max-width:500px; margin:auto;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><b>Brand</b></td>
+                                                        <td>{{ $product->brand->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Color</b></td>
+                                                        <td>{{ implode(", ", $product->colorname) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Measures</b></td>
+                                                        <td>{{ $product->measures }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Origin</b></td>
+                                                        <td>{{ $product->origin }}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <h3 class="mb-3">Add a Review</h3>
-                                        <p>Your email address will not be published. Required fields are marked*</p>
-                                        <p class="rating"><strong>Your Rating :</strong> <img
-                                                src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
-                                                src="{{ asset("images/star-icon02.jpg") }}" alt=""/></p>
+                                </div>
+                            @endif
 
-                                        <form action="#">
+                            @if($product->review != null)
+                                <div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3>1 Review for best clock parallels</h3>
+                                            <div class="re-box">
+                                                <img src="{{ asset("images/user-img.jpg") }}" alt=""/>
+                                                <h4><b>Donald Holmes</b> - July 28,2017</h4><span><img
+                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
+                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
+                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
+                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
+                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/></span>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                    industry. Lorem Ipsum has been the industry's standard dummy
+                                                    text </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h3 class="mb-3">Add a Review</h3>
+                                            <p>Your email address will not be published. Required fields are marked*</p>
+                                            <p class="rating"><strong>Your Rating :</strong> <img
+                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
+                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
+                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
+                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/><img
+                                                    src="{{ asset("images/star-icon02.jpg") }}" alt=""/></p>
+
+                                            <form action="#">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Your Review <em>*</em></label>
+                                                            <textarea class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Name <em>*</em></label>
+                                                            <input type="text" class="form-control" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Email <em>*</em></label>
+                                                            <input type="text" class="form-control" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="checkbox-btn">Save my name, email, and website
+                                                                in
+                                                                this browser for the next time i comment.
+                                                                <input type="checkbox" checked="checked">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <button class="btn02">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if($product->brand != null && $product->brand->description != null)
+                                <div>
+                                    <div class="row">
+
+                                        <div class="col-12">
+                                            {!! $product->brand->description !!}
+                                        </div>
+                                        {{--<div class="col-md-4">
+
+                                        </div>
+                                        <div class="col-md-8">
                                             <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Your Review <em>*</em></label>
-                                                        <textarea class="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Name <em>*</em></label>
-                                                        <input type="text" class="form-control" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Email <em>*</em></label>
-                                                        <input type="text" class="form-control" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="checkbox-btn">Save my name, email, and website in
-                                                            this browser for the next time i comment.
-                                                            <input type="checkbox" checked="checked">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <button class="btn02">Submit</button>
-                                                    </div>
-                                                </div>
+                                                <div class="col-lg-4"><img src="{{ asset("images/product01.jpg") }}"
+                                                                           alt=""/></div>
+                                                <div class="col-lg-4"><img src="{{ asset("images/product02.jpg") }}"
+                                                                           alt=""/></div>
+                                                <div class="col-lg-4"><img src="{{ asset("images/product03.jpg") }}"
+                                                                           alt=""/></div>
                                             </div>
-                                        </form>
 
-
+                                        </div>--}}
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
 
-                        @if($product->brand != null && $product->brand->description != null)
-                            <div>
-                                <div class="row">
-
-                                    <div class="col-12">
-                                        {!! $product->brand->description !!}
-                                    </div>
-                                    {{--<div class="col-md-4">
-
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="row">
-                                            <div class="col-lg-4"><img src="{{ asset("images/product01.jpg") }}"
-                                                                       alt=""/></div>
-                                            <div class="col-lg-4"><img src="{{ asset("images/product02.jpg") }}"
-                                                                       alt=""/></div>
-                                            <div class="col-lg-4"><img src="{{ asset("images/product03.jpg") }}"
-                                                                       alt=""/></div>
+                            @if(count($product->shipping_methods) > 0)
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="{{ asset("images/shipping-img.jpg") }}" alt=""/></div>
+                                        <div class="col-md-6">
+                                            @foreach($product->shipping_methods as $shipping_method)
+                                                <div class="mb-2">
+                                                    <h3 class="mb-2">{{ $shipping_method->name }}</h3>
+                                                    {!! $shipping_method->description !!}
+                                                </div>
+                                            @endforeach
                                         </div>
-
-                                    </div>--}}
-                                </div>
-                            </div>
-                        @endif
-
-                        @if(count($product->shipping_methods) > 0)
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <img src="{{ asset("images/shipping-img.jpg") }}" alt=""/></div>
-                                    <div class="col-md-6">
-                                        @foreach($product->shipping_methods as $shipping_method)
-                                            <div class="mb-2">
-                                                <h3 class="mb-2">{{ $shipping_method->name }}</h3>
-                                                {!! $shipping_method->description !!}
-                                            </div>
-                                        @endforeach
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
 
 
+                        </div>
                     </div>
+                    <!--Product detail information-->
                 </div>
-                <!--Product detail information-->
             </div>
-        </div>
+
         </div>
     </section>
 

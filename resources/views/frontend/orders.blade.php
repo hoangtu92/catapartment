@@ -47,7 +47,7 @@
                                         {{ $order->state }}, {{ $order->country }}
                                     </td>
                                     <td>{{ $order->status }}</td>
-                                    <td><a href="{{ route("order_detail", ["id", $order->order_id]) }}">Details</a> </td>
+                                    <td><a href="{{ route("order_detail", [$order->order_id]) }}">Details</a> </td>
                                 </tr>
                                     @endforeach
                                 </tbody>

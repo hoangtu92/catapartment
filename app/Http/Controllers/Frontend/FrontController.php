@@ -202,16 +202,22 @@ class FrontController extends CatController
 
         if($request->isMethod('post')){
 
-            if(Auth::user() && $request->filled("apply_discount") && $request->input("apply_discount") == "抵用"){
+            foreach($request->input() as $key => $value){
+                $request->session()->put($key, $value);
+            }
+
+            if(Auth::user() && $request->input("use_discount") == true && $request->filled("apply_discount") && $request->input("apply_discount") == "抵用"){
 
                 $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
 
                 if(Auth::user()->points >= $discount){
-                    Auth::user()->points -= $discount;
                     $request->session()->put("discount", $discount);
+                    $request->session()->flash('message', null);
                 }
                 else{
                     $request->session()->flash('message', __("Your point is not enough"));
+                    $request->session()->put("discount", 0);
+                    $request->session()->put("point_discount", "");
                 }
 
             }
@@ -225,10 +231,6 @@ class FrontController extends CatController
     }
 
     public function place_order(Request $request){
-
-        foreach($request->input() as $key => $value){
-            $request->session()->put($key, $value);
-        }
 
         if(!$request->filled("term_agree") || !$request->input("term_agree")){
 
@@ -302,9 +304,27 @@ class FrontController extends CatController
             Auth::user()->save();
 
             //Reset discount
+            $request->session()->put("use_discount", false);
             $request->session()->put("discount", 0);
+            $request->session()->put("point_discount", "");
         }
 
+        $cart_items = Session::get("cart_items");
+        foreach($cart_items as $item) {
+
+            $product = Product::find($item->product_id);
+
+            $order_item = new OrderItem([
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'color' => $item->color,
+                'price' => $product->sale_price,
+                'qty' => $item->qty
+            ]);
+
+            $order_item->save();
+
+        }
 
         if($request->input("payment_method") == "ecpay"){
             //基本參數(請依系統規劃自行調整)
@@ -321,22 +341,10 @@ class FrontController extends CatController
 
             $ecpay->i()->Send['Items'] = [];
 
-            $cart_items = Session::get("cart_items");
+
 
             //訂單的商品資料
             foreach($cart_items as $item){
-
-                $product = Product::find($item->product_id);
-
-                $order_item = new OrderItem([
-                    'order_id' => $order->id,
-                    'product_id' => $item->product_id,
-                    'color'     => $item->color,
-                    'price' => $product->sale_price,
-                    'qty' => $item->qty
-                ]);
-
-                $order_item->save();
 
                 array_push($ecpay->i()->Send['Items'], array(
                         'Name' => $product->name,
@@ -363,6 +371,7 @@ class FrontController extends CatController
             return $ecpay->i()->CheckOutString();
         }
         else{
+
             return view("frontend.thankyou");
         }
 
@@ -457,8 +466,26 @@ class FrontController extends CatController
         Log::info(json_encode($request->input()));
     }
 
-    public function order_detail($order_id){
-        $order = Order::where("order_id", $order_id)->firstOrFail();
+    public function order_detail($order_id, Request $request){
+        $order = Order::where("order_id", $order_id)->first();
+
+        if($request->isMethod("post")){
+            if($request->input("item") && is_array($request->input("item"))){
+                foreach ($request->input("item") as $id => $value) {
+                    $order_item = OrderItem::find($id);
+                    if($order_item){
+
+                        if(isset($value["rating"]))
+                            $order_item->rating = $value["rating"];
+
+                        if(isset($value["review"]))
+                            $order_item->review = $value["review"];
+
+                        $order_item->save();
+                    }
+                }
+            }
+        }
 
         return view("frontend.order_detail", compact("order"));
     }

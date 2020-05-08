@@ -58,6 +58,10 @@ class Product extends Model
         return $this->hasMany("App\Models\OrderItem", "product_id", "id")->select("review");
     }
 
+    public function ratings(){
+        return $this->hasMany("App\Models\OrderItem", "product_id", "id")->select("rating");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -97,5 +101,17 @@ class Product extends Model
 
     public function setIs_hotAttribute($is_hot){
         return $this->attributes['is_hot'] = $is_hot;
+    }
+
+    public function getAverageRatingAttribute(){
+
+        $ratings = array_reduce($this->ratings->toArray(), function ($t, $e){
+            $t[] = $e['rating'];
+            return $t;
+        }, []);
+
+
+        return array_sum($ratings) / count($ratings);
+
     }
 }

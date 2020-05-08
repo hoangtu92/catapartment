@@ -25,6 +25,14 @@
         <td><b>{{ __("Sub Total") }}</b></td>
         <td><strong>${{ $cart_total_amount }}</strong></td>
     </tr>
+    @if(Session::get("discount") > 0)
+    <tr>
+        <td>
+            <b>{{ __("Discount") }}</b>
+        </td>
+        <td><strong>${{ Session::get("discount") }}</strong></td>
+    </tr>
+    @endif
     <tr>
         <td>{{ __("Shipping") }}</td>
         <td>
@@ -43,7 +51,7 @@
     </tr>
     <tr>
         <td><b>{{ __("Total") }}</b></td>
-        <td><strong>${{ $cart_total_amount + Setting::get("shipping_fee") }}</strong></td>
+        <td><strong>${{ $cart_total_amount + Setting::get("shipping_fee") - Session::get("discount") }}</strong></td>
     </tr>
     </tbody>
 </table>

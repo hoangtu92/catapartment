@@ -2849,6 +2849,38 @@ a:focus, a:hover {
 .cart-table{
 
 }
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: left;
+    font-size: 20px;
+}
+.rating > label {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+.rating > label input{
+    display: none;
+}
+.rating > label:hover, .rating > label.checked,
+.rating > label:hover ~ label, .rating > label.checked ~ label {
+    color: transparent;
+}
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > label.checked:before,
+.rating > label.checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: gold;
+}
+
+.order-detail-table{
+    border-collapse: separate;
+    border-spacing: 0 20px;
+}
 
 .cart-table img{
     width: 64px;
