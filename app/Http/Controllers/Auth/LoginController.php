@@ -113,7 +113,7 @@ class LoginController extends CatController
      * @return mixed
      */
     function createUser($getInfo, $provider){
-        $user = User::where('username', $getInfo->id)->orWhere("email", $getInfo->email)->first();
+        $user = User::where('username', $getInfo->id)->first();
 
         if (!$user) {
             $user = User::create([
@@ -188,11 +188,14 @@ class LoginController extends CatController
         }
         else if($provider === "line"){
 
+            //var_dump($request->input());
+
+
             try{
                 $code = $request->input('code');
-                /*$state = $request->input('state');
+                $state = $request->input('state');
                 $scope = $request->input('scope');
-                $error = $request->input('error');*/
+                $error = $request->input('error');
                 $errorCode = $request->input('errorCode');
                 $errorMessage = $request->input('errorMessage');
 
@@ -212,9 +215,13 @@ class LoginController extends CatController
                 }
 
                 $profile = $lineAPIService->profile($token->access_token);
-                //var_dump($profile);
+
 
                 $getInfo = new Profile($profile);
+
+                //var_dump($getInfo);
+
+                //exit();
 
                 $user = $this->createUser($getInfo, "line");
 
