@@ -37,7 +37,7 @@
 
 <li class='nav-item'><hr></li>
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('page') }}'><i class='nav-icon fa fa-link'></i> Pages</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('page') }}'><i class='nav-icon fa fa-link'></i> {{ trans("backpack::site.page") }}</a></li>
 
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-newspaper-o"></i> {{ trans('backpack::site.news') }}</a>
