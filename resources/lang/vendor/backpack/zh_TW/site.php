@@ -134,6 +134,7 @@ return [
     "status" => "Status",
 
     "page" => "文章管理",
+    "pages" => "文章管理",
     "page_title" => "Title",
     "page_slug" => "Slug",
     "page_content" => "Content",
