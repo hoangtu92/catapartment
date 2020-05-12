@@ -38,6 +38,8 @@ class CreateProductsTable extends Migration
             $table->string("measures")->collation("utf8_unicode_ci")->nullable(true);
             $table->string("origin")->collation("utf8_unicode_ci")->nullable(true);
             $table->string("pieces")->collation("utf8_unicode_ci")->nullable(true);
+
+            $table->string("keywords")->collation("utf8_unicode_ci")->nullable(true);
             $table->timestamps();
         });
     }

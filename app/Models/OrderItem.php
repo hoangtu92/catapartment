@@ -16,7 +16,7 @@ class OrderItem extends Model
     */
 
     protected $table = 'order_items';
-    // protected $primaryKey = 'id';
+    protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
     // protected $fillable = [];
@@ -36,7 +36,7 @@ class OrderItem extends Model
     */
 
     public function order(){
-        return $this->belongsTo("App\Models\Order", "id", "order_id");
+        return $this->belongsTo("App\Models\Order");
     }
 
     public function product(){

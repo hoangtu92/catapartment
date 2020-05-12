@@ -93,6 +93,7 @@ class OrderCrudController extends CrudController
             "label" => trans("backpack::site.notes")
         ]);
 
+        $this->crud->removeButton("create");
 
     }
 

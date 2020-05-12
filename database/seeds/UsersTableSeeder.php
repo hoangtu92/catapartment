@@ -34,6 +34,16 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'username' => 'yoyowang325',
+            'role' => 'user',
+            'phone' => '0978098601',
+            'name' => "王友詳",
+            'email' => 'abc0978098601@gmail.com',
+            'password' => '$2y$10$wtK20EQCTe9bLjGCCXDozeCMTBsjxc1Ok0F1UUDNOIWUcXKBKsCXm',
+            'email_verified_at' => now()
+        ]);
+
+        DB::table('users')->insert([
             'username' => 'administrator',
             'role' => 'admin',
             'phone' => '0947556511',

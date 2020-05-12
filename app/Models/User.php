@@ -38,6 +38,10 @@ class User extends Model
         return $this->hasMany("App\Models\Order");
     }
 
+    public function points_log(){
+        return $this->hasMany("App\Models\UserPoint");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -55,4 +59,8 @@ class User extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function hasPurchased($product_id){
+        return $this->hasManyThrough("App\Models\OrderItem", "App\Models\Order")->where("product_id", "=", $product_id)->count() > 0;
+    }
 }

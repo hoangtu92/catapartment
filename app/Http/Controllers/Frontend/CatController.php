@@ -8,7 +8,9 @@ use App\Models\Announcement;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\SubMenu;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\View;
 
@@ -19,6 +21,8 @@ class CatController extends Controller
         $product_categories = ProductCategory::all();
         $announcements = Announcement::getVisibleList();
         $advertisements = Advertisement::getVisibleList();
+
+
 
         $sub_menu = SubMenu::all();
 

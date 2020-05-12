@@ -42,6 +42,12 @@ return [
     "transaction" => "交易",
     "order" => "訂單",
     "slide" => "輪播圖",
+    "transaction_order" => "訂單編號",
+    "transaction_amount" => "總金額",
+    "transaction_payment_no" => "付款編號",
+    "transaction_payment_type" => "Payment Type",
+    "transaction_payment_date" => "Payment Date",
+    "transaction_checksum" => "CheckSum",
 
     "product" => "商品",
     "product_category" => "商品目錄",
@@ -84,6 +90,7 @@ return [
     "valid_from" => "上架",
     "valid_until" => "下架",
     "points" => "回饋點數",
+    "user_point" => "回饋點數",
     "submenu" => "補貨上架選單",
     "submenu_title" => "名稱",
     "submenu_date" => "篩選條件",
@@ -99,10 +106,11 @@ return [
     "recommend-products" => "首頁推薦拼圖",
 
     "product_name" => "拼圖名稱",
-    "product_slug" => "Slug",
+    "product_slug" => "網址命名",
     "product_price" => "價格",
     "product_sale_price" => "特價",
     "product_image" => "圖片",
+    "product_keywords" => "關鍵字",
 
     "product_brand" => "品牌",
     "product_color" => "顏色",
@@ -112,7 +120,7 @@ return [
     "product_status" => "狀態",
     "product_stock" => "庫存",
     "product_pieces" => "片數",
-    "product_slide" => "Gallery",
+    "product_slide" => "照片集",
     "product_description" => "商品簡介",
     "product_content" => "商品詳細簡介",
 
@@ -125,18 +133,19 @@ return [
     "brand_logo" => "品牌",
     "brand_description" => "品牌簡介",
 
-    "order_number" => "Order Number",
-    "shipping_items" => "Items",
-    "total_amount" => "Total Amount",
-    "delivery" => "Delivery",
-    "shipping_info" => "Shipping Info",
-    "notes" => "Notes",
-    "status" => "Status",
+    "order_number" => "訂單編號",
+    "shipping_items" => "商品項目",
+    "total_amount" => "訂單金額",
+    "delivery" => "出貨狀態",
+    "shipping_info" => "收件資料",
+    "notes" => "備註",
+    "status" => "狀態",
 
     "page" => "文章管理",
     "pages" => "文章管理",
-    "page_title" => "Title",
-    "page_slug" => "Slug",
-    "page_content" => "Content",
-    "page_display" => "Display"
+    "page_title" => "標題",
+    "page_slug" => "網址命名",
+    "page_content" => "內容",
+    "page_display" => "Display",
+    "point_amount" => "積分"
 ];

@@ -59,11 +59,15 @@ class Product extends Model
     }
 
     public function reviews(){
-        return $this->hasMany("App\Models\OrderItem", "product_id", "id")->select("review");
+        return $this->hasMany("App\Models\OrderItem", "product_id", "id")->where("review", "!=", null);
     }
 
     public function ratings(){
         return $this->hasMany("App\Models\OrderItem", "product_id", "id")->select("rating");
+    }
+
+    public function orderItem(){
+        return $this->hasOne("App\Models\OrderItem", "product_id", "id");
     }
 
     /*

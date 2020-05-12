@@ -52,15 +52,21 @@ class UserController extends CatController
         return view("frontend.profile");
     }
 
-    public function wishlist()
-    {
-        return view("frontend.wishlist");
-    }
+
 
     public function update(Request $request)
     {
+
+
+
         if ($request->filled("action")) {
             if ($request->input("action") === "update_profile") {
+
+                $request->validate([
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'name' => ['required', 'string', 'max:255']
+                ]);
+
                 $params = $request->only(["name", "email", "phone", "birthday", "city", "gender", "address", "zipcode"]);
             } else {
                 $params = $request->only(["city", "address", "zipcode"]);

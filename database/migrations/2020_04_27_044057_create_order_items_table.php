@@ -30,6 +30,8 @@ class CreateOrderItemsTable extends Migration
             $table->text("review")->nullable(true)->collation("utf8_unicode_ci");
             $table->integer("rating")->nullable(true);
 
+            $table->dateTime("review_date")->nullable(true);
+
             $table->timestamps();
         });
     }

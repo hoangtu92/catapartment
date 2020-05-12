@@ -17,6 +17,7 @@ use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
 use App\Models\Slide;
 use App\Models\Transaction;
+use App\Models\UserPoint;
 use App\User;
 use Backpack\Settings\app\Models\Setting;
 use Cassandra\Date;
@@ -333,8 +334,19 @@ class FrontController extends CatController
 
         $order->save();
 
-        if(Auth::user()){
+        if(Auth::user() && $discount > 0){
+
+            Auth::user()->points -= $discount;
             Auth::user()->save();
+
+            $point = new UserPoint([
+                "user_id" => Auth::id(),
+                "amount" => -$discount,
+                "created_at" => now(),
+                "notes" => "PLACE_ORDER"
+            ]);
+
+            $point->save();
 
             //Reset discount
             $request->session()->put("use_discount", false);
@@ -514,7 +526,13 @@ class FrontController extends CatController
                         if(isset($value["review"]))
                             $order_item->review = $value["review"];
 
+                        $order_item->review_date = now();
                         $order_item->save();
+
+                        if($request->filled("redirect")){
+                            return redirect($request->input("redirect"));
+
+                        }
                     }
                 }
             }
@@ -569,6 +587,10 @@ class FrontController extends CatController
     }
 
 
+    public function wishlist()
+    {
+        return view("frontend.wishlist");
+    }
 
 
 

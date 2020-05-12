@@ -1,6 +1,6 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="fa fa-users nav-icon"></i> {{ trans('backpack::site.user_manager') }}</a></li>
+
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon fa fa-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
 
 
@@ -10,6 +10,17 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('slide') }}'><i class='nav-icon fa fa-picture-o'></i> {{ trans('backpack::site.slides') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('latest-product') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_latest_puzzle') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('recommend-product') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_recommend_puzzle') }}</a></li>
+    </ul>
+</li>
+
+<li class='nav-item'><hr></li>
+
+
+<li class="nav-item nav-dropdown">
+    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-users"></i> {{ trans('backpack::site.home_management') }}</a>
+    <ul class="nav-dropdown-items">
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="fa fa-users nav-icon"></i> {{ trans('backpack::site.user_manager') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('user-point') }}'><i class='nav-icon fa fa-bar-chart-o'></i>{{ trans("backpack::site.user_point") }}</a></li>
     </ul>
 </li>
 

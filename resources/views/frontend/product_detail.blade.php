@@ -4,6 +4,9 @@
     <meta property="og:title" content="{{ $product->name }}"/>
     <meta property="og:description" content="{{ $product->content }}"/>
     <meta property="og:image" content="{{ asset($product->image) }}"/>
+
+    <meta name="description" content="{{ strip_tags($product->short_description) }}">
+    <meta name="keywords" content="{{ $product->keywords }}">
 @endsection
 
 @section("stylesheet")
@@ -17,7 +20,7 @@
 
 @section("content")
 
-    <section class="detail-page">
+    <section class="detail-page @if($current_user != null && $current_user->hasPurchased($product->id)) hasPurchased  @endif">
         <div class="container">
             <form class="row" action="{{ route("cart") }}" method="post">
                 @csrf
@@ -100,7 +103,7 @@
                             <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
                         @endif
 
-                                        ( {{ count($product->ratings) }} customer review )</p>
+                                        ( {{ count($product->orderItems) }} customer review )</p>
                     <h3 class="price"><span>${{ $product->price }}</span> ${{ $product->sale_price }}</h3>
                     {!! $product->short_description !!}
 
@@ -141,8 +144,9 @@
                     <input type="submit" class="addto" value="{{ __("Add to cart") }}"/>
 
 
-                    <div class="add-wishlist"><a href="#"><img src="{{ asset("images/icon02.jpg") }}" alt=""/> Add to
-                            Wishlist</a></div>
+                    <div class="add-wishlist">
+                        <a href="#" onclick="document.querySelector('#wishlist-form').submit()"><img src="{{ asset("images/icon02.jpg") }}" alt=""/> Add to Wishlist</a>
+                    </div>
                     <hr>
                     <!--Product add to cart-->
 
@@ -181,7 +185,7 @@
                                 <li>Additional Information</li>
                             @endif
 
-                            @if($product->orderItems)
+                            @if(count($product->orderItems) > 0)
                                 <li>Review</li>
                             @endif
 
@@ -236,46 +240,82 @@
                                 </div>
                             @endif
 
-                            @if($product->orderItems)
+
+                            @if(count($product->orderItems) > 0)
                                 <div>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3>1 Review for {{ $product->name }}</h3>
+                                            <h3>{{ count($product->reviews) }} Review for {{ $product->name }}</h3>
                                             <div class="re-box">
-                                                <img src="{{ asset("images/user-img.jpg") }}" alt=""/>
-                                                <h4><b>Donald Holmes</b> - July 28,2017</h4><span><img
-                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/><img
-                                                        src="{{ asset("images/star-icon01.jpg") }}" alt=""/></span>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry. Lorem Ipsum has been the industry's standard dummy
-                                                    text </p>
+                                                @foreach($product->orderItems as $orderItem)
+
+                                                    @if($orderItem->review == null) @continue @endif
+
+                                                    <img class="avatar" src="{{ asset("images/user-img.jpg") }}" alt=""/>
+
+
+                                                    <h4><b>{{ $orderItem->order->user->name | $orderItem->order->user->username }}</b> - {{ $orderItem->review_date }}</h4>
+
+                                                    <p class="cre">
+                                                        @if($orderItem->rating >= 1)
+                                                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                                                        @else
+                                                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                                                        @endif
+
+                                                        @if($orderItem->rating >= 2)
+                                                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                                                        @else
+                                                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                                                        @endif
+
+                                                        @if($orderItem->rating >= 3)
+                                                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                                                        @else
+                                                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                                                        @endif
+
+                                                        @if($orderItem->rating >= 4)
+                                                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                                                        @else
+                                                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                                                        @endif
+
+                                                        @if($orderItem->rating >= 5)
+                                                            <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
+                                                        @else
+                                                            <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
+                                                        @endif
+                                                    </p>
+                                                    <p>{{ $orderItem->review }}</p>
+                                                @endforeach
                                             </div>
                                         </div>
+                                        @if($current_user != null && $current_user->hasPurchased($product->id))
                                         <div class="col-lg-6">
                                             <h3 class="mb-3">Add a Review</h3>
                                             <p>Your email address will not be published. Required fields are marked*</p>
 
-                                            {{--<div class="rating">
-                                                <strong>Your Rating :</strong>
-                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 5}" @if($item->rating == 5) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="5"> ☆</label>
-                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 4}" @if($item->rating == 4) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="4"> ☆</label>
-                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 3}" @if($item->rating == 3) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="3"> ☆</label>
-                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 2}" @if($item->rating == 2) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="2"> ☆</label>
-                                                <label ng-class="{ checked: order.rating[{{ $item->id}}] == 1}" @if($item->rating == 1) class="checked" @endif><input ng-model="order.rating[{{ $item->id}}]" type="radio" name="item[{{ $item->id}}][rating]" value="1"> ☆</label>
-                                            </div>--}}
+                                            <form action="{{ route("order_detail", [$product->orderItem->order->order_id, "redirect" => route("product_detail", [$product->slug])]) }}" method="post">
+                                                @csrf
 
-                                            <form action="#">
+                                                <p><strong>Your Rating :</strong></p>
+                                                <div class="rating">
+                                                    <label ng-class="{ checked: order.rating[{{ $product->orderItem->id}}] == 5}" @if($product->orderItem->rating == 5) class="checked" @endif><input ng-model="order.rating[{{ $product->orderItem->id}}]" type="radio" name="item[{{ $product->orderItem->id}}][rating]" value="5"> ☆</label>
+                                                    <label ng-class="{ checked: order.rating[{{ $product->orderItem->id}}] == 4}" @if($product->orderItem->rating == 4) class="checked" @endif><input ng-model="order.rating[{{ $product->orderItem->id}}]" type="radio" name="item[{{ $product->orderItem->id}}][rating]" value="4"> ☆</label>
+                                                    <label ng-class="{ checked: order.rating[{{ $product->orderItem->id}}] == 3}" @if($product->orderItem->rating == 3) class="checked" @endif><input ng-model="order.rating[{{ $product->orderItem->id}}]" type="radio" name="item[{{ $product->orderItem->id}}][rating]" value="3"> ☆</label>
+                                                    <label ng-class="{ checked: order.rating[{{ $product->orderItem->id}}] == 2}" @if($product->orderItem->rating == 2) class="checked" @endif><input ng-model="order.rating[{{ $product->orderItem->id}}]" type="radio" name="item[{{ $product->orderItem->id}}][rating]" value="2"> ☆</label>
+                                                    <label ng-class="{ checked: order.rating[{{ $product->orderItem->id}}] == 1}" @if($product->orderItem->rating == 1) class="checked" @endif><input ng-model="order.rating[{{ $product->orderItem->id}}]" type="radio" name="item[{{ $product->orderItem->id}}][rating]" value="1"> ☆</label>
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label>Your Review <em>*</em></label>
-                                                            <textarea name="review" class="form-control"></textarea>
+                                                            <label><strong>Your Review <em>*</em></strong></label>
+                                                            <textarea name="item[{{ $product->orderItem->id }}][review]" class="form-control">{{ $product->orderItem->review }}</textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    {{--<div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Name <em>*</em></label>
                                                             <input type="text" class="form-control" placeholder="">
@@ -296,10 +336,10 @@
                                                                 <span class="checkmark"></span>
                                                             </label>
                                                         </div>
-                                                    </div>
+                                                    </div>--}}
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <button class="btn02">Submit</button>
+                                                            <button type="submit" class="btn02">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -307,6 +347,7 @@
 
 
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endif
@@ -413,6 +454,13 @@
         </div>
     </section>
 
+
+
+    <form id="wishlist-form" action="{{ route("wishlist") }}" method="post">
+        @csrf
+        <input type="hidden" name="product_id" value="{{ $product->id }}">
+        <input type="hidden" name="action" value="add_wishlist">
+    </form>
 @endsection
 
 @section("scripts")

@@ -62,8 +62,6 @@ class ShoppingCart
                     }
 
                 }
-
-
             }
 
             Cookie::queue("cart_items", json_encode($cart_items), 86400);

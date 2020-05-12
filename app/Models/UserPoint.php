@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class UserPoint extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Transaction extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'transactions';
+    protected $table = 'user_points';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,8 +34,8 @@ class Transaction extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function order(){
-        return $this->belongsTo("App\Models\Order");
+    public function user(){
+        return $this->belongsTo("App\Models\User");
     }
 
     /*

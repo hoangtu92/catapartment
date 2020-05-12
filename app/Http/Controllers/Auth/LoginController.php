@@ -189,7 +189,7 @@ class LoginController extends CatController
         else if($provider === "line"){
 
             //var_dump($request->input());
-
+            //exit();
 
             try{
                 $code = $request->input('code');
@@ -215,21 +215,33 @@ class LoginController extends CatController
                 }
 
                 $profile = $lineAPIService->profile($token->access_token);
+                $info = $lineAPIService->verifyIdToken($token->id_token);
 
+                $username = $profile['id'];
 
-                $getInfo = new Profile($profile);
+                if(preg_match("/^[^@]+/", $info['email'], $match)){
+                    $username = $match[0];
+                }
 
-                //var_dump($getInfo);
-
-                //exit();
+                $getInfo = (object) [
+                    'id' => $username,
+                    'email' => $info['email'],
+                    'name' => $info['name']
+                ];
 
                 $user = $this->createUser($getInfo, "line");
 
                 Auth::login($user);
+
+                if(!$user->hasVerifiedEmail()){
+                    $user->sendEmailVerificationNotification();
+                }
+
                 //exit();
                 return redirect(route("address"));
             }
             catch(\Exception $e){
+                //echo $e->getTraceAsString();
                 return redirect(route("register"));
             }
 

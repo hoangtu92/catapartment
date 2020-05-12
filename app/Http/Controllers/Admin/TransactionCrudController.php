@@ -29,8 +29,38 @@ class TransactionCrudController extends CrudController
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
-        $this->crud->removeButton("show");
+        //$this->crud->setFromDb();
+        $this->crud->addColumn([
+            'name' => 'order_id',
+            'label' => trans("backpack::site.transaction_order"),
+            'type' => "text"
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'amount',
+            'label' => trans("backpack::site.transaction_amount"),
+            'type' => "number"
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'payment_no',
+            'label' => trans("backpack::site.transaction_payment_no"),
+            'type' => "text"
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'payment_type',
+            'label' => trans("backpack::site.transaction_payment_type"),
+            'type' => "text"
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'payment_date',
+            'label' => trans("backpack::site.transaction_payment_date"),
+            'type' => "datetime"
+        ]);
+
+        $this->crud->removeButtons(["show"]);
     }
 
     protected function setupCreateOperation()
@@ -38,7 +68,34 @@ class TransactionCrudController extends CrudController
         $this->crud->setValidation(TransactionRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+        //$this->crud->setFromDb();
+        $this->crud->addField([
+            'name' => 'order_id',
+            'label' => trans("backpack::site.transaction_order"),
+            'type' => "select2",
+            'entity' => 'order',
+            'attribute' => 'order_id'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'amount',
+            'label' => trans("backpack::site.transaction_amount"),
+            'type' => "number"
+        ]);
+
+
+        $this->crud->addField([
+            'name' => 'payment_type',
+            'label' => trans("backpack::site.transaction_payment_type"),
+            'type' => "text"
+        ]);
+
+        $this->crud->addField([
+            'name' => 'payment_date',
+            'label' => trans("backpack::site.transaction_payment_date"),
+            'type' => "datetime"
+        ]);
+
     }
 
     protected function setupUpdateOperation()

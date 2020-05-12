@@ -21,10 +21,20 @@
                                     <td>
                                         <label for="name">{{ __("Name") }}<sup>*</sup></label>
                                         <input id="name" type="text" value="{{ Auth::user()->name }}" class="form-control" name="name" required>
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </td>
                                     <td>
                                         <label for="email">{{ __("Email") }}<sup>*</sup></label>
                                         <input id="email" type="email" value="{{ Auth::user()->email }}" class="form-control" name="email" required>
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>

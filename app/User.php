@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function hasVerifiedEmail()
     {
-        return $this->provider === "line" || !is_null($this->email_verified_at) ? true : false;
+        return !is_null($this->email_verified_at) ? true : false;
     }
 
     /**

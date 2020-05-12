@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string("username")->unique()->collation("utf8_unicode_ci");
             $table->string('name')->collation("utf8_unicode_ci");
-            $table->string('email')->unique()->nullable(true);
+            $table->string('email')->unique();
             $table->string('phone')->nullable(true);
 
             $table->string('role')->default("user");

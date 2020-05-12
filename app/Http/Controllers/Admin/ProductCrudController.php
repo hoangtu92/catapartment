@@ -83,6 +83,12 @@ class ProductCrudController extends CrudController
         ]);
 
         $this->crud->addField([
+            "name" => "keywords",
+            "type" => "textarea",
+            "label" => trans("backpack::site.product_keywords")
+        ]);
+
+        $this->crud->addField([
             "name" => "category_id",
             "type" => "select2",
             "entity" => "category",

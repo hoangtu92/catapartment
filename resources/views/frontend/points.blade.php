@@ -23,16 +23,27 @@
                                         <tbody>
                                         <tr>
                                             <th>消費日期</th>
-                                            <th>購買項目</th>
-                                            <th>購買金額</th>
+                                            <th>Notes</th>
+                                            {{--<th>購買金額</th>--}}
                                             <th>積分</th>
                                         </tr>
-                                        {{--<tr>
-                                            <td>2018/10/10</td>
-                                            <td>人魚公主3000片拼圖</td>
-                                            <td>3,000</td>
-                                            <td>3,000</td>
-                                        </tr>--}}
+
+
+
+                                        @if($current_user != null && $current_user->points_log()->count() > 0)
+
+                                            @foreach($current_user->points_log as $point)
+                                                <tr>
+                                                    <td>{{ $point->created_at->format("Y-m-d") }}</td>
+                                                    <td>{{ $point->notes }}</td>
+                                                    <td>{{ $point->amount }}</td>
+                                                </tr>
+                                                @endforeach
+
+                                            @else
+                                            <tr><td colspan="3" class="text-center">目前尚無紀錄</td></tr>
+                                            @endif
+
 
                                         </tbody>
                                     </table>
