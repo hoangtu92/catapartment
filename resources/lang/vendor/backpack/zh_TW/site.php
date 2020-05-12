@@ -45,8 +45,8 @@ return [
     "transaction_order" => "訂單編號",
     "transaction_amount" => "總金額",
     "transaction_payment_no" => "付款編號",
-    "transaction_payment_type" => "Payment Type",
-    "transaction_payment_date" => "Payment Date",
+    "transaction_payment_type" => "付款方式",
+    "transaction_payment_date" => "付款日期",
     "transaction_checksum" => "CheckSum",
 
     "product" => "商品",
