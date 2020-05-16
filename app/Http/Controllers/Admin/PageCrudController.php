@@ -36,11 +36,11 @@ class PageCrudController extends CrudController
            "label" => trans("backpack::site.page_title")
         ]);
 
-        $this->crud->addColumn([
+        /*$this->crud->addColumn([
             'name' => 'slug',
             'type' => "text",
             "label" => trans("backpack::site.page_slug")
-        ]);
+        ]);*/
     }
 
     protected function setupCreateOperation()
