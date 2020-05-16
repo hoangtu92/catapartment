@@ -41,6 +41,12 @@ class RecommendProductCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
+            'name' => 'image',
+            'label' => trans("backpack::site.product_image"),
+            'type' => 'product_relation_image'
+        ]);
+
+        $this->crud->addColumn([
             'name' => 'product_id',
             "entity" => "product",
             "attribute" => "name",
