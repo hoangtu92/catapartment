@@ -14,7 +14,7 @@ class PageSeeder extends Seeder
     {
         //
         DB::table("pages")->insert([
-            "title" => "Privacy & policy",
+            "title" => "隱私權政策",
             "slug" => "privacy-policy",
             "content" => "lorem ipsum"
         ]);
