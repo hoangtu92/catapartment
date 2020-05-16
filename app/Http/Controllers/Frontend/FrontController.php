@@ -209,8 +209,37 @@ class FrontController extends CatController
         return view("frontend.pre_order_products")->with(compact("products","page", "perPage", "total_items", "route_name"));
     }
 
-    public function recommend_products(){
-        return view("frontend.recommend_products");
+    public function recommend_products($page = 1, Request $request){
+
+        $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+
+        $rmd = RecommendProduct::where("display", true)
+            ->orWHere(function ($query){
+                $query->whereNotNull("valid_from")
+                    ->whereNotNull("valid_until")
+                    ->where("valid_from", "<=", now())
+                    ->where("valid_until", ">=", now());
+            })
+            ->orderBy("lft", "ASC")
+            ->offset(($page-1)*$perPage)->take($perPage)->get();
+
+        $total_items = RecommendProduct::where("display", true)
+            ->orWHere(function ($query){
+                $query->whereNotNull("valid_from")
+                    ->whereNotNull("valid_until")
+                    ->where("valid_from", "<=", now())
+                    ->where("valid_until", ">=", now());
+            })->count();
+
+        $products = [];
+        for($i=0; $i < count($rmd); $i++){
+            $products[] = $rmd[$i]->product;
+        }
+
+
+        $route_name = "recommend_products";
+
+        return view("frontend.recommend_products")->with(compact("products","page", "perPage", "total_items", "route_name"));
     }
 
     public function customized_products(){
