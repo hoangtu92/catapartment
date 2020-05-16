@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string("name")->nullable(false)->collation("utf8_unicode_ci")->unique();
             $table->string("slug")->nullable(true)->collation("utf8_unicode_ci")->unique();
             $table->string("sku")->unique(true);
-            $table->enum("status", [IN_STOCK, PRE_ORDER])->default(PRE_ORDER);
+            $table->integer("status")->default(PRE_ORDER);
             $table->integer("stock")->default(0);
 
             $table->decimal("price")->default(0);

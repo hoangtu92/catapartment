@@ -187,7 +187,7 @@ class FrontController extends CatController
         $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
 
         $category = ProductCategory::where("name", $category_name)->first();
-        $products = Product::where("category_id", $category->id)->offset($page*$perPage)->take($perPage)->get();
+        $products = Product::where("category_id", $category->id)->offset(($page-1)*$perPage)->take($perPage)->get();
 
         $total_items = Product::where("category_id", $category->id)->count();
         $route_name = "product_cat";
@@ -196,8 +196,17 @@ class FrontController extends CatController
         return view("frontend.products")->with(compact("category", "products", "page", "perPage", "total_items", "route_name"));
     }
 
-    public function pre_order_products(){
-        return view("frontend.pre_order_products");
+    public function pre_order_products($page = 1, Request $request){
+
+        $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+
+        $products = Product::where("status", PRE_ORDER)->offset(($page-1)*$perPage)->take($perPage)->get();
+
+        $total_items = Product::where("status", PRE_ORDER)->count();
+
+
+        $route_name = "pre_order_products";
+        return view("frontend.pre_order_products")->with(compact("products","page", "perPage", "total_items", "route_name"));
     }
 
     public function recommend_products(){

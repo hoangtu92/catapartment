@@ -17,6 +17,7 @@ class ProductSeeder extends Seeder
             'name' => 'Smart watches wood edition',
             'slug' => "smart-watches-wood-edition",
             'sku' => 'P001',
+            'status' => PRE_ORDER,
             'price' => 500,
             'sale_price' => 400,
             'image' => '/images/product01.jpg',
@@ -32,6 +33,7 @@ class ProductSeeder extends Seeder
             'name' => 'Penatibus parturient',
             'slug' => "penatibus-parturient",
             'sku' => 'P002',
+            'status' => PRE_ORDER,
             'price' => 500,
             'sale_price' => 400,
             'image' => '/images/product02.jpg',
@@ -48,6 +50,7 @@ class ProductSeeder extends Seeder
             'name' => 'Wooden bow tie man',
             'slug' => "wooden-bow-tie-man",
             'sku' => 'P003',
+            'status' => PRE_ORDER,
             'price' => 500,
             'sale_price' => 400,
             'image' => '/images/product03.jpg',
@@ -61,6 +64,7 @@ class ProductSeeder extends Seeder
 
         DB::table("products")->insert([
             'category_id' => 1,
+            'status' => PRE_ORDER,
             'sku' => 'P004',
             'name' => 'Lorem ip sum',
             'slug' => "lorem-ip-sum",
@@ -77,6 +81,7 @@ class ProductSeeder extends Seeder
 
         DB::table("products")->insert([
             'category_id' => 1,
+            'status' => PRE_ORDER,
             'name' => 'Product 1',
             'slug' => "product-1",
             'sku' => 'P005',
@@ -93,6 +98,7 @@ class ProductSeeder extends Seeder
 
         DB::table("products")->insert([
             'category_id' => 2,
+            'status' => PRE_ORDER,
             'name' => 'Product 2',
             'slug' => "product-2",
             'sku' => 'P006',
