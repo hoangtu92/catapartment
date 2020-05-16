@@ -18,6 +18,7 @@ class RecommendProductCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     public function setup()
     {
@@ -30,6 +31,15 @@ class RecommendProductCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
+
+        $this->crud->orderBy("lft", "ASC");
+
+        $this->crud->addColumn([
+            'name' => "lft",
+            'type' => 'number',
+            'label' => '位置'
+        ]);
+
         $this->crud->addColumn([
             'name' => 'product_id',
             "entity" => "product",

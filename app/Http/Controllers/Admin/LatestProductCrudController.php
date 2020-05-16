@@ -31,6 +31,15 @@ class LatestProductCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
+
+        $this->crud->orderBy("lft", "ASC");
+
+        $this->crud->addColumn([
+            'name' => "lft",
+            'type' => 'number',
+            'label' => '位置'
+        ]);
+
         $this->crud->addColumn([
             'name' => 'product_id',
             "entity" => "product",
@@ -45,10 +54,10 @@ class LatestProductCrudController extends CrudController
             'type' => 'item_visibility'
         ]);
 
-        if($this->crud->count() >= 5){
+        /*if($this->crud->count() >= 5){
             $this->crud->removeButton("create");
             $this->crud->addButtonFromView("top", "warning", "warning");
-        }
+        }*/
 
     }
 
