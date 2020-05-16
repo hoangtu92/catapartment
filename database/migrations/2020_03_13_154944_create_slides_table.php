@@ -21,6 +21,11 @@ class CreateSlidesTable extends Migration
             $table->boolean("display")->nullable(true)->default(true);
             $table->date("valid_from")->nullable(true);
             $table->date("valid_until")->nullable(true);
+
+            $table->integer("parent_id")->nullable(true)->default(0);
+            $table->integer("lft")->default(0);
+            $table->integer("rgt")->default(0);
+            $table->integer("depth")->default(0);
             $table->timestamps();
         });
     }
