@@ -55,11 +55,14 @@ class PageCrudController extends CrudController
             "label" => trans("backpack::site.page_title")
         ]);
 
+
         $this->crud->addField([
             'name' => 'slug',
-            'type' => "text",
+            'type' => "page_slug",
             "label" => trans("backpack::site.page_slug")
         ]);
+
+
 
         $this->crud->addField([
             'name' => 'content',
