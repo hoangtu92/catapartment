@@ -28,10 +28,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 mb-4 cb">
-                    @if(isset($latest_products[0]))
-                        <a href="{{ $latest_products[0]->product->permalink }}">
-                            <h3>{{ $latest_products[0]->product->name }}</h3>
-                            <img src="{{ asset($latest_products[0]->product->image) }}" alt=""/></a>
+                    @if(isset($latest_products[1]))
+                        <a href="{{ $latest_products[1]->product->permalink }}">
+                            <h3>{{ $latest_products[1]->product->name }}</h3>
+                            <img src="{{ asset($latest_products[1]->product->image) }}" alt=""/></a>
                     @else
                         <a href="#">
                             <h3>可愛動物系列</h3>
@@ -41,21 +41,6 @@
 
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 mb-4 cb">
-
-                            @if(isset($latest_products[1]))
-                                <a href="{{ $latest_products[1]->product->permalink }}">
-                                    <h3>{{ $latest_products[1]->product->name }}</h3>
-                                    <img src="{{ asset($latest_products[1]->product->image) }}" alt=""/></a>
-                            @else
-
-                                <a href="#">
-                                    <h4>可愛動物系列</h4>
-                                    <img src="{{ asset("images/hcollection-img02.jpg") }}" alt=""/></a>
-
-                            @endif
-
-                        </div>
                         <div class="col-lg-6 col-md-6 mb-4 cb">
 
                             @if(isset($latest_products[2]))
@@ -92,6 +77,21 @@
                                 <a href="{{ $latest_products[4]->product->permalink }}">
                                     <h3>{{ $latest_products[4]->product->name }}</h3>
                                     <img src="{{ asset($latest_products[4]->product->image) }}" alt=""/></a>
+                            @else
+
+                                <a href="#">
+                                    <h4>可愛動物系列</h4>
+                                    <img src="{{ asset("images/hcollection-img05.jpg") }}" alt=""/></a>
+
+                            @endif
+
+                        </div>
+                        <div class="col-lg-6 col-md-6 mb-4 cb">
+
+                            @if(isset($latest_products[5]))
+                                <a href="{{ $latest_products[5]->product->permalink }}">
+                                    <h3>{{ $latest_products[5]->product->name }}</h3>
+                                    <img src="{{ asset($latest_products[5]->product->image) }}" alt=""/></a>
                             @else
 
                                 <a href="#">

@@ -49,7 +49,7 @@ class FrontController extends CatController
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
-        $latest_products = LatestProduct::where("display", true)
+        $ltp = LatestProduct::where("display", true)
             ->orWHere(function ($query){
                 $query->whereNotNull("valid_from")
                     ->whereNotNull("valid_until")
@@ -79,6 +79,12 @@ class FrontController extends CatController
             $recommend_products[$rmd[$i]->category][] = $rmd[$i];
         }
 
+        $latest_products = [];
+        for($i=0; $i < count($ltp); $i++){
+            if(!isset($latest_products[$ltp[$i]->lft]))
+
+            $latest_products[$ltp[$i]->lft] = $ltp[$i];
+        }
 
         return view("frontend.home")->with(compact(['slides', 'news', 'latest_products', 'recommend_products']));
     }

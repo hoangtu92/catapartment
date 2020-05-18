@@ -18,7 +18,8 @@ class LatestProductCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
+
+    //use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     public function setup()
     {
@@ -36,8 +37,15 @@ class LatestProductCrudController extends CrudController
 
         $this->crud->addColumn([
             'name' => "lft",
-            'type' => 'number',
-            'label' => '位置'
+            'type' => 'select_from_array',
+            'label' => '位置',
+            'options' => [
+                1 => "主圖",
+                2 => "左上",
+                3 => "右上",
+                4 => "左下",
+                5 => "右下",
+            ]
         ]);
 
         $this->crud->addColumn([
@@ -73,6 +81,21 @@ class LatestProductCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         //$this->crud->setFromDb();
+
+        $this->crud->addField([
+            'name' => 'lft',
+            'label' => '位置',
+            'type' => 'select2_from_array',
+            'options' => [
+                1 => "主圖",
+                2 => "左上",
+                3 => "右上",
+                4 => "左下",
+                5 => "右下",
+            ]
+
+        ]);
+
         $this->crud->addField([
             "name" => "product_id",
             "type" => "select2",
@@ -115,12 +138,12 @@ class LatestProductCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    protected function setupReorderOperation()
+    /*protected function setupReorderOperation()
     {
         // define which model attribute will be shown on draggable elements
         $this->crud->set('reorder.label', 'productName');
         // define how deep the admin is allowed to nest the items
         // for infinite levels, set it to 0
         $this->crud->set('reorder.max_level', 1);
-    }
+    }*/
 }
