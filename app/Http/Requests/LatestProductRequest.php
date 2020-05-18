@@ -26,7 +26,8 @@ class LatestProductRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            // 'name' => 'required|min:5|max:255',
+            'product_id' => 'unique:recommend_products'
         ];
     }
 
