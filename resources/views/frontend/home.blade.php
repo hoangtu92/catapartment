@@ -30,7 +30,7 @@
                 <div class="col-lg-6 mb-4 cb">
                     @if(isset($latest_products[1]))
                         <a href="{{ $latest_products[1]->product->permalink }}">
-                            <h3>{{ $latest_products[1]->product->name }}</h3>
+                            <h3>{{ $latest_products[1]->product->category->name }}</h3>
                             <img src="{{ asset($latest_products[1]->product->image) }}" alt=""/></a>
                     @else
                         <a href="#">
@@ -45,7 +45,7 @@
 
                             @if(isset($latest_products[2]))
                                 <a href="{{ $latest_products[2]->product->permalink }}">
-                                    <h3>{{ $latest_products[2]->product->name }}</h3>
+                                    <h3>{{ $latest_products[2]->product->category->name }}</h3>
                                     <img src="{{ asset($latest_products[2]->product->image) }}" alt=""/></a>
                             @else
 
@@ -60,7 +60,7 @@
 
                             @if(isset($latest_products[3]))
                                 <a href="{{ $latest_products[3]->product->permalink }}">
-                                    <h3>{{ $latest_products[3]->product->name }}</h3>
+                                    <h3>{{ $latest_products[3]->product->category->name }}</h3>
                                     <img src="{{ asset($latest_products[3]->product->image) }}" alt=""/></a>
                             @else
 
@@ -75,7 +75,7 @@
 
                             @if(isset($latest_products[4]))
                                 <a href="{{ $latest_products[4]->product->permalink }}">
-                                    <h3>{{ $latest_products[4]->product->name }}</h3>
+                                    <h3>{{ $latest_products[4]->product->category->name }}</h3>
                                     <img src="{{ asset($latest_products[4]->product->image) }}" alt=""/></a>
                             @else
 
@@ -90,7 +90,7 @@
 
                             @if(isset($latest_products[5]))
                                 <a href="{{ $latest_products[5]->product->permalink }}">
-                                    <h3>{{ $latest_products[5]->product->name }}</h3>
+                                    <h3>{{ $latest_products[5]->product->category->name }}</h3>
                                     <img src="{{ asset($latest_products[5]->product->image) }}" alt=""/></a>
                             @else
 
