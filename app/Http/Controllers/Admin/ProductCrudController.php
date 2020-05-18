@@ -67,6 +67,8 @@ class ProductCrudController extends CrudController
             "label" => trans("backpack::site.product_category")
         ]);
 
+        $this->crud->removeButton("show");
+
     }
 
     protected function setupCreateOperation()

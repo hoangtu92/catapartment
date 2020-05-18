@@ -42,7 +42,11 @@ class ColorCrudController extends CrudController
 
             "label" => trans("backpack::site.product_color")
         ]);
+
+        $this->crud->removeButton("show");
     }
+
+
 
     protected function setupCreateOperation()
     {

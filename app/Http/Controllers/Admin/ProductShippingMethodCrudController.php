@@ -30,6 +30,7 @@ class ProductShippingMethodCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

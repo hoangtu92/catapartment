@@ -47,6 +47,8 @@ class ShippingMethodCrudController extends CrudController
             "type" => "number",
             "label" => trans("backpack::site.shipping_method_fee")
         ]);*/
+
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

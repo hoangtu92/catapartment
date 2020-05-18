@@ -64,6 +64,7 @@ class RecommendProductCrudController extends CrudController
             'label' => trans("backpack::site.display"),
             'type' => 'item_visibility'
         ]);
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

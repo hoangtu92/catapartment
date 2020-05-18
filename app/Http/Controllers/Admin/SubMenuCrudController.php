@@ -42,6 +42,7 @@ class SubMenuCrudController extends CrudController
             "format" => "YYYY/MM/DD",
             "label" => trans("backpack::site.submenu_date")
         ]);
+        $this->crud->removeButton("show");
     }
 
     protected function setupCreateOperation()

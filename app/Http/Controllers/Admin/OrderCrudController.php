@@ -94,6 +94,7 @@ class OrderCrudController extends CrudController
         ]);
 
         $this->crud->removeButton("create");
+        $this->crud->removeButton("show");
 
     }
 

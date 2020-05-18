@@ -50,7 +50,7 @@ class UserPointCrudController extends CrudController
             'label' => trans("backpack::site.notes")
         ]);
 
-        $this->crud->removeButtons(["create", "edit"]);
+        $this->crud->removeButtons(["show", "create", "edit"]);
     }
 
     protected function setupCreateOperation()

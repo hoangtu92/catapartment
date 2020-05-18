@@ -54,6 +54,8 @@ class BrandCrudController extends CrudController
             'label' => trans("backpack::site.brand_description")
         ]);
 
+        $this->crud->removeButton("show");
+
     }
 
     protected function setupCreateOperation()
