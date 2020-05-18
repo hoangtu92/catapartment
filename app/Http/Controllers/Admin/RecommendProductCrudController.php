@@ -18,7 +18,7 @@ class RecommendProductCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
+    //use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     public function setup()
     {
@@ -34,11 +34,11 @@ class RecommendProductCrudController extends CrudController
 
         $this->crud->orderBy("lft", "ASC");
 
-        $this->crud->addColumn([
+        /*$this->crud->addColumn([
             'name' => "lft",
             'type' => 'number',
             'label' => '位置'
-        ]);
+        ]);*/
 
         $this->crud->addColumn([
             'name' => 'image',

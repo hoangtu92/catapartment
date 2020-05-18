@@ -96,14 +96,14 @@ return [
     "submenu_date" => "篩選條件",
 
     "home_management" => "首頁管理",
-    "home_latest_puzzle" => "首頁最新拼圖",
-    "home_recommend_puzzle" => "首頁推薦拼圖",
+    "home_latest_puzzle" => "VIP拼圖推",
+    "home_recommend_puzzle" => "人氣拼圖推薦",
 
-    "latest-product" => "首頁最新拼圖",
-    "latest-products" => "首頁最新拼圖",
-    "recommend-product" => "首頁推薦拼圖",
+    "latest-product" => "VIP拼圖推",
+    "latest-products" => "VIP拼圖推",
+    "recommend-product" => "人氣拼圖推薦",
 
-    "recommend-products" => "首頁推薦拼圖",
+    "recommend-products" => "人氣拼圖推薦",
 
     "product_name" => "拼圖名稱",
     "product_slug" => "網址命名",
