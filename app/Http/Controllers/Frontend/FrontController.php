@@ -68,7 +68,6 @@ class FrontController extends CatController
                     ->where("valid_until", ">=", now());
             })
             ->orderBy("lft", "ASC")
-            ->take(5)
             ->get();
 
         $recommend_products = [];
