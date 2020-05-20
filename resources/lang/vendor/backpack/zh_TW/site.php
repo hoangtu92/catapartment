@@ -74,8 +74,8 @@ return [
     "contact_message" => "留言管理",
     "user" => "會員",
     "users" => "會員",
-    "user_menu" => '品牌管理',
-    "user_manager" => "會員管理",
+    "user_menu" => '會員管理',
+    "user_manager" => "資料編輯",
 
     "username" => "用戶名",
     "name" => "名稱",
