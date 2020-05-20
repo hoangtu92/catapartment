@@ -95,7 +95,7 @@ return [
     "submenu_title" => "名稱",
     "submenu_date" => "篩選條件",
 
-    "home_management" => "首頁管理",
+    "home_management" => "會員管理",
     "home_latest_puzzle" => "VIP拼圖推",
     "home_recommend_puzzle" => "人氣拼圖推薦",
 
