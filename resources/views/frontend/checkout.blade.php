@@ -175,11 +175,11 @@
                         </label>
 
                         <hr>
-                        <p>{!! __("privacy_notice", ["privacy_url" => '<a href="#"><strong>'.__("privacy policy").'</strong></a>']) !!}
+                        <p>{!! __("privacy_notice", ["privacy_url" => '<a href="'.route('page', ['privacy-policy']).'" target="_blank"><strong>'.__("privacy policy").'</strong></a>']) !!}
                             .</p>
                         <hr>
                         <label
-                            class="checkbox-btn">{!! __("term_condition_agreement", ["term_link" => '<a href="#"><strong>'.__("terms and conditions").'*</strong></a>']) !!}
+                            class="checkbox-btn">{!! __("term_condition_agreement", ["term_link" => '<a href="'.route('page', ['terms']).'" target="_blank"><strong>'.__("terms and conditions").'*</strong></a>']) !!}
                             <input type="checkbox" name="term_agree">
                             <span class="checkmark"></span>
                         </label>
