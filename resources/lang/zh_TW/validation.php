@@ -106,7 +106,7 @@ return [
         ],
 
         'product_id' => [
-            "unique" => "已超過版面限制數量"
+            "unique" => "此商品已經設置過了"
         ],
 
         'email'   =>    [
