@@ -25,7 +25,7 @@
                             <tr>
                                 <th></th>
                                 <th class="text-center">{{ __("Product") }}</th>
-                                <th class="text-center">{{ __("Description") }}</th>
+                                <th class="text-center">商品說明</th>
                                 <th class="text-center">{{ __("Price") }}</th>
                                 <th></th>
 
@@ -43,7 +43,7 @@
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                                             <input type="hidden" name="action" value="remove_wishlist">
-                                            <input type="submit" class="btn-cat" value="Remove">
+                                            <input type="submit" class="btn-cat" value="移除">
                                         </form>
                                     </td>
                                 </tr>
