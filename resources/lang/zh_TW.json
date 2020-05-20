@@ -138,5 +138,7 @@
     "Qty" : "數量",
     "Price" : "價格",
     "Update" : "更新購物車",
-    "Go to checkout": "前往結帳"
+    "Go to checkout": "前往結帳",
+    "Add to cart" : "加入購物車",
+    "Add to wishlist" : "加入願望清單"
 }

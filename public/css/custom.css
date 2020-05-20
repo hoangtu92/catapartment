@@ -2390,6 +2390,18 @@ a:focus, a:hover {
     vertical-align: middle;
 }
 
+.hide{
+    display: none !important;
+}
+
+.filter label{
+    cursor: pointer;
+}
+.filter input:checked + label{
+    color: #222022;
+    font-weight: bold;
+}
+
 @media (min-width: 992px){
     .border-right{
         border-right: 1px solid rgba(221, 221, 221, 0.35);

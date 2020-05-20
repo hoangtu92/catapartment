@@ -103,13 +103,13 @@
                             <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
                         @endif
 
-                                        ( {{ count($product->orderItems) }} customer review )</p>
+                                        ( {{ count($product->orderItems) }} 個評論  )</p>
                     <h3 class="price"><span>${{ $product->price }}</span> ${{ $product->sale_price }}</h3>
                     {!! $product->short_description !!}
 
                     @if($product->colors != null)
                         <div class="color-div">
-                            <span>Color : </span>
+                            <span>顏色 : </span>
                             @foreach($product->colors as $color)
                                 <span>
                                 <input id="color-{{$color->id}}" type="radio" value="{{ $color->name }}"
@@ -150,18 +150,18 @@
                     <hr>
                     <!--Product add to cart-->
 
-                    <h4><strong>SKU :</strong> {{ $product->sku || "N/A" }}</h4>
-                    <h4><strong>Category :</strong> {{ $product->category->name }}</h4>
-                    <h4><strong>Share :
+                    <h4><strong>貨號 :</strong> {{ $product->sku || "N/A" }}</h4>
+                    <h4><strong>目錄 :</strong> {{ $product->category->name }}</h4>
+                    <h4><strong>分享 :
 
                             <!-- Your share button code -->
                             <a target="_blank"
                                href="https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u={{ route("product_detail", ["slug" => $product->slug]) }}&display=popup&ref=plugin&src=share_button"
                             ><img src="{{ asset("images/facebook-icon.png") }}" width="25" alt=""/></a>
 
-                            <a target="_blank"
+                           {{-- <a target="_blank"
                                href="https://twitter.com/intent/tweet?original_referer={{ route("product_detail", ["slug" => $product->slug]) }}&ref_src=twsrc%5Etfw&text={{ $product->name }}&tw_p=tweetbutton&url={{ route("product_detail", ["slug" => $product->slug]) }}"><img
-                                    src="{{ asset("images/twitter-icon.png") }}" width="30" alt=""/></a>
+                                    src="{{ asset("images/twitter-icon.png") }}" width="30" alt=""/></a>--}}
 
                         </strong>
                     </h4>
@@ -178,11 +178,11 @@
                     <div id="horizontalTab">
                         <ul class="resp-tabs-list">
                             @if($product->content != null)
-                                <li>Description</li>
+                                <li>商品細節</li>
                             @endif
 
                             @if($product->brand != null)
-                                <li>Additional Information</li>
+                                <li>更多資訊</li>
                             @endif
 
                             @if(count($product->orderItems) > 0)
@@ -190,7 +190,7 @@
                             @endif
 
                             @if($product->brand != null && $product->brand->description != null)
-                                <li>About Brand</li>
+                                <li>關於品牌</li>
                             @endif
 
                             @if(count($product->shipping_methods) > 0)
@@ -217,19 +217,19 @@
                                                 <table class="table full-width" style="max-width:500px; margin:auto;">
                                                     <tbody>
                                                     <tr>
-                                                        <td><b>Brand</b></td>
+                                                        <td><b>品牌</b></td>
                                                         <td>{{ $product->brand->name }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Color</b></td>
+                                                        <td><b>顏色</b></td>
                                                         <td>{{ implode(", ", $product->colorname) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Measures</b></td>
+                                                        <td><b>尺寸</b></td>
                                                         <td>{{ $product->measures }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Origin</b></td>
+                                                        <td><b>進口國家</b></td>
                                                         <td>{{ $product->origin }}</td>
                                                     </tr>
                                                     </tbody>
@@ -413,42 +413,15 @@
         <div class="row">
             <div class="col-lg-12 guide-slider">
                 <div id="rv-slider" class="owl-carousel">
+
+                    @foreach($recent_view_products as $product)
                     <div class="item" data-aos="fade-up">
                         <div class="acce-box"><a href="#"> <img src="{{ asset("images/product01.jpg") }}" alt=""/>
                                 <h3>Smart watches wood edition</h3>
                                 <p>Accessories, Clocks</p>
                                 <span><em>$499.00</em> $399.00</span></a></div>
                     </div>
-                    <div class="item" data-aos="fade-up">
-                        <div class="acce-box"><a href="#"> <img src="{{ asset("images/product02.jpg") }}" alt=""/>
-                                <h3>Smart watches wood edition</h3>
-                                <p>Accessories, Clocks</p>
-                                <span><em>$499.00</em> $399.00</span></a></div>
-                    </div>
-                    <div class="item" data-aos="fade-up">
-                        <div class="acce-box"><a href="#"> <img src="{{ asset("images/product03.jpg") }}" alt=""/>
-                                <h3>Smart watches wood edition</h3>
-                                <p>Accessories, Clocks</p>
-                                <span><em>$499.00</em> $399.00</span></a></div>
-                    </div>
-                    <div class="item" data-aos="fade-up">
-                        <div class="acce-box"><a href="#"> <img src="{{ asset("images/product01.jpg") }}" alt=""/>
-                                <h3>Smart watches wood edition</h3>
-                                <p>Accessories, Clocks</p>
-                                <span><em>$499.00</em> $399.00</span></a></div>
-                    </div>
-                    <div class="item" data-aos="fade-up">
-                        <div class="acce-box"><a href="#"> <img src="{{ asset("images/product02.jpg") }}" alt=""/>
-                                <h3>Smart watches wood edition</h3>
-                                <p>Accessories, Clocks</p>
-                                <span><em>$499.00</em> $399.00</span></a></div>
-                    </div>
-                    <div class="item" data-aos="fade-up">
-                        <div class="acce-box"><a href="#"> <img src="{{ asset("images/product03.jpg") }}" alt=""/>
-                                <h3>Smart watches wood edition</h3>
-                                <p>Accessories, Clocks</p>
-                                <span><em>$499.00</em> $399.00</span></a></div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

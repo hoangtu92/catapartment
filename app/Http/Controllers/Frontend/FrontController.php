@@ -200,39 +200,46 @@ class FrontController extends CatController
     public function products($page = 1, Request $request){
         //Pagination variables
         $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+        $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
+        $order = $request->filled("order") ? $request->input("order") : 'asc';
+
         $total_items = Product::count();
         $route_name = "products";
 
-        $products = Product::offset( ($page-1)*$perPage )->take($perPage)->get();
+        $products = Product::orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
 
-        return view("frontend.products", compact("products", "page", "perPage", "total_items", "route_name"));
+        return view("frontend.products", compact("products", "page", "perPage", "total_items", "route_name", "order", "orderBy"));
     }
 
     public function product_category($category_name, $page = 1, Request $request){
 
         $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+        $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
+        $order = $request->filled("order") ? $request->input("order") : 'asc';
 
         $category = ProductCategory::where("name", $category_name)->first();
-        $products = Product::where("category_id", $category->id)->offset(($page-1)*$perPage)->take($perPage)->get();
+        $products = Product::where("category_id", $category->id)->orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
 
         $total_items = Product::where("category_id", $category->id)->count();
         $route_name = "product_cat";
 
 
-        return view("frontend.products")->with(compact("category", "products", "page", "perPage", "total_items", "route_name"));
+        return view("frontend.products")->with(compact("category", "products", "page", "perPage", "total_items", "route_name", "order", "orderBy"));
     }
 
     public function pre_order_products($page = 1, Request $request){
 
         $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+        $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
+        $order = $request->filled("order") ? $request->input("order") : 'asc';
 
-        $products = Product::where("status", PRE_ORDER)->offset(($page-1)*$perPage)->take($perPage)->get();
+        $products = Product::where("status", PRE_ORDER)->orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
 
         $total_items = Product::where("status", PRE_ORDER)->count();
 
 
         $route_name = "pre_order_products";
-        return view("frontend.pre_order_products")->with(compact("products","page", "perPage", "total_items", "route_name"));
+        return view("frontend.pre_order_products")->with(compact("products","page", "perPage", "total_items", "route_name", "order", "orderBy"));
     }
 
     public function recommend_products($page = 1, Request $request){
@@ -286,6 +293,7 @@ class FrontController extends CatController
                 $product->is_hot = true;
             }
         }
+
 
         return view("frontend.product_detail", compact("product"));
     }

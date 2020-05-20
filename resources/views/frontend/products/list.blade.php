@@ -5,9 +5,14 @@
                 <div class="acce-box">
                     <a href="{{ $product->permalink }}">
 
-                        <span class="offer-green">-20%</span>
+                        @if($product->is_hot)
+                            <span class="offer-hot">HOT</span>
+                        @endif
 
-                        <span class="offer-hot">HOT</span>
+                        @if($product->sale_price >=0 && $product->sale_price < $product->price)
+                            <span class="offer-green">{{ round(( ($product->sale_price - $product->price)/$product->price)*100) }}%
+                                </span>
+                        @endif
 
 
                         <img src="{{ asset($product->image) }}" alt=""/>
