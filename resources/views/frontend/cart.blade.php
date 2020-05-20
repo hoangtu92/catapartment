@@ -85,7 +85,7 @@
                                 <div class="form-group text-right flex-column align-items-center justify-content-between">
                                     <input type="hidden" name="action" value="update_cart">
                                     <input class="m-0 btn-cat" type="submit" value="{{ __("Update") }}">
-                                    <a class="m-0" href="{{ route("checkout") }}">{{ __("Go to checkout") }}</a>
+                                    <a class="m-0 btn-cat" href="{{ route("checkout") }}">{{ __("Go to checkout") }}</a>
                                 </div>
                             </form>
                         </div>

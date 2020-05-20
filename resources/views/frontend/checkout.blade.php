@@ -38,14 +38,15 @@
                                            class="form-control" placeholder="">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            {{--<div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __("Country") }}<em>*</em></label>
                                     <select class="form-control" name="country" readonly>
                                         <option value="Taiwan" selected>Taiwan</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>--}}
+                            <input type="hidden" name="country" value="Taiwan">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __("Street Address") }}<em>*</em></label>
@@ -53,12 +54,12 @@
                                            value="{{ Auth::guest() ? Session::get("address") :  Session::get("address", Auth::user()->address)}}"
                                            class="form-control" placeholder="">
                                 </div>
-                                <div class="form-group">
+                                {{--<div class="form-group">
                                     <input type="text" name="address2" value="{{ Session::get("address2")}}"
                                            class="form-control" placeholder="">
-                                </div>
+                                </div>--}}
                             </div>
-                            <div class="col-md-12">
+                            {{--<div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __("Town / City") }}<em>*</em></label>
                                     <input type="text" name="city" value="{{ Session::get("city") }}"
@@ -71,7 +72,7 @@
                                     <input type="text" name="state" value="{{ Session::get("state") }}"
                                            class="form-control" placeholder="">
                                 </div>
-                            </div>
+                            </div>--}}
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __("Postal Code / ZIP") }}<em>*</em></label>
