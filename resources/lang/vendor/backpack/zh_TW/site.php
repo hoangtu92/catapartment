@@ -9,6 +9,8 @@ return [
     "slides" => "輪播圖檔",
     "news" => "拼圖情報",
     "news_tags" => "拼圖情報標籤",
+    "news_submenu" => "情報編輯",
+    "news_tags_submenu" => "標籤編輯",
     "products" => "商品管理",
     "product_categories" => "商品目錄",
     "faqs" => "問與答",

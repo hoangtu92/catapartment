@@ -90,6 +90,7 @@ class FrontController extends CatController
 
     public function search(Request $request){
 
+
         if($request->filled("s")){
 
             $s = $request->input("s");
@@ -132,7 +133,7 @@ class FrontController extends CatController
             return view("frontend.search")->with(compact("results"));
         }
         else{
-            return view("frontend.home");
+            return $this->home();
         }
     }
 
