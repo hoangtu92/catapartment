@@ -105,7 +105,9 @@ return [
 
         ],
 
-        'product_id' => "已超過版面限制數量",
+        'product_id' => [
+            "unique" => "已超過版面限制數量"
+        ],
 
         'email'   =>    [
             'required' => '電子郵件字段是必需的。'
