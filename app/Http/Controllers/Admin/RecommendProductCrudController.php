@@ -85,7 +85,7 @@ class RecommendProductCrudController extends CrudController
         $this->crud->addField([
             'name' => "category",
             'type' => 'select2_from_array',
-            'options' => ["熱賣拼圖", "新品預購", "換季促銷"]
+            'options' => ["熱賣拼圖" => "熱賣拼圖", "新品預購" => "新品預購", "換季促銷" => "換季促銷"]
         ]);
 
 
@@ -119,7 +119,50 @@ class RecommendProductCrudController extends CrudController
 
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        // TODO: remove setFromDb() and manually define Fields
+        //$this->crud->setFromDb();
+
+        $this->crud->addField([
+            "name" => "product_id",
+            "type" => "select2",
+            "entity" => "product",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product")
+        ]);
+
+        $this->crud->addField([
+            'name' => "category",
+            'type' => 'select2_from_array',
+            'options' => ["熱賣拼圖" => "熱賣拼圖", "新品預購" => "新品預購", "換季促銷" => "換季促銷"]
+        ]);
+
+
+        $this->crud->addField([
+            'name' => 'display',
+            "label" => trans('backpack::site.display'),
+            'type' => 'checkbox',
+            'wrapperAttributes' => [
+                'id' => "item_display"
+            ]
+        ]);
+
+        $this->crud->addField([
+            'name' => 'valid_from',
+            "label" => trans('backpack::site.valid_from'),
+            'type' => 'date_picker',
+            'wrapperAttributes' => [
+                'id' => "valid_from"
+            ]
+        ]);
+
+        $this->crud->addField([
+            'name' => 'valid_until',
+            "label" => trans('backpack::site.valid_until'),
+            'type' => 'date_picker',
+            'wrapperAttributes' => [
+                'id' => "valid_until"
+            ]
+        ]);
     }
 
     protected function setupReorderOperation()
