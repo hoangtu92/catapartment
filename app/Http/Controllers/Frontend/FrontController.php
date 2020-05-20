@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Mail\ContactUs;
 use App\Models\Faq;
+use App\Models\Frame;
 use App\Models\LatestProduct;
 use App\Models\Message;
 use App\Models\News;
@@ -222,9 +223,10 @@ class FrontController extends CatController
 
         $total_items = Product::where("category_id", $category->id)->count();
         $route_name = "product_cat";
+        $route_params = ['category_name' => $category_name];
 
 
-        return view("frontend.products")->with(compact("category", "products", "page", "perPage", "total_items", "route_name", "order", "orderBy"));
+        return view("frontend.products")->with(compact("category", "products", "page", "perPage", "total_items", "route_name", "order", "orderBy", "route_params"));
     }
 
     public function pre_order_products($page = 1, Request $request){
@@ -240,6 +242,22 @@ class FrontController extends CatController
 
         $route_name = "pre_order_products";
         return view("frontend.pre_order_products")->with(compact("products","page", "perPage", "total_items", "route_name", "order", "orderBy"));
+    }
+
+    public function customized_products($page = 1, Request $request){
+
+        $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
+        $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
+        $order = $request->filled("order") ? $request->input("order") : 'asc';
+
+        $products = Frame::orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
+
+        $total_items = Frame::count();
+
+
+        $route_name = "customized_products";
+
+        return view("frontend.customized_products")->with(compact("products","page", "perPage", "total_items", "route_name", "order", "orderBy"));;
     }
 
     public function recommend_products($page = 1, Request $request){
@@ -273,10 +291,6 @@ class FrontController extends CatController
         $route_name = "recommend_products";
 
         return view("frontend.recommend_products")->with(compact("products","page", "perPage", "total_items", "route_name"));
-    }
-
-    public function customized_products(){
-        return view("frontend.customized_products");
     }
 
     public function product_detail($slug){

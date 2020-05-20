@@ -2,7 +2,7 @@
 
     <h5><a href="#">Text 1</a> / <span>Text 2</span></h5>
 
-    <form method="get" id="filter_form" action="{{ route($route_name) }}">
+    <form method="get" id="filter_form" action="{{ route($route_name, isset($route_params) ? $route_params : []) }}">
         <div class="ptop-right">
                             <span><strong>Show :</strong>
                                 <span>
