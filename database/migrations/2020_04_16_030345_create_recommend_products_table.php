@@ -15,7 +15,7 @@ class CreateRecommendProductsTable extends Migration
     {
         Schema::create('recommend_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("product_id")->unique(false);
+            $table->foreignId("product_id");
             $table->foreign("product_id")->references("id")->on("products");
             $table->enum("category", ["熱賣拼圖", "新品預購", "換季促銷"])->default("熱賣拼圖")->collation("utf8_unicode_ci");
             $table->boolean("display")->nullable(true)->default(true);
