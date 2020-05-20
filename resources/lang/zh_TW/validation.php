@@ -109,6 +109,10 @@ return [
             "unique" => "此商品已經設置過了"
         ],
 
+        'icon' => [
+          'required' => '請上傳圖示'
+        ],
+
         'email'   =>    [
             'required' => '電子郵件字段是必需的。'
         ],

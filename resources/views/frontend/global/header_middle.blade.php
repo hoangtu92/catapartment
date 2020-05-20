@@ -6,6 +6,8 @@
                 <input type="text" name="s" value="{{ old("s") }}" placeholder="{{ __("Search for products") }}">
                 <select name="cat">
                     <option value="">{{ __("Select Category") }}</option>
+                    <option value="faq">FAQ</option>
+                    <option value="news">情報</option>
                     @foreach($product_categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
