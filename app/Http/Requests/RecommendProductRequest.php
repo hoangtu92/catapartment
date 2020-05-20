@@ -27,7 +27,7 @@ class RecommendProductRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
-            'product_id' => 'unique:recommend_products'
+            //'product_id' => 'unique:recommend_products'
         ];
     }
 
