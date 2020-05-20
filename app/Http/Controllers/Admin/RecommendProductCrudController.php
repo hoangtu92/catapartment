@@ -56,7 +56,8 @@ class RecommendProductCrudController extends CrudController
 
         $this->crud->addColumn([
            'name' => "category",
-           'type' => 'text'
+           'type' => 'text',
+            "label" => trans("backpack::site.recommend_product_category")
         ]);
 
         $this->crud->addColumn([
@@ -85,7 +86,8 @@ class RecommendProductCrudController extends CrudController
         $this->crud->addField([
             'name' => "category",
             'type' => 'select2_from_array',
-            'options' => ["熱賣拼圖" => "熱賣拼圖", "新品預購" => "新品預購", "換季促銷" => "換季促銷"]
+            'options' => ["熱賣拼圖" => "熱賣拼圖", "新品預購" => "新品預購", "換季促銷" => "換季促銷"],
+            "label" => trans("backpack::site.recommend_product_category")
         ]);
 
 
@@ -133,7 +135,8 @@ class RecommendProductCrudController extends CrudController
         $this->crud->addField([
             'name' => "category",
             'type' => 'select2_from_array',
-            'options' => ["熱賣拼圖" => "熱賣拼圖", "新品預購" => "新品預購", "換季促銷" => "換季促銷"]
+            'options' => ["熱賣拼圖" => "熱賣拼圖", "新品預購" => "新品預購", "換季促銷" => "換季促銷"],
+            "label" => trans("backpack::site.recommend_product_category")
         ]);
 
 

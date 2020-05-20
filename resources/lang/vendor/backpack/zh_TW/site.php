@@ -149,5 +149,6 @@ return [
     "page_slug" => "網址命名",
     "page_content" => "內容",
     "page_display" => "Display",
-    "point_amount" => "積分"
+    "point_amount" => "積分",
+    "recommend_product_category" => "類別"
 ];
