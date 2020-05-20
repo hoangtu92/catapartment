@@ -63,7 +63,7 @@ class UserController extends CatController
             if ($request->input("action") === "update_profile") {
 
                 $request->validate([
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'email' => ['required', 'string', 'email', 'max:255'],
                     'name' => ['required', 'string', 'max:255']
                 ]);
 
