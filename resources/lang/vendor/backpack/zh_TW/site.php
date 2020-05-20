@@ -72,6 +72,7 @@ return [
     "contact_message" => "留言管理",
     "user" => "會員",
     "users" => "會員",
+    "user_menu" => '品牌管理',
     "user_manager" => "會員管理",
 
     "username" => "用戶名",
@@ -95,7 +96,7 @@ return [
     "submenu_title" => "名稱",
     "submenu_date" => "篩選條件",
 
-    "home_management" => "會員管理",
+    "home_management" => "首頁管理",
     "home_latest_puzzle" => "VIP拼圖推",
     "home_recommend_puzzle" => "人氣拼圖推薦",
 
@@ -128,9 +129,10 @@ return [
     "shipping_method_description" => "簡介",
     //"shipping_method_fee" => "Fee",
     "brand" => "商品管理",
+    "brand_menu" => "品牌管理",
     "brand_name" => "品牌名稱",
     "brand_country" => "品牌國家",
-    "brand_logo" => "品牌",
+    "brand_logo" => "Logo",
     "brand_description" => "品牌簡介",
 
     "order_number" => "訂單編號",
