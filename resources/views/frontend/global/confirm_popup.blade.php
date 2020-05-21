@@ -18,10 +18,3 @@
         </div>
     </div>
 </div>
-@if(Session::has('message'))
-    <script>
-        jQuery(document).ready(function ($) {
-            $("#infoModal").modal();
-        })
-    </script>
-@endif
