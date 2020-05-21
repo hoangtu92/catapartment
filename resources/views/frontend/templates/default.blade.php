@@ -131,6 +131,7 @@
 <!--Begin Modal-->
 @include("frontend.global.newsletter")
 @include("frontend.global.popup_message")
+@include("frontend.global.confirm_popup")
 
 @auth
     @else
@@ -189,7 +190,8 @@
     $(document).ready(function ($) {
         $(".logout-link").click(function (e) {
             e.preventDefault();
-            $("#frm-logout").submit();
+            $('#confirmModal').modal();
+
         });
 
         @if(isset($announcements) && count($announcements) > 0)
