@@ -431,6 +431,20 @@ class FrontController extends CatController
 
         $order->save();
 
+        //Reward
+        $reward_point = new UserPoint([
+            "user_id" => Auth::id(),
+            "amount" => Session::get("cart_total_amount"),
+            "created_at" => now(),
+            "notes" => "消費積分"
+        ]);
+
+        $reward_point->save();
+        Auth::user()->points += $reward_point->amount;
+        Auth::user()->save();
+
+
+        //Deduce discount
         if(Auth::user() && $discount > 0){
 
             Auth::user()->points -= $discount;
@@ -440,7 +454,7 @@ class FrontController extends CatController
                 "user_id" => Auth::id(),
                 "amount" => -$discount,
                 "created_at" => now(),
-                "notes" => "消費積分"
+                "notes" => "使用消費積分扣抵"
             ]);
 
             $point->save();
