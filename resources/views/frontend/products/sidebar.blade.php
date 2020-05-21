@@ -1,60 +1,63 @@
 <div class="col-md-3">
+    <form id="product_filter" action="{{ route($route_name, isset($route_params) ? $route_params : []) }}" ng-submit="filterProduct()" method="get">
+
     <div class="lbox">
         <h3>用價格找拼圖</h3>
         <div class="price-range-block">
-            <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
+            <div id="slider-range" range-slide="" class="price-filter-range" name="rangeInput"></div>
             <div style="margin:20px auto">
-                <input type="number" min=0 max="9900" oninput="validity.valid||(value='0');"
+                <input type="number" name="min" ng-model="filter.min" min=0 max="9900" oninput="validity.valid||(value='0');"
                        id="min_price" class="price-range-field"/>
-                <input type="number" min=0 max="10000" oninput="validity.valid||(value='10000');"
+                <input type="number" name="max" ng-model="filter.max" min=0 max="10000" oninput="validity.valid||(value='10000');"
                        id="max_price" class="price-range-field"/>
             </div>
-            <button class="price-range-search" id="price-range-submit"
+            {{--<button class="price-range-search" id="price-range-submit"
                     style="display:block !important;">Search
-            </button>
+            </button>--}}
 
         </div>
     </div>
     <div class="lbox">
         <h3>用產地找拼圖</h3>
         <ul>
-            <li><a href="#"><img src="{{ asset("images/country-icon01.png") }}" alt=""/> 日本 <span>10</span></a></li>
-            <li><a href="#"><img src="{{ asset("images/country-icon02.png") }}" alt=""/> 美國 <span>12</span></a></li>
-            <li><a href="#"><img src="{{ asset("images/country-icon03.png") }}" alt=""/> 英國 <span>14</span></a></li>
-            <li><a href="#"><img src="{{ asset("images/country-icon04.png") }}" alt=""/> 德國 <span>10</span></a></li>
-            <li><a href="#"><img src="{{ asset("images/country-icon05.png") }}" alt=""/> 法國 <span>16</span></a></li>
-            <li><a href="#"><img src="{{ asset("images/country-icon06.png") }}" alt=""/> 義大利 <span>11</span></a></li>
-            <li><a href="#"><img src="{{ asset("images/country-icon07.png") }}" alt=""/> 韓國 <span>18</span></a></li>
-            <li><a href="#"><img src="{{ asset("images/country-icon08.png") }}" alt=""/> 台灣 <span>12</span></a></li>
+            @foreach($origins as $origin)
+                <li><input class="hide" id="origin-{{ $origin->id }}" type="checkbox" ng-model="filter.origins[{{ $origin->id }}]" ng-change="filterProduct()" value="{{ $origin->id }}"> <label for="origin-{{ $origin->id }}"><img src="{{ asset($origin->icon) }}" alt=""/> {{ $origin->name }} <span>{{ isset($category) ? $origin->cat_products($category->id)->count() : $origin->products()->count() }}</span></label></li>
+            @endforeach
+
+
         </ul>
     </div>
     <div class="lbox">
         <h3>用片數找拼圖</h3>
         <ul>
-            <li><a href="#">～100 片 <span>10</span></a></li>
-            <li><a href="#">101～300 片 <span>12</span></a></li>
-            <li><a href="#">301~500 片 <span>14</span></a></li>
-            <li><a href="#">501片~800 片 <span>10</span></a></li>
-            <li><a href="#">801~1,000 片 <span>16</span></a></li>
-            <li><a href="#">1,001~1,200 片 <span>11</span></a></li>
-            <li><a href="#">1,201~1,500 片 <span>18</span></a></li>
-            <li><a href="#">1,501~2,000 片 <span>12</span></a></li>
-            <li><a href="#">2,000片以上 <span>12</span></a></li>
+            @foreach($pieces as $piece)
+            <li><input type="checkbox" class="hide" ng-model="filter.pieces[{{ $piece->id}}]" value="{{ $piece->id }}" ng-change="filterProduct()" id="piece-{{ $piece->id }}"><label for="piece-{{ $piece->id }}">{{ $piece->name }} <span>{{ isset($category) ? $piece->cat_products($category->id)->count() : $piece->products()->count() }}</span></label></li>
+            @endforeach
         </ul>
     </div>
     <div class="lbox">
         <h3>用品牌找拼圖</h3>
         <ul class="brands">
-            <li><img src="{{ asset("images/brand-logo01.jpg") }}" alt=""/> <img src="{{ asset("images/brand-logo06.jpg") }}" alt=""/>
-            </li>
-            <li><img src="{{ asset("images/brand-logo02.jpg") }}" alt=""/> <img src="{{ asset("images/brand-logo07.jpg") }}" alt=""/>
-            </li>
-            <li><img src="{{ asset("images/brand-logo03.jpg") }}" alt=""/> <img src="{{ asset("images/brand-logo08.jpg") }}" alt=""/>
-            </li>
-            <li><img src="{{ asset("images/brand-logo04.jpg") }}" alt=""/> <img src="{{ asset("images/brand-logo09.jpg") }}" alt=""/>
-            </li>
-            <li><img src="{{ asset("images/brand-logo05.jpg") }}" alt=""/> <img src="{{ asset("images/brand-logo10.jpg") }}" alt=""/>
-            </li>
+            @foreach($brands as $brand)
+            <li><input type="checkbox" class="hide" ng-model="filter.brands[{{ $brand->id }}]" ng-change="filterProduct()" id="brand-{{ $brand->id }}" value="1"><label for="brand-{{ $brand->id }}"><img src="{{ asset($brand->logo) }}" alt=""/></label></li>
+            @endforeach
         </ul>
     </div>
+
+    </form>
 </div>
+
+    <script>
+        @if(isset($category))
+            var category_id = "{{ $category->id }}";
+        @endif
+
+        @if(isset($sort))
+            var sort = "{{ $sort }}";
+        @endif
+
+        @if(isset($perPage))
+            var perPage = "{{ $perPage }}";
+        @endif
+    </script>
+

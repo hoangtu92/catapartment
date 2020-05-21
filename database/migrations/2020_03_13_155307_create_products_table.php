@@ -35,9 +35,13 @@ class CreateProductsTable extends Migration
             $table->foreignId("brand_id")->nullable(true);
             $table->foreign("brand_id")->references("id")->on("brands");
 
+            $table->foreignId("origin_id")->nullable(true);
+            $table->foreign("origin_id")->references("id")->on("origins");
+
+            $table->foreignId("piece_id")->nullable(true);
+            $table->foreign("piece_id")->references("id")->on("pieces");
+
             $table->string("measures")->collation("utf8_unicode_ci")->nullable(true);
-            $table->string("origin")->collation("utf8_unicode_ci")->nullable(true);
-            $table->string("pieces")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->string("keywords")->collation("utf8_unicode_ci")->nullable(true);
             $table->timestamps();

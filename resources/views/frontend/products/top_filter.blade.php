@@ -1,10 +1,10 @@
 <div class="ptop filter">
 
-    <h5><a href="#">Text 1</a> / <span>Text 2</span></h5>
+    {{--<h5><a href="#">Text 1</a> / <span>Text 2</span></h5>--}}
 
-    <form method="get" id="filter_form" action="{{ route($route_name, isset($route_params) ? $route_params : []) }}">
+    <form method="get" id="filter_form" action="{{ route(Route::currentRouteName(), isset($route_params) ? $route_params : []) }}">
         <div class="ptop-right">
-                            <span><strong>Show :</strong>
+                            <span><strong>頁數 :</strong>
                                 <span>
                                     <input id="perPage9" type="radio" @if($perPage == 9) checked @endif class="hide" name="perPage" value="9">
                                     <label for="perPage9">9</label>
@@ -29,13 +29,13 @@
                 <a href="#"><img src="{{ asset("images/licon04.jpg") }}" alt=""/></a>
             </span>--}}
 
-            <span>
+            {{--<span>
                 <select name="order" onchange="document.querySelector('#filter_form').submit();">
                 <option value=null>{{ __("Default Sorting") }}</option>
                 <option value="asc" @if($order == 'asc') selected @endif>{{ __("Sorting A to Z") }}</option>
                 <option value="desc" @if($order == 'desc') selected @endif>{{ __("Sorting Z to A") }}</option>
                 </select>
-            </span>
+            </span>--}}
         </div>
 
     </form>

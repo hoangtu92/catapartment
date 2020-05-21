@@ -20,6 +20,9 @@ class ShoppingCart
     public function handle($request, Closure $next)
     {
 
+        $sort = $request->filled("sort") ? $request->input("sort") : "latest";
+        View::share('sort', $sort);
+
         $cart_items = (array) json_decode(Cookie::get("cart_items", "[]"));
 
         if($request->isMethod("post") ){

@@ -5,9 +5,6 @@
     <!--Price Rengebar CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" type="text/css"
           media="all"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset("css/price_range_style.css") }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset("css/thumbnail-slider.css") }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset("css/ninja-slider.css") }}"/>
 @endsection
 
 @section("content")
@@ -103,9 +100,6 @@
     <!-- Price Rengebar JS Part Start -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
             type="text/javascript"></script>
-    <script src="{{ asset("js/ninja-slider.js") }}"></script>
-    <script src="{{ asset("js/thumbnail-slider.js") }}"></script>
-    <script src="{{ asset("js/price_range_script.js") }}" type="text/javascript"></script>
     <script src="{{ asset("js/cart.js") }}" type="text/javascript"></script>
 
 @endsection

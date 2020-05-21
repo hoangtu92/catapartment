@@ -946,23 +946,41 @@ header.sticky {
     width: 100%;
 }
 
-.lbox ul li a {
+.lbox ul.brands{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+}
+
+.lbox ul.brands li label{
+    border:1px solid white;
+}
+.lbox ul.brands li input:checked + label{
+    border: 1px solid #fcc701
+}
+
+.lbox ul.brands li label img{
+    width: auto;
+}
+
+.lbox ul li a, .lbox ul li label {
     width: 100%;
     display: inline-block;
     padding: 5px 0;
     color: #231916;
+    cursor:pointer;
 }
 
-.lbox ul li a:hover {
+.lbox ul li a:hover, .lbox ul li label:hover, .lbox ul li input:checked + label {
     color: #f6ab00;
 }
 
-.lbox ul li a img {
+.lbox ul li a img, .lbox ul li label img {
     vertical-align: middle;
     margin-right: 7px;
 }
 
-.lbox ul li a span {
+.lbox ul li a span, .lbox ul li label span {
     border: #d3d3d4 thin solid;
     color: #6d6c6c;
     float: right;
@@ -971,7 +989,7 @@ header.sticky {
     border-radius: 5px;
 }
 
-.lbox ul li a:hover span {
+.lbox ul li a:hover span, .lbox ul li label:hover span, .lbox ul li input:checked + label span {
     background: #f6ab00;
     color: #231916;
 }

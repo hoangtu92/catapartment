@@ -29,7 +29,7 @@ Route::get('/product-category/{category_name}/{page?}', "Frontend\FrontControlle
 Route::get('/pre-order-products/{page?}', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
 Route::get('/recommend-products/{page?}', "Frontend\FrontController@recommend_products")->name("recommend_products");
 Route::get('/customized-products', "Frontend\FrontController@customized_products")->name("customized_products");
-Route::get('/products/detail/{slug}', "Frontend\FrontController@product_detail")->name("product_detail");
+Route::get('/products/detail/{slug?}', "Frontend\FrontController@product_detail")->name("product_detail");
 
 Route::any('/checkout', "Frontend\FrontController@checkout")->name("checkout");
 

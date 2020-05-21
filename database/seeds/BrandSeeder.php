@@ -40,12 +40,20 @@ class BrandSeeder extends Seeder
             "大陸" => ["Limited", "若熊"]
         ];
 
+        $idx = 0;
+
+        function formatNum($n){
+            return $n < 10 ? "0".$n : $n;
+        }
+
         foreach($brands as $country => $items){
 
             foreach($items as $brand_name){
+                if($idx < 10) $idx++;
+
                 DB::table("brands")->insert([
                     "name" => $brand_name,
-                    "logo" => "",
+                    "logo" => "/images/brand-logo".formatNum($idx).".jpg",
                     "country"=> $country,
                     "description" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."

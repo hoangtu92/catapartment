@@ -146,16 +146,18 @@ class ProductCrudController extends CrudController
         ]);
 
         $this->crud->addField([
-            "name" => "origin",
-            "type" => "select2_from_array",
-            "options" => ["日本","台灣","波蘭","義大利","美國","西班牙","加拿大","英國","法國","德國","荷蘭","大陸"],
+            "name" => "origin_id",
+            "type" => "select2",
+            "entity" => "origin",
+            "attribute" => "name",
             "label" => trans("backpack::site.product_origin")
         ]);
 
         $this->crud->addField([
-            "name" => "pieces",
-            "type" => "select2_from_array",
-            "options" => ["0~204片","205~300片","301~500片","501~1000片","1001~1500片","1501～2000片","2001片以上"],
+            "name" => "piece_id",
+            "type" => "select2",
+            "entity" => "piece",
+            "attribute" => "name",
             "label" => trans("backpack::site.product_pieces")
         ]);
 

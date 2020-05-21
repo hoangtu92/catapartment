@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Mail\ContactUs;
+use App\Models\Brand;
 use App\Models\Faq;
 use App\Models\Frame;
 use App\Models\LatestProduct;
@@ -12,7 +13,9 @@ use App\Models\Newsletter;
 use App\Models\NewsTag;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Origin;
 use App\Models\Page;
+use App\Models\Piece;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
@@ -209,7 +212,11 @@ class FrontController extends CatController
 
         $products = Product::orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
 
-        return view("frontend.products", compact("products", "page", "perPage", "total_items", "route_name", "order", "orderBy"));
+        $brands = Brand::all();
+        $origins = Origin::all();
+        $pieces = Piece::all();
+
+        return view("frontend.products", compact("products", "brands", "origins", "pieces", "page", "perPage", "total_items", "route_name", "order", "orderBy"));
     }
 
     public function product_category($category_name, $page = 1, Request $request){
@@ -225,8 +232,12 @@ class FrontController extends CatController
         $route_name = "product_cat";
         $route_params = ['category_name' => $category_name];
 
+        $brands = Brand::all();
+        $origins = Origin::all();
+        $pieces = Piece::all();
 
-        return view("frontend.products")->with(compact("category", "products", "page", "perPage", "total_items", "route_name", "order", "orderBy", "route_params"));
+
+        return view("frontend.products")->with(compact("category", "products", "brands", "origins", "pieces", "page", "perPage", "total_items", "route_name", "order", "orderBy", "route_params"));
     }
 
     public function pre_order_products($page = 1, Request $request){

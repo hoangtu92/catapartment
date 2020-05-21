@@ -18,6 +18,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -253,6 +254,12 @@ class LoginController extends CatController
 
         return redirect(route("address"));
 
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        Cookie::queue("cart_items", json_encode([]), 86400);
+        Cookie::queue("wishlist", json_encode([]), 86400);
     }
 
 }

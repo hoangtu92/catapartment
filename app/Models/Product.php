@@ -49,6 +49,12 @@ class Product extends Model
     public function brand(){
         return $this->belongsTo("App\Models\Brand", "brand_id", "id");
     }
+    public function origin(){
+        return $this->belongsTo("App\Models\Origin", "origin_id", "id");
+    }
+    public function piece(){
+        return $this->belongsTo("App\Models\Piece", "piece_id", "id");
+    }
 
     public function orders(){
         return $this->belongsToMany("App\Models\Order", "order_items", "product_id", "order_id");
@@ -89,7 +95,7 @@ class Product extends Model
     */
 
     public function getPermalinkAttribute(){
-        return route("product_detail", ["slug" => $this->slug | $this->name]);
+        return route("product_detail", ["slug" => $this->slug]);
     }
 
     public function getColornameAttribute(){

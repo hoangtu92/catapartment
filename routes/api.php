@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post("/getProducts", "Frontend\ApiController@getProducts");
+Route::get("/frames", "Frontend\ApiController@getFrames");
+Route::get("/shipping_fee", "Frontend\ApiController@getShippingFee");
+Route::post("/create_customized_product", "Frontend\ApiController@create_customized_product");
 
 Route::middleware(["api, shopping_cart"])->group(function () {
     Route::post("/apply_discount", "Frontend\FrontController@apply_discount");

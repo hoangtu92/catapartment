@@ -8,8 +8,8 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-home"></i> {{ trans('backpack::site.home_management') }}</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('slide') }}'><i class='nav-icon fa fa-picture-o'></i> {{ trans('backpack::site.slides') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('latest-product') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_latest_puzzle') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('recommend-product') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.home_recommend_puzzle') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('latest-product') }}'><i class='nav-icon fa fa-gift'></i> {{ trans('backpack::site.home_latest_puzzle') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('recommend-product') }}'><i class='nav-icon fa fa-gift'></i> {{ trans('backpack::site.home_recommend_puzzle') }}</a></li>
     </ul>
 </li>
 
@@ -32,7 +32,7 @@
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('order') }}'><i class='nav-icon fa fa-shopping-cart'></i> {{ trans('backpack::site.orders') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('transaction') }}'><i class='nav-icon fa fa-bank'></i>{{ trans('backpack::site.transactions') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('shipping-method') }}'><i class='nav-icon fa fa-globe'></i> {{ trans('backpack::site.shipping_method') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('shipping-method') }}'><i class='nav-icon fa fa-truck'></i> {{ trans('backpack::site.shipping_method') }}</a></li>
     </ul>
 </li>
 
@@ -42,7 +42,10 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product') }}'><i class='nav-icon fa fa-gift'></i> {{ trans('backpack::site.products_submenu') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product-category') }}'><i class='nav-icon fa fa-tag'></i>{{ trans('backpack::site.product_categories_submenu') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('color') }}'><i class='nav-icon fa fa-paint-brush'></i> {{ trans('backpack::site.product_color_submenu') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('brand') }}'><i class='nav-icon fa fa-coffee'></i> {{ trans('backpack::site.brand_menu') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('brand') }}'><i class='nav-icon fa fa-building'></i> {{ trans('backpack::site.brand_menu') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('origin') }}'><i class='nav-icon fa fa-globe'></i> {{ trans('backpack::site.product_origin') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('piece') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.product_pieces') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('frame') }}'><i class='nav-icon fa fa-picture-o'></i> 框的材質</a></li>
     </ul>
 </li>
 
@@ -71,3 +74,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i> <span>{{ trans("backpack::site.settings") }}</span></a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('submenu') }}'><i class='nav-icon fa fa-sitemap'></i> {{ trans("backpack::site.submenu") }}</a></li>
+
+

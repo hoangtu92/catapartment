@@ -21,11 +21,7 @@
                         <span><em>${{ $product->price }}</em> ${{ $product->sale_price }}</span></a></div>
             </div>
         @endforeach
-
-
-        @include("frontend.global.pagination")
-
-
     </div>
+    @include("frontend.global.pagination")
 
 </div>

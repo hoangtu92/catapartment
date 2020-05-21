@@ -145,7 +145,7 @@
 
 
                     <div class="add-wishlist">
-                        <a href="#" onclick="document.querySelector('#wishlist-form').submit()"><img src="{{ asset("images/icon02.jpg") }}" alt=""/> Add to Wishlist</a>
+                        <a href="#" onclick="document.querySelector('#wishlist-form').submit()"><img src="{{ asset("images/icon02.jpg") }}" alt=""/> {{ __("Add to wishlist") }}</a>
                     </div>
                     <hr>
                     <!--Product add to cart-->
@@ -216,6 +216,7 @@
                                             <div class="cart-tb">
                                                 <table class="table full-width" style="max-width:500px; margin:auto;">
                                                     <tbody>
+
                                                     <tr>
                                                         <td><b>品牌</b></td>
                                                         <td>{{ $product->brand->name }}</td>
@@ -230,7 +231,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><b>進口國家</b></td>
-                                                        <td>{{ $product->origin }}</td>
+                                                        <td>{{ $product->origin->name }}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
