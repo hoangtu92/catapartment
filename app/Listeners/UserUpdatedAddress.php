@@ -49,7 +49,7 @@ class UserUpdatedAddress
             "user_id" => $user->id,
             "amount" => 5,
             "created_at" => now(),
-            "notes" => "UPDATE_PROFILE"
+            "notes" => "更新完整個人資料"
         ]);
 
         $point->save();

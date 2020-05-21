@@ -23,7 +23,7 @@
                                         <tbody>
                                         <tr>
                                             <th>消費日期</th>
-                                            <th>Notes</th>
+                                            <th>項目</th>
                                             {{--<th>購買金額</th>--}}
                                             <th>積分</th>
                                         </tr>

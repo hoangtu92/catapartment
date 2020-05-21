@@ -21,7 +21,7 @@
                     @if($cart_items == null)
                     <i class="fa fa-shopping-cart"></i>
                     <h2>{{ __("Cart is empty.") }}</h2>
-                    <p>{!! __("cart_empty_notice") !!}</p>
+                    {{--<p>{!! __("cart_empty_notice") !!}</p>--}}
                     <a href="#">{{ __("Return to Shop") }}</a>
 
                         @else

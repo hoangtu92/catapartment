@@ -396,7 +396,7 @@ class FrontController extends CatController
         }
 
 
-        $discount = $request->session()->get("discount", 0);
+        $discount = $request->session()->get("discount", 0)/100;
 
         //Creating order
         $order = new Order([
@@ -440,7 +440,7 @@ class FrontController extends CatController
                 "user_id" => Auth::id(),
                 "amount" => -$discount,
                 "created_at" => now(),
-                "notes" => "PLACE_ORDER"
+                "notes" => "消費積分"
             ]);
 
             $point->save();
