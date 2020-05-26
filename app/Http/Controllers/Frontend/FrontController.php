@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Mail\ContactUs;
+use App\Mail\OrderComplete;
 use App\Models\Brand;
 use App\Models\Faq;
 use App\Models\Frame;
@@ -24,7 +25,6 @@ use App\Models\Transaction;
 use App\Models\UserPoint;
 use App\User;
 use Backpack\Settings\app\Models\Setting;
-use Cassandra\Date;
 use ECPay_CheckMacValue;
 use flamelin\ECPay\Ecpay;
 use Illuminate\Http\Request;
@@ -400,7 +400,7 @@ class FrontController extends CatController
 
 
 
-        if(Auth::user()->isVip()){
+        if(\App\Models\User::find(Auth::id())->isVip()){
             $md = Setting::get("vip_member_discount");
         }
         else{
@@ -483,6 +483,9 @@ class FrontController extends CatController
 
         }
 
+        //Send email
+        Mail::send(new OrderComplete(Auth::user(), $order));
+
         if($request->input("payment_method") == "ecpay"){
             //基本參數(請依系統規劃自行調整)
             $ecpay = new Ecpay();
@@ -518,6 +521,7 @@ class FrontController extends CatController
             $order->checksum = \ECPay_CheckMacValue::generate($arParameters,$ecpay->i()->HashKey ,$ecpay->i()->HashIV, $arParameters['EncryptType']);
             Log::info(json_encode($arParameters));
             $order->save();
+
 
             //var_dump($order->checksum);
             //echo "<textarea>{$ecpay->i()->CheckOutString()}</textarea>";
