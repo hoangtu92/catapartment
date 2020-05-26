@@ -63,4 +63,14 @@ class User extends Model
     public function hasPurchased($product_id){
         return $this->hasManyThrough("App\Models\OrderItem", "App\Models\Order")->where("product_id", "=", $product_id)->count() > 0;
     }
+
+    public function isVip(){
+        $shopping_accumulate = 0;
+
+        foreach($this->orders as $order){
+            $shopping_accumulate += $order->sub_total;
+        }
+
+        return $shopping_accumulate >= 4000;
+    }
 }

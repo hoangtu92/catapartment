@@ -159,6 +159,12 @@
                                href="https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u={{ route("product_detail", ["slug" => $product->slug]) }}&display=popup&ref=plugin&src=share_button"
                             ><img src="{{ asset("images/facebook-icon.png") }}" width="25" alt=""/></a>
 
+{{--
+                            <a target="_blank" href="" title="Instagram"> <img src="{{ asset("images/instagram-icon.png") }}" width="25" alt=""/></a>
+--}}
+                            <a target="_blank" href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" data-pin-custom="true" title="Pinterest"> <img src="{{ asset("images/pinterest_icon.png") }}" width="25" alt=""/></a>
+                            <a target="_blank" href="mailto:?subject={{ $product->name }}&amp;body={{ $product->short_description }} {{ $product->permalink }}<br>" title="Email"> <img src="{{ asset("images/mail-icon.png") }}" width="25" alt=""/></a>
+
                            {{-- <a target="_blank"
                                href="https://twitter.com/intent/tweet?original_referer={{ route("product_detail", ["slug" => $product->slug]) }}&ref_src=twsrc%5Etfw&text={{ $product->name }}&tw_p=tweetbutton&url={{ route("product_detail", ["slug" => $product->slug]) }}"><img
                                     src="{{ asset("images/twitter-icon.png") }}" width="30" alt=""/></a>--}}
@@ -446,6 +452,11 @@
     <script src="{{ asset("js/thumbnail-slider.js") }}"></script>
     <script src="{{ asset("js/price_range_script.js") }}" type="text/javascript"></script>
     <script src="{{ asset("js/cart.js") }}" type="text/javascript"></script>
+    <script
+        type="text/javascript"
+        async defer
+        src="//assets.pinterest.com/js/pinit.js"
+    ></script>
 
     <script>
 

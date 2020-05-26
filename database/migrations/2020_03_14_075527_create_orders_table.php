@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
 
             $table->decimal("shipping_fee")->default(0);
             $table->decimal("discount")->default(0);
+            $table->decimal("member_discount")->default(0);
             $table->decimal("total_amount")->default(0);
             $table->decimal("sub_total")->default(0);
 

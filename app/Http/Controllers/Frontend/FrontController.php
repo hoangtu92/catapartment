@@ -398,14 +398,26 @@ class FrontController extends CatController
 
         $discount = $request->session()->get("discount", 0)/100;
 
-        //Creating order
+
+
+        if(Auth::user()->isVip()){
+            $md = Setting::get("vip_member_discount");
+        }
+        else{
+            $md = Setting::get("regular_member_discount");
+        }
+
+        $member_discount = ($md/100)*Session::get("cart_total_amount");
+
+            //Creating order
         $order = new Order([
             'order_id' => $this->randomNumber(),
             'user_id' => isset($user) ? $user->id : Auth::id() != null ? Auth::id() : null,
             'shipping_fee' => Setting::get("shipping_fee"),
-            'total_amount' => Session::get("cart_total_amount") + (float) Setting::get("shipping_fee") - $discount,
+            'total_amount' => Session::get("cart_total_amount") + (float) Setting::get("shipping_fee") - $discount - $member_discount,
             'sub_total' => Session::get("cart_total_amount"),
             'discount' => $discount,
+            'member_discount' => $member_discount,
 
             'company_name'      => $request->input('company_name'),
             'country'      => $request->input('country'),
@@ -594,6 +606,7 @@ class FrontController extends CatController
 
                     $reward_point->save();
                     Auth::user()->points += $reward_point->amount;
+
                     Auth::user()->save();
 
                     return view("frontend.thankyou");
