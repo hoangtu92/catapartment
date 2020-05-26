@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->decimal("shipping_fee")->default(0);
             $table->decimal("discount")->default(0);
             $table->decimal("total_amount")->default(0);
+            $table->decimal("sub_total")->default(0);
 
             $table->string("country")->collation("utf8_unicode_ci")->default("Taiwan")->nullable(true);
             $table->string("state")->collation("utf8_unicode_ci")->nullable(true);

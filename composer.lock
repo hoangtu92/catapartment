@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "108abcb8b1fcdb18af3255c9c8cdcb36",
+    "content-hash": "76e0b506479c1395274ab72f5ca8142d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2226,6 +2226,43 @@
                 "psr-3"
             ],
             "time": "2019-12-20T14:22:59+00:00"
+        },
+        {
+            "name": "muhamadrezaar/instagram",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/julles/laravel-instagram.git",
+                "reference": "759b58bd52ebbeabef7ff227f19f5a72234b6ecf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/julles/laravel-instagram/zipball/759b58bd52ebbeabef7ff227f19f5a72234b6ecf",
+                "reference": "759b58bd52ebbeabef7ff227f19f5a72234b6ecf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Oblagio\\Instagram\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhamad Reza Abdul Rohim",
+                    "email": "reza.wikrama3@gmail.com"
+                }
+            ],
+            "description": "Laravel 5 Instagram Package",
+            "keywords": [
+                "instagram",
+                "laravel"
+            ],
+            "time": "2016-03-05T18:09:07+00:00"
         },
         {
             "name": "nesbot/carbon",

@@ -405,6 +405,7 @@
         </div>
     </section>
 
+    @if(count($recent_view_products) > 0)
     <section class="container-fluid recently-viewed">
         <div class="row">
             <div class="col-lg-12">
@@ -427,7 +428,7 @@
             </div>
         </div>
     </section>
-
+@endif
 
 
     <form id="wishlist-form" action="{{ route("wishlist") }}" method="post">

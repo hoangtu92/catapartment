@@ -176,7 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //Casperlaitw\LaravelFbMessenger\LaravelFbMessengerServiceProvider::class,
-        flamelin\ECPay\EcpayServiceProvider::class
+        flamelin\ECPay\EcpayServiceProvider::class,
+        Oblagio\Instagram\InstagramServiceProvider::class
     ],
 
     /*
@@ -230,7 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         //'Menu' => Casperlaitw\LaravelFbMessenger\Facades\MessengerMenu::class,
-        'Ecpay' => flamelin\ECPay\Facade\Ecpay::class
+        'Ecpay' => flamelin\ECPay\Facade\Ecpay::class,
+        'IG' => Oblagio\Instagram\InstagramFacade::class,
     ],
 
 ];

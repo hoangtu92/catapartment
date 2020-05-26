@@ -22,7 +22,8 @@
         "laravel/framework": "^7.0",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "muhamadrezaar/instagram": "^1.0"
     },
     "require-dev": {
         "backpack/generators": "^2.0",
