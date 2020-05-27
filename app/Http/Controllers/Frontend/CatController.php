@@ -27,13 +27,13 @@ class CatController extends Controller
 
         $sub_menu = SubMenu::all();
 
-        $recent_view_products = Session::get("recent_view_products", []);
+
+
 
         View::share('product_categories', $product_categories);
         View::share('announcements', $announcements);
         View::share('advertisements', $advertisements);
         View::share('sub_menu', $sub_menu);
-        View::share('recent_view_products', $recent_view_products);
 
     }
 

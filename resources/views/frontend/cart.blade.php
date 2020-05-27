@@ -13,6 +13,7 @@
         <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_wishlist")) }}" alt=""/>
     </section>
 
+
     <section class="wishlist-page">
         <div class="container">
             <div class="row">
@@ -41,37 +42,64 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>{{ __("Product") }}</th>
-                                        <th>{{ __("Qty") }}</th>
-                                        <th>{{ __("Price") }}</th>
-                                        <th>{{ __("Total") }}</th>
+                                        <th class="text-center">{{ __("Product") }}</th>
+                                        <th class="text-center">{{ __("Qty") }}</th>
+                                        <th class="text-center">{{ __("Price") }}</th>
+                                        <th class="text-center">{{ __("Total") }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($cart_items as $index => $item)
+
                                     <tr>
+                                        @if(isset($item->product))
                                         <td><img src="{{ asset($item->product->image) }}"></td>
-                                        <td>{{ $item->product->name }} @if($item->color != null) <strong><small>({{ $item->color }})</small></strong> @endif</td>
+                                        <td>{{ $item->product->name }} @if(!empty($item->attr))
+                                                                           @foreach($item->attr as $key => $value)
+                                                    <strong><small>{{ $key }}: {{ $value }}</small></strong><br>
+                                                                    @endforeach
+                                                    @endif</td>
+
+                                        @elseif(isset($item->customized_product))
+                                            <td><img src="{{ asset($item->customized_product->frame->image) }}"></td>
+                                            <td>{{ $item->customized_product->frame->name }} @if(!empty($item->attr))<div style="line-height: 15px;">
+                                                    @foreach($item->attr as $key => $value)
+                                                        <small><strong>{{ ATTRIBUTES[$key] }}: {{ $value }}</strong></small><br>
+                                                    @endforeach
+                                                </div>
+
+                                                @endif</td>
+
+                                        @endif
+
                                         <td>
 
                                             <div class="input-group">
           <span class="input-group-btn">
               <button type="button" class="btn btn-default btn-number" data-type="minus"
-                      data-field="cart_items[p_{{  $item->product_id.$item->color }}][qty]">
+                      data-field="cart_items[{{  $index }}][qty]">
                   <span>-</span>
               </button>
           </span>
-                                                <input type="text" name="cart_items[p_{{  $item->product_id.$item->color }}][qty]" class="form-control input-number" value="{{ $item->qty }}" min="0" max="100">
+                                                <input type="text" name="cart_items[{{  $index }}][qty]" class="form-control input-number" value="{{ $item->qty }}" min="0" max="100">
                                                 <span class="input-group-btn">
-              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="cart_items[p_{{  $item->product_id.$item->color }}][qty]">
+              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="cart_items[{{  $index }}][qty]">
                   <span>+</span>
               </button>
           </span>
                                             </div>
 
                                             </td>
+
+                                            @if(isset($item->product))
+
                                         <td>{{ $item->product->sale_price }}</td>
                                         <td>{{ $item->qty*$item->product->sale_price }}</td>
+
+                                            @elseif(isset($item->customized_product))
+                                                <td>{{ $item->customized_product->price }}</td>
+                                                <td>{{ $item->qty*$item->customized_product->price }}</td>
+                                        @endif
 
                                     </tr>
                                 @endforeach

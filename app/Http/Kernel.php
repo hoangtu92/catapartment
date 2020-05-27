@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\AuthenticatedUser;
 use App\Http\Middleware\CheckRole;
+use App\Http\Middleware\RecentProduct;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\ShoppingCart;
 use App\Http\Middleware\Wishlist;
@@ -53,7 +54,8 @@ class Kernel extends HttpKernel
             SubstituteBindings::class,
             AuthenticatedUser::class,
             ShoppingCart::class,
-            Wishlist::class
+            Wishlist::class,
+            RecentProduct::class
         ],
 
         'api' => [

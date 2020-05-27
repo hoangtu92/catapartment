@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\CustomizedProduct;
 use App\Models\Product;
 use Closure;
 use Illuminate\Support\Facades\Cookie;
@@ -27,7 +28,7 @@ class ShoppingCart
 
         if($request->isMethod("post") ){
 
-            $key = "p_".$request->input("product_id").$request->input("color");
+            $key = base64_encode(serialize( (object) [$request->input("product_id"), $request->input("customized_product_id"), $request->input("attr")] ));
 
             if($request->input("action") == "add_cart"){
                 if($request->input("qty") > 0) {
@@ -38,8 +39,9 @@ class ShoppingCart
                     else{
                         $cart_items[$key] = (object)[
                             "product_id" => $request->input("product_id"),
+                            "customized_product_id" => $request->input("customized_product_id"),
                             "qty" => $request->input("qty"),
-                            "color" => $request->input("color")
+                            "attr" => $request->input("attr")
                         ];
                     }
 
@@ -83,17 +85,37 @@ class ShoppingCart
 
         foreach ($cart_items as &$item){
 
-            $product = Product::find($item->product_id);
-            $permalink = $product->permalink;
-
-            $item->product = $product->toArray();
-            $item->product['permalink'] = $permalink;
-
-            $item->product = (object) $item->product;
-
             $cart_item_count += $item->qty;
-            $cart_total_amount += $item->product->sale_price*$item->qty;
+
+            if($item->product_id != null){
+                $product = Product::find($item->product_id);
+
+                if($product){
+                    $permalink = $product->permalink;
+
+                    $item->product = $product->toArray();
+                    $item->product['permalink'] = $permalink;
+
+                    $item->product = (object) $item->product;
+
+                    $cart_total_amount += $item->product->sale_price*$item->qty;
+                }
+
+
+            }
+            if($item->customized_product_id != null){
+                $item->customized_product = CustomizedProduct::find($item->customized_product_id);
+
+                if($item->customized_product)
+                    $cart_total_amount += $item->customized_product->price*$item->qty;
+            }
+
+
+
         }
+
+
+        //$cart_items = [];
 
         View::share('cart_items', $cart_items);
         View::share('cart_total_amount', $cart_total_amount);

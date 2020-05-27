@@ -14,18 +14,15 @@ class OrderComplete extends Mailable
 
     public $to;
     public $order;
-    public $user;
-
     /**
      * Create a new message instance.
      *
      * @param $to
      */
-    public function __construct($user, $order)
+    public function __construct($order)
     {
         //
 
-        $this->user = $user;
         $this->order = $order;
 
     }
@@ -37,7 +34,7 @@ class OrderComplete extends Mailable
      */
     public function build()
     {
-        return $this->to($this->user->email)
+        return $this->to($this->order->email)
             ->subject("貓公寓拼圖坊訂單通知".$this->order->order_id)
             ->replyTo(Setting::get("contact_email"), "貓公寓拼圖坊")
             ->view('emails.order_completed');

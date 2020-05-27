@@ -62,22 +62,21 @@
 </label>
 </div>
 </span>
-                                <span class="bt"><a href="#" ng-click="resetSelection()" class="btn2">重新估算</a> <a
-                                        href="#"
-                                        class="btn4">我要訂製</a></span>
+                                <span class="bt"><a href="#" ng-click="resetSelection()" class="btn2">重新估算</a> <button type="submit" form="customizedProductAddCartForm"
+                                        class="btn4">我要訂製</button></span>
                             </div>
                         </div>
                     </div>
 
 
 
-                    <form action="{{ route("cart") }}" method="post">
+                    <form action="{{ route("cart") }}" method="post" id="customizedProductAddCartForm" name="customizedProductAddCartForm">
                         @csrf
                         <input type="hidden" name="action" value="add_cart">
-                        <input type="hidden" name="product_id" id="product_id">
-                        <input type="hidden" name="product_type" value="customized" id="customized">
-                        <input type="hidden" name="thickness" id="thickness">
-                        <input type="hidden" name="total_length" id="total_length">
+                        <input type="hidden" name="qty" value="1">
+                        <input type="hidden" name="customized_product_id" ng-model="customized_product.id" value="@{{customized_product.id}}" id="product_id">
+                        <input type="hidden" name="attr[thickness]" id="thickness" ng-model="customized_product.thickness" value="@{{ customized_product.thickness }}">
+                        <input type="hidden" name="attr[total_length]" id="total_length" ng-model="customized_product.total_length" value="@{{ customized_product.total_length }}">
 
                     </form>
 

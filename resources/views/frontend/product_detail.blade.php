@@ -113,7 +113,7 @@
                             @foreach($product->colors as $color)
                                 <span>
                                 <input id="color-{{$color->id}}" type="radio" value="{{ $color->name }}"
-                                       style="display: none" name="color">
+                                       style="display: none" name="attr[color]">
                                 <label for="color-{{$color->id}}" style="background-color: {{ $color->value }}"
                                        title="{{ $color->name }}"></label>
                             </span>
@@ -200,7 +200,7 @@
                             @endif
 
                             @if(count($product->shipping_methods) > 0)
-                                <li>Shipping & Delivery</li>
+                                <li>{{ __("Shipping & Delivery") }}</li>
                             @endif
                         </ul>
                         <div class="resp-tabs-container">
@@ -252,13 +252,13 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3>{{ count($product->reviews) }} Review for {{ $product->name }}</h3>
+                                            <h3>{{ count($product->reviews) }} 則評論 {{ $product->name }}</h3>
                                             <div class="re-box">
                                                 @foreach($product->orderItems as $orderItem)
 
                                                     @if($orderItem->review == null) @continue @endif
 
-                                                    <img class="avatar" src="{{ asset("images/user-img.jpg") }}" alt=""/>
+                                                    {{--<img class="avatar" src="{{ asset("images/user-img.jpg") }}" alt=""/>--}}
 
 
                                                     <h4><b>{{ $orderItem->order->user->name | $orderItem->order->user->username }}</b> - {{ $orderItem->review_date }}</h4>
@@ -300,13 +300,13 @@
                                         </div>
                                         @if($current_user != null && $current_user->hasPurchased($product->id))
                                         <div class="col-lg-6">
-                                            <h3 class="mb-3">Add a Review</h3>
+                                            <h3 class="mb-3">我要評論</h3>
                                             <p>Your email address will not be published. Required fields are marked*</p>
 
                                             <form action="{{ route("order_detail", [$product->orderItem->order->order_id, "redirect" => route("product_detail", [$product->slug])]) }}" method="post">
                                                 @csrf
 
-                                                <p><strong>Your Rating :</strong></p>
+                                                <p><strong>星等 :</strong></p>
                                                 <div class="rating">
                                                     <label ng-class="{ checked: order.rating[{{ $product->orderItem->id}}] == 5}" @if($product->orderItem->rating == 5) class="checked" @endif><input ng-model="order.rating[{{ $product->orderItem->id}}]" type="radio" name="item[{{ $product->orderItem->id}}][rating]" value="5"> ☆</label>
                                                     <label ng-class="{ checked: order.rating[{{ $product->orderItem->id}}] == 4}" @if($product->orderItem->rating == 4) class="checked" @endif><input ng-model="order.rating[{{ $product->orderItem->id}}]" type="radio" name="item[{{ $product->orderItem->id}}][rating]" value="4"> ☆</label>
@@ -318,7 +318,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label><strong>Your Review <em>*</em></strong></label>
+                                                            <label><strong>留下評論 <em>*</em></strong></label>
                                                             <textarea name="item[{{ $product->orderItem->id }}][review]" class="form-control">{{ $product->orderItem->review }}</textarea>
                                                         </div>
                                                     </div>
@@ -346,7 +346,7 @@
                                                     </div>--}}
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <button type="submit" class="btn02">Submit</button>
+                                                            <button type="submit" class="btn02">送出</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -411,6 +411,7 @@
         </div>
     </section>
 
+
     @if(count($recent_view_products) > 0)
     <section class="container-fluid recently-viewed">
         <div class="row">
@@ -424,10 +425,9 @@
 
                     @foreach($recent_view_products as $product)
                     <div class="item" data-aos="fade-up">
-                        <div class="acce-box"><a href="#"> <img src="{{ asset("images/product01.jpg") }}" alt=""/>
-                                <h3>Smart watches wood edition</h3>
-                                <p>Accessories, Clocks</p>
-                                <span><em>$499.00</em> $399.00</span></a></div>
+                        <div class="acce-box"><a href="{{ $product->permalink }}"> <img src="{{ asset($product->image) }}" alt=""/>
+                                <h3>{{ $product->name }}</h3>
+                                <span><em>${{ $product->price }}</em> ${{ $product->sale_price }}</span></a></div>
                     </div>
                     @endforeach
                 </div>

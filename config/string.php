@@ -14,3 +14,9 @@ if(!defined("PROCESSING"))
 
 if(!defined("COMPLETED"))
     define("COMPLETED", "Completed");
+if(!defined("ATTRIBUTES"))
+    define("ATTRIBUTES", [
+        "thickness" => "Thickness",
+        "total_length" => "Length",
+        "color" => "Color"
+    ]);

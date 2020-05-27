@@ -124,14 +124,21 @@ class ApiController extends Controller
 
             $frame = Frame::find($request->input("frame_id"));
 
-            $customized_product = new CustomizedProduct([
-                'frame_id' => $request->input("frame_id"),
-                'thickness' => $request->input("thickness"),
-                'total_length' => $request->input("total_length"),
-                'price' => $frame->price
-            ]);
+            $customized_product = CustomizedProduct::where("frame_id", $request->input("frame_id"))
+                ->where("thickness", $request->input("thickness"))
+                ->where("total_length", $request->input("total_length"))
+                ->where("price", $frame->price)->first();
 
-            $customized_product->save();
+            if(!$customized_product){
+                $customized_product = new CustomizedProduct([
+                    'frame_id' => $request->input("frame_id"),
+                    'thickness' => $request->input("thickness"),
+                    'total_length' => $request->input("total_length"),
+                    'price' => $frame->price
+                ]);
+
+                $customized_product->save();
+            }
 
             echo $customized_product->toJson();
 

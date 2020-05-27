@@ -358,10 +358,7 @@ app.controller("catCtrl", function ($scope, $http) {
 
             })).then(function (res) {
                 console.log(res.data);
-
-                if (res.data.status) {
-
-                }
+                $scope.customized_product = res.data;
             })
     };
 

@@ -34,6 +34,9 @@ class CustomizedProduct extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function frame(){
+        return $this->belongsTo("App\Models\Frame");
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -48,6 +48,8 @@ class OrderItem extends Model
     }
 
 
+
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -65,4 +67,12 @@ class OrderItem extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function getAttrAttribute(){
+        return $this->attributes["attr"] != null ? json_decode($this->attributes["attr"]) :  [];
+    }
+
+    public function setAttrAttribute($attributes){
+        $this->attributes["attr"] = json_encode($attributes);
+    }
 }

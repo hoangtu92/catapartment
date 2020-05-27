@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Mail\ContactUs;
 use App\Mail\OrderComplete;
 use App\Models\Brand;
+use App\Models\CustomizedProduct;
 use App\Models\Faq;
 use App\Models\Frame;
 use App\Models\LatestProduct;
@@ -25,16 +26,13 @@ use App\Models\Transaction;
 use App\Models\UserPoint;
 use App\User;
 use Backpack\Settings\app\Models\Setting;
-use ECPay_CheckMacValue;
 use flamelin\ECPay\Ecpay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\View;
 
 class FrontController extends CatController
 {
@@ -317,11 +315,16 @@ class FrontController extends CatController
 
         $recent_view_products[$product->id] = $product;
 
+        Session::put("recent_view_products", $recent_view_products);
+
+
         foreach ($hot_products as $hot_product){
             if($hot_product->id == $product->id){
                 $product->is_hot = true;
             }
         }
+
+
 
 
         return view("frontend.product_detail", compact("product"));
@@ -404,7 +407,7 @@ class FrontController extends CatController
 
 
 
-        if(\App\Models\User::find(Auth::id())->isVip()){
+        if(Auth::user() && \App\Models\User::find(Auth::id())->isVip()){
             $md = Setting::get("vip_member_discount");
         }
         else{
@@ -471,24 +474,69 @@ class FrontController extends CatController
         }
 
         $cart_items = Session::get("cart_items");
+        $items = [];
         foreach($cart_items as $item) {
 
-            $product = Product::find($item->product_id);
+            if($item->product_id){
+                $product = Product::find($item->product_id);
 
-            $order_item = new OrderItem([
-                'order_id' => $order->id,
-                'product_id' => $item->product_id,
-                'color' => $item->color,
-                'price' => $product->sale_price,
-                'qty' => $item->qty
-            ]);
+                if($product){
+                    $order_item = new OrderItem([
+                        'order_id' => $order->id,
+                        'product_id' => $item->product_id,
+                        'product_image' => $product->image,
+                        'product_name' => $product->name,
+                        'attr' => $item->attr,
+                        'price' => $product->sale_price,
+                        'qty' => $item->qty
+                    ]);
 
-            $order_item->save();
+                    $order_item->save();
+
+                    $items[] = array(
+                        'Name' => $product->name,
+                        'Price' => (int) $product->sale_price,
+                        'Currency' => "元",
+                        'Quantity' => (int) $item->qty,
+                        'URL' => $product->permalink
+                    );
+                }
+            }
+
+            else if($item->customized_product_id){
+                $customized_product = CustomizedProduct::find($item->customized_product_id);
+
+                if($customized_product){
+                    $order_item = new OrderItem([
+                        'order_id' => $order->id,
+                        'customized_product_id' => $item->customized_product_id,
+                        'product_image' => $customized_product->frame->image,
+                        'product_name' => $customized_product->frame->name,
+                        'attr' => $item->attr,
+                        'price' => $customized_product->price,
+                        'qty' => $item->qty
+                    ]);
+
+                    $order_item->save();
+
+                    $items[] = array(
+                        'Name' => $customized_product->frame->name,
+                        'Price' => (int) $customized_product->price,
+                        'Currency' => "元",
+                        'Quantity' => (int) $item->qty,
+                        'URL' => ""
+                    );
+                }
+
+
+            }
+
 
         }
 
         //Send email
-        Mail::send(new OrderComplete(Auth::user(), $order));
+        Mail::send(new OrderComplete($order));
+
 
         if($request->input("payment_method") == "ecpay"){
             //基本參數(請依系統規劃自行調整)
@@ -499,7 +547,7 @@ class FrontController extends CatController
             $ecpay->i()->Send['OrderResultURL']    = route("order_completed") ;
             $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
             $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
-            $ecpay->i()->Send['TotalAmount']       = $order->total_amount;                     //交易金額
+            $ecpay->i()->Send['TotalAmount']       = round($order->total_amount);                     //交易金額
             $ecpay->i()->Send['TradeDesc']         = "Online goods" ;         //交易描述
             $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::ALL ;     //付款方式
 
@@ -508,17 +556,7 @@ class FrontController extends CatController
 
 
             //訂單的商品資料
-            foreach($cart_items as $item){
-
-                array_push($ecpay->i()->Send['Items'], array(
-                        'Name' => $product->name,
-                        'Price' => (int) $product->sale_price,
-                        'Currency' => "元",
-                        'Quantity' => (int) $item->qty,
-                        'URL' => $product->permalink
-                    )
-                );
-            }
+            $ecpay->i()->Send['Items'] = $items;
 
             //Generate order checksum
             $arParameters = $this->getParameters($ecpay->i()->MerchantID, $ecpay->i()->Send);

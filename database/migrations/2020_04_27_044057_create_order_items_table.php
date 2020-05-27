@@ -25,8 +25,10 @@ class CreateOrderItemsTable extends Migration
             $table->foreignId("customized_product_id")->nullable(true);
             $table->foreign("customized_product_id")->references("id")->on("customized_products");
 
-            $table->string("color")->nullable(true)->collation("utf8_unicode_ci");
-            //$table->string("color_value")->nullable(true);
+            $table->string("product_name")->collation("utf8_unicode_ci")->nullable(true);
+            $table->string("product_image")->collation("utf8_unicode_ci")->nullable(true);
+
+            $table->json("attr")->nullable(true);
 
             $table->decimal("price");
             $table->integer("qty");

@@ -160,8 +160,6 @@
                         @endauth
 
                         <label class="rd-btn">{{ __("Cheque Payment") }}
-                            <input type="radio" value="cheque" name="payment_method">
-                            <span class="checkmark"></span>
                         </label>
 
                         <label class="rd-btn">{{ __("Cash on delivery") }}

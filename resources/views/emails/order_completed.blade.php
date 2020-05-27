@@ -1,4 +1,4 @@
-<p>Hello {{ $user->name }}</p>
+<p>Hello {{ $order->billing_name }}</p>
 <p>感謝您的購買，以下是訂單資訊</p>
 
 <table style="width: 100%; text-align: left; border-collapse: collapse;" border="1">
@@ -21,11 +21,21 @@
         <tbody>
         @foreach($order->items as $index => $item)
             <tr>
-                <td><img width="64" src="{{ asset($item->product->image) }}"></td>
-                <td>{{ $item->product->name }} @if($item->color != null) <strong><small>({{ $item->color }})</small></strong> @endif</td>
+                <td><img width="64" src="{{ asset($item->product_image) }}"></td>
+                <td>{{ $item->product_name }}
+
+                        <div>
+                            @if(!empty($item->attr))
+                                @foreach($item->attr as $key => $value)
+                                    <strong><small>{{ ATTRIBUTES[$key] }}: {{ $value }}</small></strong><br>
+                                @endforeach
+                            @endif
+                        </div>
+
+                </td>
                 <td>{{ $item->qty }}</td>
-                <td>${{ $item->product->sale_price }}</td>
-                <td>${{ $item->qty*$item->product->sale_price }}</td>
+                <td>${{ $item->price }}</td>
+                <td>${{ $item->qty*$item->price }}</td>
             </tr>
         @endforeach
 
