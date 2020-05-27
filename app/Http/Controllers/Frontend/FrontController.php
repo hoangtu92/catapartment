@@ -313,6 +313,10 @@ class FrontController extends CatController
 
         $hot_products = Product::orderByDesc("view")->limit(6)->get();
 
+        $recent_view_products = Session::get("recent_view_products", []);
+
+        $recent_view_products[$product->id] = $product;
+
         foreach ($hot_products as $hot_product){
             if($hot_product->id == $product->id){
                 $product->is_hot = true;

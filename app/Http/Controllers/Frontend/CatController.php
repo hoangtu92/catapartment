@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 class CatController extends Controller
@@ -26,7 +27,7 @@ class CatController extends Controller
 
         $sub_menu = SubMenu::all();
 
-        $recent_view_products = [];
+        $recent_view_products = Session::get("recent_view_products", []);
 
         View::share('product_categories', $product_categories);
         View::share('announcements', $announcements);
