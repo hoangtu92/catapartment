@@ -156,7 +156,7 @@
                             <div ng-if="order.use_discount">
                                 <span>請填入你的優惠折扣：</span>
                                 <div class="cre-box"><input type="text" pattern="\d*" name="point_discount" value="{{ Session::get("point_discount") }}"><input
-                                        type="submit" name="apply_discount" value="抵用"></div>
+                                        type="submit" name="action" value="抵用"></div>
                             </div>
 
                         </div>

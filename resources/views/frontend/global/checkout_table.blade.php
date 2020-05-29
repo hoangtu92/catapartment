@@ -15,16 +15,7 @@
         <tr>
 
             @if(isset($item->product))
-                <td>
-                    {{--<span ng-init="order.items['{{ $index }}'].product_id = '{{ $item->product_id }}'"></span>
-                    <span ng-init="order.items['{{ $index }}'].qty = '{{ $item->qty }}'"></span>
-                    <span ng-init="order.items['{{ $index }}'].color = '{{ $item->color }}'"></span>--}}
-
-                    {{ $item->product->name }}
-
-                </td>
-
-
+                <td>{{ $item->product->name }}</td>
             @else
                 <td>{{ $item->customized_product->frame->name }}</td>
             @endif
@@ -36,8 +27,6 @@
                             <strong><small>{{ ATTRIBUTES[$key] }}: {{ $value }}</small></strong><br>
                         @endforeach
                     @endif
-
-
 (x{{ $item->qty }})</div>
             </td>
 
@@ -65,22 +54,23 @@
     <tr>
         <td>{{ __("Shipping") }}</td>
         <td colspan="2">
-            <label class="rd-btn">{{ __("Flat rate") }} : <strong>$20.00</strong>
+            <label class="rd-btn">{{ __("Flat rate") }} : <strong>${{ Setting::get("shipping_fee") }}</strong>
                 <input name="delivery" ng-model="order.delivery" type="radio" value="flat_rate">
                 <span class="checkmark"></span>
             </label>
-            <label class="rd-btn">{{ __("Free Shipping") }}
+            <label class="rd-btn">{{ __("Free Shipping") }} :
                 <input type="radio" name="delivery" ng-model="order.delivery" value="free_shipping">
                 <span class="checkmark"></span>
             </label>
-            <label class="rd-btn" style="padding-right:0">{{ __("Local Pickup") }} : <strong>${{ Setting::get("shipping_fee") }}</strong>
+            <label class="rd-btn" style="padding-right:0">{{ __("Local Pickup") }} : <strong></strong>
                 <input type="radio" name="delivery" ng-model="order.delivery" checked value="pickup">
                 <span class="checkmark"></span>
             </label></td>
     </tr>
     <tr>
         <td><b>{{ __("Total") }}</b></td>
-        <td colspan="2"><strong>${{ $cart_total_amount + Setting::get("shipping_fee") - Session::get("discount") }}</strong></td>
+
+        <td colspan="2"><strong>${{ $cart_total_amount + Session::get("shipping_fee") - Session::get("discount") }}</strong></td>
     </tr>
     </tbody>
 </table>

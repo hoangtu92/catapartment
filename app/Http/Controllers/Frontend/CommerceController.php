@@ -160,9 +160,6 @@ class CommerceController extends CatController
             }
         }
 
-
-
-
         return view("frontend.product_detail", compact("product"));
     }
 
@@ -180,26 +177,32 @@ class CommerceController extends CatController
                 $request->session()->put($key, $value);
             }
 
-            if(Auth::user() && $request->input("use_discount") == true && $request->filled("apply_discount") && $request->input("apply_discount") == "抵用"){
+            if($request->filled("action")){
+                if($request->input("action") == '抵用' && Auth::user() && $request->input("use_discount") == true){
+                    $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
 
-                $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
+                    if(Auth::user()->points >= $discount){
+                        $request->session()->put("discount", $discount);
+                        $request->session()->flash('message', null);
+                    }
+                    else{
+                        $request->session()->flash('message', __("Your point is not enough"));
+                        $request->session()->put("discount", 0);
+                        $request->session()->put("point_discount", "");
+                    }
 
-                if(Auth::user()->points >= $discount){
-                    $request->session()->put("discount", $discount);
-                    $request->session()->flash('message', null);
                 }
-                else{
-                    $request->session()->flash('message', __("Your point is not enough"));
-                    $request->session()->put("discount", 0);
-                    $request->session()->put("point_discount", "");
-                }
 
+                if($request->session()->get("delivery") == 'flat_rate') $request->session()->put("shipping_fee", Setting::get("shipping_fee"));
+                else $request->session()->put("shipping_fee", 0);
             }
+
             else{
                 return $this->place_order($request);
             }
 
         }
+
 
         return view("frontend.checkout");
     }
@@ -252,13 +255,17 @@ class CommerceController extends CatController
 
         $member_discount = ($md/100)*Session::get("cart_total_amount");
 
+        $shipping_fee = $request->input('delivery') == "flat_rate" ? (float) Setting::get("shipping_fee") : 0;
+        $sub_total = Session::get("cart_total_amount");
+        $total_amount = Session::get("cart_total_amount") + $shipping_fee - $discount - $member_discount;
+
         //Creating order
         $order = new Order([
             'order_id' => $this->randomNumber(),
             'user_id' => isset($user) ? $user->id : Auth::id() != null ? Auth::id() : null,
-            'shipping_fee' => Setting::get("shipping_fee"),
-            'total_amount' => Session::get("cart_total_amount") + (float) Setting::get("shipping_fee") - $discount - $member_discount,
-            'sub_total' => Session::get("cart_total_amount"),
+            'shipping_fee' => $shipping_fee,
+            'total_amount' => $total_amount,
+            'sub_total' => $sub_total,
             'discount' => $discount,
             'member_discount' => $member_discount,
 
