@@ -171,6 +171,15 @@ class CommerceController extends CatController
 
     public function checkout(Request$request){
 
+        if(Auth::user() && \App\Models\User::find(Auth::id())->isVip()){
+            $md = Setting::get("vip_member_discount");
+        }
+        else{
+            $md = Setting::get("regular_member_discount");
+        }
+
+        $request->session()->put("member_discount", $md);
+
         if($request->isMethod('post')){
 
             foreach($request->input() as $key => $value){
@@ -329,7 +338,7 @@ class CommerceController extends CatController
                         'product_id' => $item->product_id,
                         'product_image' => $product->image,
                         'product_name' => $product->name,
-                        'attr' => $item->attr,
+                        'attr' => isset($item->attr) ? $item->attr : [],
                         'price' => $product->sale_price,
                         'qty' => $item->qty
                     ]);

@@ -48,29 +48,40 @@
             <td>
                 <b>{{ __("Discount") }}</b>
             </td>
-            <td colspan="2"><strong>${{ Session::get("discount") }}</strong></td>
+            <td colspan="2"><strong>-${{ Session::get("discount") }}</strong></td>
         </tr>
     @endif
+    @if(Session::get("member_discount") > 0)
+        <tr>
+            <td>
+                <b>{{ __("Member Discount") }}</b>
+            </td>
+            <td colspan="2"><strong>-${{ (Session::get("member_discount")*$cart_total_amount)/100 }}</strong></td>
+        </tr>
+    @endif
+
     <tr>
         <td>{{ __("Shipping") }}</td>
         <td colspan="2">
             <label class="rd-btn">{{ __("Flat rate") }} : <strong>${{ Setting::get("shipping_fee") }}</strong>
-                <input name="delivery" ng-model="order.delivery" type="radio" value="flat_rate">
+                <input name="delivery" onclick="document.getElementById('updateOrder').click()" type="radio" @if(Session::get('delivery') == 'flat_rate') checked @endif value="flat_rate">
                 <span class="checkmark"></span>
             </label>
             <label class="rd-btn">{{ __("Free Shipping") }} :
-                <input type="radio" name="delivery" ng-model="order.delivery" value="free_shipping">
+                <input type="radio" name="delivery" onclick="document.getElementById('updateOrder').click()" @if(Session::get('delivery') == 'free_shipping') checked @endif value="free_shipping">
                 <span class="checkmark"></span>
             </label>
-            <label class="rd-btn" style="padding-right:0">{{ __("Local Pickup") }} : <strong></strong>
-                <input type="radio" name="delivery" ng-model="order.delivery" checked value="pickup">
+            <label class="rd-btn">{{ __("Local Pickup") }} : <strong></strong>
+                <input type="radio" name="delivery" onclick="document.getElementById('updateOrder').click()" @if(Session::get('delivery') == 'pickup') checked @endif value="pickup">
                 <span class="checkmark"></span>
-            </label></td>
+            </label>
+            <input type="submit" name="action" value="update_order" style="display: none" id="updateOrder">
+        </td>
     </tr>
     <tr>
         <td><b>{{ __("Total") }}</b></td>
 
-        <td colspan="2"><strong>${{ $cart_total_amount + Session::get("shipping_fee") - Session::get("discount") }}</strong></td>
+        <td colspan="2"><strong>${{ $cart_total_amount + Session::get("shipping_fee") - Session::get("discount") - (Session::get("member_discount")*$cart_total_amount)/100 }}</strong></td>
     </tr>
     </tbody>
 </table>
