@@ -2,26 +2,17 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Mail\ContactUs;
 use App\Mail\OrderComplete;
 use App\Models\Brand;
 use App\Models\CustomizedProduct;
-use App\Models\Faq;
 use App\Models\Frame;
-use App\Models\LatestProduct;
-use App\Models\Message;
-use App\Models\News;
-use App\Models\Newsletter;
-use App\Models\NewsTag;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Origin;
-use App\Models\Page;
 use App\Models\Piece;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
-use App\Models\Slide;
 use App\Models\Transaction;
 use App\Models\UserPoint;
 use App\User;
@@ -29,7 +20,6 @@ use Backpack\Settings\app\Models\Setting;
 use flamelin\ECPay\Ecpay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
