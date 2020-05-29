@@ -24,28 +24,28 @@ Route::get('/news/detail/{slug}', "Frontend\FrontController@news_detail")->name(
 
 Route::get('/page/{slug}', "Frontend\FrontController@page")->name("page");
 
-Route::get('/products/{page?}', "Frontend\FrontController@products")->name("products");
-Route::get('/product-category/{category_name}/{page?}', "Frontend\FrontController@product_category")->name("product_cat");
-Route::get('/pre-order-products/{page?}', "Frontend\FrontController@pre_order_products")->name("pre_order_products");
-Route::get('/recommend-products/{page?}', "Frontend\FrontController@recommend_products")->name("recommend_products");
-Route::get('/customized-products', "Frontend\FrontController@customized_products")->name("customized_products");
-Route::get('/products/detail/{slug?}', "Frontend\FrontController@product_detail")->name("product_detail");
-
-Route::any('/checkout', "Frontend\FrontController@checkout")->name("checkout");
-
-Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
-
 Route::get('/faq', "Frontend\FrontController@faq")->name("faq");
 Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
 
-Route::any('/wishlist', "Frontend\FrontController@wishlist")->name("wishlist");
+Route::get('/products/{page?}', "Frontend\CommerceController@products")->name("products");
+Route::get('/product-category/{category_name}/{page?}', "Frontend\CommerceController@product_category")->name("product_cat");
+Route::get('/pre-order-products/{page?}', "Frontend\CommerceController@pre_order_products")->name("pre_order_products");
+Route::get('/recommend-products/{page?}', "Frontend\CommerceController@recommend_products")->name("recommend_products");
+Route::get('/customized-products', "Frontend\CommerceController@customized_products")->name("customized_products");
+Route::get('/products/detail/{slug?}', "Frontend\CommerceController@product_detail")->name("product_detail");
 
-Route::any("/shopping-cart", "Frontend\FrontController@cart")->name("cart");
-Route::any("/order/{order_id}", "Frontend\FrontController@order_detail")->name("order_detail");
+Route::any('/checkout', "Frontend\CommerceController@checkout")->name("checkout");
+
+Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
+
+Route::any('/wishlist', "Frontend\CommerceController@wishlist")->name("wishlist");
+
+Route::any("/shopping-cart", "Frontend\CommerceController@cart")->name("cart");
+Route::any("/order/{order_id}", "Frontend\CommerceController@order_detail")->name("order_detail");
 
 
-Route::any("/order-complete", "Frontend\FrontController@order_completed")->name("order_completed");
-Route::post("/order-post-back", "Frontend\FrontController@order_post_back")->name("order_post_back");
+Route::any("/order-complete", "Frontend\CommerceController@order_completed")->name("order_completed");
+Route::post("/order-post-back", "Frontend\CommerceController@order_post_back")->name("order_post_back");
 
 Auth::routes(['verify' => true]);
 

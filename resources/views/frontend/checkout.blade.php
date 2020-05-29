@@ -1,5 +1,8 @@
 @extends("frontend.templates.default")
 
+@section("stylesheet")
+    <link rel="stylesheet" href="{{ asset("css/radio-btn.css") }}">
+    @endsection
 @section("content")
 
     <section class="inner-banner checkout-banner"
@@ -159,8 +162,8 @@
                         </div>
                         @endauth
 
-                        <label class="rd-btn">{{ __("Cheque Payment") }}
-                        </label>
+                       {{-- <label class="rd-btn">{{ __("Cheque Payment") }}
+                        </label>--}}
 
                         <label class="rd-btn">{{ __("Cash on delivery") }}
                             <input type="radio" value="cod" name="payment_method">

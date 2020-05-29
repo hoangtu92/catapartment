@@ -65,14 +65,14 @@
     <tr>
         <td>{{ __("Shipping") }}</td>
         <td colspan="2">
-            {{--<label class="rd-btn">{{ __("Flat rate") }} : <strong>$20.00</strong>
-                <input name="shipping_method" ng-model="order.shipping_method" type="radio" value="flat_rate" checked="checked">
+            <label class="rd-btn">{{ __("Flat rate") }} : <strong>$20.00</strong>
+                <input name="delivery" ng-model="order.delivery" type="radio" value="flat_rate">
                 <span class="checkmark"></span>
             </label>
             <label class="rd-btn">{{ __("Free Shipping") }}
-                <input type="radio" name="shipping_method" ng-model="order.shipping_method" value="free_shipping">
+                <input type="radio" name="delivery" ng-model="order.delivery" value="free_shipping">
                 <span class="checkmark"></span>
-            </label>--}}
+            </label>
             <label class="rd-btn" style="padding-right:0">{{ __("Local Pickup") }} : <strong>${{ Setting::get("shipping_fee") }}</strong>
                 <input type="radio" name="delivery" ng-model="order.delivery" checked value="pickup">
                 <span class="checkmark"></span>

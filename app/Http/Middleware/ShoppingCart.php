@@ -87,7 +87,7 @@ class ShoppingCart
 
             $cart_item_count += $item->qty;
 
-            if($item->product_id != null){
+            if(isset($item->product_id) && $item->product_id != null){
                 $product = Product::find($item->product_id);
 
                 if($product){
@@ -103,7 +103,7 @@ class ShoppingCart
 
 
             }
-            if($item->customized_product_id != null){
+            if(isset($item->customized_product_id) && $item->customized_product_id != null){
                 $item->customized_product = CustomizedProduct::find($item->customized_product_id);
 
                 if($item->customized_product)
