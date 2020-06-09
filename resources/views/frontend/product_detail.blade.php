@@ -71,9 +71,9 @@
                 <div class="col-lg-6">
                     <div class="bread"><a href="#">首頁</a> / <a href="#">拼圖商店</a> / <span>{{ $product->name }}</span>
                     </div>
-                    <h1>{{ $product->name }}</h1>
+                    <h1 class="product-name">{{ $product->name }}</h1>
                     <p class="cre" data-rating="{{$product->averageRating}}">
-                        @if($product->averageRating >= 1)
+                        @if($product->averageRating >= 0)
                             <img src="{{ asset("images/star-icon01.jpg") }}" alt=""/>
                         @else
                             <img src="{{ asset("images/star-icon02.jpg") }}" alt=""/>
@@ -171,6 +171,7 @@
 
                         </strong>
                     </h4>
+                    <h4><strong>庫存: </strong><span>{{ $product->stock }}</span></h4>
                 </div>
                 <!--Product info-->
             </form>

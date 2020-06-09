@@ -25,12 +25,13 @@
                         <h3>{{ __("Billing Details") }}</h3>
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __("Name") }}<em>*</em></label>
                                     <input type="text" name="name"
                                            value="{{ Auth::guest() ? Session::get("name") :  Session::get("name", Auth::user()->name)}}"
                                            class="form-control" placeholder="">
+                                    @error('name')<div class="alert alert-danger">{{ $message }}</div>@enderror
 
                                 </div>
                             </div>
@@ -39,6 +40,7 @@
                                     <label>{{ __("Company Name (optional)") }}</label>
                                     <input type="text" name="company_name" value="{{ Session::get("company_name")}}"
                                            class="form-control" placeholder="">
+
                                 </div>
                             </div>
                             {{--<div class="col-md-12">
@@ -56,6 +58,7 @@
                                     <input type="text" name="address"
                                            value="{{ Auth::guest() ? Session::get("address") :  Session::get("address", Auth::user()->address)}}"
                                            class="form-control" placeholder="">
+                                    @error('address')<div class="alert alert-danger">{{ $message }}</div>@enderror
                                 </div>
                                 {{--<div class="form-group">
                                     <input type="text" name="address2" value="{{ Session::get("address2")}}"
@@ -82,6 +85,7 @@
                                     <input type="text" name="zipcode"
                                            value="{{ Auth::guest() ? Session::get("zipcode") :  Session::get("zipcode", Auth::user()->zipcode)}}"
                                            class="form-control" placeholder="">
+                                    @error('zipcode')<div class="alert alert-danger">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -90,6 +94,7 @@
                                     <input type="text" name="phone"
                                            value="{{ Auth::guest() ? Session::get("phone") :  Session::get("phone", Auth::user()->phone)}}"
                                            class="form-control" placeholder="">
+                                    @error('phone')<div class="alert alert-danger">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -98,6 +103,7 @@
                                     <input type="text" name="email"
                                            value="{{ Auth::guest() ? Session::get("email") :  Session::get("email", Auth::user()->email)}}"
                                            class="form-control" placeholder="">
+                                    @error('email')<div class="alert alert-danger">{{ $message }}</div>@enderror
                                 </div>
                             </div>
 
@@ -107,7 +113,7 @@
                                     <div class="form-group form-check">
                                         <label class="checkbox-btn">{{ __("Create an Account") }}
                                             <input name="create_account" ng-model="order.create_account"
-                                                   ng-click="toggleCreateAccount()" type="checkbox">
+                                                   ng-click="toggleCreateAccount()" type="checkbox" @if(Session::get("create_account") == true) checked ng-init="order.create_account = true" @endif>
                                             <span class="checkmark"></span>
                                         </label>
 
@@ -116,10 +122,13 @@
                                         <div class="form-group">
                                             <label>{{ __("Password") }}</label>
                                             <input type="password" name="password" class="form-control">
+                                            @error('password')<div class="alert alert-danger">{{ $message }}</div>@enderror
+
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __("Retype Password") }}</label>
-                                            <input type="password" name="password2" class="form-control">
+                                            <input type="password" name="password_confirmation" class="form-control">
+                                            @error('password_confirmation')<div class="alert alert-danger">{{ $message }}</div>@enderror
                                         </div>
                                     </div>
                                 </div>
@@ -184,6 +193,8 @@
                             <input type="checkbox" name="term_agree">
                             <span class="checkmark"></span>
                         </label>
+
+                        @error('term_agree')<div class="alert alert-danger">{{ $message }}</div>@enderror
 
                         <button type="submit" class="btn02">{{ __("Place Order") }}</button>
 

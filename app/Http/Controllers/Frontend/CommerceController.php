@@ -182,13 +182,23 @@ class CommerceController extends CatController
 
         if($request->isMethod('post')){
 
+
+
             foreach($request->input() as $key => $value){
                 $request->session()->put($key, $value);
             }
 
             if($request->filled("action")){
+
+                $request->validate([
+                   'action' => 'required',
+                    'point_discount' => 'required'
+                ]);
+
                 if($request->input("action") == '抵用' && Auth::user() && $request->input("use_discount") == true){
                     $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
+
+                    $discount = $discount/100;
 
                     if(Auth::user()->points >= $discount){
                         $request->session()->put("discount", $discount);
@@ -197,7 +207,7 @@ class CommerceController extends CatController
                     else{
                         $request->session()->flash('message', __("Your point is not enough"));
                         $request->session()->put("discount", 0);
-                        $request->session()->put("point_discount", "");
+                        $request->session()->put("point_discount", null);
                     }
 
                 }
@@ -207,6 +217,7 @@ class CommerceController extends CatController
             }
 
             else{
+
                 return $this->place_order($request);
             }
 
@@ -218,20 +229,31 @@ class CommerceController extends CatController
 
     public function place_order(Request $request){
 
-        if(!$request->filled("term_agree") || !$request->input("term_agree")){
+        /*if(!$request->filled("term_agree") || !$request->input("term_agree")){
 
             $request->session()->flash('message', __("Please check term and conditions"));
 
             return view("frontend.checkout");
-        }
+        }*/
+
+        $validate = [
+            'term_agree' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'email|required',
+            'zipcode' => 'required',
+            'address' => 'required'
+        ];
+
 
         if($request->input('create_account') == true){
 
-            if($request->input("password") != $request->input("password2")){
-                $request->session()->flash('message', __("Password mismatched!"));
+            $validate['password'] = 'required|confirmed|min:6';
+            $validate['password_confirmation'] = 'same:password';
+            $validate['email'] = "email|required|unique:users";
 
-                return view("frontend.checkout");
-            }
+            $request->validate($validate);
+
 
             $user = new User();
             $user->name = $request->input("name");
@@ -249,12 +271,16 @@ class CommerceController extends CatController
 
             $user->sendEmailVerificationNotification();
         }
+        else{
+            $request->validate($validate);
+        }
 
 
-        $discount = $request->session()->get("discount", 0)/100;
+        //POint discount
+        $discount = $request->session()->get("discount", 0);
 
 
-
+        //Member discount
         if(Auth::user() && \App\Models\User::find(Auth::id())->isVip()){
             $md = Setting::get("vip_member_discount");
         }
@@ -264,6 +290,7 @@ class CommerceController extends CatController
 
         $member_discount = ($md/100)*Session::get("cart_total_amount");
 
+        //Order summary
         $shipping_fee = $request->input('delivery') == "flat_rate" ? (float) Setting::get("shipping_fee") : 0;
         $sub_total = Session::get("cart_total_amount");
         $total_amount = Session::get("cart_total_amount") + $shipping_fee - $discount - $member_discount;
@@ -494,18 +521,20 @@ class CommerceController extends CatController
                     $order->status = PROCESSING;
                     $order->save();
 
-                    //Reward
-                    $reward_point = new UserPoint([
-                        "user_id" => Auth::id(),
-                        "amount" => $order->sub_total,
-                        "created_at" => now(),
-                        "notes" => "消費積分"
-                    ]);
+                    if(Auth::user()){
+                        //Reward
+                        $reward_point = new UserPoint([
+                            "user_id" => Auth::id(),
+                            "amount" => $order->sub_total,
+                            "created_at" => now(),
+                            "notes" => "消費積分"
+                        ]);
 
-                    $reward_point->save();
-                    Auth::user()->points += $reward_point->amount;
+                        $reward_point->save();
+                        Auth::user()->points += $reward_point->amount;
 
-                    Auth::user()->save();
+                        Auth::user()->save();
+                    }
 
                     return view("frontend.thankyou");
 

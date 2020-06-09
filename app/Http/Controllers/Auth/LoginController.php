@@ -114,7 +114,7 @@ class LoginController extends CatController
      * @return mixed
      */
     function createUser($getInfo, $provider){
-        $user = User::where('username', $getInfo->id)->first();
+        $user = User::where('username', $getInfo->id)->orWhere("email", $getInfo->email)->first();
 
         if (!$user) {
             $user = User::create([
@@ -182,7 +182,7 @@ class LoginController extends CatController
 
             }
             catch (\Exception $e){
-                $request->session()->flash("message", __("An error occurred, please try again later"));
+                $request->session()->flash("message", __("An error occurred, please try again later").$e->getMessage());
                 return redirect(route("register"));
             }
 

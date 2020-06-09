@@ -8,10 +8,11 @@
             </div>
             <div class="modal-body">
                 <div class="message text-center">
-                    登出將會移除購物車商品，您確定嗎？
+                    登出將會先儲存選擇商品，請確定？
                 </div>
             </div>
             <div class="modal-footer">
+                <button class="btn-cat" data-dismiss="modal" aria-label="Close">移除</button>
                 <button class="btn-cat" data-dismiss="modal" aria-label="Close">取消</button>
                 <button class="btn-cat" onclick="document.querySelector('#frm-logout').submit();">確定</button>
             </div>

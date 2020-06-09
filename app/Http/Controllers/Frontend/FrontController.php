@@ -95,7 +95,7 @@ class FrontController extends CatController
                         ->where("display", "=", "1")
                         ->where("title", "like", "%$s%")
                         ->orWhere("content", "like", "%$s%")
-                        ->selectRaw("'news' as type, news.id as id, news.title as name, news.content as description, news.image as thumbnail")
+                        ->selectRaw("'news_details' as type, news.title as slug, news.id as id, news.title as name, news.content as description, news.image as thumbnail")
                         ->get();
                 }
                 else{
@@ -104,7 +104,7 @@ class FrontController extends CatController
                         ->join("product_categories", "products.category_id", "=", "product_categories.id")
                         ->where("product_categories.id", "=", $cat)
                         ->where("products.name", "like", "%$s%")
-                        ->selectRaw("'product' as type, products.name as name, products.id as id, products.image as thumbnail, products.price as price")
+                        ->selectRaw("'product_detail' as type, products.slug as slug, products.name as name, products.id as id, products.image as thumbnail, products.price as price")
                         ->get();
                 }
             }
@@ -112,7 +112,7 @@ class FrontController extends CatController
 
                 $products = DB::table("products")
                     ->where("name", "like", "%$s%")
-                    ->selectRaw("'product' as type, products.name as name, products.id as id, products.image as thumbnail, products.price as price")
+                    ->selectRaw("'product_detail' as type, products.slug as slug, products.name as name, products.id as id, products.image as thumbnail, products.price as price")
                     ->get();
 
                 $faqs = DB::table("faqs")
@@ -125,7 +125,7 @@ class FrontController extends CatController
                     ->where("display", "=", "1")
                     ->where("title", "like", "%$s%")
                     ->orWhere("content", "like", "%$s%")
-                    ->selectRaw("'news' as type, news.id as id, news.title as name, news.content as description, news.image as thumbnail")
+                    ->selectRaw("'news_details' as type, news.title as slug, news.id as id, news.title as name, news.content as description, news.image as thumbnail")
                     ->get();
 
                 $results = $products->concat($faqs)->concat($news);
@@ -167,7 +167,9 @@ class FrontController extends CatController
 
     public function news_detail($slug){
 
-        $news = News::where("title", "=", $slug)->firstOrFail();
+        $slug = html_entity_decode($slug);
+
+        $news = News::whereRaw("title LIKE '%{$slug}%'")->firstOrFail();
 
         $tags = NewsTag::all();
         $recentNews = News::orderBy("created_at", "desc")->take(5)->get();

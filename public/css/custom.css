@@ -2917,3 +2917,8 @@ a:focus, a:hover {
     width: 64px;
     height: auto
 }
+.product-name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

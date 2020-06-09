@@ -37,11 +37,11 @@ class CreateOrdersTable extends Migration
             $table->string("billing_zipcode")->collation("utf8_unicode_ci");
             $table->string("billing_phone")->collation("utf8_unicode_ci");
 
-            $table->string("shipping_name")->collation("utf8_unicode_ci");
-            $table->string("shipping_address")->collation("utf8_unicode_ci");
+            $table->string("shipping_name")->collation("utf8_unicode_ci")->nullable(true);;
+            $table->string("shipping_address")->collation("utf8_unicode_ci")->nullable(true);;
             $table->string("shipping_address2")->collation("utf8_unicode_ci")->nullable(true);
-            $table->string("shipping_zipcode")->collation("utf8_unicode_ci");
-            $table->string("shipping_phone")->collation("utf8_unicode_ci");
+            $table->string("shipping_zipcode")->collation("utf8_unicode_ci")->nullable(true);;
+            $table->string("shipping_phone")->collation("utf8_unicode_ci")->nullable(true);;
 
             $table->string("delivery")->collation("utf8_unicode_ci")->default("pickup");
             $table->string("payment_method")->collation("utf8_unicode_ci")->default("ecpay");

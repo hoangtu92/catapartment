@@ -54,7 +54,7 @@
     @if(Session::get("member_discount") > 0)
         <tr>
             <td>
-                <b>{{ __("Member Discount") }}</b>
+                <b>{{ __("Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
             </td>
             <td colspan="2"><strong>-${{ (Session::get("member_discount")*$cart_total_amount)/100 }}</strong></td>
         </tr>
