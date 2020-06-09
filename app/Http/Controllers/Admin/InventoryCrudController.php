@@ -23,7 +23,7 @@ class InventoryCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Product');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/inventory');
-        $this->crud->setEntityNameStrings('inventory', 'inventories');
+        $this->crud->setEntityNameStrings('庫存警示', '庫存警示');
     }
 
     protected function setupListOperation()
@@ -78,6 +78,139 @@ class InventoryCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         //$this->crud->setFromDb();
+        $this->crud->addField([
+            "name" => "name",
+            "type" => "text",
+            "label" => trans("backpack::site.product_name")
+        ]);
+
+        $this->crud->addField([
+            "name" => "keywords",
+            "type" => "textarea",
+            "label" => trans("backpack::site.product_keywords")
+        ]);
+
+        $this->crud->addField([
+            "name" => "category_id",
+            "type" => "select2",
+            "entity" => "category",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product_category")
+        ]);
+
+        $this->crud->addField([
+            "name" => "sku",
+            "type" => "text",
+            "label" => trans("backpack::site.product_sku")
+        ]);
+
+        $this->crud->addField([
+            "name" => "slug",
+            "type" => "text",
+            "label" => trans("backpack::site.product_slug")
+        ]);
+
+        $this->crud->addField([
+            "name" => "status",
+            "type" => "product_status",
+            "label" => trans("backpack::site.product_status"),
+            "id" => "product_status"
+
+        ]);
+
+        $this->crud->addField([
+            "name" => "stock",
+            "type" => "number",
+            "wrapperAttributes" => [
+                "id" => "stock_field"
+            ],
+            "label" => trans("backpack::site.product_stock")
+        ]);
+
+        $this->crud->addField([
+            "name" => "price",
+            "type" => "number",
+            "label" => trans("backpack::site.product_price")
+        ]);
+
+        $this->crud->addField([
+            "name" => "sale_price",
+            "type" => "number",
+            "label" => trans("backpack::site.product_sale_price")
+        ]);
+
+        $this->crud->addField([
+            "name" => "measures",
+            "type" => "text",
+            "label" => trans("backpack::site.product_measures")
+        ]);
+
+        $this->crud->addField([
+            "name" => "origin_id",
+            "type" => "select2",
+            "entity" => "origin",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product_origin")
+        ]);
+
+        $this->crud->addField([
+            "name" => "piece_id",
+            "type" => "select2",
+            "entity" => "piece",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product_pieces")
+        ]);
+
+        $this->crud->addField([
+            "name" => "brand_id",
+            "type" => "select2",
+            "entity" => "brand",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product_brand")
+        ]);
+        $this->crud->addField([
+            "name" => "colors",
+            "type" => "select2_multiple",
+            "entity" => "colors",
+            "attribute" => "name",
+            "label" => trans("backpack::site.product_color"),
+            "pivot" => true
+        ]);
+
+        $this->crud->addField([
+            "name" => "shipping_methods",
+            "type" => "select2_multiple",
+            "entity" => "shipping_methods",
+            "attribute" => "name",
+            "label" => trans("backpack::site.shipping_method"),
+            "pivot" => true
+        ]);
+
+        $this->crud->addField([
+            "name" => "image",
+            "type" => "browse",
+            "label" => trans("backpack::site.product_image")
+        ]);
+
+        $this->crud->addField([
+            "name" => "images",
+            "type" => "browse_multiple",
+            "label" => trans("backpack::site.product_slide")
+        ]);
+
+        $this->crud->addField([
+            "name" => "short_description",
+            "type" => "summernote",
+            "label" => trans("backpack::site.product_description")
+        ]);
+
+        $this->crud->addField([
+            "name" => "content",
+            "type" => "wysiwyg",
+            "label" => trans("backpack::site.product_content")
+        ]);
+
+        $this->crud->removeButton("show");
     }
 
     protected function setupUpdateOperation()

@@ -68,4 +68,13 @@
 .sidebar .nav-dropdown-items .nav-item{
     padding-left: 10px;
 }
-
+a sub{
+    background: red;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    font-size: 10px;
+}
