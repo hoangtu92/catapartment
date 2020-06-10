@@ -10,8 +10,10 @@ use App\Models\News;
 use App\Models\Newsletter;
 use App\Models\NewsTag;
 use App\Models\Page;
+use App\Models\Product;
 use App\Models\RecommendProduct;
 use App\Models\Slide;
+use App\Models\StockNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -193,9 +195,96 @@ class FrontController extends CatController
 
     public function subscribe(Request $request){
         if($request->filled("email")){
-            Newsletter::create([
-                "email" => $request->input("email")
-            ]);
+
+            $newsletter = Newsletter::where("email", $request->input("email"))->first();
+
+            if($request->filled("action")){
+                if($request->input("action") == "normal"){
+                    if($newsletter){
+                        if($newsletter->type == NEWSLETTER_NONE) $newsletter->type = NEWSLETTER_NORMAL;
+                        elseif($newsletter->type == NEWSLETTER_PRODUCT) $newsletter->type = NEWSLETTER_ALL;
+
+                    }
+                    else {
+                        $newsletter = new Newsletter([
+                            "email" => $request->input("email"),
+                            "type" => NEWSLETTER_NORMAL
+                        ]);
+                    }
+                }
+                else if($request->input("action") == "product"){
+
+                    if($newsletter){
+                        if($newsletter->type == NEWSLETTER_NONE) $newsletter->type = NEWSLETTER_PRODUCT;
+                        elseif($newsletter->type == NEWSLETTER_NORMAL) $newsletter->type = NEWSLETTER_ALL;
+
+                    }
+                    else{
+                        $newsletter = new Newsletter([
+                            "email" => $request->input("email"),
+                            "type" => NEWSLETTER_PRODUCT
+                        ]);
+                    }
+
+                }
+                else if($request->input("action") == "unsubscribe_normal"){
+                    //Unsubscribe normal
+                    if($newsletter->type == NEWSLETTER_NORMAL) $newsletter->type = NEWSLETTER_NONE;
+                    else if($newsletter->type == NEWSLETTER_ALL) $newsletter->type = NEWSLETTER_PRODUCT;
+
+                }
+                else if($request->input("action") == "unsubscribe_product"){
+                    //Unsubscribe product
+                    if($newsletter->type == NEWSLETTER_PRODUCT) $newsletter->type = NEWSLETTER_NONE;
+                    else if($newsletter->type == NEWSLETTER_ALL) $newsletter->type = NEWSLETTER_NORMAL;
+                }
+                else{
+                    //Unsubscribe all
+                    $newsletter->type = NEWSLETTER_NONE;
+                }
+
+                if($newsletter){
+                    $newsletter->save();
+
+                    if($newsletter->type == NEWSLETTER_ALL || $newsletter->type == NEWSLETTER_PRODUCT){
+
+                        if($request->filled("product_id") && $request->input("product_id") > 0){
+                            $product = Product::find($request->input("product_id"));
+
+                            if($product){
+                                $exist = StockNotify::where("product_id", $product->id)->where("newsletter_id", $newsletter->id)->first();
+
+                                if(!$exist){
+                                    StockNotify::create([
+                                        'newsletter_id' => $newsletter->id,
+                                        'product_id' => $product->id
+                                    ]);
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+
+
+            }
+
+
+
+        }
+
+        return redirect(route("home"));
+    }
+
+    public function register_notify_product(Request $request){
+        if($request->filled("email")){
+
+            $newsletter = Newsletter::where("email", $request->input("email"))->first();
+
+
+
+
         }
 
         return redirect(route("home"));

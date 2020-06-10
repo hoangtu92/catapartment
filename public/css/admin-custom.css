@@ -68,7 +68,7 @@
 .sidebar .nav-dropdown-items .nav-item{
     padding-left: 10px;
 }
-a sub{
+a sup{
     background: red;
     display: inline-block;
     width: 17px;

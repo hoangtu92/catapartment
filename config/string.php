@@ -20,3 +20,15 @@ if(!defined("ATTRIBUTES"))
         "total_length" => "Length",
         "color" => "Color"
     ]);
+if(!defined("NEWSLETTER_NONE"))
+    define("NEWSLETTER_NONE", 0);
+
+if(!defined("NEWSLETTER_NORMAL"))
+    define("NEWSLETTER_NORMAL", 1);
+
+if(!defined("NEWSLETTER_PRODUCT"))
+    define("NEWSLETTER_PRODUCT", 2);
+
+if(!defined("NEWSLETTER_ALL"))
+    define("NEWSLETTER_ALL", 3);
+

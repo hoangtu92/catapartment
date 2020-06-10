@@ -33,16 +33,23 @@ class ShoppingCart
             if($request->input("action") == "add_cart"){
                 if($request->input("qty") > 0) {
 
-                    if(isset($cart_items[$key])){
-                        $cart_items[$key]->qty += (integer) $request->input("qty");
-                    }
-                    else{
-                        $cart_items[$key] = (object)[
-                            "product_id" => $request->input("product_id"),
-                            "customized_product_id" => $request->input("customized_product_id"),
-                            "qty" => $request->input("qty"),
-                            "attr" => $request->input("attr")
-                        ];
+                    $product = Product::find($request->input("product_id"));
+
+                    if($product && $product->is_available) {
+
+                        if(isset($cart_items[$key])){
+                            $cart_items[$key]->qty += (integer) $request->input("qty");
+                        }
+                        else{
+
+                            $cart_items[$key] = (object)[
+                                "product_id" => $request->input("product_id"),
+                                "customized_product_id" => $request->input("customized_product_id"),
+                                "qty" => $request->input("qty"),
+                                "attr" => $request->input("attr")
+                            ];
+
+                        }
                     }
 
                 }
@@ -56,20 +63,32 @@ class ShoppingCart
 
                     if(isset($cart_items[$k])){
 
-                        $qty = $item['qty'];
+                        $product = Product::find($cart_items[$k]->product_id);
 
-                        if($qty > 0){
-                            $cart_items[$k]->qty = $qty;
-                        }
-                        else{
-                            unset($cart_items[$k]);
+                        if($product && $product->is_available) {
+
+                            $qty = $item['qty'];
+
+                            if ($qty > 0) {
+                                $cart_items[$k]->qty = $qty;
+                            } else {
+                                unset($cart_items[$k]);
+                            }
                         }
                     }
 
                 }
             }
 
-            Cookie::queue("cart_items", json_encode($cart_items), 86400);
+            //Get notify
+            if($request->input("action") == "貨到通知"){
+                //var_dump($request->input());
+            }
+            else{
+                Cookie::queue("cart_items", json_encode($cart_items), 86400);
+            }
+
+
         }
 
         $this->getCartDetails($cart_items);

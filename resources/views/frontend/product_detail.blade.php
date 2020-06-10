@@ -24,7 +24,7 @@
         <div class="container">
             <form class="row" action="{{ route("cart") }}" method="post">
                 @csrf
-                <input type="hidden" name="action" value="add_cart">
+
                 <!--Product slide-->
                 <div class="col-lg-6 flex-column justify-content-center align-items-center">
                     @if(count($product->images) > 0)
@@ -121,32 +121,42 @@
                         </div>
                 @endif
 
-                <!--Product attribute options-->
-                    <div class="input-group">
+
+                    <!--Product add to cart-->
+
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                    @if($product->is_available)
+
+                        <input type="hidden" name="action" value="add_cart">
+
+                    <!--Product attribute options-->
+                        <div class="input-group">
           <span class="input-group-btn">
               <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus"
                       data-field="qty">
                   <span>-</span>
               </button>
           </span>
-                        <input type="text" name="qty" class="form-control input-number" value="1" min="1" max="10">
-                        <span class="input-group-btn">
+                            <input type="text" @if(!$product->is_available) disabled @endif name="qty" class="form-control input-number" value="1" min="1" max="10">
+                            <span class="input-group-btn">
               <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="qty">
                   <span>+</span>
               </button>
           </span>
-                    </div>
-                    <!--Product attribute options-->
+                        </div>
+                        <!--Product attribute options-->
 
-                    <!--Product add to cart-->
+                        <input type="submit" class="addto" value="{{ __("Add to cart") }}"/>
 
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <input type="submit" class="addto" value="{{ __("Add to cart") }}"/>
+                        <div class="add-wishlist">
+                            <a href="#" onclick="document.querySelector('#wishlist-form').submit()"><img src="{{ asset("images/icon02.jpg") }}" alt=""/> {{ __("Add to wishlist") }}</a>
+                        </div>
+                        @else
 
+                        <div><input type="submit" class="addto notify_product_btn" name="action" value="貨到通知"></div>
+                    @endif
 
-                    <div class="add-wishlist">
-                        <a href="#" onclick="document.querySelector('#wishlist-form').submit()"><img src="{{ asset("images/icon02.jpg") }}" alt=""/> {{ __("Add to wishlist") }}</a>
-                    </div>
                     <hr>
                     <!--Product add to cart-->
 
@@ -443,6 +453,8 @@
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="action" value="add_wishlist">
     </form>
+
+    @include("frontend.global.notify_product")
 @endsection
 
 @section("scripts")
@@ -502,6 +514,14 @@
 
 
         jQuery(document).ready(function ($) {
+
+            //Subscribe product
+            $(".notify_product_btn").click(function (e) {
+                e.preventDefault();
+               $("#notifyProductModal").modal()
+            });
+
+
             // provide any default options you want
             thumbOptions.before = function (currentIdx, nextIdx, manual) {
                 nsSlider.displaySlide(nextIdx);

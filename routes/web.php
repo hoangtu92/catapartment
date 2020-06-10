@@ -36,7 +36,7 @@ Route::get('/products/detail/{slug?}', "Frontend\CommerceController@product_deta
 
 Route::any('/checkout', "Frontend\CommerceController@checkout")->name("checkout");
 
-Route::post('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
+Route::any('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
 
 Route::any('/wishlist', "Frontend\CommerceController@wishlist")->name("wishlist");
 
