@@ -123,7 +123,7 @@ class ProductSeeder extends Seeder
         DB::table("products")->insert([
             'category_id' => 2,
             'status' => PRE_ORDER,
-            'name' => 'Product 3',
+            'name' => '中文不能超過二十個字中文不能超過二十個字超過超過',
             'slug' => "product-3",
             'sku' => 'P0086',
             'price' => 4000,

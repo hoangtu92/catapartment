@@ -76,4 +76,3 @@
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('submenu') }}'><i class='nav-icon fa fa-sitemap'></i> {{ trans("backpack::site.submenu") }}</a></li>
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('stocknotify') }}'><i class='nav-icon fa fa-question'></i> StockNotifies</a></li>

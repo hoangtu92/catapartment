@@ -27,6 +27,8 @@ class NewsletterCrudController extends CrudController
 
     protected function setupListOperation()
     {
+        $this->crud->addClause("where", "type", "=", NEWSLETTER_NORMAL);
+        $this->crud->addClause("orWhere", "type", "=", NEWSLETTER_ALL);
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
         $this->crud->addColumn([
@@ -34,6 +36,18 @@ class NewsletterCrudController extends CrudController
             'type' => 'email',
             'label' => trans("backpack::site.email")
         ]);
+
+        /*$this->crud->addColumn([
+            'name' => 'type',
+            'type' => 'select_from_array',
+            'options' => [
+                0 => "UNSUBSCRIBED",
+                1 => "NORMAL SUBSCRIBE",
+                2 => "PRODUCT SUBSCRIBE",
+                3 => "ALL SUBSCRIBE"
+            ],
+            'label' => trans("backpack::site.newsletter_type")
+        ]);*/
 
         $this->crud->removeButton("create");
         $this->crud->removeButton("show");

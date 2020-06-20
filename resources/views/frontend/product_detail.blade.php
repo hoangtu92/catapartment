@@ -126,7 +126,7 @@
 
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                    @if($product->is_available)
+                    @if($product->isAvailable)
 
                         <input type="hidden" name="action" value="add_cart">
 

@@ -258,8 +258,11 @@ class LoginController extends CatController
 
     protected function loggedOut(Request $request)
     {
-        Cookie::queue("cart_items", json_encode([]), 86400);
-        Cookie::queue("wishlist", json_encode([]), 86400);
+        if($request->filled("action") && $request->input("action") !== 'save_logout'){
+            Cookie::queue("cart_items", json_encode([]), 86400);
+            Cookie::queue("wishlist", json_encode([]), 86400);
+        }
+
     }
 
 }

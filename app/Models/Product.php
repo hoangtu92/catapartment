@@ -133,7 +133,7 @@ class Product extends Model
 
     }
 
-    public function getIs_availableAttribute(){
+    public function getIsAvailableAttribute(){
         return $this->status !== PRE_ORDER && $this->stock > 0;
     }
 }

@@ -1,3 +1,9 @@
+<script>
+    function saveLogout(){
+        document.getElementById("logout_action").value = "save_logout";
+        document.querySelector('#frm-logout').submit();
+    }
+</script>
 <div class="modal fade" id="confirmModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -12,7 +18,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-cat" data-dismiss="modal" aria-label="Close">移除</button>
+                <button class="btn-cat" data-dismiss="modal" aria-label="Close" onclick="saveLogout()">移除</button>
                 <button class="btn-cat" data-dismiss="modal" aria-label="Close">取消</button>
                 <button class="btn-cat" onclick="document.querySelector('#frm-logout').submit();">確定</button>
             </div>

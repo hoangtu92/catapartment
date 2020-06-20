@@ -17,6 +17,7 @@
         "fideloper/proxy": "^4.2",
         "flamelin/ecpay": "dev-master",
         "fruitcake/laravel-cors": "^1.0",
+        "gloudemans/shoppingcart": "^2.6",
         "guzzlehttp/guzzle": "^6.3",
         "hoangtu92/laravel-line-login": "dev-master",
         "laravel/framework": "^7.0",

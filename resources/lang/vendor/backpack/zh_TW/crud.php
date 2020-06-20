@@ -94,7 +94,7 @@ return [
 
     // global crud - success / error notification bubbles
         'insert_success' => '上傳成功！',
-        'update_success' => 'The item has been modified successfully.',
+        'update_success' => '更新成功！',
 
     // CRUD reorder view
         'reorder'                      => '排序',

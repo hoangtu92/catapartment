@@ -35,7 +35,7 @@ class ShoppingCart
 
                     $product = Product::find($request->input("product_id"));
 
-                    if($product && $product->is_available) {
+                    if($product && $product->isAvailable) {
 
                         if(isset($cart_items[$key])){
                             $cart_items[$key]->qty += (integer) $request->input("qty");

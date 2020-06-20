@@ -56,6 +56,7 @@ return [
 
     "product" => "商品",
     "product_category" => "商品目錄",
+    "product_barcode" => "商品條碼",
     "category_name" => "目錄名稱",
     "category_icon" => "目錄圖示",
 
@@ -155,5 +156,6 @@ return [
     "page_content" => "內容",
     "page_display" => "Display",
     "point_amount" => "積分",
-    "recommend_product_category" => "類別"
+    "recommend_product_category" => "類別",
+    "newsletter_type" => "Type"
 ];

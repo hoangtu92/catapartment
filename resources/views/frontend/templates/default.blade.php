@@ -112,6 +112,7 @@
 
 <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
     {{ csrf_field() }}
+    <input type="hidden" name="action" id="logout_action" value="logout">
 </form>
 
 <script src="{{ asset("js/jquery-2.1.3.min.js") }}"></script>

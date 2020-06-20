@@ -224,6 +224,8 @@ class FrontController extends CatController
                             "email" => $request->input("email"),
                             "type" => NEWSLETTER_PRODUCT
                         ]);
+
+
                     }
 
                 }
@@ -244,6 +246,7 @@ class FrontController extends CatController
                 }
 
                 if($newsletter){
+
                     $newsletter->save();
 
                     if($newsletter->type == NEWSLETTER_ALL || $newsletter->type == NEWSLETTER_PRODUCT){
@@ -260,6 +263,9 @@ class FrontController extends CatController
                                         'product_id' => $product->id
                                     ]);
                                 }
+
+                                $request->session()->flash('message', "已成功加入貨到通知");
+                                return redirect($product->permalink);
 
                             }
                         }

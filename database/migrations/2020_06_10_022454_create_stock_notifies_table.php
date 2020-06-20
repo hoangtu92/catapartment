@@ -20,6 +20,8 @@ class CreateStockNotifiesTable extends Migration
 
             $table->foreignId("product_id");
             $table->foreign("product_id")->references("id")->on("products");
+
+            $table->timestamps();
         });
     }
 
@@ -30,6 +32,6 @@ class CreateStockNotifiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifies');
+        Schema::dropIfExists('stock_notifies');
     }
 }

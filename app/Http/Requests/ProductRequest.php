@@ -27,7 +27,8 @@ class ProductRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255',
-            'slug' => 'required'
+            'slug' => 'required',
+            'images' => 'array|max:4'
         ];
     }
 
