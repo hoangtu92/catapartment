@@ -3,6 +3,13 @@
 if(!defined("IN_STOCK"))
     define("IN_STOCK", "現貨");
 
+if(!defined("FRAME"))
+    define("FRAME", "FRAME");
+
+if(!defined("NORMAL"))
+    define("NORMAL", "NORMAL");
+
+
 if(!defined("PRE_ORDER"))
     define("PRE_ORDER", "預購");
 

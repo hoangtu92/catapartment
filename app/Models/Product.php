@@ -15,6 +15,9 @@ class Product extends Model
     |--------------------------------------------------------------------------
     */
 
+    public $thickness = 0;
+    public $total_length = 0;
+
     protected $table = 'products';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
@@ -22,6 +25,9 @@ class Product extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
+
+
+    protected $appends = array('thickness', 'total_length', 'realPrice');
 
     /*
     |--------------------------------------------------------------------------
@@ -136,4 +142,27 @@ class Product extends Model
     public function getIsAvailableAttribute(){
         return $this->status !== PRE_ORDER && $this->stock > 0;
     }
+
+    public function getRealPriceAttribute(){
+
+        $realPrice = $this->sale_price != null ? $this->sale_price : $this->price;
+
+        if($this->type == FRAME){
+            return $this->thickness + $this->total_length * 2*1.2;
+        }
+        elseif($this->type == NORMAL){
+            return $realPrice;
+        }
+
+    }
+
+
+    public function getThicknessAttribute(){
+        return $this->thickness;
+    }
+
+    public function getTotalLengthAttribute(){
+        return $this->total_length;
+    }
+
 }

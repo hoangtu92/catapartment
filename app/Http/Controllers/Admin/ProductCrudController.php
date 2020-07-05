@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductRequest;
+use App\Mail\AdminNotifyInventory;
+use App\Mail\InventoryNotify;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class ProductCrudController
@@ -30,6 +33,8 @@ class ProductCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
+
+        $this->crud->addClause("where", "type", "=", NORMAL);
 
         $this->crud->addColumn([
             "name" => "image",
@@ -88,7 +93,7 @@ class ProductCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "category_id",
-            "type" => "select2",
+            "type" => "select",
             "entity" => "category",
             "attribute" => "name",
             "label" => trans("backpack::site.product_category")
@@ -149,7 +154,7 @@ class ProductCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "origin_id",
-            "type" => "select2",
+            "type" => "select",
             "entity" => "origin",
             "attribute" => "name",
             "label" => trans("backpack::site.product_origin")
@@ -157,7 +162,7 @@ class ProductCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "piece_id",
-            "type" => "select2",
+            "type" => "select",
             "entity" => "piece",
             "attribute" => "name",
             "label" => trans("backpack::site.product_pieces")
@@ -165,14 +170,14 @@ class ProductCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "brand_id",
-            "type" => "select2",
+            "type" => "select",
             "entity" => "brand",
             "attribute" => "name",
             "label" => trans("backpack::site.product_brand")
         ]);
         $this->crud->addColumn([
             "name" => "colors",
-            "type" => "select2_multiple",
+            "type" => "select_multiple",
             "entity" => "colors",
             "attribute" => "name",
             "label" => trans("backpack::site.product_color"),
@@ -181,7 +186,7 @@ class ProductCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "shipping_methods",
-            "type" => "select2_multiple",
+            "type" => "select_multiple",
             "entity" => "shipping_methods",
             "attribute" => "name",
             "label" => trans("backpack::site.shipping_method"),
@@ -368,9 +373,26 @@ class ProductCrudController extends CrudController
 
         if($this->crud->request->isMethod("put")){
 
+            $product = $this->crud->getEntry($this->crud->getCurrentEntryId());
 
-            if($this->crud->getEntry($this->crud->getCurrentEntryId())->status != $this->crud->request->input("status") || ($this->crud->getEntry($this->crud->getCurrentEntryId())->stock <= 0 && $this->crud->request->input("status") > 0 )){
-                //Notify email
+            if(($product->status == IN_STOCK && $this->crud->request->input("status") == PRE_ORDER) || ($product->stock > 0 && $this->crud->request->input("stock") <= 0 )){
+                //Admin notify
+                try{
+                    Mail::send(new AdminNotifyInventory($product));
+                }
+                catch(\Exception $e){
+                    logger($e->getMessage());
+                }
+            }
+
+            if(($product->status == PRE_ORDER && $this->crud->request->input("status") == IN_STOCK) || ($product->stock <= 0 && $this->crud->request->input("stock") > 0 )){
+                //Notify email to users
+                try{
+                    Mail::send(new InventoryNotify($product));
+                }
+                catch(\Exception $e){
+                    logger($e->getMessage());
+                }
 
             }
 

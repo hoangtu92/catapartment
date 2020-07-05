@@ -74,7 +74,7 @@
                         @csrf
                         <input type="hidden" name="action" value="add_cart">
                         <input type="hidden" name="qty" value="1">
-                        <input type="hidden" name="customized_product_id" ng-model="customized_product.id" value="@{{customized_product.id}}" id="product_id">
+                        <input type="hidden" name="product_id" ng-model="customized_product.id" value="@{{customized_product.id}}" id="product_id">
                         <input type="hidden" name="attr[thickness]" id="thickness" ng-model="customized_product.thickness" value="@{{ customized_product.thickness }}">
                         <input type="hidden" name="attr[total_length]" id="total_length" ng-model="customized_product.total_length" value="@{{ customized_product.total_length }}">
 

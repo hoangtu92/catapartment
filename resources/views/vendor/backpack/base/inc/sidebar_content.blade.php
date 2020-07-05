@@ -75,4 +75,3 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i> <span>{{ trans("backpack::site.settings") }}</span></a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('submenu') }}'><i class='nav-icon fa fa-sitemap'></i> {{ trans("backpack::site.submenu") }}</a></li>
-

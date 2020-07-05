@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(SlidesTableSeeder::class);
 
-        $this->call(FrameSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(FaqSeeder::class);
         $this->call(SettingsTableSeeder::class);

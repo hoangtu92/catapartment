@@ -123,6 +123,9 @@ return [
         'password_confirm' => [
             'required' => '密碼字段是必需的。',
             'confirmed' => '密碼輸入不一致，請重新輸入'
+        ],
+        'images' => [
+            'max' => '商品照片不能超過4張'
         ]
     ],
 

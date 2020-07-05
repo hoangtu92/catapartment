@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Product;
+use App\Models;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
@@ -19,9 +20,22 @@ class Wishlist
      */
     public function handle($request, Closure $next)
     {
-        $wishlist = (array) json_decode(Cookie::get("wishlist", "[]"));
 
         if($request->isMethod("post") ){
+
+            $wishlist = $request->session()->get("wishlist", "[]");
+
+            if(!is_array($wishlist)){
+                $wishlist = (array) json_decode($wishlist);
+            }
+
+            if(Auth::user()) {
+                $userWishlist = Models\WishList::where("user_id", Auth::user()->id)->first();
+                if($userWishlist && count($userWishlist->wishlistData["ids"]) > 0){
+                    $wishlist = $userWishlist->wishlistData['ids'];
+                }
+            }
+
 
             if($request->input("action") == "add_wishlist"){
                 if(!in_array($request->input("product_id"), $wishlist)){
@@ -34,33 +48,31 @@ class Wishlist
                 }
             }
 
-            Cookie::queue("wishlist", json_encode($wishlist), 86400);
+            if(Auth::user()){
+                if(!isset($userWishlist) || !$userWishlist){
+                    $userWishlist = new Models\WishList([
+                        "user_id" => Auth::user()->id,
+                        "data" => json_encode($wishlist)
+                    ]);
+                }
+                else{
+                    $userWishlist->data = json_encode($wishlist);
+                }
+
+                if(count($userWishlist->wishlistData['ids']) > 0){
+                    $userWishlist->save();
+                }
+
+            }
+            else{
+                $request->session()->put("wishlist", json_encode($wishlist));
+            }
+
+
         }
 
-        $this->getWishlistDetails($wishlist);
+
 
         return $next($request);
-    }
-
-    public function getWishlistDetails($wishlist){
-
-        $result = [];
-
-        foreach ($wishlist as $item){
-
-            $product = Product::find($item);
-            $permalink = $product->permalink;
-
-            $product = $product->toArray();
-            $product['permalink'] = $permalink;
-
-            $result[] = (object) $product;
-        }
-
-        View::share('wishlist', $result);
-
-        Session::put("wishlist", $result);
-
-        return $result;
     }
 }

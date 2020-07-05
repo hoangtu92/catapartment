@@ -103,7 +103,7 @@ class ApiController extends Controller
 
     public function getFrames()
     {
-        $frames = Frame::all()->toJson();
+        $frames = Product::where("type", FRAME)->get()->toJson();
         echo $frames;
     }
 
@@ -122,25 +122,11 @@ class ApiController extends Controller
                 'total_length' => 'required'
             ]);
 
-            $frame = Frame::find($request->input("frame_id"));
+            $frame = Product::find($request->input("frame_id"));
+            $frame->thickness = $request->input("thickness");
+            $frame->total_length = $request->input("total_length");
 
-            $customized_product = CustomizedProduct::where("frame_id", $request->input("frame_id"))
-                ->where("thickness", $request->input("thickness"))
-                ->where("total_length", $request->input("total_length"))
-                ->where("price", $frame->price)->first();
-
-            if(!$customized_product){
-                $customized_product = new CustomizedProduct([
-                    'frame_id' => $request->input("frame_id"),
-                    'thickness' => $request->input("thickness"),
-                    'total_length' => $request->input("total_length"),
-                    'price' => $frame->price
-                ]);
-
-                $customized_product->save();
-            }
-
-            echo $customized_product->toJson();
+            echo $frame->toJson();
 
         } catch (ValidationException $e) {
             Log::info($e->getMessage());

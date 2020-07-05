@@ -15,6 +15,8 @@
                         <form method="post" action="{{ route("change_password") }}">
                             @csrf
                             <table class="full-width user-profile-table">
+
+                                @if(Auth::user()->getAuthPassword() != null)
                                 <tr>
                                     <td>
                                         <label for="old_password">{{ __("Old Password") }}<sup>*</sup></label>
@@ -26,7 +28,9 @@
                                         @enderror
                                     </td>
 
+
                                 </tr>
+                                @endif
                                 <tr>
                                     <td>
                                         <label for="password">{{ __("Password") }}<sup>*</sup></label>
@@ -43,7 +47,7 @@
                                 <tr>
                                     <td>
                                         <label for="password_confirmation">{{ __("Password Confirmation") }}<sup>*</sup></label>
-                                        <input id="password_confirmation" type="password" value="" class="form-control" name="password_cofirmation" required>
+                                        <input id="password_confirmation" type="password" value="" class="form-control" name="password_confirmation" required>
                                         @error('password_confirmation')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

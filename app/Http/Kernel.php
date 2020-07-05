@@ -34,8 +34,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        ShoppingCart::class
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class
     ];
 
     /**
@@ -53,8 +52,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             SubstituteBindings::class,
             AuthenticatedUser::class,
-            ShoppingCart::class,
-            Wishlist::class,
             RecentProduct::class
         ],
 
@@ -83,6 +80,7 @@ class Kernel extends HttpKernel
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
         'role'  => CheckRole::class,
-        'shopping_cart' => ShoppingCart::class
+        'shopping_cart' => ShoppingCart::class,
+        'wish_list' => Wishlist::class
     ];
 }

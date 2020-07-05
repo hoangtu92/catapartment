@@ -7,8 +7,8 @@
             <a href="#"><img src="{{ asset("images/user-icon.jpg") }}" alt=""/></a> <a href="#"><img
                     src="{{ asset("images/icon01.jpg") }}" alt=""/></a> <a href="#"><img
                     src="{{ asset("images/icon02.jpg") }}" alt=""/></a> <a href="#" class="hcart"><img
-                    src="{{ asset("images/icon03.jpg") }}" alt=""/><em>0</em>
-                <p>$0.00</p></a>
+                    src="{{ asset("images/icon03.jpg") }}" alt=""/><em>{{$shoppingCart['count']}}</em>
+                <p>${{$shoppingCart['total']}}</p></a>
             <div class="mob-search">
                 <div class="search-box">
                     <form method="get" action="{{ route("home") }}">

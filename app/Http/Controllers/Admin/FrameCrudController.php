@@ -21,7 +21,7 @@ class FrameCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Models\Frame');
+        $this->crud->setModel('App\Models\Product');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/frame');
         $this->crud->setEntityNameStrings('框的材質', '框的材質');
     }
@@ -30,6 +30,15 @@ class FrameCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
+
+        $this->crud->addClause("where", "type", "=", FRAME);
+
+        $this->crud->addColumn([
+            "name" => "image",
+            "type" => "image",
+            "label" => trans("backpack::site.product_image")
+        ]);
+
         $this->crud->addColumn([
            "name" => "sku",
            "label" => "貨號",

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\LatestProductRequest;
+use App\Models\LatestProduct;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -84,10 +85,18 @@ class LatestProductCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Fields
         //$this->crud->setFromDb();
 
+        $latestProducts = LatestProduct::all();
+        $compare = [];
+
+        foreach($latestProducts as $latestProduct){
+            $compare[] = $latestProduct->lft;
+        }
+
         $this->crud->addField([
             'name' => 'lft',
             'label' => '位置',
-            'type' => 'select2_from_array',
+            'type' => 'select2_from_array_custom',
+            'compare' => $compare,
             'options' => [
                 0 => "主圖",
                 1 => "左上",

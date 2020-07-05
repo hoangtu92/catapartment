@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomizedProductsTable extends Migration
+class CreateWishListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateCustomizedProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('customized_products', function (Blueprint $table) {
+        Schema::create('wish_lists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("frame_id");
-            $table->decimal("thickness");
-            $table->decimal("total_length");
-            $table->decimal("price")->default(0);
+            $table->foreignId("user_id");
+            $table->foreign("user_id")->references("id")->on("users");
+            $table->json("data");
             $table->timestamps();
-
         });
     }
 
@@ -31,6 +29,6 @@ class CreateCustomizedProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customized_products');
+        Schema::dropIfExists('wish_lists');
     }
 }

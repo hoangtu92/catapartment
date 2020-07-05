@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
-class Frame extends Model
+class WishList extends Model
 {
     use CrudTrait;
 
@@ -15,7 +17,7 @@ class Frame extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'frames';
+    protected $table = 'wish_lists';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,6 +36,9 @@ class Frame extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function user(){
+        return $this->belongsTo("users");
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -52,4 +57,28 @@ class Frame extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function getWishlistDataAttribute(){
+        $result = [];
+
+        $items = (array) json_decode($this->data);
+
+
+        foreach ($items as $item){
+
+            $product = Product::find($item);
+            $permalink = $product->permalink;
+
+            $product = $product->toArray();
+            $product['permalink'] = $permalink;
+
+            $result[] = (object) $product;
+        }
+
+        return [
+            'items' => $result,
+            'ids' => $items
+        ];
+    }
+
 }

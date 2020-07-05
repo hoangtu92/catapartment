@@ -96,7 +96,7 @@ class UserController extends CatController
             $user = Auth::user();
 
             $request->validate([
-                'old_password' => ["required", function ($attribute, $value, $fail) use ($user) {
+                'old_password' => [function ($attribute, $value, $fail) use ($user) {
                     if (!Hash::check($value, $user->password)) {
                         return $fail(__('The current password is incorrect.'));
                     }
@@ -109,6 +109,8 @@ class UserController extends CatController
                 ->update([
                     "password" => bcrypt($request->input("password"))
                 ]);
+
+            $request->session()->flash('message', __("password has been changed successfully"));
 
 
         }

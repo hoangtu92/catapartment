@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="CAT" uploadOnCheckin="a5ac36c4-08f9-488f-b62f-63af03a6eec1" compareModeInSync="TIMESTAMP">
+  <component name="PublishConfigData" serverName="CAT" uploadOnCheckin="a5ac36c4-08f9-488f-b62f-63af03a6eec1" compareModeInSync="TIMESTAMP">
     <serverData>
       <paths name="CAT">
         <serverdata>
@@ -49,7 +49,6 @@
             <excludedPath path="/public/robots.txt" />
             <excludedPath path="/public/user-dashboard.html" />
             <excludedPath path="/public/wishlist.html" />
-            <excludedPath path="/public/images" />
             <excludedPath path="/public/uploads" />
             <excludedPath path="/database/factories" />
             <excludedPath path="/public/packages" />
@@ -59,6 +58,5 @@
       </paths>
     </serverData>
     <option name="myUploadOnCheckinName" value="CAT" />
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

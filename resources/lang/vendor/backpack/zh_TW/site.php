@@ -116,7 +116,7 @@ return [
     "product_slug" => "網址命名",
     "product_price" => "價格",
     "product_sale_price" => "特價",
-    "product_image" => "圖片",
+    "product_image" => "主圖",
     "product_keywords" => "關鍵字",
 
     "product_brand" => "品牌",

@@ -43,10 +43,6 @@ class OrderItem extends Model
         return $this->belongsTo("App\Models\Product");
     }
 
-    public function customized_product(){
-        return $this->belongsTo("App\Models\CustomizedProduct", "id", "customized_product_id");
-    }
-
 
 
 

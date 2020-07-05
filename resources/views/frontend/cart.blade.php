@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    @if($cart_items == null)
+                    @if($shoppingCart['items'] == null)
                     <i class="fa fa-shopping-cart"></i>
                     <h2>{{ __("Cart is empty.") }}</h2>
                     {{--<p>{!! __("cart_empty_notice") !!}</p>--}}
@@ -49,28 +49,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($cart_items as $index => $item)
+                                @foreach($shoppingCart['items'] as $index => $item)
 
                                     <tr>
-                                        @if(isset($item->product))
                                         <td><img src="{{ asset($item->product->image) }}"></td>
-                                        <td>{{ $item->product->name }} @if(!empty($item->attr))
-                                                                           @foreach($item->attr as $key => $value)
+                                        <td>{{ $item->product->name }}<br>
+                                            @if(!empty($item->attr))
+                                                @foreach($item->attr as $key => $value)
                                                     <strong><small>{{ $key }}: {{ $value }}</small></strong><br>
-                                                                    @endforeach
-                                                    @endif</td>
-
-                                        @elseif(isset($item->customized_product))
-                                            <td><img src="{{ asset($item->customized_product->frame->image) }}"></td>
-                                            <td>{{ $item->customized_product->frame->name }} @if(!empty($item->attr))<div style="line-height: 15px;">
-                                                    @foreach($item->attr as $key => $value)
-                                                        <small><strong>{{ ATTRIBUTES[$key] }}: {{ $value }}</strong></small><br>
-                                                    @endforeach
-                                                </div>
-
-                                                @endif</td>
-
-                                        @endif
+                                                @endforeach
+                                            @endif</td>
 
                                         <td>
 
@@ -91,15 +79,9 @@
 
                                             </td>
 
-                                            @if(isset($item->product))
 
-                                        <td>{{ $item->product->sale_price }}</td>
-                                        <td>{{ $item->qty*$item->product->sale_price }}</td>
-
-                                            @elseif(isset($item->customized_product))
-                                                <td>{{ $item->customized_product->price }}</td>
-                                                <td>{{ $item->qty*$item->customized_product->price }}</td>
-                                        @endif
+                                        <td>{{ $item->product->realPrice }}</td>
+                                        <td>{{ $item->qty*$item->product->realPrice }}</td>
 
                                     </tr>
                                 @endforeach

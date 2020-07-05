@@ -31,6 +31,7 @@
                         <div id="thumbnail-slider" data-options="defaultOptions" style="float:left;">
                             <div class="inner">
                                 <ul>
+                                    <li><a class="thumb" href="{{ asset($product->image) }}"></a></li>
                                     @foreach($product->images as $image)
                                         <li><a class="thumb" href="{{ asset($image) }}"></a></li>
                                     @endforeach
@@ -40,6 +41,7 @@
                         <div id="ninja-slider" data-options="nsOptions" style="float:left;">
                             <div class="slider-inner">
                                 <ul>
+                                    <li><a class="ns-img" href="{{ asset($product->image) }}"></a></li>
                                     @foreach($product->images as $image)
                                         <li><a class="ns-img" href="{{ asset($image) }}"></a></li>
                                     @endforeach
@@ -148,20 +150,31 @@
                         <!--Product attribute options-->
 
                         <input type="submit" class="addto" value="{{ __("Add to cart") }}"/>
-
-                        <div class="add-wishlist">
-                            <a href="#" onclick="document.querySelector('#wishlist-form').submit()"><img src="{{ asset("images/icon02.jpg") }}" alt=""/> {{ __("Add to wishlist") }}</a>
-                        </div>
                         @else
 
                         <div><input type="submit" class="addto notify_product_btn" name="action" value="貨到通知"></div>
                     @endif
 
+                    <div class="add-wishlist">
+                        @if(in_array($product->id, $wishlist['ids']))
+                            <a href="#" onclick="document.querySelector('#wishlist-form').submit()">
+                                <img src="{{ asset("images/icon02-active.jpg") }}" alt=""/> {{ __("Add to wishlist") }}</a>
+                        @else
+                            <a href="#" onclick="document.querySelector('#wishlist-form').submit()">
+                                <img src="{{ asset("images/icon02.jpg") }}" alt=""/> {{ __("Add to wishlist") }}</a>
+                        @endif
+
+                    </div>
+
                     <hr>
                     <!--Product add to cart-->
 
                     <h4><strong>貨號 :</strong> {{ $product->sku || "N/A" }}</h4>
+
+                    @if($product->category)
                     <h4><strong>目錄 :</strong> {{ $product->category->name }}</h4>
+                    @endif
+
                     <h4><strong>分享 :
 
                             <!-- Your share button code -->
@@ -234,22 +247,35 @@
                                                 <table class="table full-width" style="max-width:500px; margin:auto;">
                                                     <tbody>
 
+                                                    @if($product->brand)
                                                     <tr>
                                                         <td><b>品牌</b></td>
                                                         <td>{{ $product->brand->name }}</td>
                                                     </tr>
+                                                    @endif
+
+                                                    @if($product->colors)
                                                     <tr>
                                                         <td><b>顏色</b></td>
                                                         <td>{{ implode(", ", $product->colorname) }}</td>
                                                     </tr>
+                                                    @endif
+
+                                                    @if($product->measures)
                                                     <tr>
                                                         <td><b>尺寸</b></td>
                                                         <td>{{ $product->measures }}</td>
                                                     </tr>
+                                                    @endif
+
+                                                    @if($product->origin)
                                                     <tr>
                                                         <td><b>進口國家</b></td>
                                                         <td>{{ $product->origin->name }}</td>
                                                     </tr>
+                                                    @endif
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -434,11 +460,11 @@
             <div class="col-lg-12 guide-slider">
                 <div id="rv-slider" class="owl-carousel">
 
-                    @foreach($recent_view_products as $product)
+                    @foreach($recent_view_products as $p)
                     <div class="item" data-aos="fade-up">
-                        <div class="acce-box"><a href="{{ $product->permalink }}"> <img src="{{ asset($product->image) }}" alt=""/>
-                                <h3>{{ $product->name }}</h3>
-                                <span><em>${{ $product->price }}</em> ${{ $product->sale_price }}</span></a></div>
+                        <div class="acce-box"><a href="{{ $p->permalink }}"> <img src="{{ asset($p->image) }}" alt=""/>
+                                <h3>{{ $p->name }}</h3>
+                                <span><em>${{ $p->price }}</em> ${{ $p->sale_price }}</span></a></div>
                     </div>
                     @endforeach
                 </div>
@@ -458,6 +484,21 @@
 @endsection
 
 @section("scripts")
+
+    @if($product->sku)
+        <!--<script>
+            window.onbeforeunload  = function () {
+                var confirm = window.confirm("是否加入我\n" +
+                    "的最愛或放入購物⾞，是？ 或 否？");
+
+                if(!confirm){
+                    return true;
+                }
+                return "";
+            }
+        </script>-->
+    @endif
+
     <!-- Price Rengebar JS Part Start -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
             type="text/javascript"></script>

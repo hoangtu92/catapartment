@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Frontend\CatController;
 
-use App\Mail\EmailVerification;
+use App\Models\CartItem;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Carbon\Carbon;
@@ -176,7 +176,13 @@ class LoginController extends CatController
                 auth()->login($user);
 
                 if(!$user->hasVerifiedEmail()){
-                    $user->sendEmailVerificationNotification();
+                    try{
+                        $user->sendEmailVerificationNotification();
+                    }
+                    catch(\Exception $e){
+                        logger($e->getMessage());
+                    }
+
                 }
 
 
@@ -235,7 +241,12 @@ class LoginController extends CatController
                 Auth::login($user);
 
                 if(!$user->hasVerifiedEmail()){
-                    $user->sendEmailVerificationNotification();
+                    try{
+                        $user->sendEmailVerificationNotification();
+                    }catch(\Exception $e){
+                        logger($e->getMessage());
+                    }
+
                 }
 
                 //exit();
@@ -259,7 +270,9 @@ class LoginController extends CatController
     protected function loggedOut(Request $request)
     {
         if($request->filled("action") && $request->input("action") !== 'save_logout'){
-            Cookie::queue("cart_items", json_encode([]), 86400);
+            //delete cart in database
+            $this->shoppingCart->delete();
+
             Cookie::queue("wishlist", json_encode([]), 86400);
         }
 

@@ -141,7 +141,8 @@ class ProductSeeder extends Seeder
         for($i=4; $i<=20; $i++){
             DB::table("products")->insert([
                 'category_id' => 2,
-                'status' => PRE_ORDER,
+                'status' => IN_STOCK,
+                'stock' => 100,
                 'name' => "Product {$i}",
                 'slug' => "product-{$i}",
                 'sku' => "P0086{$i}",
@@ -157,5 +158,44 @@ class ProductSeeder extends Seeder
 
             ]);
         }
+
+        DB::table("products")->insert([
+            'sku' => 1212,
+            'type' => FRAME,
+            'status' => IN_STOCK,
+            'stock' => 100,
+            'name' => '白橡木',
+            'slug' => 'frame-1',
+            'image' => '/images/product01.jpg',
+            'price' => 1200,
+            'time' => 3,
+            'sale_price' => 830
+        ]);
+        DB::table("products")->insert([
+            'sku' => 32121,
+            'type' => FRAME,
+            'status' => IN_STOCK,
+            'stock' => 100,
+            'slug' => 'frame-2',
+            'name' => '紅柚木',
+            'image' => '/images/product02.jpg',
+            'price' => 1100,
+            'time' => 5,
+            'sale_price' => 800,
+            'created_at' => now()
+        ]);
+
+        DB::table("products")->insert([
+            'sku' => 42332,
+            'type' => FRAME,
+            'status' => IN_STOCK,
+            'stock' => 100,
+            'slug' => 'frame-3',
+            'name' => '古銅金',
+            'image' => '/images/product03.jpg',
+            'price' => 1400,
+            'time' => 9,
+            'sale_price' => 850
+        ]);
     }
 }

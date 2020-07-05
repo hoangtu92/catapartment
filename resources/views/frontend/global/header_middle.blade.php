@@ -27,7 +27,7 @@
                 <a href="#" onclick="openNav()"><img src="{{ asset("images/icon02.jpg") }}" alt="{{ __("Wishlist") }}"/></a>
             @endauth
 
-            <a href="{{ route("cart") }}" class="hcart"><img src="{{ asset("images/icon03.jpg") }}" alt="{{ __("Cart") }}"/><em>{{ $cart_item_count }}</em> ${{ $cart_total_amount }}</a>
+            <a href="{{ route("cart") }}" class="hcart"><img src="{{ asset("images/icon03.jpg") }}" alt="{{ __("Cart") }}"/><em>{{ $shoppingCart['count'] }}</em> ${{ $shoppingCart['total'] }}</a>
         </div>
     </div>
 </div>

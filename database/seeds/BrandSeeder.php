@@ -40,13 +40,14 @@ class BrandSeeder extends Seeder
             "大陸" => ["Limited", "若熊"]
         ];
 
-        $idx = 0;
-
         function formatNum($n){
             return $n < 10 ? "0".$n : $n;
         }
 
         foreach($brands as $country => $items){
+
+            $idx = 0;
+
 
             foreach($items as $brand_name){
                 if($idx < 10) $idx++;

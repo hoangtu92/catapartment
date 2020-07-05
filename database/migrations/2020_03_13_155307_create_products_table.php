@@ -15,15 +15,16 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("category_id")->references("id")->on("product_categories");
+            $table->foreignId("category_id")->nullable(true);
+            $table->foreign("category_id")->references("id")->on("product_categories");
             $table->string("name")->nullable(false)->collation("utf8_unicode_ci")->unique();
             $table->string("slug")->nullable(true)->collation("utf8_unicode_ci")->unique();
-            $table->string("sku")->unique(true);
+            $table->string("sku");
             $table->enum("status", [PRE_ORDER, IN_STOCK])->default(PRE_ORDER);
             $table->integer("stock")->default(0);
 
             $table->decimal("price")->default(0);
-            $table->decimal("sale_price")->default(0);
+            $table->decimal("sale_price")->nullable(true)->default(null);
             $table->integer("view")->default(0);
 
             $table->string("image")->collation("utf8_unicode_ci");
@@ -46,6 +47,9 @@ class CreateProductsTable extends Migration
             $table->string("keywords")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->string("barcode")->collation("utf8_unicode_ci")->nullable(true);
+
+            $table->enum("type", [FRAME, NORMAL])->default(NORMAL);
+            $table->decimal("time")->default(0);
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@
                 <div class="col-lg-12">
                     <img src="{{ asset("images/wishlist-icon.jpg") }}" alt=""/>
 
-                    @if(count($wishlist) > 0)
+                    @if(count($wishlist['items']) > 0)
                         <table class="table cart-table full-width text-center">
                             <colgroup>
                                 <col width="10%">
@@ -32,7 +32,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($wishlist as $index => $product)
+                            @foreach($wishlist['items'] as $index => $product)
                                 <tr>
                                     <td class="align-middle text-center"><a href="{{ route("product_detail", [$product->slug]) }}"><img src="{{ asset($product->image) }}"></a> </td>
                                     <td class="align-middle text-center">{{ $product->name }}</td>

@@ -41,10 +41,10 @@ class CommerceController extends CatController
         $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
         $order = $request->filled("order") ? $request->input("order") : 'asc';
 
-        $total_items = Product::count();
+        $total_items = Product::where("type", NORMAL)->count();
         $route_name = "products";
 
-        $products = Product::orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
+        $products = Product::where("type", NORMAL)->orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
 
         $brands = Brand::all();
         $origins = Origin::all();
@@ -95,9 +95,9 @@ class CommerceController extends CatController
         $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
         $order = $request->filled("order") ? $request->input("order") : 'asc';
 
-        $products = Frame::orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
+        $products = Product::where("type", FRAME)->orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
 
-        $total_items = Frame::count();
+        $total_items = Product::where("type", FRAME)->count();
 
 
         $route_name = "customized_products";
@@ -198,7 +198,7 @@ class CommerceController extends CatController
                 if($request->input("action") == '抵用' && Auth::user() && $request->input("use_discount") == true){
                     $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
 
-                    $discount = $discount/100;
+                    $discount = $discount/Setting::get("point_ratio");
 
                     if(Auth::user()->points >= $discount){
                         $request->session()->put("discount", $discount);
@@ -229,20 +229,14 @@ class CommerceController extends CatController
 
     public function place_order(Request $request){
 
-        /*if(!$request->filled("term_agree") || !$request->input("term_agree")){
-
-            $request->session()->flash('message', __("Please check term and conditions"));
-
-            return view("frontend.checkout");
-        }*/
-
         $validate = [
             'term_agree' => 'required',
             'name' => 'required',
             'phone' => 'required',
             'email' => 'email|required',
             'zipcode' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'delivery' => 'required'
         ];
 
 
@@ -288,12 +282,12 @@ class CommerceController extends CatController
             $md = Setting::get("regular_member_discount");
         }
 
-        $member_discount = ($md/100)*Session::get("cart_total_amount");
+        $member_discount = ($md/100)*$this->shoppingCart->cartData['total'];
 
         //Order summary
         $shipping_fee = $request->input('delivery') == "flat_rate" ? (float) Setting::get("shipping_fee") : 0;
-        $sub_total = Session::get("cart_total_amount");
-        $total_amount = Session::get("cart_total_amount") + $shipping_fee - $discount - $member_discount;
+        $sub_total = $this->shoppingCart->cartData['total'];
+        $total_amount = $this->shoppingCart->cartData['total'] + $shipping_fee - $discount - $member_discount;
 
         //Creating order
         $order = new Order([
@@ -352,7 +346,7 @@ class CommerceController extends CatController
             $request->session()->put("point_discount", "");
         }
 
-        $cart_items = Session::get("cart_items");
+        $cart_items = $this->shoppingCart->cartData['items'];
         $items = [];
         foreach($cart_items as $item) {
 
@@ -366,7 +360,7 @@ class CommerceController extends CatController
                         'product_image' => $product->image,
                         'product_name' => $product->name,
                         'attr' => isset($item->attr) ? $item->attr : [],
-                        'price' => $product->sale_price,
+                        'price' => $product->realPrice,
                         'qty' => $item->qty
                     ]);
 
@@ -374,7 +368,7 @@ class CommerceController extends CatController
 
                     $items[] = array(
                         'Name' => $product->name,
-                        'Price' => (int) $product->sale_price,
+                        'Price' => (int) $product->realPrice,
                         'Currency' => "元",
                         'Quantity' => (int) $item->qty,
                         'URL' => $product->permalink
@@ -382,40 +376,13 @@ class CommerceController extends CatController
                 }
             }
 
-            else if($item->customized_product_id){
-                $customized_product = CustomizedProduct::find($item->customized_product_id);
-
-                if($customized_product){
-                    $order_item = new OrderItem([
-                        'order_id' => $order->id,
-                        'customized_product_id' => $item->customized_product_id,
-                        'product_image' => $customized_product->frame->image,
-                        'product_name' => $customized_product->frame->name,
-                        'attr' => $item->attr,
-                        'price' => $customized_product->price,
-                        'qty' => $item->qty
-                    ]);
-
-                    $order_item->save();
-
-                    $items[] = array(
-                        'Name' => $customized_product->frame->name,
-                        'Price' => (int) $customized_product->price,
-                        'Currency' => "元",
-                        'Quantity' => (int) $item->qty,
-                        'URL' => ""
-                    );
-                }
-
-
-            }
-
-
         }
 
         //Send email
         Mail::send(new OrderComplete($order));
 
+        //clear cart
+        $this->shoppingCart->delete();
 
         if($request->input("payment_method") == "ecpay"){
             //基本參數(請依系統規劃自行調整)

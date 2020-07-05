@@ -11,14 +11,10 @@
     </thead>
     <tbody>
 
-    @foreach($cart_items as $index => $item)
+    @foreach($shoppingCart['items'] as $index => $item)
         <tr>
 
-            @if(isset($item->product))
-                <td>{{ $item->product->name }}</td>
-            @else
-                <td>{{ $item->customized_product->frame->name }}</td>
-            @endif
+            <td>{{ $item->product->name }}</td>
 
             <td>
                 <div>
@@ -30,18 +26,13 @@
 (x{{ $item->qty }})</div>
             </td>
 
-            @if(isset($item->product))
-
-                <td>${{ $item->product->sale_price*$item->qty }}</td>
-            @else
-                <td>${{ $item->customized_product->price*$item->qty }}</td>
-            @endif
+            <td>${{ $item->product->sale_price*$item->qty }}</td>
 
         </tr>
     @endforeach
     <tr>
         <td><b>{{ __("Sub Total") }}</b></td>
-        <td colspan="2"><strong>${{ $cart_total_amount }}</strong></td>
+        <td colspan="2"><strong>${{ $shoppingCart['total'] }}</strong></td>
     </tr>
     @if(Session::get("discount") > 0)
         <tr>
@@ -56,12 +47,12 @@
             <td>
                 <b>{{ __("Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
             </td>
-            <td colspan="2"><strong>-${{ (Session::get("member_discount")*$cart_total_amount)/100 }}</strong></td>
+            <td colspan="2"><strong>-${{ (Session::get("member_discount")*$shoppingCart['total'])/100 }}</strong></td>
         </tr>
     @endif
 
     <tr>
-        <td>{{ __("Shipping") }}</td>
+        <td>{{ __("Shipping") }}  @error('delivery')<div class="alert alert-danger">{{ $message }}</div>@enderror</td>
         <td colspan="2">
             <label class="rd-btn">{{ __("Flat rate") }} : <strong>${{ Setting::get("shipping_fee") }}</strong>
                 <input name="delivery" onclick="document.getElementById('updateOrder').click()" type="radio" @if(Session::get('delivery') == 'flat_rate') checked @endif value="flat_rate">
@@ -81,7 +72,7 @@
     <tr>
         <td><b>{{ __("Total") }}</b></td>
 
-        <td colspan="2"><strong>${{ $cart_total_amount + Session::get("shipping_fee") - Session::get("discount") - (Session::get("member_discount")*$cart_total_amount)/100 }}</strong></td>
+        <td colspan="2"><strong>${{ $shoppingCart['total'] + Session::get("shipping_fee") - Session::get("discount") - (Session::get("member_discount")*$shoppingCart['total'])/100 }}</strong></td>
     </tr>
     </tbody>
 </table>

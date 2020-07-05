@@ -29,6 +29,7 @@ class SettingsTableSeeder extends Seeder
         ['key' => 'shipping_fee', 'name' => '運費', 'description' => '', 'value' => 80, 'field' => '{"name":"value","label":"運費","type":"number"}'],
         ['key' => 'regular_member_discount', 'name' => ' 一般會員85折', 'description' => ' 一般會員85折', 'value' => 15, 'field' => '{"name":"value","label":"Discount percent","type":"number"}'],
         ['key' => 'vip_member_discount', 'name' => 'VIP折扣72折', 'description' => 'VIP折扣72折', 'value' => 28, 'field' => '{"name":"value","label":"Discount percent","type":"number"}'],
+        ['key' => 'point_ratio', 'name' => 'Point ratio', 'description' => 'Point~Money ratio', 'value' => 100, 'field' => '{"name":"value","label":"Ratio","type":"number"}'],
     ];
 
     /**

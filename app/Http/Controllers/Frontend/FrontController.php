@@ -30,6 +30,7 @@ class FrontController extends CatController
     }
 
     public function home(){
+
         $slides = Slide::getVisibleList();
         $news = News::where("display", true)
             ->orderBy('created_at', 'desc')
