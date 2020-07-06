@@ -42,13 +42,23 @@
             <td colspan="2"><strong>-${{ Session::get("discount") }}</strong></td>
         </tr>
     @endif
+
     @if(Session::get("member_discount") > 0)
+        @if(\Illuminate\Support\Facades\Auth::user()->is_vip && \Illuminate\Support\Facades\Session::get("vip_verified"))
+            <tr>
+                <td>
+                    <b>{{ __("Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
+                </td>
+                <td colspan="2"><strong>-${{ (Session::get("member_discount")*$shoppingCart['total'])/100 }}</strong></td>
+            </tr>
+            @else
         <tr>
             <td>
                 <b>{{ __("Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
             </td>
             <td colspan="2"><strong>-${{ (Session::get("member_discount")*$shoppingCart['total'])/100 }}</strong></td>
         </tr>
+            @endif
     @endif
 
     <tr>

@@ -171,7 +171,8 @@ class CommerceController extends CatController
 
     public function checkout(Request$request){
 
-        if(Auth::user() && \App\Models\User::find(Auth::id())->isVip()){
+
+        if(Auth::user() && Auth::user()->is_vip){
             $md = Setting::get("vip_member_discount");
         }
         else{
@@ -191,11 +192,13 @@ class CommerceController extends CatController
             if($request->filled("action")){
 
                 $request->validate([
-                   'action' => 'required',
-                    'point_discount' => 'required'
+                   'action' => 'required'
                 ]);
 
                 if($request->input("action") == '抵用' && Auth::user() && $request->input("use_discount") == true){
+
+                    $request->validate(["point_discount"]);
+
                     $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
 
                     $discount = $discount/Setting::get("point_ratio");
@@ -211,8 +214,17 @@ class CommerceController extends CatController
                     }
 
                 }
+                if($request->input("action") == "驗證" && Auth::user()){
+                    $request->validate(["vip_code"]);
 
-                if($request->session()->get("delivery") == 'flat_rate') $request->session()->put("shipping_fee", Setting::get("shipping_fee"));
+                    $vipCode = $request->input("vip_code");
+                    if($vipCode == Auth::user()->vip_code){
+                        $request->session()->put("vip_verified", true);
+                    }
+                }
+
+                if($request->session()->get("delivery") == 'flat_rate')
+                    $request->session()->put("shipping_fee", Setting::get("shipping_fee"));
                 else $request->session()->put("shipping_fee", 0);
             }
 
@@ -275,12 +287,16 @@ class CommerceController extends CatController
 
 
         //Member discount
-        if(Auth::user() && \App\Models\User::find(Auth::id())->isVip()){
-            $md = Setting::get("vip_member_discount");
-        }
-        else{
+
+        $md = 0;
+        if(Auth::user()){
             $md = Setting::get("regular_member_discount");
+
+            if(Auth::user()->is_vip && Session::get("vip_verified")){
+                $md += (Setting::get("vip_member_discount")*$md) / 100;
+            }
         }
+
 
         $member_discount = ($md/100)*$this->shoppingCart->cartData['total'];
 

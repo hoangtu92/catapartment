@@ -157,6 +157,21 @@
                         </div>
 
                         @auth
+                            @if(\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->is_vip && !\Illuminate\Support\Facades\Session::get("vip_verified"))
+                                <div class="discount-box">
+                                    <div>
+                                        <span>身分證後五碼驗證：</span>
+                                        @if(\Illuminate\Support\Facades\Auth::user()->vip_code == null)
+                                            <a href="{{ route("profile") }}">VIP身分證驗證</a>
+                                            @else
+                                        <div class="cre-box"><input type="text" name="vip_code" value=""><input
+                                                type="submit" name="action" value="驗證"></div>
+                                            @endif
+                                    </div>
+
+                                </div>
+                            @endif
+
                         <div class="discount-box">
                             <label class="checkbox-btn">優惠折扣
                                 <input type="checkbox" name="use_discount" value="true" @if(Session::get("use_discount") == "true") checked ng-init="order.use_discount = true" @endif ng-click="order.use_discount = !order.use_discount">

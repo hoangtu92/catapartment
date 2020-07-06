@@ -42,7 +42,7 @@ class PageCrudController extends CrudController
             "label" => trans("backpack::site.page_slug")
         ]);*/
 
-        $this->crud->removeButton("show");
+        $this->crud->removeButtons(["show", "create"]);
     }
 
     protected function setupCreateOperation()

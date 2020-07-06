@@ -8,6 +8,7 @@ use App\Models\Announcement;
 use App\Models\CartItem;
 use App\Models\ProductCategory;
 use App\Models\SubMenu;
+use App\Models\User;
 use App\Models\WishList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -18,10 +19,12 @@ class CatController extends Controller
 
     public $shoppingCart;
     public $wishlist;
+    public $currentUser = null;
 
     public function __construct(){
 
         parent::middleware(["shopping_cart", "wish_list"]);
+
 
         $this->middleware(function ($request, $next) {
 
@@ -86,15 +89,20 @@ class CatController extends Controller
                     $this->shoppingCart->save();
                 }
 
-
             }
 
             /*************************/
+
+            if(Auth::user()){
+                $this->currentUser = User::find(Auth::user()->id);
+            }
 
             //var_dump($this->shoppingCart->cartData);
 
             View::share('shoppingCart', $this->shoppingCart->cartData);
             View::share('wishlist', $this->wishlist->wishlistData);
+
+            View::share("currentUser", $this->currentUser);
 
 
             return $next($request);

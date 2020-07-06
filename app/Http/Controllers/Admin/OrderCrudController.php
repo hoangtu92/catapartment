@@ -83,7 +83,8 @@ class OrderCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "status",
-            "type" => "text",
+            "type" => "select_from_array",
+            "options" => [PENDING, PROCESSING, COMPLETED],
             "label" => trans("backpack::site.status")
         ]);
 
@@ -123,6 +124,32 @@ class OrderCrudController extends CrudController
 
     protected function setupUpdateOperation()
     {
+
+        if($this->crud->request->isMethod("put")){
+
+            $currentOrder = $this->crud->getEntry($this->crud->getCurrentEntryId());
+            $shopping_accumulate = 0;
+
+            foreach($currentOrder->user->orders as $order){
+                if($order->status != 2) continue;
+                $shopping_accumulate += $order->sub_total;
+            }
+
+            $old_state = $currentOrder->user->is_vip;
+
+
+            if($shopping_accumulate >= 4000){
+                $currentOrder->user->is_vip = true;
+            }
+            else{
+                $currentOrder->user->is_vip = false;
+            }
+            if($old_state != $currentOrder->user->is_vip){
+                $currentOrder->user->save();
+            }
+
+        }
+
         $this->setupCreateOperation();
     }
 }

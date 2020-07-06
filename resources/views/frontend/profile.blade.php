@@ -17,6 +17,15 @@
                             <input type="hidden" name="action" value="update_profile">
                             @csrf
                             <table class="full-width user-profile-table">
+
+                                @if(Auth::user()->is_vip && Auth::user()->vip_code == null)
+                                <tr>
+                                    <td>
+                                        <label for="vip_code">VIP身分證驗證</label>
+                                        <input id="vip_code" type="text" name="vip_code" class="form-control">
+                                    </td>
+                                </tr>
+                                @endif
                                 <tr>
                                     <td>
                                         <label for="name">{{ __("Name") }}<sup>*</sup></label>

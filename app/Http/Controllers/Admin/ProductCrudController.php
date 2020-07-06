@@ -195,13 +195,13 @@ class ProductCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "image",
-            "type" => "browse",
+            "type" => "image",
             "label" => trans("backpack::site.product_image")
         ]);
 
         $this->crud->addColumn([
             "name" => "images",
-            "type" => "browse_multiple",
+            "type" => "images",
             "label" => trans("backpack::site.product_slide")
         ]);
 

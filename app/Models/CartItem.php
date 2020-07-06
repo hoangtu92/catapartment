@@ -74,16 +74,17 @@ class CartItem extends Model
 
                 if($product){
 
-                    foreach($item->attr as $key => $value){
-                        switch($key){
-                            case "thickness":
-                                $product->thickness = $value;
-                                break;
-                            case "total_length":
-                                $product->total_length = $value;
-                                break;
+                    if(is_array($item->attr))
+                        foreach($item->attr as $key => $value){
+                            switch($key){
+                                case "thickness":
+                                    $product->thickness = $value;
+                                    break;
+                                case "total_length":
+                                    $product->total_length = $value;
+                                    break;
+                            }
                         }
-                    }
 
                     $permalink = $product->permalink;
 

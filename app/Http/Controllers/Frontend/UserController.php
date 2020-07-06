@@ -67,7 +67,7 @@ class UserController extends CatController
                     'name' => ['required', 'string', 'max:255']
                 ]);
 
-                $params = $request->only(["name", "email", "phone", "birthday", "city", "gender", "address", "zipcode"]);
+                $params = $request->only(["name", "email", "phone", "birthday", "city", "gender", "address", "zipcode", "vip_code"]);
             } else {
                 $params = $request->only(["city", "address", "zipcode"]);
             }
@@ -116,6 +116,10 @@ class UserController extends CatController
         }
 
         return view("frontend.change_password");
+
+    }
+
+    public function setup_vip_code(){
 
     }
 

@@ -16,6 +16,18 @@
 
                     <div class="plist">
                         <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-xs-12 col-md-4 d-none d-md-block" style="position: absolute;
+    right: 0;
+    top: 0;">
+                                <!--top filter-->
+                            @include("frontend.products.top_filter")
+                            <!--top filter-->
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="row">
+
                             @foreach($news as $item)
                                 <div class="col-sm-6 col-md-4">
                                     <div class="guide-box">

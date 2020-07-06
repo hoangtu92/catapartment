@@ -116,7 +116,7 @@ return [
     "product_slug" => "網址命名",
     "product_price" => "價格",
     "product_sale_price" => "特價",
-    "product_image" => "主圖",
+    "product_image" => "主圖 (768x877)",
     "product_keywords" => "關鍵字",
 
     "product_brand" => "品牌",
@@ -127,7 +127,7 @@ return [
     "product_status" => "狀態",
     "product_stock" => "庫存",
     "product_pieces" => "片數",
-    "product_slide" => "照片集",
+    "product_slide" => "照片集 (768x877)",
     "product_description" => "商品簡介",
     "product_content" => "商品詳細簡介",
 

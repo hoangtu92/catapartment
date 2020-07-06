@@ -31,6 +31,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
 
             $table->string('provider')->nullable(true);
+            $table->boolean("is_vip")->default(false);
+            $table->string("vip_code")->nullable(true);
             $table->timestamps();
         });
     }
