@@ -84,7 +84,10 @@ class OrderCrudController extends CrudController
         $this->crud->addColumn([
             "name" => "status",
             "type" => "select_from_array",
-            "options" => [PENDING, PROCESSING, COMPLETED],
+            "options" => [
+                PENDING => PENDING,
+                PROCESSING => PROCESSING,
+                COMPLETED => COMPLETED],
             "label" => trans("backpack::site.status")
         ]);
 
@@ -109,7 +112,10 @@ class OrderCrudController extends CrudController
         $this->crud->addField([
             "name" => "status",
             "type" => "select_from_array",
-            "options" => [PENDING, PROCESSING, COMPLETED],
+            "options" => [
+                PENDING => PENDING,
+                PROCESSING => PROCESSING,
+                COMPLETED => COMPLETED],
             "label" => trans("backpack::site.status")
         ]);
 
@@ -131,7 +137,7 @@ class OrderCrudController extends CrudController
             $shopping_accumulate = 0;
 
             foreach($currentOrder->user->orders as $order){
-                if($order->status != 2) continue;
+                if($order->status != COMPLETED) continue;
                 $shopping_accumulate += $order->sub_total;
             }
 

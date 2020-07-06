@@ -172,14 +172,14 @@ class CommerceController extends CatController
     public function checkout(Request$request){
 
 
-        if(Auth::user() && Auth::user()->is_vip){
-            $md = Setting::get("vip_member_discount");
-        }
-        else{
-            $md = Setting::get("regular_member_discount");
+        //Initiate auto discount regular member
+        if(Auth::user()){
+            if(!Auth::user()->is_vip ||  !$request->session()->get("vip_verified")){
+                $request->session()->put("member_discount", Setting::get("regular_member_discount"));
+            }
         }
 
-        $request->session()->put("member_discount", $md);
+
 
         if($request->isMethod('post')){
 
@@ -214,12 +214,20 @@ class CommerceController extends CatController
                     }
 
                 }
-                if($request->input("action") == "驗證" && Auth::user()){
+
+                //Vip code discount
+                if($request->input("action") == "驗證" && Auth::user() && Auth::user()->is_vip){
                     $request->validate(["vip_code"]);
 
                     $vipCode = $request->input("vip_code");
                     if($vipCode == Auth::user()->vip_code){
                         $request->session()->put("vip_verified", true);
+
+                        $md = Setting::get("regular_member_discount");
+                        $md += (Setting::get("vip_member_discount")*$md) / 100;
+
+                        $request->session()->put("member_discount", $md);
+
                     }
                 }
 
@@ -239,7 +247,8 @@ class CommerceController extends CatController
         return view("frontend.checkout");
     }
 
-    public function place_order(Request $request){
+    public function place_order(Request $request)
+    {
 
         $validate = [
             'term_agree' => 'required',
@@ -252,7 +261,7 @@ class CommerceController extends CatController
         ];
 
 
-        if($request->input('create_account') == true){
+        if ($request->input('create_account') == true) {
 
             $validate['password'] = 'required|confirmed|min:6';
             $validate['password_confirmation'] = 'same:password';
@@ -269,15 +278,14 @@ class CommerceController extends CatController
             $user->address = $request->input('address');
             $user->password = bcrypt($request->input("password"));
 
-            if(preg_match('/^[^@]+/', $request->input('email'), $match)){
+            if (preg_match('/^[^@]+/', $request->input('email'), $match)) {
                 $user->username = $match[0];
             }
 
             $user->save();
 
             $user->sendEmailVerificationNotification();
-        }
-        else{
+        } else {
             $request->validate($validate);
         }
 
@@ -287,18 +295,12 @@ class CommerceController extends CatController
 
 
         //Member discount
-
-        $md = 0;
-        if(Auth::user()){
-            $md = Setting::get("regular_member_discount");
-
-            if(Auth::user()->is_vip && Session::get("vip_verified")){
-                $md += (Setting::get("vip_member_discount")*$md) / 100;
-            }
+        $member_discount = 0;
+        if (Auth::user()){
+            $md = $request->session()->get("member_discount", 0);
+            $member_discount = ($md / 100) * $this->shoppingCart->cartData['total'];
         }
 
-
-        $member_discount = ($md/100)*$this->shoppingCart->cartData['total'];
 
         //Order summary
         $shipping_fee = $request->input('delivery') == "flat_rate" ? (float) Setting::get("shipping_fee") : 0;
@@ -335,7 +337,7 @@ class CommerceController extends CatController
 
             'delivery'      => $request->input('delivery'),
             'payment_method'      => $request->input('payment_method'),
-            "status" => 'pending'
+            "status" => PENDING
         ]);
 
         $order->save();
