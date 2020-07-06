@@ -41,10 +41,10 @@ class CommerceController extends CatController
         $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
         $order = $request->filled("order") ? $request->input("order") : 'asc';
 
-        $total_items = Product::where("type", NORMAL)->count();
+        $total_items = Product::where("type",  NORMAL)->count();
         $route_name = "products";
 
-        $products = Product::where("type", NORMAL)->orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
+        $products = Product::where("type",  NORMAL)->orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
 
         $brands = Brand::all();
         $origins = Origin::all();
@@ -175,7 +175,8 @@ class CommerceController extends CatController
         //Initiate auto discount regular member
         if(Auth::user()){
             if(!Auth::user()->is_vip ||  !$request->session()->get("vip_verified")){
-                $request->session()->put("member_discount", Setting::get("regular_member_discount"));
+                //$request->session()->put("member_discount", Setting::get("regular_member_discount"));
+                $request->session()->put("member_discount", 20);
             }
         }
 
@@ -223,8 +224,8 @@ class CommerceController extends CatController
                     if($vipCode == Auth::user()->vip_code){
                         $request->session()->put("vip_verified", true);
 
-                        $md = Setting::get("regular_member_discount");
-                        $md += (Setting::get("vip_member_discount")*$md) / 100;
+                        $md = 20;//Setting::get("regular_member_discount");
+                        $md += (10*20)/100;//(Setting::get("vip_member_discount")*$md) / 100;
 
                         $request->session()->put("member_discount", $md);
 

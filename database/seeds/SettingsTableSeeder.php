@@ -27,8 +27,8 @@ class SettingsTableSeeder extends Seeder
         ['key' => 'footer_address', 'name' => '地址', 'description' => '頁尾地址', 'value' => '高雄市三⺠區平等路41號1F', 'field' => '{"name":"value","label":"地址","type":"address_google"}'],
         ['key' => 'footer_phone', 'name' => '電話', 'description' => '頁尾電話', 'value' => '0908-913-019', 'field' => '{"name":"value","label":"電話","type":"text"}'],
         ['key' => 'shipping_fee', 'name' => '運費', 'description' => '', 'value' => 80, 'field' => '{"name":"value","label":"運費","type":"number"}'],
-        ['key' => 'regular_member_discount', 'name' => ' 一般會員85折', 'description' => ' 一般會員85折', 'value' => 20, 'field' => '{"name":"value","label":"Discount percent","type":"number"}'],
-        ['key' => 'vip_member_discount', 'name' => 'VIP折扣72折', 'description' => 'VIP折扣72折', 'value' => 10, 'field' => '{"name":"value","label":"Discount percent","type":"number"}'],
+        //['key' => 'regular_member_discount', 'name' => ' 一般會員85折', 'description' => ' 一般會員85折', 'value' => 20, 'field' => '{"name":"value","label":"Discount percent","type":"number"}'],
+        //['key' => 'vip_member_discount', 'name' => 'VIP折扣72折', 'description' => 'VIP折扣72折', 'value' => 10, 'field' => '{"name":"value","label":"Discount percent","type":"number"}'],
         ['key' => 'point_ratio', 'name' => '點數1:台幣設定', 'description' => '點數1:台幣設定', 'value' => 100, 'field' => '{"name":"value","label":"Ratio","type":"number"}'],
     ];
 

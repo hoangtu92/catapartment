@@ -35,7 +35,7 @@ class ApiController extends Controller
 
         }
 
-        $where = [];
+        $where = ["type = '".NORMAL."'" ,];
 
         if($request->filled("category_id")){
             $where[] = "category_id = {$request->input("category_id")}";
