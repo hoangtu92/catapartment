@@ -1113,6 +1113,7 @@ header.sticky {
 
 .pagination a.active {
     background-color: #fdcd00;
+    color:  black !important;
 }
 
 .pagination a:hover:not(.active) {
@@ -1391,10 +1392,12 @@ strong {
 
 .dash-left ul li a:hover {
     background: #fcc700;
+    color: black !important;
 }
 
 .dash-left ul li a.active {
     background: #fcc700;
+    color:  black !important;
 }
 
 

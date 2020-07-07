@@ -60,7 +60,7 @@ class TransactionCrudController extends CrudController
             'type' => "datetime"
         ]);
 
-        $this->crud->removeButtons(["show"]);
+        $this->crud->removeButtons(["show", "create"]);
     }
 
     protected function setupCreateOperation()
