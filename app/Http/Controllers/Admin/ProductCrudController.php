@@ -364,6 +364,13 @@ class ProductCrudController extends CrudController
             "label" => trans("backpack::site.product_content")
         ]);
 
+        $this->crud->addField([
+           "name" => "custom_rating",
+           "type" => "select2_from_array",
+           "options" => [0,1,2,3,4,5],
+            "label" => trans("backpack::site.product_rating")
+        ]);
+
         $this->crud->removeButton("show");
     }
 

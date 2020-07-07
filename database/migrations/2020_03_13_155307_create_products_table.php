@@ -48,6 +48,8 @@ class CreateProductsTable extends Migration
 
             $table->string("barcode")->collation("utf8_unicode_ci")->nullable(true);
 
+            $table->integer("custom_rating")->default(1);
+
             $table->enum("type", [FRAME, NORMAL])->default(NORMAL);
             $table->decimal("time")->default(0);
             $table->timestamps();

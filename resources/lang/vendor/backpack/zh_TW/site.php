@@ -130,6 +130,7 @@ return [
     "product_slide" => "照片集 (768x877)",
     "product_description" => "商品簡介",
     "product_content" => "商品詳細簡介",
+    "product_rating" => "Rating",
 
     "shipping_method" => "運送方式",
     "shipping_method_description" => "簡介",

@@ -125,18 +125,21 @@ class Product extends Model
 
     public function getAverageRatingAttribute(){
 
-        $ratings = array_reduce($this->ratings->toArray(), function ($t, $e){
-            $t[] = $e['rating'];
-            return $t;
-        }, []);
-
-        if(count($ratings) > 0){
-            return array_sum($ratings) / count($ratings);
+        if($this->custom_rating != null || $this->custom_rating > 0){
+            return $this->custom_rating;
         }
+        else{
+            $ratings = array_reduce($this->ratings->toArray(), function ($t, $e){
+                $t[] = $e['rating'];
+                return $t;
+            }, []);
 
-        else return null;
+            if(count($ratings) > 0){
+                return array_sum($ratings) / count($ratings);
+            }
 
-
+            else return null;
+        }
     }
 
     public function getIsAvailableAttribute(){
