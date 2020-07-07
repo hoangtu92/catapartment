@@ -28,6 +28,16 @@ class CatController extends Controller
 
         $this->middleware(function ($request, $next) {
 
+            $sort = $request->filled("sort") ? $request->input("sort") : null;
+            View::share('sort', $sort);
+
+            $order = $request->filled("order") ? $request->input("order") : "asc";
+            View::share('order', $order);
+
+            $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : "id";
+            View::share('orderBy', $orderBy);
+
+
             //Default get cart from cookie
             $cartData = Session::get("cart_items", "[]");
 

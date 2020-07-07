@@ -22,20 +22,19 @@
                                     <label for="perPage24">24</label>
                                 </span>
                             </span>
-            {{--<span>
+            <span>
                 <a href="#"><img src="{{ asset("images/licon01.jpg") }}" alt=""/></a>
                 <a href="#"><img src="{{ asset("images/licon02.jpg") }}" alt=""/></a>
                 <a href="#"><img src="{{ asset("images/licon03.jpg") }}" alt=""/></a>
                 <a href="#"><img src="{{ asset("images/licon04.jpg") }}" alt=""/></a>
-            </span>--}}
+            </span>
 
-            {{--<span>
+            <span>
                 <select name="order" onchange="document.querySelector('#filter_form').submit();">
-                <option value=null>{{ __("Default Sorting") }}</option>
                 <option value="asc" @if($order == 'asc') selected @endif>{{ __("Sorting A to Z") }}</option>
                 <option value="desc" @if($order == 'desc') selected @endif>{{ __("Sorting Z to A") }}</option>
                 </select>
-            </span>--}}
+            </span>
         </div>
 
     </form>

@@ -56,6 +56,14 @@
             var sort = "{{ $sort }}";
         @endif
 
+        @if(isset($order))
+            var order = "{{ $order }}";
+        @endif
+
+        @if(isset($orderBy))
+            var orderBy = "{{ $orderBy }}";
+        @endif
+
         @if(isset($perPage))
             var perPage = "{{ $perPage }}";
         @endif

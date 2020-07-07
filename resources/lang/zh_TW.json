@@ -143,5 +143,7 @@
     "Add to wishlist" : "加入願望清單",
     "Shipping Fee" : "運費",
     "Discount" : "折扣",
-    "Order Status": "訂單狀態"
+    "Order Status": "訂單狀態",
+    "Sorting Z to A" : "最新",
+    "Sorting A to Z": "最舊"
 }

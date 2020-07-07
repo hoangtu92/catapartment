@@ -44,7 +44,8 @@ class CommerceController extends CatController
         $total_items = Product::where("type",  NORMAL)->count();
         $route_name = "products";
 
-        $products = Product::where("type",  NORMAL)->orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
+        $products = [];
+        //$products = Product::where("type",  NORMAL)->orderBy($orderBy, $order)->offset( ($page-1)*$perPage )->take($perPage)->get();
 
         $brands = Brand::all();
         $origins = Origin::all();

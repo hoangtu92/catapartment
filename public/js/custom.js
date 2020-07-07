@@ -235,6 +235,8 @@ app.controller("catCtrl", function ($scope, $http) {
         pieces: [],
         category_id: typeof category_id === "undefined" ? null : category_id,
         sort: typeof sort === "undefined" ? null : sort,
+        order: typeof order === 'undefined' ? null: order,
+        orderBy: typeof orderBy === 'undefined' ? null: orderBy,
         perPage: typeof perPage === "undefined" ? 9 : perPage
     };
     $scope.product = {};

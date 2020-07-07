@@ -21,10 +21,6 @@ class ShoppingCart
     public function handle($request, Closure $next)
     {
 
-        $sort = $request->filled("sort") ? $request->input("sort") : "latest";
-        View::share('sort', $sort);
-
-
         if($request->isMethod("post") ){
 
             $cart_items =  $request->session()->get("cart_items", "[]");
