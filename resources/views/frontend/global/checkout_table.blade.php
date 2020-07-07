@@ -49,14 +49,14 @@
                 <td>
                     <b>{{ __("VIP Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
                 </td>
-                <td colspan="2"><strong>-${{ (Session::get("member_discount")*$shoppingCart['total'])/100 }}</strong></td>
+                <td colspan="2"><strong>-${{ round((Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
             </tr>
             @else
         <tr>
             <td>
                 <b>{{ __("Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
             </td>
-            <td colspan="2"><strong>-${{ (Session::get("member_discount")*$shoppingCart['total'])/100 }}</strong></td>
+            <td colspan="2"><strong>-${{ round((Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
         </tr>
             @endif
     @endif
@@ -82,7 +82,7 @@
     <tr>
         <td><b>{{ __("Total") }}</b></td>
 
-        <td colspan="2"><strong>${{ $shoppingCart['total'] + Session::get("shipping_fee") - Session::get("discount") - (Session::get("member_discount")*$shoppingCart['total'])/100 }}</strong></td>
+        <td colspan="2"><strong>${{ round($shoppingCart['total'] + Session::get("shipping_fee") - Session::get("discount") - (Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
     </tr>
     </tbody>
 </table>
