@@ -18,9 +18,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-cat" data-dismiss="modal" aria-label="Close" onclick="saveLogout()">移除</button>
+                <button class="btn-cat" onclick="document.querySelector('#frm-logout').submit();">移除</button>
                 <button class="btn-cat" data-dismiss="modal" aria-label="Close">取消</button>
-                <button class="btn-cat" onclick="document.querySelector('#frm-logout').submit();">確定</button>
+                <button class="btn-cat" onclick="saveLogout()" data-dismiss="modal" aria-label="Close">確定</button>
             </div>
         </div>
     </div>

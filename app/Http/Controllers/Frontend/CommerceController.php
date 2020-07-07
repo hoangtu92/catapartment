@@ -202,7 +202,7 @@ class CommerceController extends CatController
 
                     $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
 
-                    $discount = $discount/Setting::get("point_ratio");
+                    $discount = round($discount/Setting::get("point_ratio"));
 
                     if(Auth::user()->points >= $discount){
                         $request->session()->put("discount", $discount);
@@ -227,7 +227,7 @@ class CommerceController extends CatController
                         $md = 20;//Setting::get("regular_member_discount");
                         $md += (10*20)/100;//(Setting::get("vip_member_discount")*$md) / 100;
 
-                        $request->session()->put("member_discount", $md);
+                        $request->session()->put("member_discount", round($md));
 
                     }
                 }
@@ -299,14 +299,14 @@ class CommerceController extends CatController
         $member_discount = 0;
         if (Auth::user()){
             $md = $request->session()->get("member_discount", 0);
-            $member_discount = ($md / 100) * $this->shoppingCart->cartData['total'];
+            $member_discount = round(($md / 100) * $this->shoppingCart->cartData['total']);
         }
 
 
         //Order summary
         $shipping_fee = $request->input('delivery') == "flat_rate" ? (float) Setting::get("shipping_fee") : 0;
         $sub_total = $this->shoppingCart->cartData['total'];
-        $total_amount = $this->shoppingCart->cartData['total'] + $shipping_fee - $discount - $member_discount;
+        $total_amount = round($this->shoppingCart->cartData['total'] + $shipping_fee - $discount - $member_discount);
 
         //Creating order
         $order = new Order([

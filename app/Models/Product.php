@@ -148,10 +148,10 @@ class Product extends Model
         $realPrice = $this->sale_price != null ? $this->sale_price : $this->price;
 
         if($this->type == FRAME){
-            return $realPrice + $this->thickness + $this->total_length * 2*1.2;
+            return round($realPrice + $this->thickness + $this->total_length * 2*1.2);
         }
         elseif($this->type == NORMAL){
-            return $realPrice;
+            return round($realPrice);
         }
 
     }

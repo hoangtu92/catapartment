@@ -103,7 +103,7 @@ class CartItem extends Model
 
         return [
             'count' => $cart_item_count,
-            'total' => $cart_total_amount,
+            'total' => round($cart_total_amount),
             'items' => $items
         ];
 
