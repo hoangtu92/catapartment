@@ -20,7 +20,7 @@
 
 /* main level */
 .stellarnav > ul > li { display: inline-block;  }
-.stellarnav > ul > li > a { padding:11px 18px 27px 18px; color:#1b1b1b;}
+.stellarnav > ul > li > a {padding: 5px 18px 21px 18px;color:#1b1b1b;}
 .stellarnav > ul > li > a:hover { color:#f6ab00;}
 .stellarnav > ul > li > a.active { color:#f6ab00;}
 

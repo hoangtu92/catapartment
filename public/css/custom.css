@@ -2001,7 +2001,7 @@ a:focus, a:hover, a.active {
 .en-title{
     display: block;
     color: rgb(124, 124, 124);
-    bottom: 11px;
+    bottom: 8px;
     position: absolute;
     white-space: nowrap;
     font-size: 0.85rem;
