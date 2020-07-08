@@ -259,6 +259,37 @@ app.controller("catCtrl", function ($scope, $http) {
     $scope.toggleCreateAccount = function () {
         $scope.order.create_account = !$scope.order.create_account;
     };
+    $scope.currentView = localStorage.catViewMode > 0 ? localStorage.catViewMode : 3;
+
+    var changeView =  function(){
+        var view = 3;
+        if (document.body.clientWidth <= 480) view = 1;
+        if( document.body.clientWidth > 480 && document.body.clientWidth <= 1024) view = 2;
+        if( document.body.clientWidth > 1024 && document.body.clientWidth <= 1440) view = 3;
+        if( document.body.clientWidth > 1440) view = 4;
+
+        localStorage.catViewMode = view;
+        $scope.currentView = view;
+        console.log($scope.currentView)
+        document.querySelector(".plist > div").setAttribute("class", "d-grid grid-"+view);
+    };
+
+    $scope.changeView = function(view){
+        if(typeof view === 'undefined'){
+            view = 3;
+            if (document.body.clientWidth <= 480) view = 1;
+            if( document.body.clientWidth > 480 && document.body.clientWidth <= 1024) view = 2;
+            if( document.body.clientWidth > 1024 && document.body.clientWidth <= 1440) view = 3;
+            if( document.body.clientWidth > 1440) view = 4;
+        }
+        localStorage.catViewMode = view;
+        $scope.currentView = view;
+        document.querySelector(".plist > div").setAttribute("class", "d-grid grid-"+view);
+    };
+
+    window.addEventListener("resize", changeView, false);
+    window.addEventListener("orientationchange", changeView, false);
+
 
     $scope.$on("update_range_slide", function (event, range) {
 

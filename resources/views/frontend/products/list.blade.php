@@ -1,7 +1,7 @@
 <div class="plist">
-    <div class="row">
+    <div class="d-grid grid-3">
         @foreach($products as $product)
-            <div class="col-sm-6 col-md-4">
+            <div>
                 <div class="acce-box">
                     <a href="{{ $product->permalink }}">
 

@@ -2960,3 +2960,25 @@ a:focus, a:hover, a.active {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.d-grid{
+    display: grid;
+    grid-gap: 15px;
+}
+.grid-1{
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 0 15px;
+}
+.grid-2{
+    grid-template-columns: repeat(2, 1fr);
+}
+.grid-3{
+    grid-template-columns: repeat(3, 1fr);
+}
+.grid-4{
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.d-grid img{
+    width: 100%
+}

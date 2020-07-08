@@ -29,9 +29,9 @@
                     <!--top filter-->
 
                     <div class="plist" ng-init="filterProduct()">
-                        <div class="row">
+                        <div class="d-grid grid-3" ng-init="changeView()">
 
-                                <div class="col-sm-6 col-md-4" ng-repeat="product in paged_data.items">
+                                <div ng-repeat="product in paged_data.items">
                                     <div class="acce-box">
                                         <a ng-href="{{ url("/") }}/products/detail/@{{ product.slug }}">
 

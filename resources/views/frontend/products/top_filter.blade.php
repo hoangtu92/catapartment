@@ -22,11 +22,11 @@
                                     <label for="perPage24">24</label>
                                 </span>
                             </span>
-            <span>
-                <a href="#"><img src="{{ asset("images/licon01.jpg") }}" alt=""/></a>
-                <a href="#"><img src="{{ asset("images/licon02.jpg") }}" alt=""/></a>
-                <a href="#"><img src="{{ asset("images/licon03.jpg") }}" alt=""/></a>
-                <a href="#"><img src="{{ asset("images/licon04.jpg") }}" alt=""/></a>
+            <span id="viewMode">
+                <a href="#" ng-click="changeView(1)"><img ng-src="@{{ currentView !== 1 && 'images/licon01.jpg'  || currentView === 1 && 'images/licon01-active.jpg' }}" alt=""/></a>
+                <a href="#" ng-click="changeView(2)"><img ng-src="@{{ currentView !== 2 && 'images/licon02.jpg'  || currentView === 2 && 'images/licon02-active.jpg' }}" alt=""/></a>
+                <a href="#" ng-click="changeView(3)"><img ng-src="@{{ currentView !== 3 && 'images/licon03.jpg'  || currentView === 3 && 'images/licon03-active.jpg' }}" alt=""/></a>
+                <a href="#" ng-click="changeView(4)"><img ng-src="@{{ currentView !== 4 && 'images/licon04.jpg'  || currentView === 4 && 'images/licon04-active.jpg' }}" alt=""/></a>
             </span>
 
             <span>
@@ -44,5 +44,7 @@
         o.onclick = function () {
             document.querySelector("#filter_form").submit();
         }
-    })
+    });
+
+
 </script>
