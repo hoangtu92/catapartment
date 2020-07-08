@@ -20,9 +20,10 @@
 
 /* main level */
 .stellarnav > ul > li { display: inline-block;  }
-.stellarnav > ul > li > a { padding:11px 18px; color:#1b1b1b;}
+.stellarnav > ul > li > a { padding:11px 18px 27px 18px; color:#1b1b1b;}
 .stellarnav > ul > li > a:hover { color:#f6ab00;}
 .stellarnav > ul > li > a.active { color:#f6ab00;}
+
 
 /* first level dd */
 .stellarnav ul ul { top: auto; width: 220px; position: absolute; z-index: 9900; text-align: left; display: none; background: #ddd; }
@@ -40,7 +41,9 @@
 .stellarnav.light { background: rgba(255, 255, 255, 1); }
 .stellarnav.light a { color: #000; }
 .stellarnav.light ul ul { background: rgba(255, 255, 255, 1); }
-.stellarnav.light li a { color: #000; }
+.stellarnav.light li a {color: #000;}
+
+
 
 /* dark theme */
 .stellarnav.dark { background:none; }

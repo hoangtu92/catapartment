@@ -1,6 +1,6 @@
 <div class="stellarnav">
     <ul>
-        <li><a href="{{ route("home") }}" class="active">貓公寓首頁 </a>
+        <li><a href="{{ route("home") }}" class="active">貓公寓首頁 <span class="en-title">Home</span></a>
         </li>
         <li><a href="">拼圖商店 <span class="en-title">Puzzle Shop</span></a>
             <ul>

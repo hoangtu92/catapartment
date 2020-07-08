@@ -72,11 +72,11 @@ a {
     transition: 0.5s;
 }
 .stellarnav > ul > li{
-    padding-bottom: 6px;
+    padding-bottom: 3px;
     min-width: 130px;
 }
 .stellarnav ul ul{
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 p {
@@ -186,6 +186,7 @@ header.sticky .header-top {
 .top-right span.en-title{
     left: 50%;
     transform: translateX(-50%);
+    bottom: 0px;
 }
 
 .top-soial {
@@ -2000,7 +2001,7 @@ a:focus, a:hover, a.active {
 .en-title{
     display: block;
     color: rgb(124, 124, 124);
-    bottom: 0;
+    bottom: 11px;
     position: absolute;
     white-space: nowrap;
     font-size: 0.85rem;

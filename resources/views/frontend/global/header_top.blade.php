@@ -23,6 +23,6 @@
                 <a href="https://www.instagram.com/catsapartment_puzzle/" target="blank"><img
                         src="{{ asset("images/instagram-icon.png") }}" alt=""/></a>
             </span>
-            <span><a href="{{ route("contact") }}">聯絡我們<span class="en-title">Contact Us</span> </a></span> <span><a href="{{ route("faq") }}">{{ __("FAQ") }}</a></span></div>
+            <span><a href="{{ route("contact") }}">聯絡我們<span class="en-title">Contact Us</span> </a></span> <span><a href="{{ route("faq") }}">{{ __("FAQ") }}<span class="en-title">FAQ</span></a></span></div>
     </div>
 </div>
