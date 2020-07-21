@@ -41,11 +41,11 @@ class LatestProductCrudController extends CrudController
             'type' => 'select_from_array',
             'label' => '位置',
             'options' => [
-                0 => "主圖",
-                1 => "左上",
-                2 => "右上",
-                3 => "左下",
-                4 => "右下",
+                1 => "主圖",
+                2 => "左上",
+                3 => "右上",
+                4 => "左下",
+                5 => "右下",
             ]
         ]);
 
@@ -98,11 +98,11 @@ class LatestProductCrudController extends CrudController
             'type' => 'select2_from_array_custom',
             'compare' => $compare,
             'options' => [
-                0 => "主圖",
-                1 => "左上",
-                2 => "右上",
-                3 => "左下",
-                4 => "右下",
+                1 => "主圖",
+                2 => "左上",
+                3 => "右上",
+                4 => "左下",
+                5 => "右下",
             ]
 
         ]);
