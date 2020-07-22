@@ -16,7 +16,6 @@ class CreateNewslettersTable extends Migration
         Schema::create('newsletters', function (Blueprint $table) {
             $table->id();
             $table->string("email")->collation("utf8_unicode_ci")->unique();
-            $table->integer("type")->default(NEWSLETTER_NORMAL);
             $table->timestamps();
         });
     }

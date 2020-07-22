@@ -77,7 +77,7 @@ return [
     'project_logo'   => '<img width="150" src="/images/logo.jpg" />',
 
     // Show / hide breadcrumbs on admin panel pages.
-    'breadcrumbs' => true,
+    'breadcrumbs' => false,
 
     'header_class' => 'app-header navbar',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',

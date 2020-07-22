@@ -18,7 +18,7 @@ return [
     "product_color_submenu" => "顏色編輯",
     "faqs" => "問與答",
     "announcements" => "公告管理",
-    "newsletter" => "電子報管理",
+    "newsletter" => "電子報訂閱者",
     "advertisements" => "廣告管理",
 
     /**
@@ -150,8 +150,8 @@ return [
     "notes" => "備註",
     "status" => "狀態",
 
-    "page" => "文章管理",
-    "pages" => "文章管理",
+    "page" => "政策文章管理",
+    "pages" => "政策文章管理",
     "page_title" => "標題",
     "page_slug" => "網址命名",
     "page_content" => "內容",

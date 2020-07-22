@@ -26,6 +26,7 @@ class FrameRequest extends FormRequest
     public function rules()
     {
         return [
+            'image' => 'required'
             // 'name' => 'required|min:5|max:255'
         ];
     }
@@ -51,6 +52,9 @@ class FrameRequest extends FormRequest
     {
         return [
             //
+            "image" => [
+                "required" => "請上傳圖片"
+                ]
         ];
     }
 }

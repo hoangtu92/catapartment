@@ -199,77 +199,40 @@ class FrontController extends CatController
 
             $newsletter = Newsletter::where("email", $request->input("email"))->first();
 
+
             if($request->filled("action")){
-                if($request->input("action") == "normal"){
-                    if($newsletter){
-                        if($newsletter->type == NEWSLETTER_NONE) $newsletter->type = NEWSLETTER_NORMAL;
-                        elseif($newsletter->type == NEWSLETTER_PRODUCT) $newsletter->type = NEWSLETTER_ALL;
 
-                    }
-                    else {
-                        $newsletter = new Newsletter([
-                            "email" => $request->input("email"),
-                            "type" => NEWSLETTER_NORMAL
-                        ]);
-                    }
-                }
-                else if($request->input("action") == "product"){
-
-                    if($newsletter){
-                        if($newsletter->type == NEWSLETTER_NONE) $newsletter->type = NEWSLETTER_PRODUCT;
-                        elseif($newsletter->type == NEWSLETTER_NORMAL) $newsletter->type = NEWSLETTER_ALL;
-
-                    }
-                    else{
-                        $newsletter = new Newsletter([
-                            "email" => $request->input("email"),
-                            "type" => NEWSLETTER_PRODUCT
-                        ]);
-
-
-                    }
-
-                }
-                else if($request->input("action") == "unsubscribe_normal"){
-                    //Unsubscribe normal
-                    if($newsletter->type == NEWSLETTER_NORMAL) $newsletter->type = NEWSLETTER_NONE;
-                    else if($newsletter->type == NEWSLETTER_ALL) $newsletter->type = NEWSLETTER_PRODUCT;
-
-                }
-                else if($request->input("action") == "unsubscribe_product"){
-                    //Unsubscribe product
-                    if($newsletter->type == NEWSLETTER_PRODUCT) $newsletter->type = NEWSLETTER_NONE;
-                    else if($newsletter->type == NEWSLETTER_ALL) $newsletter->type = NEWSLETTER_NORMAL;
+                if($request->input("action") == "unsubscribe"){
+                    //Unsubscribe
+                    if($newsletter) $newsletter->delete();
+                    $request->session()->flash('message', "已成功加入貨到通知");
+                    return redirect(route("home"));
                 }
                 else{
-                    //Unsubscribe all
-                    $newsletter->type = NEWSLETTER_NONE;
+                    if(!$newsletter){
+                        $newsletter = new Newsletter([
+                            "email" => $request->input("email"),
+                        ]);
+                        $newsletter->save();
+                    }
+
                 }
 
-                if($newsletter){
+                if($request->filled("product_id") && $request->input("product_id") > 0){
+                    $product = Product::find($request->input("product_id"));
 
-                    $newsletter->save();
+                    if($product){
+                        $exist = StockNotify::where("product_id", $product->id)->where("newsletter_id", $newsletter->id)->first();
 
-                    if($newsletter->type == NEWSLETTER_ALL || $newsletter->type == NEWSLETTER_PRODUCT){
-
-                        if($request->filled("product_id") && $request->input("product_id") > 0){
-                            $product = Product::find($request->input("product_id"));
-
-                            if($product){
-                                $exist = StockNotify::where("product_id", $product->id)->where("newsletter_id", $newsletter->id)->first();
-
-                                if(!$exist){
-                                    StockNotify::create([
-                                        'newsletter_id' => $newsletter->id,
-                                        'product_id' => $product->id
-                                    ]);
-                                }
-
-                                $request->session()->flash('message', "已成功加入貨到通知");
-                                return redirect($product->permalink);
-
-                            }
+                        if(!$exist){
+                            StockNotify::create([
+                                'newsletter_id' => $newsletter->id,
+                                'product_id' => $product->id
+                            ]);
                         }
+
+                        $request->session()->flash('message', "已成功加入貨到通知");
+                        return redirect($product->permalink);
 
                     }
                 }

@@ -227,6 +227,15 @@ class ProductCrudController extends CrudController
         //$this->crud->setFromDb();
 
         $this->crud->addField([
+            "name" => "type",
+            "type" => "select_from_array",
+            "options" => [NORMAL => "Product"],
+            "attributes" => [
+                "readonly" => true
+            ]
+        ]);
+
+        $this->crud->addField([
             "name" => "name",
             "type" => "text",
             "label" => trans("backpack::site.product_name")

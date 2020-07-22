@@ -251,6 +251,7 @@
                     type: "post",
                     data: {
                         email: this.email.value,
+                        action: "normal",
                         _token: this._token.value
                     },
                     success: function () {

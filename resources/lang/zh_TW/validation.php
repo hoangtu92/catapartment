@@ -126,6 +126,9 @@ return [
         ],
         'images' => [
             'max' => '商品照片不能超過4張'
+        ],
+        "image" => [
+            "required" => "請上傳圖片"
         ]
     ],
 

@@ -71,6 +71,16 @@ class FrameCrudController extends CrudController
         //$this->crud->setFromDb();
 
         $this->crud->addField([
+            "name" => "type",
+            "type" => "select_from_array",
+            "options" => [FRAME => FRAME],
+            "value" => FRAME,
+            "attributes" => [
+                "readonly" => true
+            ]
+        ]);
+
+        $this->crud->addField([
             "name" => "name",
             "label" => "框的名稱",
             "type" => "text"

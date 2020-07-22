@@ -42,7 +42,7 @@ class PageCrudController extends CrudController
             "label" => trans("backpack::site.page_slug")
         ]);*/
 
-        $this->crud->removeButtons(["show", "create"]);
+        $this->crud->removeButtons(["show", "delete", "create"]);
     }
 
     protected function setupCreateOperation()
@@ -81,6 +81,19 @@ class PageCrudController extends CrudController
 
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+
+        $this->crud->setValidation(PageRequest::class);
+
+        $this->crud->addField([
+            'name' => 'title',
+            'type' => "text",
+            "label" => trans("backpack::site.page_title")
+        ]);
+
+        $this->crud->addField([
+            'name' => 'content',
+            'type' => "wysiwyg",
+            "label" => trans("backpack::site.page_content")
+        ]);
     }
 }

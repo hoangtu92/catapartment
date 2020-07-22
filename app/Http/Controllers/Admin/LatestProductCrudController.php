@@ -41,6 +41,7 @@ class LatestProductCrudController extends CrudController
             'type' => 'select_from_array',
             'label' => '位置',
             'options' => [
+                0 => "",
                 1 => "主圖",
                 2 => "左上",
                 3 => "右上",
