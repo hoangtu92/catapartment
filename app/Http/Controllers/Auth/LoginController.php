@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Frontend\CatController;
 
 use App\Models\CartItem;
+use App\Models\Newsletter;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Carbon\Carbon;
@@ -117,6 +118,11 @@ class LoginController extends CatController
         $user = User::where('username', $getInfo->id)->orWhere("email", $getInfo->email)->first();
 
         if (!$user) {
+
+            Newsletter::create([
+                "email" => $getInfo->email
+            ]);
+
             $user = User::create([
                 'username' => $getInfo->id,
                 'name'     => $getInfo->name,

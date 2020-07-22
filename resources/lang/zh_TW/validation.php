@@ -129,6 +129,9 @@ return [
         ],
         "image" => [
             "required" => "請上傳圖片"
+        ],
+        "term_agree" => [
+            "required" => "請閱讀條款並勾選同意"
         ]
     ],
 

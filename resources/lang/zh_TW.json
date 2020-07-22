@@ -145,5 +145,6 @@
     "Discount" : "折扣",
     "Order Status": "訂單狀態",
     "Sorting Z to A" : "最新",
-    "Sorting A to Z": "最舊"
+    "Sorting A to Z": "最舊",
+    "ECPay": "信用卡付款"
 }

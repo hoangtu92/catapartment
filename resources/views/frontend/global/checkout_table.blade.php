@@ -54,7 +54,7 @@
             @else
         <tr>
             <td>
-                <b>{{ __("Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
+                <b>會員折扣 ({{ Session::get("member_discount") }}%)</b>
             </td>
             <td colspan="2"><strong>-${{ round((Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
         </tr>

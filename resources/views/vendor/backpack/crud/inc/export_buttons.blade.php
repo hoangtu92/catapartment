@@ -14,7 +14,7 @@
             text: '<i class="fa fa-download"></i> {{ trans('backpack::crud.export.export') }}',
             dropup: true,
             buttons: [
-                {
+                /*{
                     name: 'copyHtml5',
                     extend: 'copyHtml5',
                     exportOptions: {
@@ -28,7 +28,7 @@
                         $.fn.DataTable.ext.buttons.copyHtml5.action.call(this, e, dt, button, config);
                         crud.responsiveToggle(dt);
                     }
-                },
+                },*/
                 {
                     name: 'excelHtml5',
                     extend: 'excelHtml5',
@@ -44,7 +44,7 @@
                         crud.responsiveToggle(dt);
                     }
                 },
-                {
+                /*{
                     name: 'csvHtml5',
                     extend: 'csvHtml5',
                     exportOptions: {
@@ -89,7 +89,7 @@
                         $.fn.DataTable.ext.buttons.print.action.call(this, e, dt, button, config);
                         crud.responsiveToggle(dt);
                     }
-                }
+                }*/
             ]
         },
         /*{

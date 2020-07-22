@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Frontend\CatController;
+use App\Models\Newsletter;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -68,6 +69,11 @@ class RegisterController extends CatController
      */
     protected function create(array $data)
     {
+
+        Newsletter::create([
+            "email" => $data["email"]
+        ]);
+
         return User::create([
             'role' => 'user',
             'username' => $data['username'],
