@@ -68,7 +68,7 @@ return [
     'numeric'              => ' :attribute 必須 a number.',
     'present'              => ' :attribute field 必須 present.',
     'regex'                => ' :attribute format is invalid.',
-    'required'             => ' :attribute 字段是必需的。',
+    'required'             => ' 此為必填欄位',
     'required_if'          => ' :attribute 欄位為必填 when :other is :value.',
     'required_unless'      => ' :attribute 欄位為必填 unless :other is in :values.',
     'required_with'        => ' :attribute 欄位為必填 when :values is present.',

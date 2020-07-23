@@ -199,7 +199,7 @@ class CommerceController extends CatController
 
                 if($request->input("action") == '抵用' && Auth::user()){
 
-                    $request->validate(["point_discount"]);
+                    $request->validate(["point_discount" => "required"]);
 
                     $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
 
@@ -502,6 +502,7 @@ class CommerceController extends CatController
                     $transaction->payment_type = $request->input('PaymentType');
                     $transaction->payment_date = $request->input('PaymentDate');
                     $transaction->checksum = $request->input('CheckMacValue');
+                    $transaction->status = $request->input("RtnMsg");
 
                     $transaction->save();
 

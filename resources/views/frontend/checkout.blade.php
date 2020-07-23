@@ -183,6 +183,8 @@
                                         type="submit" name="action" value="抵用"></div>
                             </div>
 
+                            @error('point_discount')<div class="alert alert-danger">{{ $message }}</div>@enderror
+
                         </div>
                         @endauth
 

@@ -2488,6 +2488,15 @@ a:focus, a:hover, a.active {
 
 @media (max-width: 991px) {
 
+    .nl-div button{
+        position: static;
+        width: 100%;
+    }
+
+    .nl-div{
+        margin-bottom: 50px;
+    }
+
     .row.register{
         flex-direction: column-reverse;
     }
@@ -2982,4 +2991,8 @@ a:focus, a:hover, a.active {
 
 .d-grid img{
     width: 100%
+}
+
+.header-top > .container{
+    display: flex;
 }
