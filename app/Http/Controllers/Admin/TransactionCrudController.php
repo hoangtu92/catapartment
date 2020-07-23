@@ -33,7 +33,9 @@ class TransactionCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'order_id',
             'label' => trans("backpack::site.transaction_order"),
-            'type' => "text"
+            'type' => "select",
+            "entity" => "order",
+            "attribute" => "order_id"
         ]);
 
         $this->crud->addColumn([
@@ -51,6 +53,12 @@ class TransactionCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'payment_type',
             'label' => trans("backpack::site.transaction_payment_type"),
+            'type' => "text"
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'status',
+            'label' => "Status",
             'type' => "text"
         ]);
 
