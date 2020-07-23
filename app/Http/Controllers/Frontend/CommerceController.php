@@ -197,7 +197,7 @@ class CommerceController extends CatController
                    'action' => 'required'
                 ]);
 
-                if($request->input("action") == '抵用' && Auth::user() && $request->input("use_discount") == true){
+                if($request->input("action") == '抵用' && Auth::user()){
 
                     $request->validate(["point_discount"]);
 
@@ -361,7 +361,7 @@ class CommerceController extends CatController
             $point->save();
 
             //Reset discount
-            $request->session()->put("use_discount", false);
+            //$request->session()->put("use_discount", false);
             $request->session()->put("discount", 0);
             $request->session()->put("point_discount", "");
         }
