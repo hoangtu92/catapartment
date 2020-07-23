@@ -497,7 +497,7 @@ class CommerceController extends CatController
 
                     $transaction = new Transaction();
                     $transaction->order_id = $order->id;
-
+                    $transaction->amount = $request->input("TradeAmt");
                     $transaction->payment_no = $request->input('TradeNo');
                     $transaction->payment_type = $request->input('PaymentType');
                     $transaction->payment_date = $request->input('PaymentDate');
