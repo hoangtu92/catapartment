@@ -33,7 +33,7 @@ class TransactionCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'order_id',
             'label' => trans("backpack::site.transaction_order"),
-            'type' => "select",
+            'type' => "order_name",
             "entity" => "order",
             "attribute" => "order_id"
         ]);
@@ -41,7 +41,8 @@ class TransactionCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'amount',
             'label' => trans("backpack::site.transaction_amount"),
-            'type' => "number"
+            'type' => "number",
+            "prefix" => "$"
         ]);
 
         $this->crud->addColumn([
@@ -53,12 +54,15 @@ class TransactionCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'payment_type',
             'label' => trans("backpack::site.transaction_payment_type"),
-            'type' => "text"
+            'type' => "select_from_array",
+            "options" => [
+                "Credit_CreditCard" => "信用卡"
+            ]
         ]);
 
         $this->crud->addColumn([
             'name' => 'status',
-            'label' => "Status",
+            'label' => "狀態",
             'type' => "text"
         ]);
 
@@ -68,7 +72,7 @@ class TransactionCrudController extends CrudController
             'type' => "datetime"
         ]);
 
-        $this->crud->removeButtons(["show", "create", "edit", "delete"]);
+        $this->crud->removeButtons(["show", "create", "update", "delete"]);
     }
 
     protected function setupCreateOperation()

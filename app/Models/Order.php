@@ -28,6 +28,36 @@ class Order extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    public function getOrderStatus(){
+        $order_status = [
+            PROCESSING => "處理中",
+            COMPLETED => "已完成",
+            CANCELED => "已取消"];
+
+        return $order_status[$this->status];
+    }
+
+    public function getPaymentStatus(){
+        $payment_status = [
+            UNPAID => "未付款",
+            PAID => "已付款",
+            REFUNDING => "退款中",
+            REFUNDED => "已退款"];
+
+        return $payment_status[$this->payment_status];
+    }
+
+    public function getDeliveryStatus(){
+        $delivery_status = [
+            WAITING => "待出貨",
+            DELIVERING => " 運送中",
+            DELIVERED => " 已送達"];
+
+        return $delivery_status[$this->delivery_status];
+    }
+
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

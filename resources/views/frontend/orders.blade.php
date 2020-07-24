@@ -32,14 +32,14 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $order->order_id }}</td>
                                     <td>{{ $order->created_at->format("Y/m/d") }}</td>
-                                    <td>TWD {{ $order->total_amount }}</td>
+                                    <td>NT$ {{ $order->total_amount }}</td>
                                     <td style="white-space: pre-line">{{ $order->shipping_name }},
                                         {{ $order->shipping_phone }}
                                         {{ $order->shipping_zipcode }}
                                         {{ $order->shipping_address }} {{ $order->shipping_address2 }}
                                         {{ $order->state }}, {{ $order->country }}
                                     </td>
-                                    <td>{{ $order->status }}</td>
+                                    <td>{{ $order->getOrderStatus() }}</td>
                                     <td><a href="{{ route("order_detail", [$order->order_id]) }}">Details</a> </td>
                                 </tr>
                                     @endforeach

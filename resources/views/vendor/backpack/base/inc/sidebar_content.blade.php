@@ -31,7 +31,9 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-shopping-cart"></i> {{ trans('backpack::site.orders') }}</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('order') }}'><i class='nav-icon fa fa-shopping-cart'></i> {{ trans('backpack::site.orders') }}</a></li>
+{{--
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('transaction') }}'><i class='nav-icon fa fa-bank'></i>{{ trans('backpack::site.transactions') }}</a></li>
+--}}
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('shipping-method') }}'><i class='nav-icon fa fa-truck'></i> {{ trans('backpack::site.shipping_method') }}</a></li>
     </ul>
 </li>

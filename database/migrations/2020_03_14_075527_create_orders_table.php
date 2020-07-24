@@ -20,11 +20,11 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->nullable(true);
             $table->foreign("user_id")->references("id")->on("users");
 
-            $table->decimal("shipping_fee")->default(0);
-            $table->decimal("discount")->default(0);
-            $table->decimal("member_discount")->default(0);
-            $table->decimal("total_amount")->default(0);
-            $table->decimal("sub_total")->default(0);
+            $table->bigInteger("shipping_fee")->default(0);
+            $table->bigInteger("discount")->default(0)->change();
+            $table->bigInteger("member_discount")->default(0);
+            $table->bigInteger("total_amount")->default(0);
+            $table->bigInteger("sub_total")->default(0);
 
             $table->string("country")->collation("utf8_unicode_ci")->default("Taiwan")->nullable(true);
             $table->string("state")->collation("utf8_unicode_ci")->nullable(true);
@@ -47,10 +47,15 @@ class CreateOrdersTable extends Migration
             $table->string("payment_method")->collation("utf8_unicode_ci")->default("ecpay");
 
             $table->text("notes")->collation("utf8_unicode_ci")->nullable(true);
-
-            $table->text("status")->collation("utf8_unicode_ci")->nullable(true);
-
             $table->string("checksum")->nullable(true);
+
+
+            $table->text("payment_no")->nullable(true);
+            $table->text("payment_type")->nullable(true);
+            $table->dateTime("payment_date")->nullable(true);
+            $table->enum("payment_status", [UNPAID, PAID, REFUNDING, REFUNDED])->default(UNPAID);
+            $table->enum("delivery_status", [WAITING, DELIVERING, DELIVERED])->default(WAITING);
+            $table->enum("status", [PROCESSING, COMPLETED, CANCELED])->default(PROCESSING);
 
             $table->timestamps();
         });

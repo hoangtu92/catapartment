@@ -13,7 +13,6 @@ use App\Models\Piece;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
-use App\Models\Transaction;
 use App\Models\UserPoint;
 use App\User;
 use Backpack\Settings\app\Models\Setting;
@@ -339,7 +338,9 @@ class CommerceController extends CatController
 
             'delivery'      => $request->input('delivery'),
             'payment_method'      => $request->input('payment_method'),
-            "status" => PENDING
+            "status" => PROCESSING,
+            "delivery_status" => WAITING,
+            "payment_status"=> UNPAID
         ]);
 
         $order->save();
@@ -495,18 +496,14 @@ class CommerceController extends CatController
                 $order = Order::where("order_id", $request->input('MerchantTradeNo'))->first();
                 if($order){
 
-                    $transaction = new Transaction();
-                    $transaction->order_id = $order->id;
-                    $transaction->amount = $request->input("TradeAmt");
-                    $transaction->payment_no = $request->input('TradeNo');
-                    $transaction->payment_type = $request->input('PaymentType');
-                    $transaction->payment_date = $request->input('PaymentDate');
-                    $transaction->checksum = $request->input('CheckMacValue');
-                    $transaction->status = $request->input("RtnMsg");
+                    $order->payment_no = $request->input('TradeNo');
+                    $order->payment_type = $request->input('PaymentType');
+                    $order->payment_date = $request->input('PaymentDate');
+                    $order->payment_status = $request->input("RtnMsg");
 
-                    $transaction->save();
+                    $order->save();
 
-                    $order->status = PROCESSING;
+                    $order->status = COMPLETED;
                     $order->save();
 
                     if(Auth::user()){

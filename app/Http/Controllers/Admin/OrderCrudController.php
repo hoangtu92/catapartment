@@ -51,9 +51,36 @@ class OrderCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "total_amount",
-            "type" => "text",
+            "type" => "number",
             "label" => trans("backpack::site.total_amount"),
-            "prefix" => "TWD "
+            "prefix" => "NT$"
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'payment_type',
+            'label' => trans("backpack::site.transaction_payment_type"),
+            'type' => "select_from_array",
+            "options" => [
+                "Credit_CreditCard" => "信用卡"
+            ]
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'payment_status',
+            'label' => "狀態",
+            'type' => "select_from_array",
+            "options" => [
+                UNPAID => "未付款",
+                PAID => "已付款",
+                REFUNDING => "退款中",
+                REFUNDED => "已退款",
+            ]
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'payment_date',
+            'label' => trans("backpack::site.transaction_payment_date"),
+            'type' => "datetime"
         ]);
 
         $this->crud->addColumn([
@@ -62,18 +89,6 @@ class OrderCrudController extends CrudController
             "label" => trans("backpack::site.delivery")
         ]);
 
-
-        /*$this->crud->addColumn([
-            "name" => "payment_type",
-            "type" => "text",
-            "label" => trans("backpack::site.payment_type")
-        ]);
-
-        $this->crud->addColumn([
-            "name" => "payment_date",
-            "type" => "datetime",
-            "label" => trans("backpack::site.payment_date")
-        ]);*/
 
         $this->crud->addColumn([
             "name" => "shipping_info",
@@ -85,11 +100,21 @@ class OrderCrudController extends CrudController
             "name" => "status",
             "type" => "select_from_array",
             "options" => [
-                PENDING => PENDING,
-                PROCESSING => PROCESSING,
-                COMPLETED => COMPLETED],
+                PROCESSING => "處理中",
+                COMPLETED => "已完成",
+                CANCELED => "已取消"],
             "label" => trans("backpack::site.status")
         ]);
+
+        /*$this->crud->addColumn([
+            "name" => "delivery_status",
+            "type" => "select_from_array",
+            "options" => [
+                WAITING => "待出貨",
+                DELIVERING => " 運送中",
+                DELIVERED => " 已送達"],
+            "label" => "運送狀態"
+        ]);*/
 
         $this->crud->addColumn([
             "name" => "notes",
@@ -99,6 +124,8 @@ class OrderCrudController extends CrudController
 
         $this->crud->removeButton("create");
         $this->crud->removeButton("show");
+        $this->crud->removeButton("delete");
+        $this->crud->enableExportButtons();
 
     }
 
@@ -113,11 +140,33 @@ class OrderCrudController extends CrudController
             "name" => "status",
             "type" => "select_from_array",
             "options" => [
-                PENDING => PENDING,
-                PROCESSING => PROCESSING,
-                COMPLETED => COMPLETED],
+                PROCESSING => "處理中",
+                COMPLETED => "已完成",
+                CANCELED => "已取消"],
             "label" => trans("backpack::site.status")
         ]);
+
+        $this->crud->addField([
+            'name' => 'payment_status',
+            'label' => "狀態",
+            'type' => "select_from_array",
+            "options" => [
+                UNPAID => "未付款",
+                PAID => "已付款",
+                REFUNDING => "退款中",
+                REFUNDED => "已退款",
+            ]
+        ]);
+
+       /* $this->crud->addField([
+            "name" => "delivery_status",
+            "type" => "select_from_array",
+            "options" => [
+                WAITING => "待出貨",
+                DELIVERING => " 運送中",
+                DELIVERED => " 已送達"],
+            "label" => "運送狀態"
+        ]);*/
 
         $this->crud->addField([
             "name" => "notes",
