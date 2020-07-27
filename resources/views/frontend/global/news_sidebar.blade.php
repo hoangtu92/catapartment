@@ -1,12 +1,12 @@
 <div class="blog-detail-right">
-    <h3>Tags</h3>
+    {{--<h3>Tags</h3>
     <div class="bcategories">
         @foreach($tags as $index => $tag)
         <a href="{{ route("news_tag", ["tagName" => $tag->name]) }}">{{ $tag->name }}</a>
             @if($index < count($tags) - 1),@endif
         @endforeach
     </div>
-    <hr>
+    <hr>--}}
     <h3>Recent Post</h3>
     @foreach($recentNews as $item)
     <div class="re-post"><a href="{{ route("news_details", ["slug" => $item->title]) }}"><img src="{{ asset($item->image) }}" alt=""/></a>

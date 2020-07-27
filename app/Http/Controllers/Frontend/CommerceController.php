@@ -338,9 +338,7 @@ class CommerceController extends CatController
 
             'delivery'      => $request->input('delivery'),
             'payment_method'      => $request->input('payment_method'),
-            "status" => PROCESSING,
-            "delivery_status" => WAITING,
-            "payment_status"=> UNPAID
+
         ]);
 
         $order->save();
@@ -402,9 +400,6 @@ class CommerceController extends CatController
         //Send email
         Mail::send(new OrderComplete($order));
 
-        //clear cart
-        $this->shoppingCart->delete();
-
         if($request->input("payment_method") == "ecpay"){
             //基本參數(請依系統規劃自行調整)
             $ecpay = new Ecpay();
@@ -442,7 +437,7 @@ class CommerceController extends CatController
         }
         else{
 
-            return view("frontend.thankyou");
+            return redirect(route("thank_you"));
         }
 
     }
@@ -499,9 +494,7 @@ class CommerceController extends CatController
                     $order->payment_no = $request->input('TradeNo');
                     $order->payment_type = $request->input('PaymentType');
                     $order->payment_date = $request->input('PaymentDate');
-                    $order->payment_status = $request->input("RtnMsg");
-
-                    $order->save();
+                    $order->payment_status = (int) $request->input("RtnCode") == 1 ? PAID : UNPAID;
 
                     $order->status = COMPLETED;
                     $order->save();
@@ -521,7 +514,7 @@ class CommerceController extends CatController
                         Auth::user()->save();
                     }
 
-                    return view("frontend.thankyou");
+                    redirect(route("thank_you"));
 
                 }
                 //No order found in system. Probably faked order
@@ -533,14 +526,24 @@ class CommerceController extends CatController
             }
             else{
                 //payment failed
-                return view("frontend.payment_failed");
+                redirect(route("payment_failed"));
             }
         }
         else{
-            return view("frontend.thankyou");
+            redirect(route("thank_you"));
         }
 
 
+    }
+
+    public function thank_you(){
+        //clear cart
+        $this->shoppingCart->delete();
+        return view("frontend.thankyou");
+    }
+
+    public function payment_failed(){
+        return view("frontend.payment_failed");
     }
 
     public  function order_post_back(Request $request){

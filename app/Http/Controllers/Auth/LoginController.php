@@ -78,6 +78,7 @@ class LoginController extends CatController
     {
         parent::__construct();
         $this->middleware('guest')->except('logout');
+        //$this->middleware("g_captcha")->except('logout');
         $this->username = $this->findUsername();
     }
 
@@ -119,9 +120,12 @@ class LoginController extends CatController
 
         if (!$user) {
 
-            Newsletter::create([
-                "email" => $getInfo->email
-            ]);
+            $newsletter = Newsletter::where("email", $getInfo->email)->first();
+
+            if(!$newsletter)
+                Newsletter::create([
+                    "email" => $getInfo->email
+                ]);
 
             $user = User::create([
                 'username' => $getInfo->id,

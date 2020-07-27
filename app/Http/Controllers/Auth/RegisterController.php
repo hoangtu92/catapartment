@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\CatController;
 use App\Models\Newsletter;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use http\Env\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +43,7 @@ class RegisterController extends CatController
     {
         parent::__construct();
         $this->middleware('guest');
+        $this->middleware("g_captcha");
     }
 
     /**
@@ -70,9 +72,15 @@ class RegisterController extends CatController
     protected function create(array $data)
     {
 
-        Newsletter::create([
-            "email" => $data["email"]
-        ]);
+        $newsletter = Newsletter::where("email", $data["email"])->first();
+
+        if(!$newsletter)
+            Newsletter::create([
+                "email" => $data["email"]
+            ]);
+
+        //logger(json_encode($data));
+
 
         return User::create([
             'role' => 'user',

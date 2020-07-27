@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\OrderRequest;
+use App\Models\Order;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -36,9 +37,43 @@ class OrderCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         //$this->crud->setFromDb();
 
+        $this->crud->addFilter(
+            [
+                'type' => 'select2',
+                'name' => 'status',
+                'label' => trans("backpack::site.status"),
+            ],
+            function () {
+                return [PROCESSING => "處理中",
+                    COMPLETED => "已完成",
+                    CANCELED => "已取消"];
+            },
+            function ($value) {
+                $this->crud->addClause('where', 'status', $value);
+            }
+        );
+
+        $this->crud->addFilter(
+            [
+                'type' => 'select2',
+                'name' => 'payment_status',
+                'label' => trans("backpack::site.payment_status"),
+            ],
+            function () {
+                return [
+                    UNPAID => "未付款",
+                    PAID => "已付款",
+                    REFUNDING => "退款中",
+                    REFUNDED => "已退款"];
+            },
+            function ($value) {
+                $this->crud->addClause('where', 'payment_status', $value);
+            }
+        );
+
         $this->crud->addColumn([
             "name" => "order_id",
-            "type" => "text",
+            "type" => "order_name",
             "label" => trans("backpack::site.order_number")
         ]);
 
@@ -67,7 +102,7 @@ class OrderCrudController extends CrudController
 
         $this->crud->addColumn([
             'name' => 'payment_status',
-            'label' => "狀態",
+            'label' => trans("backpack::site.payment_status"),
             'type' => "select_from_array",
             "options" => [
                 UNPAID => "未付款",
@@ -85,7 +120,12 @@ class OrderCrudController extends CrudController
 
         $this->crud->addColumn([
             "name" => "delivery",
-            "type" => "text",
+            "type" => "select_from_array",
+            "options" => [
+              "flat_rate" => __("Flat rate"),
+              "free_shipping" => __("Free Shipping") ,
+              "pickup" =>  __("Local Pickup")
+            ],
             "label" => trans("backpack::site.delivery")
         ]);
 
@@ -125,8 +165,10 @@ class OrderCrudController extends CrudController
         $this->crud->removeButton("create");
         $this->crud->removeButton("show");
         $this->crud->removeButton("delete");
+        $this->crud->removeButton("update");
         $this->crud->enableExportButtons();
-
+        $this->crud->enableFilters();
+        $this->crud->enableBulkActions();
     }
 
     protected function setupCreateOperation()

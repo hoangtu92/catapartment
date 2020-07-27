@@ -216,7 +216,7 @@
                             @endif
 
                             @if(count($product->orderItems) > 0)
-                                <li>Review</li>
+                                <li>評價</li>
                             @endif
 
                             @if($product->brand != null && $product->brand->description != null)
@@ -289,7 +289,7 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3>{{ count($product->reviews) }} 則評論 {{ $product->name }}</h3>
+                                            <h3>{{ count($product->reviews) }} 則評價 {{ $product->name }}</h3>
                                             <div class="re-box">
                                                 @foreach($product->orderItems as $orderItem)
 

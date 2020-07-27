@@ -158,5 +158,6 @@ return [
     "page_display" => "Display",
     "point_amount" => "積分",
     "recommend_product_category" => "類別",
-    "newsletter_type" => "Type"
+    "newsletter_type" => "Type",
+    "payment_status" => "狀態"
 ];

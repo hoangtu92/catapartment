@@ -9,9 +9,10 @@
             <div class="row justify-content-center register">
                 <div class="col-md-8 border-right">
                     <h2 class="text-center">{{ __('Register') }}</h2>
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
 
+                    <form method="POST" action="{{ route('register') }}" id="protectedForm">
+                        @csrf
+                        <input type="hidden" id="token" name="_g_token">
                         <div class="form-group row">
                             <label for="username"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
@@ -108,9 +109,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md-8 offset-4">@error("_g_token")
+                                <p><span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span></p>
+                                @enderror</div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn-cat">
+                                <button data-sitekey="6LfEs7YZAAAAAIVh20vQhc9kzBG9wxbkpZw01XJv"
+                                        data-callback='onSubmitModal'
+                                        data-action='submit' class="g-recaptcha btn-cat">
                                     {{ __('Register') }}
                                 </button>
                             </div>

@@ -5,11 +5,12 @@
         <hr>
         <form method="POST" id="sidebarLoginForm" action="{{ route('login') }}">
             @csrf
+            <input type="hidden" id="mtoken" name="_g_token">
             <label>{{ __("Username or Email") }}*</label>
             <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" required autocomplete="username" autofocus>
             <label>{{ __("Password") }}*</label>
             <input type="password" name="password" class="form-control" required>
-            <button type="submit">{{ __("Login") }}</button>
+            <button>{{ __("Login") }}</button>
         </form>
         <span><input type="checkbox" name="remember" form="sidebarLoginForm" {{ old('remember') ? 'checked' : '' }}> {{ __("Remember me") }} <a href="{{ url("password/reset") }}">{{ __("Lost your password?") }}</a></span>
         <h5 class="mb-3">{{ __("Or Login with") }}</h5>

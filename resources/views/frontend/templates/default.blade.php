@@ -95,6 +95,19 @@
         </div>
     @endif
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("token").value = token;
+            document.getElementById("protectedForm").submit();
+        }
+
+        function onSubmitModal(token) {
+            document.getElementById("mtoken").value = token;
+            document.getElementById("sidebarLoginForm").submit();
+        }
+    </script>
+
 </head>
 
 <body>
@@ -128,6 +141,8 @@
 <script src="{{ asset("js/angular-sanitize.min.js") }}"></script>
 
 <script src="{{ asset("js/custom.js") }}"></script>
+
+
 
 <!--Begin Modal-->
 @include("frontend.global.newsletter")

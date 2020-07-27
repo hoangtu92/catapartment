@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\AuthenticatedUser;
 use App\Http\Middleware\CheckRole;
+use App\Http\Middleware\gCaptcha;
 use App\Http\Middleware\RecentProduct;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\ShoppingCart;
@@ -81,6 +82,7 @@ class Kernel extends HttpKernel
         'verified' => EnsureEmailIsVerified::class,
         'role'  => CheckRole::class,
         'shopping_cart' => ShoppingCart::class,
-        'wish_list' => Wishlist::class
+        'wish_list' => Wishlist::class,
+        'g_captcha' => gCaptcha::class
     ];
 }

@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->foreign("user_id")->references("id")->on("users");
 
             $table->bigInteger("shipping_fee")->default(0);
-            $table->bigInteger("discount")->default(0)->change();
+            $table->bigInteger("discount")->default(0);
             $table->bigInteger("member_discount")->default(0);
             $table->bigInteger("total_amount")->default(0);
             $table->bigInteger("sub_total")->default(0);

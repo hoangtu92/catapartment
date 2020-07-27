@@ -9,9 +9,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <h2 class="text-center">{{ __('Login') }}</h2>
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="protectedForm">
                         @csrf
-
                         <div class="form-group row">
                             <label for="email"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
@@ -59,9 +58,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md-8 offset-4">@error("_g_token")
+                                <p><span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span></p>
+                                @enderror</div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn-cat">
+                                <button
+                                        data-sitekey="6LfEs7YZAAAAAIVh20vQhc9kzBG9wxbkpZw01XJv"
+                                        data-callback='onSubmit'
+                                        data-action='submit' class="g-recaptcha btn-cat">
                                     {{ __('Login') }}
                                 </button>
 
