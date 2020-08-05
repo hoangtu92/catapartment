@@ -19,9 +19,9 @@ class CreateProductsTable extends Migration
             $table->foreign("category_id")->references("id")->on("product_categories");
             $table->string("name")->nullable(false)->collation("utf8_unicode_ci")->unique();
             $table->string("slug")->nullable(true)->collation("utf8_unicode_ci")->unique();
-            $table->string("sku");
+            $table->string("sku")->nullable(true);
             $table->enum("status", [PRE_ORDER, IN_STOCK])->default(PRE_ORDER);
-            $table->integer("stock")->default(0);
+            $table->integer("stock")->nullable(true)->default(0);
 
             $table->decimal("price")->default(0);
             $table->decimal("sale_price")->nullable(true)->default(null);

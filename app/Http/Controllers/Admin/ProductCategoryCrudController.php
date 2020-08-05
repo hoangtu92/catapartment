@@ -58,6 +58,7 @@ class ProductCategoryCrudController extends CrudController
         $this->crud->addField([
             "name" => "icon",
             "type" => "browse",
+            "value" => "/images/cat-icon01.png",
             "label" => trans('backpack::site.category_icon')
         ]);
 

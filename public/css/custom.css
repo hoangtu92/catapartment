@@ -319,7 +319,7 @@ header.sticky .header-top {
 .category-list {
     display: inline-block;
     background: #fcc700;
-    padding: 10px 5px 10px 10px;
+    padding: 14px 5px 14px 10px;
     vertical-align: middle;
     width: 211px;
     cursor: pointer;
@@ -1933,12 +1933,22 @@ b {
     margin-top: 5px;
 }
 
+.cre-box:before{
+    content: "$";
+    position: absolute;
+    color: gray;
+    left: 4px;
+    top: 50%;
+    font-size: 100%;
+    transform: translateY(-50%);
+}
+
 .cre-box input {
     border: none;
     background: #fff;
     width: 100%;
     display: inline-block;
-    padding: 9px 80px 9px 10px;
+    padding: 9px 80px 9px 15px;
 }
 
 .cre-box input[type=submit],
@@ -2140,12 +2150,17 @@ a:focus, a:hover, a.active {
 }
 
 .re-box {
-    width: 100%;
+    width: 500px;
     height: auto;
-    display: inline-block;
+    display: block;
     position: relative;
     margin-top: 20px;
-    padding-left: 100px
+    padding-left: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
 }
 
 .re-box img.avatar {
@@ -2897,7 +2912,7 @@ a:focus, a:hover, a.active {
     position: absolute;
     top: 10px;
     right: 20px;
-    z-index: 9;
+    z-index: 7;
     width: 100px;
 }
 
@@ -2999,4 +3014,12 @@ a:focus, a:hover, a.active {
 
 .header-top > .container{
     display: flex;
+}
+
+.text-orange{
+    color: #f6ab00 !important;
+}
+
+.order-detail-table td{
+    border: none;
 }

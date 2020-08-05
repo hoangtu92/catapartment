@@ -41,10 +41,11 @@
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-gift"></i> {{ trans('backpack::site.products') }}</a>
     <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product') }}'><i class='nav-icon fa fa-gift'></i> {{ trans('backpack::site.products_submenu') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product') }}'><i class='nav-icon fa fa-gift'></i> 產品編輯</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('inventory') }}'><i class='nav-icon fa fa-archive'></i> 庫存警示<sup>{{ \App\Models\Product::where("stock", 0)->orWHere("status", PRE_ORDER)->count() }}</sup></a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product-category') }}'><i class='nav-icon fa fa-tag'></i>{{ trans('backpack::site.product_categories_submenu') }}</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('color') }}'><i class='nav-icon fa fa-paint-brush'></i> {{ trans('backpack::site.product_color_submenu') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('color') }}'><i class='nav-icon fa fa-paint-brush'></i> 材質與效果
+            </a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('brand') }}'><i class='nav-icon fa fa-building'></i> {{ trans('backpack::site.brand_menu') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('origin') }}'><i class='nav-icon fa fa-globe'></i> {{ trans('backpack::site.product_origin') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('piece') }}'><i class='nav-icon fa fa-puzzle-piece'></i> {{ trans('backpack::site.product_pieces') }}</a></li>

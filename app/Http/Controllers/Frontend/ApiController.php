@@ -130,10 +130,10 @@ class ApiController extends Controller
 
         } catch (ValidationException $e) {
             Log::info($e->getMessage());
-            echo [
+            echo json_encode([
                 'status' => false,
                 'error' => $e->getMessage()
-            ];
+            ]);
         }
     }
 }

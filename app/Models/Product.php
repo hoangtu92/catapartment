@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -71,7 +72,11 @@ class Product extends Model
     }
 
     public function reviews(){
-        return $this->hasMany("App\Models\OrderItem", "product_id", "id")->where("review", "!=", null);
+        return $this->hasMany("App\Models\OrderItem", "product_id", "id")
+            ->join("orders", "order_items.order_id", "=", "orders.id")
+            ->join("users", "orders.user_id", "=", "users.id")
+            ->where("review", "!=", null)
+            ->select("order_items.*");
     }
 
     public function ratings(){
@@ -79,7 +84,12 @@ class Product extends Model
     }
 
     public function orderItem(){
-        return $this->hasOne("App\Models\OrderItem", "product_id", "id");
+        $relation = $this->hasOne("App\Models\OrderItem")
+            ->select("order_items.*")
+            ->join("orders", "order_items.order_id", "=", "orders.id")
+            ->where("orders.user_id", "=", Auth::user()->id);
+
+        return $relation;
     }
 
     /*
@@ -115,8 +125,13 @@ class Product extends Model
 
     public function getImagesAttribute(){
 
-        if($this->attributes['images'] == null) return [];
+        if(empty($this->attributes['images'])) return [];
         return json_decode($this->attributes['images']);
+    }
+
+    public function setImagesAttribute($value){
+
+        $this->attributes['images'] = json_encode($value);
     }
 
     public function setIs_hotAttribute($is_hot){
@@ -125,14 +140,17 @@ class Product extends Model
 
     public function getAverageRatingAttribute(){
 
-        if($this->custom_rating != null || $this->custom_rating > 0){
+        if($this->custom_rating != null && $this->custom_rating > 0){
             return $this->custom_rating;
         }
         else{
             $ratings = array_reduce($this->ratings->toArray(), function ($t, $e){
-                $t[] = $e['rating'];
+                $t[] = (int) $e['rating'];
                 return $t;
             }, []);
+            $ratings = array_filter($ratings, function ($e){
+                return $e > 0;
+            });
 
             if(count($ratings) > 0){
                 return array_sum($ratings) / count($ratings);

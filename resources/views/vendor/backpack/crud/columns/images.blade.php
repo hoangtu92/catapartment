@@ -1,6 +1,6 @@
 {{-- image column type --}}
 @php
-  $images = data_get($entry, $column['name']);
+  $images = json_decode(data_get($entry, $column['name']));
   $prefix = $column['prefix'] ?? '';
 @endphp
 

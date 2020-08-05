@@ -151,10 +151,10 @@ $(document).ready(function () {
 // JavaScript Scroll Effect //
 
 jQuery(document).ready(function () {
-    jQuery('.container').addClass("hidden").viewportChecker({
+    /*jQuery('.container').addClass("hidden").viewportChecker({
         classToAdd: 'visible animated fadeInUp',
         offset: 100
-    });
+    });*/
 });
 
 // JavaScript Toggle Effect //

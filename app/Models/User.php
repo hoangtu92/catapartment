@@ -35,11 +35,11 @@ class User extends Model
     |--------------------------------------------------------------------------
     */
     public function orders(){
-        return $this->hasMany("App\Models\Order");
+        return $this->hasMany("App\Models\Order")->orderBy("id", "desc");
     }
 
     public function points_log(){
-        return $this->hasMany("App\Models\UserPoint");
+        return $this->hasMany("App\Models\UserPoint")->orderBy("id", "desc");
     }
 
     /*
@@ -62,6 +62,10 @@ class User extends Model
 
     public function hasPurchased($product_id){
         return $this->hasManyThrough("App\Models\OrderItem", "App\Models\Order")->where("product_id", "=", $product_id)->count() > 0;
+    }
+
+    public function orderItem ($product_id){
+        return $this->hasManyThrough("App\Models\OrderItem", "App\Models\Order")->where("product_id", "=", $product_id)->first();
     }
 
 }

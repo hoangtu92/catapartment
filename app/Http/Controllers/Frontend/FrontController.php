@@ -262,6 +262,8 @@ class FrontController extends CatController
 
     public function contact(Request $request){
 
+        $this->middleware("gCaptcha");
+
         if($request->isMethod("post") && $request->filled("action")){
             $contact_info = (object) $request->only(["customer_name", "customer_email", "customer_phone", "customer_free_time", "customer_message"]);
 

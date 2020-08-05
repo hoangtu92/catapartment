@@ -76,7 +76,8 @@ class FrameCrudController extends CrudController
             "options" => [FRAME => FRAME],
             "value" => FRAME,
             "attributes" => [
-                "readonly" => true
+                "readonly" => true,
+                "class" => "hide"
             ]
         ]);
 

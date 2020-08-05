@@ -73,6 +73,7 @@ class ProductCrudController extends CrudController
         ]);
 
         //$this->crud->removeButton("show");
+        $this->crud->enableExportButtons();
 
     }
 
@@ -232,6 +233,9 @@ class ProductCrudController extends CrudController
             "options" => [NORMAL => "Product"],
             "attributes" => [
                 "readonly" => true
+            ],
+            "wrapperAttributes" => [
+                "style" => "display: none"
             ]
         ]);
 
@@ -377,7 +381,7 @@ class ProductCrudController extends CrudController
            "name" => "custom_rating",
            "type" => "select2_from_array",
            "options" => [0,1,2,3,4,5],
-            "label" => trans("backpack::site.product_rating")
+            "label" => "推薦星等"
         ]);
 
         $this->crud->removeButton("show");
@@ -391,7 +395,7 @@ class ProductCrudController extends CrudController
 
             $product = $this->crud->getEntry($this->crud->getCurrentEntryId());
 
-            if(($product->status == IN_STOCK && $this->crud->request->input("status") == PRE_ORDER) || ($product->stock > 0 && $this->crud->request->input("stock") <= 0 )){
+            if($this->crud->request->input("status") == PRE_ORDER ||  $this->crud->request->input("stock") <= 0 ){
                 //Admin notify
                 try{
                     Mail::send(new AdminNotifyInventory($product));
@@ -401,7 +405,7 @@ class ProductCrudController extends CrudController
                 }
             }
 
-            if(($product->status == PRE_ORDER && $this->crud->request->input("status") == IN_STOCK) || ($product->stock <= 0 && $this->crud->request->input("stock") > 0 )){
+            if( $this->crud->request->input("status") == IN_STOCK && $this->crud->request->input("stock") > 0 ){
                 //Notify email to users
                 try{
                     Mail::send(new InventoryNotify($product));

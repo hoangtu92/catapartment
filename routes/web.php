@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', "Frontend\FrontController@home")->name("home");
 Route::get('/search', "Frontend\FrontController@search")->name("search");
 
@@ -46,8 +47,8 @@ Route::any("/order/{order_id}", "Frontend\CommerceController@order_detail")->nam
 
 Route::any("/order-complete", "Frontend\CommerceController@order_completed")->name("order_completed");
 Route::post("/order-post-back", "Frontend\CommerceController@order_post_back")->name("order_post_back");
-Route::get("/thank_you", "FrontEnd\CommerceController@thank_you")->name("thank_you");
-Route::get("/payment_failed", "FrontEnd\CommerceController@payment_failed")->name("payment_failed");
+Route::get("/thank_you", "Frontend\CommerceController@thank_you")->name("thank_you");
+Route::get("/payment_failed", "Frontend\CommerceController@payment_failed")->name("payment_failed");
 
 Auth::routes(['verify' => true]);
 

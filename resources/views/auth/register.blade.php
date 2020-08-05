@@ -119,7 +119,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button data-sitekey="6LfEs7YZAAAAAIVh20vQhc9kzBG9wxbkpZw01XJv"
+                                <button data-sitekey="{{ env("g_site_key") }}"
                                         data-callback='onSubmitModal'
                                         data-action='submit' class="g-recaptcha btn-cat">
                                     {{ __('Register') }}

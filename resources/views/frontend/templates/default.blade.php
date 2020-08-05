@@ -106,6 +106,7 @@
             document.getElementById("mtoken").value = token;
             document.getElementById("sidebarLoginForm").submit();
         }
+
     </script>
 
 </head>

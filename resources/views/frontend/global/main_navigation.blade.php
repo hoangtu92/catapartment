@@ -17,7 +17,7 @@
 
             </ul>
         </li>
-        <li><a href="{{ route("customized_products") }}">裱框服務<span class="en-title">Framed Service</span></a>
+        <li><a href="#" onclick="alert('請聯繫、洽詢貓公寓拼圖坊！')">裱框服務<span class="en-title">Framed Service</span></a>
 
         </li>
         <li><a href="{{ route("news") }}">拼圖情報<span class="en-title">Puzzle News</span></a>

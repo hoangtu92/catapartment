@@ -44,12 +44,15 @@ class OrderCrudController extends CrudController
                 'label' => trans("backpack::site.status"),
             ],
             function () {
-                return [PROCESSING => "處理中",
+                return [
+                    -1 => "All",
+                    PROCESSING => "處理中",
                     COMPLETED => "已完成",
                     CANCELED => "已取消"];
             },
             function ($value) {
-                $this->crud->addClause('where', 'status', $value);
+                if($value >=0)
+                    $this->crud->addClause('where', 'status', $value);
             }
         );
 
@@ -61,12 +64,14 @@ class OrderCrudController extends CrudController
             ],
             function () {
                 return [
+                    -1 => "All",
                     UNPAID => "未付款",
                     PAID => "已付款",
                     REFUNDING => "退款中",
                     REFUNDED => "已退款"];
             },
             function ($value) {
+                if($value >=0)
                 $this->crud->addClause('where', 'payment_status', $value);
             }
         );
@@ -75,6 +80,12 @@ class OrderCrudController extends CrudController
             "name" => "order_id",
             "type" => "order_name",
             "label" => trans("backpack::site.order_number")
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "email",
+            "type" => "email",
+            "label" => trans("backpack::site.email")
         ]);
 
 
@@ -126,7 +137,7 @@ class OrderCrudController extends CrudController
               "free_shipping" => __("Free Shipping") ,
               "pickup" =>  __("Local Pickup")
             ],
-            "label" => trans("backpack::site.delivery")
+            "label" => trans("backpack::site.shipping_method")
         ]);
 
 
@@ -146,7 +157,7 @@ class OrderCrudController extends CrudController
             "label" => trans("backpack::site.status")
         ]);
 
-        /*$this->crud->addColumn([
+        $this->crud->addColumn([
             "name" => "delivery_status",
             "type" => "select_from_array",
             "options" => [
@@ -154,7 +165,7 @@ class OrderCrudController extends CrudController
                 DELIVERING => " 運送中",
                 DELIVERED => " 已送達"],
             "label" => "運送狀態"
-        ]);*/
+        ]);
 
         $this->crud->addColumn([
             "name" => "notes",
@@ -168,7 +179,9 @@ class OrderCrudController extends CrudController
         $this->crud->removeButton("update");
         $this->crud->enableExportButtons();
         $this->crud->enableFilters();
-        $this->crud->enableBulkActions();
+        //$this->crud->enableBulkActions();
+
+        $this->crud->orderBy("id", "DESC");
     }
 
     protected function setupCreateOperation()
@@ -200,7 +213,7 @@ class OrderCrudController extends CrudController
             ]
         ]);
 
-       /* $this->crud->addField([
+        $this->crud->addField([
             "name" => "delivery_status",
             "type" => "select_from_array",
             "options" => [
@@ -208,7 +221,7 @@ class OrderCrudController extends CrudController
                 DELIVERING => " 運送中",
                 DELIVERED => " 已送達"],
             "label" => "運送狀態"
-        ]);*/
+        ]);
 
         $this->crud->addField([
             "name" => "notes",
@@ -222,7 +235,7 @@ class OrderCrudController extends CrudController
     protected function setupUpdateOperation()
     {
 
-        if($this->crud->request->isMethod("put")){
+        if($this->crud->getRequest()->isMethod("put")){
 
             $currentOrder = $this->crud->getEntry($this->crud->getCurrentEntryId());
             $shopping_accumulate = 0;

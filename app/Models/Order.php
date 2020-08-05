@@ -48,6 +48,7 @@ class Order extends Model
         return $payment_status[$this->payment_status];
     }
 
+
     public function getDeliveryStatus(){
         $delivery_status = [
             WAITING => "待出貨",
@@ -55,6 +56,10 @@ class Order extends Model
             DELIVERED => " 已送達"];
 
         return $delivery_status[$this->delivery_status];
+    }
+
+    public function totalSales(){
+
     }
 
 
@@ -89,4 +94,11 @@ class Order extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function getPaymentTypeAttribute(){
+        $payment_type = [
+            "Credit_CreditCard" => "信用卡"
+        ];
+        return isset($payment_type[$this->attributes["payment_type"]]) ? $payment_type[$this->attributes["payment_type"]] : "";
+    }
 }

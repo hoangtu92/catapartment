@@ -40,4 +40,7 @@ Route::group([
     Route::crud('stocknotify', 'StockNotifyCrudController');
     Route::crud('cartitem', 'CartItemCrudController');
     Route::crud('wishlist', 'WishListCrudController');
+    Route::get('charts/daily-sales', 'Charts\DailySalesChartController@response')->name('charts.daily-sales.index');
+    Route::get('charts/weekly-sales', 'Charts\WeeklySalesChartController@response')->name('charts.weekly-sales.index');
+    Route::get('charts/monthly-sales', 'Charts\MonthlySalesChartController@response')->name('charts.monthly-sales.index');
 }); // this should be the absolute last line of this file

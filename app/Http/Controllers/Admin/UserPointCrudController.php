@@ -51,6 +51,7 @@ class UserPointCrudController extends CrudController
         ]);
 
         $this->crud->removeButtons(["show", "create", "edit"]);
+        $this->crud->enableExportButtons();
     }
 
     protected function setupCreateOperation()

@@ -43,7 +43,7 @@
                                 </span>
 
 
-                                            <img ng-src="{{ url('/') }}@{{ product.image }}" alt=""/>
+                                            <img ng-src="{{ url('/') }}/@{{ product.image }}" alt=""/>
                                             <h3>@{{ product.name }}</h3>
                                             {{--<p>Accessories, Clocks</p>--}}
                                             <span><em>$@{{ product.price }}</em> $@{{ product.sale_price }}</span>

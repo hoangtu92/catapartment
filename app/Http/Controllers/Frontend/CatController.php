@@ -23,7 +23,7 @@ class CatController extends Controller
 
     public function __construct(){
 
-        parent::middleware(["shopping_cart", "wish_list"]);
+        parent::middleware(["web", "shopping_cart", "wish_list"]);
 
 
         $this->middleware(function ($request, $next) {

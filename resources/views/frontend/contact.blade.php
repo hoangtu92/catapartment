@@ -17,13 +17,14 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form action="{{ route("contact") }}" method="post" class="form-part">
+                <form action="{{ route("contact") }}" method="post" class="form-part" id="protectedForm">
                     @if(Session::has('message'))
                         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                     @endif
 
                     @csrf
                     <input type="hidden" name="action" value="contact">
+                    <input type="hidden" name="_g_token" id="token">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -57,7 +58,9 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group text-center">
-                                <button type="submit" class="btn-cat">{{ __("Ask a question") }}</button>
+                                <button data-sitekey="{{ env("g_site_key") }}"
+                                        data-callback='onSubmit'
+                                        data-action='submit' class="g-recaptcha btn-cat">{{ __("Ask a question") }}</button>
                             </div>
                         </div>
                     </div>

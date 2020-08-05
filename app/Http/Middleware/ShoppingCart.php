@@ -115,6 +115,7 @@ class ShoppingCart
 
         }
 
+
         return $next($request);
     }
 

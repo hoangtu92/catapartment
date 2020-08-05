@@ -31,7 +31,7 @@ class UserCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->addColumn([
             'name' => 'username',
-            'label' => trans("backpack::site.username"),
+            'label' => "帳號",
             'type' => 'text'
         ]);
 
@@ -54,12 +54,24 @@ class UserCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'role',
-            'label' => trans("backpack::site.role"),
-            'type' => 'text'
+            'name' => 'points',
+            'label' => trans("backpack::site.points"),
+            'type' => 'number'
         ]);
 
+        $this->crud->addColumn([
+            'name' => 'is_vip',
+            'label' => "會員",
+            'type' => 'select_from_array',
+            "options" => [
+                0 => "一般",
+                1 => "VIP"
+            ]
+        ]);
+
+
         $this->crud->removeButton("show");
+        $this->crud->enableExportButtons();
 
     }
 

@@ -179,7 +179,7 @@
                             </label>--}}
                             <div {{--ng-if="order.use_discount"--}}>
                                 <span>請填入你的優惠折扣：</span>
-                                <div class="cre-box"><input type="text" pattern="\d*" name="point_discount" value="{{ Session::get("point_discount") }}"><input
+                                <div class="cre-box"><input type="number" min="0" {{--max="{{ round(Auth::user()->points/Setting::get("point_ratio")) }}" --}} value="{{ Session::get("discount")  | round(Auth::user()->points/Setting::get("point_ratio")) }}" name="point_discount"><input
                                         type="submit" name="action" value="抵用"></div>
                             </div>
 

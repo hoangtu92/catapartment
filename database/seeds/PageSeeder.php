@@ -18,5 +18,11 @@ class PageSeeder extends Seeder
             "slug" => "privacy-policy",
             "content" => "lorem ipsum"
         ]);
+
+        DB::table("pages")->insert([
+            "title" => "Terms",
+            "slug" => "terms",
+            "content" => "lorem ipsum"
+        ]);
     }
 }

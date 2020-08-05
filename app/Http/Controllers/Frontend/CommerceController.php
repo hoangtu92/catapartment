@@ -60,7 +60,9 @@ class CommerceController extends CatController
         $order = $request->filled("order") ? $request->input("order") : 'asc';
 
         $category = ProductCategory::where("name", $category_name)->first();
-        $products = Product::where("category_id", $category->id)->orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
+        $products = [];
+        if($category)
+            $products = Product::where("category_id", $category->id)->orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
 
         $total_items = Product::where("category_id", $category->id)->count();
         $route_name = "product_cat";
@@ -90,6 +92,9 @@ class CommerceController extends CatController
     }
 
     public function customized_products($page = 1, Request $request){
+
+        return redirect(route("home"))->with("message", "請聯繫、洽詢貓公寓拼圖坊！");
+
 
         $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;
         $orderBy = $request->filled("orderBy") ? $request->input("orderBy") : 'id';
@@ -200,19 +205,20 @@ class CommerceController extends CatController
 
                     $request->validate(["point_discount" => "required"]);
 
-                    $discount = $request->filled("point_discount") ? $request->input("point_discount") : 0;
+                    $discount = !empty($request->input("point_discount")) ? $request->input("point_discount") : 0;
 
-                    $discount = round($discount/Setting::get("point_ratio"));
+                    $user_max_discount = round(Auth::user()->points/Setting::get("point_ratio"));
 
-                    if(Auth::user()->points >= $discount){
+                    if($user_max_discount >= $discount){
                         $request->session()->put("discount", $discount);
-                        $request->session()->flash('message', null);
                     }
                     else{
-                        $request->session()->flash('message', __("Your point is not enough"));
                         $request->session()->put("discount", 0);
                         $request->session()->put("point_discount", null);
+                        return redirect(route("checkout"))->with("message", "您尚未有足夠點數可以折抵");
                     }
+
+
 
                 }
 
@@ -403,10 +409,10 @@ class CommerceController extends CatController
         if($request->input("payment_method") == "ecpay"){
             //基本參數(請依系統規劃自行調整)
             $ecpay = new Ecpay();
-            $ecpay->i()->Send['ReturnURL']         = route("order_post_back") ;
-            //$ecpay->i()->Send['ClientRedirectURL']         = route("order_completed") ;
-            //$ecpay->i()->Send['ClientBackURL']         = route("order_completed") ;
-            $ecpay->i()->Send['OrderResultURL']    = route("order_completed") ;
+            $ecpay->i()->Send['ReturnURL']         = route("order_completed") ;
+            //$ecpay->i()->Send['ClientRedirectURL']         = route("thank_you") ;
+            $ecpay->i()->Send['ClientBackURL']         = route("thank_you") ;
+            //$ecpay->i()->Send['OrderResultURL']    = route("order_completed") ;
             $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
             $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
             $ecpay->i()->Send['TotalAmount']       = round($order->total_amount);                     //交易金額
@@ -423,7 +429,7 @@ class CommerceController extends CatController
             //Generate order checksum
             $arParameters = $this->getParameters($ecpay->i()->MerchantID, $ecpay->i()->Send);
             $order->checksum = \ECPay_CheckMacValue::generate($arParameters,$ecpay->i()->HashKey ,$ecpay->i()->HashIV, $arParameters['EncryptType']);
-            Log::info(json_encode($arParameters));
+
             $order->save();
 
 
@@ -468,25 +474,26 @@ class CommerceController extends CatController
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return int
      *
-    MerchantID: 2000132
-    MerchantTradeNo: 01644089
-    PaymentDate: 2020/05/04 10:18:28
-    PaymentType: Credit_CreditCard
-    PaymentTypeChargeFee: 66
-    RtnCode: 1
-    RtnMsg: Succeeded
-    SimulatePaid: 0
-    TradeAmt: 3280
-    TradeDate: 2020/05/04 10:17:43
-    TradeNo: 2005041017434940
-    CheckMacValue: 01B2AC668617E6EDF33FBFE4B662E385
+     * MerchantID: 2000132
+    * MerchantTradeNo: 01644089
+    * PaymentDate: 2020/05/04 10:18:28
+    * PaymentType: Credit_CreditCard
+    * PaymentTypeChargeFee: 66
+    * RtnCode: 1
+    * RtnMsg: Succeeded
+    * SimulatePaid: 0
+    * TradeAmt: 3280
+    * TradeDate: 2020/05/04 10:17:43
+    * TradeNo: 2005041017434940
+    * CheckMacValue: 01B2AC668617E6EDF33FBFE4B662E385
      */
     public function order_completed(Request $request){
 
+
         if($request->isMethod("post")){
-            if($request->input("RtnCode") == 1){
+            if((int) $request->input('RtnCode') == 1){
                 //Payment success
                 $order = Order::where("order_id", $request->input('MerchantTradeNo'))->first();
                 if($order){
@@ -494,52 +501,45 @@ class CommerceController extends CatController
                     $order->payment_no = $request->input('TradeNo');
                     $order->payment_type = $request->input('PaymentType');
                     $order->payment_date = $request->input('PaymentDate');
-                    $order->payment_status = (int) $request->input("RtnCode") == 1 ? PAID : UNPAID;
-
+                    $order->payment_status = PAID;
                     $order->status = COMPLETED;
                     $order->save();
+                    Log::info("Order {$order->order_id}");
+                    Log::info(json_encode($request->input()));
 
-                    if(Auth::user()){
+                    if($order->user){
                         //Reward
                         $reward_point = new UserPoint([
-                            "user_id" => Auth::id(),
+                            "user_id" => $order->user->id,
                             "amount" => $order->sub_total,
                             "created_at" => now(),
                             "notes" => "消費積分"
                         ]);
 
                         $reward_point->save();
-                        Auth::user()->points += $reward_point->amount;
+                        $order->user->points += $reward_point->amount;
 
-                        Auth::user()->save();
+                        $order->user->save();
                     }
 
-                    redirect(route("thank_you"));
 
                 }
-                //No order found in system. Probably faked order
-                else{
-                    echo "Order not found";
-                    redirect("/");
-                }
+            }
+            //No order found in system. Probably faked order
 
-            }
-            else{
-                //payment failed
-                redirect(route("payment_failed"));
-            }
-        }
-        else{
-            redirect(route("thank_you"));
         }
 
+        return 1;
 
     }
 
     public function thank_you(){
         //clear cart
         $this->shoppingCart->delete();
-        return view("frontend.thankyou");
+        Session::put("cart_items", json_encode([]));
+        $shoppingCart = ["count" => 0, "total" => 0];
+
+        return view("frontend.thankyou")->with(compact("shoppingCart"));
     }
 
     public function payment_failed(){
@@ -548,7 +548,7 @@ class CommerceController extends CatController
 
     public  function order_post_back(Request $request){
 
-        Log::info(json_encode($request->input()));
+        //Log::info(json_encode($request->input()));
     }
 
     public function order_detail($order_id, Request $request){
