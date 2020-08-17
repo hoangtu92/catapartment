@@ -88,6 +88,7 @@ class RegisterController extends CatController
             'phone' => $data['phone'],
             'name' => $data['name'],
             'email' => $data['email'],
+            'vip_code' => $data['vip_code'],
             'password' => Hash::make($data['password']),
         ]);
     }

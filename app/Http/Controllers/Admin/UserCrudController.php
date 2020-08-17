@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -29,6 +30,7 @@ class UserCrudController extends CrudController
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
+        $this->crud->addClause("where", "role", "=", "user");
         $this->crud->addColumn([
             'name' => 'username',
             'label' => "帳號",
@@ -115,6 +117,17 @@ class UserCrudController extends CrudController
             'name' => 'points',
             'label' => trans("backpack::site.points"),
             'type' => 'number'
+        ]);
+
+        $this->crud->addField([
+            "name" => "total_consume",
+            "type" => "select_from_array",
+            "label" => "累積消費金額",
+            "options" => ["NT$".User::find($this->crud->getCurrentEntryId())->consume],
+            "attributes" => [
+                "readonly" => true,
+                "disabled" => true
+            ],
         ]);
 
     }

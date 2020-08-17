@@ -4,7 +4,7 @@
         <div class="header-right"><a href="#" class="msearch"><img src="{{ asset("images/search-icon1.jpg") }}"
                                                                    alt=""/></a>
 
-            <a href="#"><img src="{{ asset("images/user-icon.jpg") }}" alt=""/></a> <a href="#"><img
+            <a href="{{ route("login") }}"><img src="{{ asset("images/user-icon.jpg") }}" alt=""/></a> <a href="#"><img
                     src="{{ asset("images/icon01.jpg") }}" alt=""/></a> <a href="#"><img
                     src="{{ asset("images/icon02.jpg") }}" alt=""/></a> <a href="#" class="hcart"><img
                     src="{{ asset("images/icon03.jpg") }}" alt=""/><em>{{$shoppingCart['count']}}</em>

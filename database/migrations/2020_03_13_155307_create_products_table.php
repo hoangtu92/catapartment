@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId("category_id")->nullable(true);
             $table->foreign("category_id")->references("id")->on("product_categories");
-            $table->string("name")->nullable(false)->collation("utf8_unicode_ci")->unique();
+            $table->string("name")->nullable(false)->collation("utf8_unicode_ci");
             $table->string("slug")->nullable(true)->collation("utf8_unicode_ci")->unique();
             $table->string("sku")->nullable(true);
             $table->enum("status", [PRE_ORDER, IN_STOCK])->default(PRE_ORDER);
@@ -42,6 +42,11 @@ class CreateProductsTable extends Migration
             $table->foreignId("piece_id")->nullable(true);
             $table->foreign("piece_id")->references("id")->on("pieces");
 
+            $table->integer("piece_value")->nullable(true);
+
+            $table->foreignId("material_id")->nullable(true);
+            $table->foreign("material_id")->references("id")->on("materials");
+
             $table->string("measures")->collation("utf8_unicode_ci")->nullable(true);
 
             $table->string("keywords")->collation("utf8_unicode_ci")->nullable(true);
@@ -52,6 +57,7 @@ class CreateProductsTable extends Migration
 
             $table->enum("type", [FRAME, NORMAL])->default(NORMAL);
             $table->decimal("time")->default(0);
+            $table->string("pid")->nullable(true);
             $table->timestamps();
         });
     }

@@ -49,7 +49,6 @@
             <excludedPath path="/public/robots.txt" />
             <excludedPath path="/public/user-dashboard.html" />
             <excludedPath path="/public/wishlist.html" />
-            <excludedPath path="/public/uploads" />
             <excludedPath path="/database/factories" />
             <excludedPath path="/public/packages" />
             <excludedPath path="/public/vendor" />

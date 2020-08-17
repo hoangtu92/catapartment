@@ -201,6 +201,11 @@
                             <span class="checkmark"></span>
                         </label>
 
+                        {{--<label class="rd-btn">{{ __("支付寶") }}
+                            <input type="radio" value="arcrma" name="payment_method">
+                            <span class="checkmark"></span>
+                        </label>--}}
+
                         <hr>
                         <p>{!! __("privacy_notice", ["privacy_url" => '<a href="'.route('page', ['privacy-policy']).'" target="_blank"><strong>'.__("privacy policy").'</strong></a>']) !!}
                             .</p>

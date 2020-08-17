@@ -2623,7 +2623,11 @@ a:focus, a:hover, a.active {
 @media (max-width: 767px) {
 
     .top-left {
-        display: none;
+        display: none !important;
+    }
+
+    .category-list{
+        padding: 10px 5px 10px 10px;
     }
 
     .top-right {
@@ -2635,6 +2639,7 @@ a:focus, a:hover, a.active {
 
     .top-right span:first-child {
         border-left: none;
+        bottom: -8px;
     }
 
 
@@ -2852,7 +2857,22 @@ a:focus, a:hover, a.active {
 
     .header-right a img {
         vertical-align: middle;
-        width: 32px;
+        width: 24px;
+    }
+
+    .mob-logo img{
+        width: 106px;
+        margin-top: 5px;
+    }
+
+    .top-soial a img{
+        width:28px;
+        padding: 2px;
+        margin: 0;
+    }
+    .top-right span a{
+        padding: 0 10px 5px 10px;
+        margin-left: 5px;
     }
 
     .header-right a p {

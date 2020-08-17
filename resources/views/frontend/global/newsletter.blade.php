@@ -11,7 +11,7 @@
                     <input type="hidden" name="action" value="normal">
                 <input type="email" name="email" placeholder="{{ __("Your email address") }}"><button type="submit">加入</button>
             </div>
-            <p><a href="#"><img src="{{ asset("images/facebook-btn.png") }}" alt=""/></a></p>
+            <p><a href="{{ url("/login/facebook") }}"><img src="{{ asset("images/facebook-btn.png") }}" alt=""/></a></p>
             </form>
         </div>
     </div>

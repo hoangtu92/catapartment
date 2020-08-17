@@ -391,11 +391,11 @@ class ProductCrudController extends CrudController
     protected function setupUpdateOperation()
     {
 
-        if($this->crud->request->isMethod("put")){
+        if($this->crud->getRequest()->isMethod("put")){
 
             $product = $this->crud->getEntry($this->crud->getCurrentEntryId());
 
-            if($this->crud->request->input("status") == PRE_ORDER ||  $this->crud->request->input("stock") <= 0 ){
+            if($this->crud->getRequest()->input("status") == PRE_ORDER ||  $this->crud->getRequest()->input("stock") <= 0 ){
                 //Admin notify
                 try{
                     Mail::send(new AdminNotifyInventory($product));
@@ -405,7 +405,7 @@ class ProductCrudController extends CrudController
                 }
             }
 
-            if( $this->crud->request->input("status") == IN_STOCK && $this->crud->request->input("stock") > 0 ){
+            if( $this->crud->getRequest()->input("status") == IN_STOCK && $this->crud->getRequest()->input("stock") > 0 ){
                 //Notify email to users
                 try{
                     Mail::send(new InventoryNotify($product));

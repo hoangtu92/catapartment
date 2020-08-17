@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "ext-curl": "*",
+        "ext-dom": "*",
         "ext-json": "*",
         "backpack/crud": "4.1.*",
         "backpack/filemanager": "^1.0",
@@ -31,6 +32,7 @@
         "muhamadrezaar/instagram": "^1.0",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/message": "^1.8",
+        "phpoffice/phpspreadsheet": "^1.14",
         "vinkla/instagram": "^9.3"
     },
     "require-dev": {

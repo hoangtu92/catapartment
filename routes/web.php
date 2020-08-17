@@ -1,8 +1,13 @@
 <?php
 
 
+use App\Models\Brand;
+use App\Models\Origin;
+use App\Models\Piece;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +51,7 @@ Route::any("/order/{order_id}", "Frontend\CommerceController@order_detail")->nam
 
 
 Route::any("/order-complete", "Frontend\CommerceController@order_completed")->name("order_completed");
+Route::any("/arcrma-order-complete", "Frontend\CommerceController@arcrma_order_completed")->name("arcrma_order_completed");
 Route::post("/order-post-back", "Frontend\CommerceController@order_post_back")->name("order_post_back");
 Route::get("/thank_you", "Frontend\CommerceController@thank_you")->name("thank_you");
 Route::get("/payment_failed", "Frontend\CommerceController@payment_failed")->name("payment_failed");
@@ -54,6 +60,15 @@ Auth::routes(['verify' => true]);
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get("/test", function (){
+    $arcrma = new \App\Classes\ARCRMA();
+    $order = \App\Models\Order::find(35);
+
+
+    $r = $arcrma->newOrder($order);
+    return $r;
+});
 
 
 Route::middleware(["verified"])->prefix('account')->group(function () {

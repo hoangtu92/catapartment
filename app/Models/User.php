@@ -42,6 +42,14 @@ class User extends Model
         return $this->hasMany("App\Models\UserPoint")->orderBy("id", "desc");
     }
 
+    public function getConsumeAttribute(){
+        $consume = 0;
+        foreach ($this->orders as $order){
+            $consume += $order->total_amount;
+        }
+        return $consume;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -71,6 +71,7 @@ class LatestProductCrudController extends CrudController
         ]);
 
         $this->crud->removeButton("show");
+        $this->crud->removeButton("create");
 
         /*if($this->crud->count() >= 5){
             $this->crud->removeButton("create");

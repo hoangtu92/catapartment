@@ -35,7 +35,7 @@
                                             @foreach($current_user->points_log as $point)
                                                 <tr>
                                                     <td>{{ $point->created_at->format("Y-m-d") }}</td>
-                                                    <td>{{ $point->notes }}</td>
+                                                    <td>{!! $point->notes !!}</td>
                                                     <td>{{ $point->amount }}</td>
                                                 </tr>
                                                 @endforeach

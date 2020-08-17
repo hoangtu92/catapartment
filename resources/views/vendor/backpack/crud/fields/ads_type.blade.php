@@ -1,7 +1,6 @@
 <!-- enum -->
-<div @include('crud::inc.field_wrapper_attributes') >
+<div>
     <label>{!! $field['label'] !!}</label>
-    @include('crud::inc.field_translatable_icon')
     @php
         $entity_model = $crud->model;
         $possible_values = $entity_model::getPossibleEnumValues($field['name']);

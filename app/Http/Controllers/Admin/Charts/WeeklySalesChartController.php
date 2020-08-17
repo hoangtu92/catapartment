@@ -71,7 +71,7 @@ class WeeklySalesChartController extends ChartController
         }
 
         $this->chart->dataset('Weekly Sales', 'line', $data)
-            ->color('rgba(253, 205, 0, 0.4)')
-            ->backgroundColor('rgba(253, 205, 0, 0.4)');
+            ->color('rgb(96, 92, 168)')
+            ->backgroundColor('rgba(96, 92, 168, 0.4)');
     }
 }

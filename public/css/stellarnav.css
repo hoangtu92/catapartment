@@ -96,7 +96,7 @@ body.stellarnav-noscroll-x { overflow-x: hidden; }
 .stellarnav.dark .icon-close:after { border-color: #FFF; }
 
 /* mobile nav */
-.stellarnav .close-menu { padding:5px 10px; box-sizing: border-box; background:rgba(0, 0, 0, .15);}
+.stellarnav .close-menu {padding:5px 10px;box-sizing: border-box;background: rgb(255 255 255 / 15%);}
 .stellarnav .menu-toggle, .stellarnav .call-btn-mobile, .stellarnav .location-btn-mobile {padding:12px 10px 9px 10px;
     box-sizing: border-box;
     float: right;}
@@ -141,7 +141,7 @@ body.stellarnav-noscroll-x { overflow-x: hidden; }
 .stellarnav.mobile li.call-btn-mobile { border-right: 1px solid rgba(255, 255, 255, .1); box-sizing: border-box; }
 .stellarnav.mobile li.call-btn-mobile, .stellarnav.mobile li.location-btn-mobile { display: inline-block; width: 50%; text-transform: uppercase; text-align: center; }
 .stellarnav.mobile li.call-btn-mobile.full, .stellarnav.mobile li.location-btn-mobile.full { display: block; width: 100%; text-transform: uppercase; border-right: 0; text-align: left; }
-.stellarnav.mobile.light ul { background: #e4e5e6; }
+.stellarnav.mobile.light ul {background: #ffffff;}
 .stellarnav.mobile.dark ul { background: rgba(0, 0, 0, 1); }
 .stellarnav.mobile.dark ul ul { background: rgba(255, 255, 255, .08); }
 .stellarnav.mobile.light li.call-btn-mobile { border-right: 1px solid rgba(0, 0, 0, .1); }

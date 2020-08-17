@@ -48,6 +48,23 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="vip_code"
+                                   class="col-md-4 col-form-label text-md-right">{{ __('身分證ID後五碼') }}</label>
+
+                            <div class="col-md-8">
+                                <input id="vip_code" type="text"
+                                       class="form-control" name="name"
+                                       value="{{ old('vip_code') }}" maxlength="5" autocomplete="vip_code" autofocus>
+
+                                @error('vip_code')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email"
                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

@@ -101,4 +101,21 @@ class Order extends Model
         ];
         return isset($payment_type[$this->attributes["payment_type"]]) ? $payment_type[$this->attributes["payment_type"]] : "";
     }
+
+    public function getPnameAttribute(){
+        $product_name = [];
+        foreach ($this->items as $item){
+            $product_name[] = $item->product_name;
+        }
+
+        return implode(", ", $product_name);
+    }
+
+    public function getShipaddrAttribute(){
+        return "{{ $this->shipping_name }},
+    {{ $this->shipping_phone }}
+    {{ $this->shipping_zipcode }}
+    {{ $this->shipping_address }} {{ $this->shipping_address2 }}
+    {{ $this->state }}, {{ $this->country }}";
+    }
 }

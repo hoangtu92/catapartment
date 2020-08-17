@@ -41,7 +41,7 @@ class OrderCrudController extends CrudController
             [
                 'type' => 'select2',
                 'name' => 'status',
-                'label' => trans("backpack::site.status"),
+                'label' => "訂單狀態",
             ],
             function () {
                 return [
@@ -60,7 +60,7 @@ class OrderCrudController extends CrudController
             [
                 'type' => 'select2',
                 'name' => 'payment_status',
-                'label' => trans("backpack::site.payment_status"),
+                'label' => "付款狀態",
             ],
             function () {
                 return [
@@ -80,6 +80,12 @@ class OrderCrudController extends CrudController
             "name" => "order_id",
             "type" => "order_name",
             "label" => trans("backpack::site.order_number")
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "created_at",
+            "type" => "datetime",
+            "label" => "訂購時間"
         ]);
 
         $this->crud->addColumn([

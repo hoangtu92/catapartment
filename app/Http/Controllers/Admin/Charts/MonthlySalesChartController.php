@@ -19,8 +19,8 @@ class MonthlySalesChartController extends ChartController
     public function setup()
     {
 
-        for ($i = 1; $i <= 12; $i++) {
-            $this->labels[] = date("Y-m%", strtotime( date( 'Y-m-01' )." -$i months"));
+        for ($i = 0; $i < 12; $i++) {
+            array_unshift($this->labels, date("Y/m", strtotime( date( 'Y-m-01' )." -$i months")));
         }
 
         $this->chart = new Chart();
@@ -33,7 +33,7 @@ class MonthlySalesChartController extends ChartController
 
         // OPTIONAL
         // $this->chart->minimalist(false);
-        // $this->chart->displayLegend(true);
+        $this->chart->displayLegend(false);
     }
 
     /**
@@ -50,7 +50,7 @@ class MonthlySalesChartController extends ChartController
         }
 
         $this->chart->dataset('Month Sales', 'line', $data)
-            ->color('rgba(253, 205, 0, 0.4)')
-            ->backgroundColor('rgba(253, 205, 0, 0.4)');
+            ->color('rgb(96, 92, 168)')
+            ->backgroundColor('rgba(96, 92, 168, 0.4)');
     }
 }

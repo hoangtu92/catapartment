@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Classes\ARCRMA;
 use App\Mail\OrderComplete;
 use App\Models\Brand;
 use App\Models\CustomizedProduct;
@@ -398,6 +399,7 @@ class CommerceController extends CatController
                         'Quantity' => (int) $item->qty,
                         'URL' => $product->permalink
                     );
+
                 }
             }
 
@@ -416,7 +418,7 @@ class CommerceController extends CatController
             $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
             $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
             $ecpay->i()->Send['TotalAmount']       = round($order->total_amount);                     //交易金額
-            $ecpay->i()->Send['TradeDesc']         = "Online goods" ;         //交易描述
+            $ecpay->i()->Send['TradeDesc']         = "CatsApartment's order" ;         //交易描述
             $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::ALL ;     //付款方式
 
             $ecpay->i()->Send['Items'] = [];
@@ -440,6 +442,10 @@ class CommerceController extends CatController
             //Go to ECPay
             //echo "緑界頁面導向中...";
             return $ecpay->i()->CheckOutString();
+        }
+        else if($request->input("payment_method") == "arcrma"){
+            $arcrma = new ARCRMA();
+            return redirect($arcrma->sendOrder($order));
         }
         else{
 
@@ -587,6 +593,10 @@ class CommerceController extends CatController
         return view("frontend.wishlist");
     }
 
+
+    public function arcrma_order_completed(Request $request){
+        echo json_encode($request->toArray());
+    }
 
 
 }

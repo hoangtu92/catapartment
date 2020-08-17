@@ -25,33 +25,33 @@
             'type'  => 'chart',
             'controller' => \App\Http\Controllers\Admin\Charts\DailySalesChartController::class,
             'wrapperClass' => "col-xs-12",
-            'class'  => '',
-            'data'  => [],
-            'title' => ''
+            'title' => '日'
         ];
 
         $weeklySales = [
             'type'  => 'chart',
             'controller' => \App\Http\Controllers\Admin\Charts\WeeklySalesChartController::class,
             'wrapperClass' => "col-xs-12",
-            'class'  => '',
-            'data'  => [],
-            'title' => ''
+            'title' => '週'
         ];
 
         $monthlySales = [
             'type'  => 'chart',
             'controller' => \App\Http\Controllers\Admin\Charts\MonthlySalesChartController::class,
             'wrapperClass' => "col-xs-12",
-            'class'  => '',
-            'data'  => [],
-            'title' => ''
+            'title' => '月'
+        ];
+
+        $tabs = [
+            'type' => 'tabs',
+            'class' => '',
+            'content' => [$dailySales, $weeklySales, $monthlySales]
         ];
 
         $left = [
           'type' => 'div',
           'class' => 'col-xs-12 col-md-8 col-lg-9',
-          'content' => [$dailySales, $weeklySales, $monthlySales]
+          'content' => [$tabs]
         ];
 
         $right= [
