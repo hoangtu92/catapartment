@@ -2160,31 +2160,31 @@ pre code {
 .table-success,
 .table-success > th,
 .table-success > td {
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 .table-hover .table-success:hover {
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 .table-hover .table-success:hover > td,
 .table-hover .table-success:hover > th {
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 .table-info,
 .table-info > th,
 .table-info > td {
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 .table-hover .table-info:hover {
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 .table-hover .table-info:hover > td,
 .table-hover .table-info:hover > th {
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 .table-warning,
@@ -4982,8 +4982,8 @@ a.badge:focus, a.badge:hover {
 }
 
 .alert-success {
-  background-color: #fcc700;
-  border-color: #fcc700;
+  background-color: #46b9c7;
+  border-color: #46b9c7;
   color: #3c763d;
 }
 
@@ -4996,8 +4996,8 @@ a.badge:focus, a.badge:hover {
 }
 
 .alert-info {
-  background-color: #fcc700;
-  border-color: #fcc700;
+  background-color: #46b9c7;
+  border-color: #46b9c7;
   color: #000000;
 }
 
@@ -5231,7 +5231,7 @@ a.badge:focus, a.badge:hover {
 
 .list-group-item-success {
   color: #3c763d;
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 a.list-group-item-success,
@@ -5248,7 +5248,7 @@ a.list-group-item-success:focus, a.list-group-item-success:hover,
 button.list-group-item-success:focus,
 button.list-group-item-success:hover {
   color: #3c763d;
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 a.list-group-item-success.active,
@@ -5260,7 +5260,7 @@ button.list-group-item-success.active {
 
 .list-group-item-info {
   color: #000000;
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 a.list-group-item-info,
@@ -5277,7 +5277,7 @@ a.list-group-item-info:focus, a.list-group-item-info:hover,
 button.list-group-item-info:focus,
 button.list-group-item-info:hover {
   color: #000000;
-  background-color: #fcc700;
+  background-color: #46b9c7;
 }
 
 a.list-group-item-info.active,

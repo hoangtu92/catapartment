@@ -52,7 +52,15 @@
                     </ul>
                 </div>
                 <div class="col-lg-6">
-                    <h3><a href="{{ route("contact") }}">需要客服</a></h3>
+                    <h3>客服諮詢</h3>
+                    <ul class="faq">
+                        @foreach($service_faq as $item)
+                            <li class="q"><img src="images/arrow.png">{{ $item->question }}</li>
+                            <li class="a">{!! $item->answer !!}
+                            </li>
+                        @endforeach
+
+                    </ul>
                 </div>
             </div>
         </div>

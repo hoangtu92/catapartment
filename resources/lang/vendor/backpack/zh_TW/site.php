@@ -120,7 +120,7 @@ return [
     "product_keywords" => "關鍵字",
 
     "product_brand" => "品牌",
-    "product_color" => "材質與效果",
+    "product_color" => "材質",
     "product_measures" => "尺寸",
     "product_origin" => "進口國家",
     "product_sku" => "貨號SKU",

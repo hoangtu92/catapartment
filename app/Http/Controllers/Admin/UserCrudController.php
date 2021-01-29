@@ -61,6 +61,12 @@ class UserCrudController extends CrudController
             'type' => 'number'
         ]);
 
+        /*$this->crud->addColumn([
+            'name' => 'consume',
+            'label' => "Total order amount",
+            'type' => 'number'
+        ]);*/
+
         $this->crud->addColumn([
             'name' => 'is_vip',
             'label' => "會員",

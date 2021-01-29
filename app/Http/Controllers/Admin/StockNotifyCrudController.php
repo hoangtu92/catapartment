@@ -23,14 +23,43 @@ class StockNotifyCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Models\StockNotify');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/stocknotify');
-        $this->crud->setEntityNameStrings('stocknotify', 'stock_notifies');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/stock-notify');
+        $this->crud->setEntityNameStrings('補貨通知名單', '補貨通知名單');
     }
 
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        //$this->crud->setFromDb();
+
+        $this->crud->addColumn([
+           "name" => "name" ,
+            "type" => "text",
+            "label" => "名稱"
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "email" ,
+            "type" => "email",
+            "label" => "Email"
+        ]);
+
+        $this->crud->addColumn([
+           "name" => "phone" ,
+            "type" => "phone",
+            "label" => "電話"
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "product_id" ,
+            "type" => "product",
+            "entity" => "product",
+            "attribute" => "name",
+            "label" => "通知商品"
+        ]);
+
+        $this->crud->removeButtons(["create", "show", "update"]);
+
 
     }
 
@@ -45,5 +74,35 @@ class StockNotifyCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumn([
+            "name" => "name" ,
+            "type" => "text",
+            "label" => "名稱"
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "email" ,
+            "type" => "email",
+            "label" => "Email"
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "phone" ,
+            "type" => "phone",
+            "label" => "電話"
+        ]);
+
+        $this->crud->addColumn([
+            "name" => "product_id" ,
+            "type" => "product",
+            "entity" => "product",
+            "attribute" => "name",
+            "label" => "通知商品"
+        ]);
     }
 }

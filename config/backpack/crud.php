@@ -27,7 +27,7 @@ return [
 
             // stores pagination and filters in localStorage for two hours
             // whenever the user tries to see that page, backpack loads the previous pagination and filtration
-            'persistentTable' => true,
+            'persistentTable' => false,
 
             // the time the table will be persisted in minutes
             // after this the table info is cleared from localStorage.

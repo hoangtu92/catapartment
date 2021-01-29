@@ -83,6 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->name;
     }
 
+    public function isVip(){
+        return \App\Models\User::find($this->id)->is_vip;
+    }
 
 
 }

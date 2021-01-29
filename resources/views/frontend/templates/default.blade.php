@@ -140,6 +140,7 @@
 
 <script src="{{ asset("js/angular.min.js") }}"></script>
 <script src="{{ asset("js/angular-sanitize.min.js") }}"></script>
+<script src="{{ asset("js/ui-bootstrap-tpls-2.5.0.min.js") }}"></script>
 
 <script src="{{ asset("js/custom.js") }}"></script>
 

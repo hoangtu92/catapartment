@@ -18,11 +18,11 @@
                             @csrf
                             <table class="full-width user-profile-table">
 
-                                @if(Auth::user()->is_vip && Auth::user()->vip_code == null)
+                                @if(Auth::user()->isVip())
                                 <tr>
                                     <td>
                                         <label for="vip_code">VIP身分證驗證</label>
-                                        <input id="vip_code" type="text" name="vip_code" class="form-control">
+                                        <input id="vip_code" type="text" name="vip_code" maxlength="5" value="{{ Auth::user()->vip_code }}" class="form-control">
                                     </td>
                                 </tr>
                                 @endif
@@ -77,7 +77,14 @@
                                         <label for="zipcode">{{ __("Zip Code") }}</label>
                                         <input id="zipcode" type="text" class="form-control" value="{{ Auth::user()->zipcode }}" name="zipcode">
                                     </td>
-                                </tr>
+                                {{--</tr>
+                                    <tr>
+                                    <td>
+                                        <label for="vip_code">{{ __("身分證後五碼") }}</label>
+                                        <input id="vip_code" type="text" maxlength="5" class="form-control" value="{{ Auth::user()->vip_code }}" name="vip_code">
+                                    </td>
+
+                                </tr>--}}
                                 <tr>
                                     <td>
 

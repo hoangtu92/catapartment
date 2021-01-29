@@ -50,8 +50,8 @@
             <excludedPath path="/public/user-dashboard.html" />
             <excludedPath path="/public/wishlist.html" />
             <excludedPath path="/database/factories" />
-            <excludedPath path="/public/packages" />
             <excludedPath path="/public/vendor" />
+            <excludedPath path="/public/packages" />
           </excludedPaths>
         </serverdata>
       </paths>

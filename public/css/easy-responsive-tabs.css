@@ -32,7 +32,7 @@ h2.resp-accordion {
 }
 
 .resp-tab-active {
-  border-bottom: 3px solid #fcc700;
+  border-bottom: 3px solid #46b9c7;
   margin-bottom: -1px !important;
   padding: 12px 15px 5px 15px !important;
 }
@@ -68,7 +68,7 @@ h2.resp-tab-title:last-child {
 
 /*-----------Accordion styles-----------*/
 
-h2.resp-tab-active { background:#fcc700 !important; }
+h2.resp-tab-active { background:#46b9c7 !important; }
 
 .resp-easy-accordion h2.resp-accordion { display: block; }
 

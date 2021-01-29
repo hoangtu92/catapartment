@@ -18,11 +18,18 @@
     </section>
 
     <section class="checkout-page">
-        <form id="orderForm" action="{{ route("checkout") }}" , method="post">
+        <form id="orderForm" action="{{ route("checkout") }}" method="post">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h3>{{ __("Billing Details") }}</h3>
+                        <h3>{{ __("Billing Details") }}
+
+                            @if(!Auth::id())
+                        <br>
+                            <a style="font-size: 14px" href="{{route("login")}}">會員請先登入</a>
+                                @endif
+                        </h3>
+
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -144,7 +151,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ __("Order Notes (optional)") }}</label>
-                                    <textarea name="notes" class="form-control"></textarea>
+                                    <textarea name="notes" value="{{old("notes")}}" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -157,54 +164,49 @@
                         </div>
 
                         @auth
-                            @if(\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->is_vip && !\Illuminate\Support\Facades\Session::get("vip_verified"))
-                                <div class="discount-box">
+
+                            @if(Auth::user()->isVip())
+
+                                <div class="discount-box point-discount">
                                     <div>
-                                        <span>身分證後五碼驗證：</span>
-                                        @if(\Illuminate\Support\Facades\Auth::user()->vip_code == null)
-                                            <a href="{{ route("profile") }}">VIP身分證驗證</a>
-                                            @else
-                                        <div class="cre-box"><input type="text" name="vip_code" value=""><input
-                                                type="submit" name="action" value="驗證"></div>
-                                            @endif
+                                        <span>請填入你的優惠折扣：</span>
+                                        <div class="cre-box">
+
+                                            <input type="number" id="check_discount" min="0" value="{{ Session::get("discount")  | round(Auth::user()->points/Setting::get("point_ratio")) }}" name="point_discount">
+
+                                            <input type="button" onclick="validateVip()" name="action" value="抵用">
+
+                                            <button class="btn btn-cat discount-reset-btn" type="button" onclick="this.form.point_discount.value = 0">不抵用</button>
+                                        </div>
                                     </div>
 
+
+                                    @error('point_discount')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                                    @error('vip_code')<div class="alert alert-danger">{{ $message }}</div>@enderror
+
                                 </div>
+
                             @endif
 
-                        <div class="discount-box">
-                            {{--<label class="checkbox-btn">優惠折扣
-                                <input type="checkbox" name="use_discount" value="true" @if(Session::get("use_discount") == "true") checked ng-init="order.use_discount = true" @endif ng-click="order.use_discount = !order.use_discount">
-                                <span class="checkmark"></span>
-                            </label>--}}
-                            <div {{--ng-if="order.use_discount"--}}>
-                                <span>請填入你的優惠折扣：</span>
-                                <div class="cre-box"><input type="number" min="0" {{--max="{{ round(Auth::user()->points/Setting::get("point_ratio")) }}" --}} value="{{ Session::get("discount")  | round(Auth::user()->points/Setting::get("point_ratio")) }}" name="point_discount"><input
-                                        type="submit" name="action" value="抵用"></div>
-                            </div>
-
-                            @error('point_discount')<div class="alert alert-danger">{{ $message }}</div>@enderror
-
-                        </div>
                         @endauth
 
                        {{-- <label class="rd-btn">{{ __("Cheque Payment") }}
                         </label>--}}
 
                         <label class="rd-btn">{{ __("Cash on delivery") }}
-                            <input type="radio" value="cod" name="payment_method">
+                            <input type="radio" value="cod" name="payment_method" @if(Session::get("payment_method") == "code") checked @endif>
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="rd-btn">{{ __("ECPay") }}
-                            <input type="radio" value="ecpay" name="payment_method" checked>
+                            <input type="radio" value="ecpay" name="payment_method" @if(Session::get("payment_method") == "ecpay") checked @endif>
                             <span class="checkmark"></span>
                         </label>
 
-                        {{--<label class="rd-btn">{{ __("支付寶") }}
-                            <input type="radio" value="arcrma" name="payment_method">
+                        <label class="rd-btn">{{ __("支付寶") }}
+                            <input type="radio" value="arcrma" name="payment_method" @if(Session::get("payment_method") == "arcrma") checked @endif>
                             <span class="checkmark"></span>
-                        </label>--}}
+                        </label>
 
                         <hr>
                         <p>{!! __("privacy_notice", ["privacy_url" => '<a href="'.route('page', ['privacy-policy']).'" target="_blank"><strong>'.__("privacy policy").'</strong></a>']) !!}
@@ -225,6 +227,55 @@
             </div>
         </form>
     </section>
+    @auth
+    <div class="modal fade" id="validateVip">
+        <div class="modal-dialog">
+            <form action="{{ route("validate_vip") }}" method="POST" id="vipcodeform" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="message text-center">
+
+                        @csrf
+
+                        <input type="hidden" name="point_discount" id="point_discount_field">
+
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="vip_code" placeholder="{{ __("VIP身分證驗證") }}">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <div class="form-group" style="width: 100%">
+                        <input class="btn-cat" type="button" onclick="onValidateVipSubmit()" value="驗證" style="margin: 0">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
+    <script>
+    function validateVip(){
+        $("#validateVip").modal();
+    }
+
+    function onValidateVipSubmit() {
+        $("#vipcodeform #point_discount_field").val(document.querySelector('#orderForm').point_discount.value);
+        $("#vipcodeform").submit();
+    }
+
+    document.querySelector("#check_discount").onkeypress = function(e){
+        console.log(e.which)
+        if(e.which === 45) return false;
+    }
+
+
+
+</script>
+    @endauth
 @endsection

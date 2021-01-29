@@ -132,6 +132,13 @@ return [
         ],
         "term_agree" => [
             "required" => "請閱讀條款並勾選同意"
+        ],
+        "vip_code" => [
+            "required" => "VIP紅利折抵需驗證身分證後五碼",
+            "exists" => "身分證後五碼錯誤"
+        ],
+        "point_discount" => [
+            "min" => "折扣不能小於0"
         ]
     ],
 

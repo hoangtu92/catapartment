@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RecommendProduct;
 use App\Models\UserPoint;
+use App\Rules\MaxUserPoint;
 use App\User;
 use Backpack\Settings\app\Models\Setting;
 use flamelin\ECPay\Ecpay;
@@ -62,10 +63,12 @@ class CommerceController extends CatController
 
         $category = ProductCategory::where("name", $category_name)->first();
         $products = [];
-        if($category)
+        $total_items = 0;
+        if($category){
             $products = Product::where("category_id", $category->id)->orderBy($orderBy, $order)->offset(($page-1)*$perPage)->take($perPage)->get();
+            $total_items = Product::where("category_id", $category->id)->count();
+        }
 
-        $total_items = Product::where("category_id", $category->id)->count();
         $route_name = "product_cat";
         $route_params = ['category_name' => $category_name];
 
@@ -151,20 +154,11 @@ class CommerceController extends CatController
         $product->view++;
         $product->save();
 
-        $hot_products = Product::orderByDesc("view")->limit(6)->get();
-
         $recent_view_products = Session::get("recent_view_products", []);
 
         $recent_view_products[$product->id] = $product;
 
         Session::put("recent_view_products", $recent_view_products);
-
-
-        foreach ($hot_products as $hot_product){
-            if($hot_product->id == $product->id){
-                $product->is_hot = true;
-            }
-        }
 
         return view("frontend.product_detail", compact("product"));
     }
@@ -180,12 +174,14 @@ class CommerceController extends CatController
 
         //Initiate auto discount regular member
         if(Auth::user()){
-            if(!Auth::user()->is_vip ||  !$request->session()->get("vip_verified")){
+            if(Auth::user()->isVip()){
                 //$request->session()->put("member_discount", Setting::get("regular_member_discount"));
+                $request->session()->put("member_discount", 28);
+            }
+            else{
                 $request->session()->put("member_discount", 20);
             }
         }
-
 
 
         if($request->isMethod('post')){
@@ -204,7 +200,7 @@ class CommerceController extends CatController
 
                 if($request->input("action") == '抵用' && Auth::user()){
 
-                    $request->validate(["point_discount" => "required"]);
+                    /*$request->validate(["point_discount" => "required"]);
 
                     $discount = !empty($request->input("point_discount")) ? $request->input("point_discount") : 0;
 
@@ -217,27 +213,21 @@ class CommerceController extends CatController
                         $request->session()->put("discount", 0);
                         $request->session()->put("point_discount", null);
                         return redirect(route("checkout"))->with("message", "您尚未有足夠點數可以折抵");
-                    }
+                    }*/
 
 
 
                 }
 
-                //Vip code discount
-                if($request->input("action") == "驗證" && Auth::user() && Auth::user()->is_vip){
-                    $request->validate(["vip_code"]);
+                /*//Vip code discount
+                if($request->input("action") == "驗證" && Auth::user() && Auth::user()->isVip()){
+                    $request->validate([
+                        "vip_code" => ["required", "exists:users,vip_code,id,".Auth::user()->id]
+                    ]);
 
-                    $vipCode = $request->input("vip_code");
-                    if($vipCode == Auth::user()->vip_code){
-                        $request->session()->put("vip_verified", true);
+                    $request->session()->put("vip_verified", true);
 
-                        $md = 20;//Setting::get("regular_member_discount");
-                        $md += (10*20)/100;//(Setting::get("vip_member_discount")*$md) / 100;
-
-                        $request->session()->put("member_discount", round($md));
-
-                    }
-                }
+                }*/
 
                 if($request->session()->get("delivery") == 'flat_rate')
                     $request->session()->put("shipping_fee", Setting::get("shipping_fee"));
@@ -253,6 +243,45 @@ class CommerceController extends CatController
 
 
         return view("frontend.checkout");
+    }
+
+    public function validate_vip(Request $request){
+
+        if(!empty(Auth::user()->provider) && empty(Auth::user()->vip_code)){
+
+            $request->validate([
+                "point_discount" => ["required", "numeric", "min:0", new MaxUserPoint],
+                "vip_code" => ["required"]
+            ]);
+
+            Auth::user()->vip_code = $request->vip_code;
+            Auth::user()->save();
+
+        }
+        else{
+            $request->validate([
+                "point_discount" => ["required", "numeric", "min:0", new MaxUserPoint],
+                "vip_code" => ["required", "exists:users,vip_code,id,".Auth::user()->id]
+            ]);
+        }
+
+
+
+        $request->session()->put("vip_verified", true);
+
+        $discount = $request->point_discount;
+
+        $user_max_discount = round(Auth::user()->points/Setting::get("point_ratio"));
+
+        if($user_max_discount >= $discount){
+            $request->session()->put("discount", $discount);
+        }
+        else{
+            $request->session()->put("discount", 0);
+            $request->session()->put("point_discount", null);
+        }
+
+        return redirect(route("checkout"));
     }
 
     public function place_order(Request $request)
@@ -295,6 +324,15 @@ class CommerceController extends CatController
             $user->sendEmailVerificationNotification();
         } else {
             $request->validate($validate);
+
+            if(Auth::check()){
+                Auth::user()->name = $request->input("name");
+                Auth::user()->phone = $request->input("phone");
+                Auth::user()->email = $request->input("email");
+                Auth::user()->zipcode = $request->input('zipcode');
+                Auth::user()->address = $request->input('address');
+                Auth::user()->save();
+            }
         }
 
 
@@ -312,7 +350,7 @@ class CommerceController extends CatController
 
         //Order summary
         $shipping_fee = $request->input('delivery') == "flat_rate" ? (float) Setting::get("shipping_fee") : 0;
-        $sub_total = $this->shoppingCart->cartData['total'];
+        $sub_total = $this->shoppingCart->cartData['total'] - $discount - $member_discount;
         $total_amount = round($this->shoppingCart->cartData['total'] + $shipping_fee - $discount - $member_discount);
 
         //Creating order
@@ -418,7 +456,7 @@ class CommerceController extends CatController
             $ecpay->i()->Send['MerchantTradeNo']   = $order->order_id;           //訂單編號
             $ecpay->i()->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');      //交易時間
             $ecpay->i()->Send['TotalAmount']       = round($order->total_amount);                     //交易金額
-            $ecpay->i()->Send['TradeDesc']         = "CatsApartment's order" ;         //交易描述
+            $ecpay->i()->Send['TradeDesc']         = "Online goods" ;         //交易描述
             $ecpay->i()->Send['ChoosePayment']     = \ECPay_PaymentMethod::ALL ;     //付款方式
 
             $ecpay->i()->Send['Items'] = [];
@@ -445,7 +483,7 @@ class CommerceController extends CatController
         }
         else if($request->input("payment_method") == "arcrma"){
             $arcrma = new ARCRMA();
-            return redirect($arcrma->sendOrder($order));
+            return $arcrma->sendOrderForm($order);
         }
         else{
 
@@ -497,6 +535,7 @@ class CommerceController extends CatController
      */
     public function order_completed(Request $request){
 
+        Log::info("ECPAY post back: ".json_encode($request->toArray()));
 
         if($request->isMethod("post")){
             if((int) $request->input('RtnCode') == 1){
@@ -510,24 +549,6 @@ class CommerceController extends CatController
                     $order->payment_status = PAID;
                     $order->status = COMPLETED;
                     $order->save();
-                    Log::info("Order {$order->order_id}");
-                    Log::info(json_encode($request->input()));
-
-                    if($order->user){
-                        //Reward
-                        $reward_point = new UserPoint([
-                            "user_id" => $order->user->id,
-                            "amount" => $order->sub_total,
-                            "created_at" => now(),
-                            "notes" => "消費積分"
-                        ]);
-
-                        $reward_point->save();
-                        $order->user->points += $reward_point->amount;
-
-                        $order->user->save();
-                    }
-
 
                 }
             }
@@ -575,6 +596,18 @@ class CommerceController extends CatController
                         $order_item->review_date = now();
                         $order_item->save();
 
+                        if($order_item->order->user){
+                            $reward_point = new UserPoint([
+                                "user_id" => $order_item->order->user->id,
+                                "amount" => 5,
+                                "created_at" => now(),
+                                "notes" => "評論獎勵"
+                            ]);
+
+                            $reward_point->save();
+                            $order_item->order->user->points += $reward_point->amount;
+                        }
+
                         if($request->filled("redirect")){
                             return redirect($request->input("redirect"));
 
@@ -595,7 +628,47 @@ class CommerceController extends CatController
 
 
     public function arcrma_order_completed(Request $request){
-        echo json_encode($request->toArray());
+
+        /**
+         * {
+            "seller_id": "38727431A",
+            "pno": "69370046",
+            "order_no": "P201105210431002",
+            "esunno": "P201105210431002",
+            "channel_id": "alipay",
+            "channel_order_no": "PSO201105210432104",
+            "alipayno": "PSO201105210432104",
+            "ntd_plus": "0",
+            "currency": "TWD",
+            "ntd": "1880",
+            "ttime": "20201105090431",
+            "order_time": "20201105210431",
+            "status": "OK",
+            "message": "ORDER_COMPLETE"
+            }
+         */
+        Log::info("Payment callback: ");
+        Log::info(json_encode($request->toArray()));
+
+        if($request->isMethod("post")){
+            if((int) $request->status == "Ok"){
+                //Payment success
+                $order = Order::where("order_id", $request->pno)->first();
+                if($order){
+
+                    $order->payment_no = $request->input('alipayno');
+                    $order->payment_type = $request->input('channel_id');
+                    $order->payment_date = date_create($request->ttime)->format("Y-m-d H:i:s");
+                    $order->payment_status = PAID;
+                    $order->status = COMPLETED;
+                    $order->save();
+
+                }
+            }
+            //No order found in system. Probably faked order
+
+        }
+        return redirect(route("thank_you"));
     }
 
 

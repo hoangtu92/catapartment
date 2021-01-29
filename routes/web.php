@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Classes\ImportProduct;
 use App\Models\Brand;
 use App\Models\Origin;
 use App\Models\Piece;
@@ -31,7 +32,8 @@ Route::get('/news/detail/{slug}', "Frontend\FrontController@news_detail")->name(
 Route::get('/page/{slug}', "Frontend\FrontController@page")->name("page");
 
 Route::get('/faq', "Frontend\FrontController@faq")->name("faq");
-Route::any('/contact-us', "Frontend\FrontController@contact")->name("contact");
+Route::get('/contact-us', "Frontend\FrontController@contact")->name("contact");
+Route::post('/contact-us', "Frontend\FrontController@contact")->name("contact_post")->middleware("g_captcha");
 
 Route::get('/products/{page?}', "Frontend\CommerceController@products")->name("products");
 Route::get('/product-category/{category_name}/{page?}', "Frontend\CommerceController@product_category")->name("product_cat");
@@ -43,6 +45,7 @@ Route::get('/products/detail/{slug?}', "Frontend\CommerceController@product_deta
 Route::any('/checkout', "Frontend\CommerceController@checkout")->name("checkout");
 
 Route::any('/subscribe', "Frontend\FrontController@subscribe")->name("subscribe");
+Route::any('/product_notify', "Frontend\FrontController@product_notify")->name("product_notify");
 
 Route::any('/wishlist', "Frontend\CommerceController@wishlist")->name("wishlist");
 
@@ -55,6 +58,7 @@ Route::any("/arcrma-order-complete", "Frontend\CommerceController@arcrma_order_c
 Route::post("/order-post-back", "Frontend\CommerceController@order_post_back")->name("order_post_back");
 Route::get("/thank_you", "Frontend\CommerceController@thank_you")->name("thank_you");
 Route::get("/payment_failed", "Frontend\CommerceController@payment_failed")->name("payment_failed");
+Route::post("/validate_vip", "Frontend\CommerceController@validate_vip")->name("validate_vip");
 
 Auth::routes(['verify' => true]);
 
@@ -63,11 +67,67 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 
 Route::get("/test", function (){
     $arcrma = new \App\Classes\ARCRMA();
-    $order = \App\Models\Order::find(35);
+    //$order = \App\Models\Order::find(1);
+    $product = \App\Models\Product::find(1261);
+
+  echo $arcrma->updateProduct($product, "delete")->asXML();
+  exit();
+
+});
 
 
-    $r = $arcrma->newOrder($order);
-    return $r;
+Route::get("/test-order", function (){
+    $arcrma = new \App\Classes\ARCRMA();
+    $order = \App\Models\Order::find(8);
+
+    echo $arcrma->sendOrderForm($order);
+    exit();
+
+});
+
+Route::get("/clear-products", function (){
+    $products = \App\Models\Product::all();
+    foreach ($products as $product){
+        $product->delete();
+    }
+});
+Route::get("/import-products", function (){
+
+    set_time_limit(0);
+    ini_set('max_execution_time', 0);
+
+    $import_lists = [
+        //"products.xlsx",
+        //"Ensky excel.xlsx",
+        //"galison excel.xlsx",
+
+        //"mudpuppy excel.xlsx",
+        //"Tenyo excel.xlsx",
+        //"台旺excel.xlsx",
+        //"品圖藝術excel.xlsx",
+
+        //"拼圖總動員 excel.xlsx",
+        //"貓公寓_商品批次匯入Castorland.xlsx",
+        //"貓公寓_商品批次匯入CobbleHill.xlsx",
+
+        //"貓公寓_商品批次匯入EPOCH.xlsx",
+        //"貓公寓_商品批次匯入Eurographics.xlsx",
+        //"貓公寓_商品批次匯入grafika.xlsx",
+
+        //"new/bluebird.xlsx",
+        //"new/Clementoni.xlsx",
+        //"new/dToys.xlsx",
+        //"new/educa.xlsx",
+        //"new/Gibsons.xlsx",
+        "new/OtterHouse.xlsx",
+        "new/SunsOut.xlsx",
+    ];
+    foreach ($import_lists as $p){
+
+        echo "Importing $p<br>";
+        ImportProduct::import($p);
+    }
+
 });
 
 
@@ -79,5 +139,4 @@ Route::middleware(["verified"])->prefix('account')->group(function () {
     Route::any('/change-password', "Frontend\UserController@change_password")->name("change_password");
     Route::get('/orders', "Frontend\UserController@orders")->name("orders");
     Route::post('/update', "Frontend\UserController@update")->name("update_user");
-
 });

@@ -39,7 +39,13 @@
         <h3>用品牌找拼圖</h3>
         <ul class="brands">
             @foreach($brands as $brand)
-            <li><input type="checkbox" class="hide" ng-model="filter.brands[{{ $brand->id }}]" ng-change="filterProduct()" id="brand-{{ $brand->id }}" value="1"><label for="brand-{{ $brand->id }}"><img src="{{ asset($brand->logo) }}" alt=""/></label></li>
+            <li><input type="checkbox" class="hide" ng-model="filter.brands[{{ $brand->id }}]" ng-change="filterProduct()" id="brand-{{ $brand->id }}" value="1"><label for="brand-{{ $brand->id }}">
+                    @if($brand->logo != null)
+                        <img src="{{ asset($brand->logo) }}" alt=""/>
+                        @else
+                        <span>{{$brand->name}}</span>
+                        @endif
+                </label></li>
             @endforeach
         </ul>
     </div>

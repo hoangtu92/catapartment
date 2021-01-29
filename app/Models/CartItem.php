@@ -94,7 +94,7 @@ class CartItem extends Model
                     $item->product = (object) $item->product;
 
 
-                    $cart_total_amount += $item->product->realPrice*$item->qty;
+                    $cart_total_amount += $item->product->price*$item->qty;
                 }
 
             }

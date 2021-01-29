@@ -23,7 +23,7 @@
         <li><a href="{{ route("news") }}">拼圖情報<span class="en-title">Puzzle News</span></a>
 
         </li>
-        <li><a href="{{ route("pre_order_products") }}">海外預購<span class="en-title">Pre-order</span> </a>
+        <li><a href="{{ route("pre_order_products") }}">拼圖預購<span class="en-title">Pre-order</span> </a>
         </li>
     </ul>
 </div>

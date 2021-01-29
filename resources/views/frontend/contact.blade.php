@@ -17,7 +17,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form action="{{ route("contact") }}" method="post" class="form-part" id="protectedForm">
+                <form action="{{ route("contact_post") }}" method="post" class="form-part" id="protectedForm">
                     @if(Session::has('message'))
                         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                     @endif

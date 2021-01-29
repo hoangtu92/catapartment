@@ -27,7 +27,7 @@ class LatestProductRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255',
-            'lft' => 'unique:latest_products'
+            //'lft' => 'unique:latest_products'
             //'product_id' => 'unique:recommend_products'
         ];
     }

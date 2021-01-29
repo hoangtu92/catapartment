@@ -71,7 +71,7 @@ body.stellarnav-noscroll-x { overflow-x: hidden; }
 .stellarnav li.has-sub ul li a{ border-bottom:#f6f3f3 thin solid; font-size: 14px;
     padding-left: 25px;}
 
-.stellarnav li.has-sub ul li a:hover{background:#fcc700;color: white !important;}
+.stellarnav li.has-sub ul li a:hover{background:#46b9c7;color: white !important;}
 
 
 /* svg icons */

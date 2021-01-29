@@ -20,7 +20,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UpdatedAddress' => [
             'App\Listeners\UserUpdatedAddress',
-        ],
+        ]
     ];
 
     /**

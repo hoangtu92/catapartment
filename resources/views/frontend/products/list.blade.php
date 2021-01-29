@@ -15,7 +15,7 @@
                         @endif
 
 
-                        <img src="{{ asset($product->image) }}" alt=""/>
+                        <div class="image"><img onerror="this.src='/images/no-img.jpg'" src="{{ asset($product->image) }}" alt=""/></div>
                         <h3>{{ $product->name }}</h3>
                         {{--<p>Accessories, Clocks</p>--}}
                         <span><em>${{ $product->price }}</em> ${{ $product->sale_price }}</span></a></div>

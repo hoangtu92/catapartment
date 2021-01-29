@@ -91,6 +91,7 @@ class FrontController extends CatController
                         ->where("question", "like", "%$s%")
                         ->orWhere("answer", "like", "%$s%")
                         ->selectRaw("'faq' as type, faqs.id as id, faqs.question as name, faqs.answer as description")
+                        ->orderByDesc("created_at")
                         ->get();
                 }
                 else if($cat === 'news'){
@@ -99,6 +100,7 @@ class FrontController extends CatController
                         ->where("title", "like", "%$s%")
                         ->orWhere("content", "like", "%$s%")
                         ->selectRaw("'news_details' as type, news.title as slug, news.id as id, news.title as name, news.content as description, news.image as thumbnail")
+                        ->orderByDesc("created_at")
                         ->get();
                 }
                 else{
@@ -108,6 +110,7 @@ class FrontController extends CatController
                         ->where("product_categories.id", "=", $cat)
                         ->where("products.name", "like", "%$s%")
                         ->selectRaw("'product_detail' as type, products.slug as slug, products.name as name, products.id as id, products.image as thumbnail, products.price as price")
+                        ->orderByDesc("created_at")
                         ->get();
                 }
             }
@@ -122,6 +125,7 @@ class FrontController extends CatController
                     ->where("question", "like", "%$s%")
                     ->orWhere("answer", "like", "%$s%")
                     ->selectRaw("'faq' as type, faqs.id as id, faqs.question as name, faqs.answer as description")
+                    ->orderByDesc("created_at")
                     ->get();
 
                 $news = DB::table("news")
@@ -129,6 +133,7 @@ class FrontController extends CatController
                     ->where("title", "like", "%$s%")
                     ->orWhere("content", "like", "%$s%")
                     ->selectRaw("'news_details' as type, news.title as slug, news.id as id, news.title as name, news.content as description, news.image as thumbnail")
+                    ->orderByDesc("created_at")
                     ->get();
 
                 $results = $products->concat($faqs)->concat($news);
@@ -188,10 +193,11 @@ class FrontController extends CatController
 
 
     public function faq(){
-        $payment_faqs = Faq::where("type", "付款資訊")->get();
-        $shopping_faqs = Faq::where("type", "購物資訊")->get();
-        $membership_faq = Faq::where("type", "會員問題")->get();
-        return view("frontend.faq")->with(compact("payment_faqs", "shopping_faqs", "membership_faq"));
+        $payment_faqs = Faq::where("type", "付款資訊")->orderByDesc("created_at")->get();
+        $shopping_faqs = Faq::where("type", "購物資訊")->orderByDesc("created_at")->get();
+        $membership_faq = Faq::where("type", "會員問題")->orderByDesc("created_at")->get();
+        $service_faq = Faq::where("type", "客服諮詢")->orderByDesc("created_at")->get();
+        return view("frontend.faq")->with(compact("payment_faqs", "shopping_faqs", "membership_faq", "service_faq"));
     }
 
     public function subscribe(Request $request){
@@ -218,26 +224,6 @@ class FrontController extends CatController
 
                 }
 
-                if($request->filled("product_id") && $request->input("product_id") > 0){
-                    $product = Product::find($request->input("product_id"));
-
-                    if($product){
-                        $exist = StockNotify::where("product_id", $product->id)->where("newsletter_id", $newsletter->id)->first();
-
-                        if(!$exist){
-                            StockNotify::create([
-                                'newsletter_id' => $newsletter->id,
-                                'product_id' => $product->id
-                            ]);
-                        }
-
-                        $request->session()->flash('message', "已成功加入貨到通知");
-                        return redirect($product->permalink);
-
-                    }
-                }
-
-
             }
 
 
@@ -245,6 +231,31 @@ class FrontController extends CatController
         }
 
         return redirect(route("home"));
+    }
+
+    public function product_notify(Request $request){
+        $request->validate([
+           "product_id" => "required",
+           "email" => "required",
+        ]);
+        $product = Product::find($request->input("product_id"));
+
+        if($product){
+            $exist = StockNotify::where("product_id", $product->id)->where("email", $request->email)->first();
+
+            if(!$exist){
+                StockNotify::create([
+                    'email' => $request->email,
+                    'product_id' => $product->id,
+                    'name' => $request->filled("name") ? $request->name : null,
+                    'phone' => $request->filled("phone") ? $request->phone : null,
+                ]);
+            }
+
+            $request->session()->flash('message', "已成功加入貨到通知");
+            return redirect($product->permalink);
+
+        }
     }
 
     public function register_notify_product(Request $request){
@@ -261,8 +272,6 @@ class FrontController extends CatController
     }
 
     public function contact(Request $request){
-
-        $this->middleware("gCaptcha");
 
         if($request->isMethod("post") && $request->filled("action")){
             $contact_info = (object) $request->only(["customer_name", "customer_email", "customer_phone", "customer_free_time", "customer_message"]);
@@ -281,8 +290,8 @@ class FrontController extends CatController
             catch(\Exception $e){
 
             }
-            if(env("RECEIVE_CONTACT_EMAIL") == 1)
-                Mail::send(new ContactUs($contact_info));
+            /*if(env("RECEIVE_CONTACT_EMAIL") == 1)
+                Mail::send(new ContactUs($contact_info));*/
 
             $request->session()->flash('message', __("Your message has been sent successfully"));
         }

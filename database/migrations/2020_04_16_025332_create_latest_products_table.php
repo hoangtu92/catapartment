@@ -15,7 +15,7 @@ class CreateLatestProductsTable extends Migration
     {
         Schema::create('latest_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("product_id")->unique(false);
+            $table->foreignId("product_id");
             $table->foreign("product_id")->references("id")->on("products");
             $table->boolean("display")->nullable(true)->default(true);
             $table->date("valid_from")->nullable(true);

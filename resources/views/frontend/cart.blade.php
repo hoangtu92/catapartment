@@ -10,7 +10,9 @@
 @section("content")
 
     <section class="inner-banner">
+{{--
         <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_wishlist")) }}" alt=""/>
+--}}
     </section>
 
 
@@ -53,7 +55,7 @@
 
                                     <tr>
                                         <td><img src="{{ asset($item->product->image) }}"></td>
-                                        <td>{{ $item->product->name }}<br>
+                                        <td><a href="{{route("product_detail", ["slug" => $item->product->slug])}}">{{ $item->product->name }}</a> <br>
                                             @if(!empty($item->attr))
                                                 @foreach($item->attr as $key => $value)
                                                     <strong><small>{{ $key }}: {{ $value }}</small></strong><br>
@@ -80,8 +82,20 @@
                                             </td>
 
 
-                                        <td>{{ $item->product->realPrice }}</td>
-                                        <td>{{ $item->qty*$item->product->realPrice }}</td>
+                                        @if(Auth::check())
+                                            @if(Auth::user()->isVip())
+
+                                            <td>${{ $item->product->price*0.8*0.9 }}</td>
+                                            <td>${{ $item->qty*$item->product->price*0.8*0.9 }}</td>
+                                            @else
+                                                <td>${{ $item->product->price*0.8 }}</td>
+                                                <td>${{ $item->qty*$item->product->price*0.8 }}</td>
+                                            @endif
+                                        @else
+                                            <td>${{ $item->product->price }}</td>
+                                            <td>${{ $item->qty*$item->product->price }}</td>
+                                        @endif
+
 
                                     </tr>
                                 @endforeach
@@ -91,7 +105,9 @@
 
                                 <div class="form-group text-right flex-column align-items-center justify-content-between">
                                     <input type="hidden" name="action" value="update_cart">
+                                    <a class="m-0 btn-cat" href="{{ route("products") }}">{{ __("回賣場選購") }}</a>
                                     <input class="m-0 btn-cat" type="submit" value="{{ __("Update") }}">
+
                                     <a class="m-0 btn-cat" href="{{ route("checkout") }}">{{ __("Go to checkout") }}</a>
                                 </div>
                             </form>

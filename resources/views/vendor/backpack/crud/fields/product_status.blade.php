@@ -5,7 +5,7 @@
         $entity_model = $crud->model;
         $possible_values = $entity_model::getPossibleEnumValues($field['name']);
     @endphp
-    <select
+    <select id="product_status"
         name="{{ $field['name'] }}@if (isset($field['allows_multiple']) && $field['allows_multiple']==true)[]@endif"
         @include('crud::fields.inc.attributes')
         @if (isset($field['allows_multiple']) && $field['allows_multiple']==true)multiple @endif

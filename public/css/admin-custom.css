@@ -87,3 +87,6 @@ a sup{
     box-shadow: none;
     clear: both;
 }
+#crudTable.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, #crudTable.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
+    content: "\f1c4";
+}

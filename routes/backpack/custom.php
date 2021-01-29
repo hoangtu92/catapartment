@@ -37,7 +37,7 @@ Route::group([
     Route::crud('origin', 'OriginCrudController');
     Route::crud('piece', 'PieceCrudController');
     Route::crud('inventory', 'InventoryCrudController');
-    Route::crud('stocknotify', 'StockNotifyCrudController');
+    Route::crud('stock-notify', 'StockNotifyCrudController');
     Route::crud('cartitem', 'CartItemCrudController');
     Route::crud('wishlist', 'WishListCrudController');
     Route::get('charts/daily-sales', 'Charts\DailySalesChartController@response')->name('charts.daily-sales.index');

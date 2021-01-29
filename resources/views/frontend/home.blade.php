@@ -3,9 +3,9 @@
     <section class="home-banner">
         <div class="container">
             <div class="home-slider">
-                <div class="hcat-list t-0">
+                {{--<div class="hcat-list t-0">
                     @include("frontend.products.product_category")
-                </div>
+                </div>--}}
                 <div id="home-slider" class="owl-carousel">
                     @foreach($slides as $slide)
 
@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 mb-4 cb">
-                    @if(isset($latest_products[1]))
+                    @if(isset($latest_products[1]->product))
                         <a href="{{ $latest_products[1]->product->permalink }}">
                             <h4>{{ $latest_products[1]->product->category->name }}</h4>
                             <img src="{{ asset($latest_products[1]->product->image) }}" alt=""/></a>
@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 mb-4 cb">
 
-                            @if(isset($latest_products[2]))
+                            @if(isset($latest_products[2]->product))
                                 <a href="{{ $latest_products[2]->product->permalink }}">
                                     <h4>{{ $latest_products[2]->product->category->name }}</h4>
                                     <img src="{{ asset($latest_products[2]->product->image) }}" alt=""/></a>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 mb-4 cb">
 
-                            @if(isset($latest_products[3]))
+                            @if(isset($latest_products[3]->product))
                                 <a href="{{ $latest_products[3]->product->permalink }}">
                                     <h4>{{ $latest_products[3]->product->category->name }}</h4>
                                     <img src="{{ asset($latest_products[3]->product->image) }}" alt=""/></a>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 mb-4 cb">
 
-                            @if(isset($latest_products[4]))
+                            @if(isset($latest_products[4]->product))
                                 <a href="{{ $latest_products[4]->product->permalink }}">
                                     <h4>{{ $latest_products[4]->product->category->name }}</h4>
                                     <img src="{{ asset($latest_products[4]->product->image) }}" alt=""/></a>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 mb-4 cb">
 
-                            @if(isset($latest_products[5]))
+                            @if(isset($latest_products[5]->product))
                                 <a href="{{ $latest_products[5]->product->permalink }}">
                                     <h4>{{ $latest_products[5]->product->category->name }}</h4>
                                     <img src="{{ asset($latest_products[5]->product->image) }}" alt=""/></a>
@@ -129,14 +129,16 @@
 
                                     @if(isset($recommend_products['熱賣拼圖']))
                                         @foreach($recommend_products['熱賣拼圖'] as $p)
+                                            @if(isset($p->product))
                                             <div class="col-md-4">
                                                 <div class="acce-box"><a href="{{ $p->product->permalink }}"> <img
                                                             src="{{ asset($p->product->image) }}"
                                                             alt=""/>
                                                         <h3>{{ $p->product->name }}</h3>
                                                         <p>{{ $p->product->category->name }}</p>
-                                                        <span>${{ $p->product->sale_price }}</span></a></div>
+                                                        <span>${{ $p->product->realPrice }}</span></a></div>
                                             </div>
+                                            @endif
                                         @endforeach
                                     @endif
 
@@ -149,6 +151,7 @@
                                 <div class="row">
                                     @if(isset($recommend_products['新品預購']))
                                         @foreach($recommend_products['新品預購'] as $p)
+                                            @if(isset($p->product))
                                             <div class="col-md-4">
                                                 <div class="acce-box"><a href="{{ $p->product->permalink }}"> <img
                                                             src="{{ asset($p->product->image) }}"
@@ -157,6 +160,7 @@
                                                         <p>{{ $p->product->category->name }}</p>
                                                         <span>${{ $p->product->sale_price }}</span></a></div>
                                             </div>
+                                            @endif
                                         @endforeach
 
                                             <div class="col-lg-12 text-center mb-5"><a href="#" class="btn3">More...</a></div>
@@ -169,6 +173,7 @@
                                 <div class="row">
                                     @if(isset($recommend_products['換季促銷']))
                                         @foreach($recommend_products['換季促銷'] as $p)
+                                            @if(isset($p->product))
                                             <div class="col-md-4">
                                                 <div class="acce-box"><a href="{{ $p->product->permalink }}"> <img
                                                             src="{{ asset($p->product->image) }}"
@@ -177,6 +182,7 @@
                                                         <p>{{ $p->product->category->name }}</p>
                                                         <span>${{ $p->product->sale_price }}</span></a></div>
                                             </div>
+                                            @endif
                                         @endforeach
 
                                             <div class="col-lg-12 text-center mb-5"><a href="#" class="btn3">More...</a></div>
@@ -236,13 +242,16 @@
 @section("scripts")
     <script>
         jQuery(document).ready(function ($) {
+
+            //$(".arrow1").click();
+
             jQuery('.overlay .close').click(function () {
                 jQuery('.overlay').hide()
             });
 
-            if (1 || (sessionStorage.subscribed !== "1" && localStorage.subscribed !== "1")) {
+            if ((sessionStorage.subscribed !== "1" && localStorage.subscribed !== "1")) {
                 jQuery('.overlay').css('visibility', 'visible').css('opacity', 1);
-                sessionStorage.subscribed = '1';
+                //sessionStorage.subscribed = '1';
             }
             $("#subscribeForm").submit(function (e) {
                 e.preventDefault();

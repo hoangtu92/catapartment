@@ -39,9 +39,6 @@ class StockNotify extends Model
         return $this->belongsTo("\App\Models\Product");
     }
 
-    public function newsletter(){
-        return $this->belongsTo("\App\Models\Newsletter");
-    }
 
     /*
     |--------------------------------------------------------------------------

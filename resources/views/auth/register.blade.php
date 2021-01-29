@@ -22,7 +22,7 @@
                                        class="form-control @error('username') is-invalid @enderror" name="username"
                                        value="{{ old('username') }}" required autocomplete="username" autofocus>
 
-                                @error('name')
+                                @error('username')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -53,7 +53,7 @@
 
                             <div class="col-md-8">
                                 <input id="vip_code" type="text"
-                                       class="form-control" name="name"
+                                       class="form-control" name="vip_code"
                                        value="{{ old('vip_code') }}" maxlength="5" autocomplete="vip_code" autofocus>
 
                                 @error('vip_code')
@@ -91,7 +91,7 @@
                                        class="form-control @error('phone') is-invalid @enderror" name="phone"
                                        value="{{ old('phone') }}" required autocomplete="phone" autofocus>
 
-                                @error('name')
+                                @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -137,7 +137,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button data-sitekey="{{ env("g_site_key") }}"
-                                        data-callback='onSubmitModal'
+                                        data-callback='onSubmit'
                                         data-action='submit' class="g-recaptcha btn-cat">
                                     {{ __('Register') }}
                                 </button>

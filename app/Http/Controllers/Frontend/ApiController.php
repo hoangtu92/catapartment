@@ -42,8 +42,8 @@ class ApiController extends Controller
         }
 
         if($request->filled("min") && $request->filled("max")){
-            $where[] = "sale_price >= {$request->input("min")}";
-            $where[] = "sale_price <= {$request->input("max")}";
+            $where[] = "(sale_price >= {$request->input("min")} OR price >= {$request->input("min")})";
+            $where[] = "sale_price <= {$request->input("max")} OR price <= {$request->input("max")}";
         }
 
 

@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 
 class gCaptcha
 {
@@ -17,7 +19,7 @@ class gCaptcha
     {
         if($request->isMethod("post")){
             $request->validate([
-                "_g_token" => "required"
+                "_g_token" => "present"
             ]);
 
             $ch = curl_init();
@@ -37,13 +39,15 @@ class gCaptcha
 
             curl_close ($ch);
 
+            Log::info($server_output);
+
             $response = json_decode($server_output);
 
             if ($response->success) {
-
+                return $next($request);
             }
             else{
-                return redirect(route("home"));
+                return Redirect::back()->with("message", "There is a problem during verify your identify");
             }
         }
         return $next($request);

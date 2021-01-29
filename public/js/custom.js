@@ -204,7 +204,7 @@ $(document).ready(function () {
 
 
 window.onscroll = function () {
-    myFunction()
+    //myFunction()
 };
 
 var header = document.getElementById("header");
@@ -222,7 +222,7 @@ function myFunction() {
  * Angular
  * @type {angular.Module}
  */
-var app = angular.module("cat", ["ngSanitize"]);
+var app = angular.module("cat", ["ngSanitize", "ui.bootstrap"]);
 app.controller("catCtrl", function ($scope, $http) {
 
 

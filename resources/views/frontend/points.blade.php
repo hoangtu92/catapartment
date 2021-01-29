@@ -13,7 +13,7 @@
                     <div class="dash-right">
                         <p><strong>親愛的{{ Auth::user()->name }}你好：</strong></p>
                         <p class="pl-3">你的消費已經累積 <input type="text" class="sp-am"  readonly value="{{ Auth::user()->points }}"> 積分</p>
-                        <p class="pl-3">積分累積到10,000，立馬自動晉級為貓公寓拼圖坊的VIP，終身享有9折優惠，並優先參加換季出清競拍。</p>
+                        <p class="pl-3">購買超過4000元即成為VIP會員，VIP會員可享有本站8折再9折的價格（72折），需新增身分證後五碼驗證。</p>
                         <hr>
                         <div class="row">
                             <div class="col-lg-12">

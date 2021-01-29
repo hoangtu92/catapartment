@@ -185,6 +185,8 @@ class ProductCrudController extends CrudController
             "pivot" => true
         ]);
 
+
+
         $this->crud->addColumn([
             "name" => "shipping_methods",
             "type" => "select_multiple",
@@ -340,7 +342,16 @@ class ProductCrudController extends CrudController
             "type" => "select2_multiple",
             "entity" => "colors",
             "attribute" => "name",
-            "label" => trans("backpack::site.product_color"),
+            "label" => "材質",
+            "pivot" => true
+        ]);
+
+        $this->crud->addField([
+            "name" => "materials",
+            "type" => "select2_multiple",
+            "entity" => "materials",
+            "attribute" => "name",
+            "label" => "效果",
             "pivot" => true
         ]);
 
@@ -362,6 +373,7 @@ class ProductCrudController extends CrudController
         $this->crud->addField([
             "name" => "images",
             "type" => "browse_multiple",
+            'multiple'   => true,
             "label" => trans("backpack::site.product_slide")
         ]);
 

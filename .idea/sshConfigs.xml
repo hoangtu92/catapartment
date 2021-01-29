@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="cat.ml-codesign.com" id="9569644c-0780-457c-bd84-37cc079dda25" keyPath="C:\Users\hoangtu92\.ssh\cat_key" port="22" customName="CAT" nameFormat="CUSTOM" username="catad">
+        <option name="customName" value="CAT" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

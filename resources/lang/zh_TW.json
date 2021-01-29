@@ -33,7 +33,7 @@
     "Customer Message" : "留言內容",
     "Ask a question" : "送出",
 
-    "Your email address": "電子信箱",
+    "Your email address": "電子郵箱 your E-email",
 
     "Your message has been sent successfully" : "表單已成功送出！",
     "An error occurred, please try again later": "發生了一個錯誤。請稍後重試",
@@ -64,7 +64,7 @@
     "Total": "總金額",
     "Best Clock": "Best Clock",
     "Sub Total": "小計",
-    "Shipping": "郵寄資料",
+    "Shipping": "運送方式",
     "Flat rate": "運費",
     "Free Shipping": "免運費",
     "Local Pickup": "到店取貨",
@@ -80,7 +80,7 @@
     "Shopping Information": "購物資訊",
     "Shipping Information": "貨品運送問題",
     "Payment Information": "付款資訊",
-    "Membership Information": "會員問題",
+    "Membership Information": "會員服務",
 
 
     "welcome_user_msg": "Hello :username (不是 :username嗎? :logout_link)",

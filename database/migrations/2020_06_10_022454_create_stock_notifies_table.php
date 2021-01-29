@@ -15,11 +15,13 @@ class CreateStockNotifiesTable extends Migration
     {
         Schema::create('stock_notifies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("newsletter_id");
-            $table->foreign("newsletter_id")->references("id")->on("newsletters");
 
             $table->foreignId("product_id");
             $table->foreign("product_id")->references("id")->on("products");
+
+            $table->string("name")->nullable(true);
+            $table->string("phone")->nullable(true);
+            $table->string("email");
 
             $table->timestamps();
         });

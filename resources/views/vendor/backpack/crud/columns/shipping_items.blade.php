@@ -10,6 +10,8 @@
 
 <ul style="padding:0; margin: 0; list-style: none">
     @foreach($entry->items as $item)
+        @if(isset($item->product))
         <li><span>{{ $item->product->name }}</span> <strong>({{ $item->color }}x{{$item->qty}})</strong></li>
+        @endif
     @endforeach
 </ul>

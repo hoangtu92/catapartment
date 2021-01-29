@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\Models\UserPoint;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -11,6 +12,7 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class OrderCrudController
@@ -39,7 +41,7 @@ class OrderCrudController extends CrudController
 
         $this->crud->addFilter(
             [
-                'type' => 'select2',
+                'type' => 'dropdown',
                 'name' => 'status',
                 'label' => "訂單狀態",
             ],
@@ -58,7 +60,7 @@ class OrderCrudController extends CrudController
 
         $this->crud->addFilter(
             [
-                'type' => 'select2',
+                'type' => 'dropdown',
                 'name' => 'payment_status',
                 'label' => "付款狀態",
             ],
@@ -109,11 +111,12 @@ class OrderCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'payment_type',
+            'name' => 'payment_method',
             'label' => trans("backpack::site.transaction_payment_type"),
             'type' => "select_from_array",
             "options" => [
-                "Credit_CreditCard" => "信用卡"
+                "ecpay" => "信用卡付款",
+                "cod" => "現場付款",
             ]
         ]);
 
@@ -198,18 +201,23 @@ class OrderCrudController extends CrudController
         //$this->crud->setFromDb();
 
         $this->crud->addField([
+            'type' => 'order_info',
+            "name" => 'order_id'
+        ]);
+
+        $this->crud->addField([
             "name" => "status",
             "type" => "select_from_array",
             "options" => [
                 PROCESSING => "處理中",
                 COMPLETED => "已完成",
                 CANCELED => "已取消"],
-            "label" => trans("backpack::site.status")
+            "label" => "訂單狀態"
         ]);
 
         $this->crud->addField([
             'name' => 'payment_status',
-            'label' => "狀態",
+            'label' => "付款狀態",
             'type' => "select_from_array",
             "options" => [
                 UNPAID => "未付款",
@@ -231,7 +239,7 @@ class OrderCrudController extends CrudController
 
         $this->crud->addField([
             "name" => "notes",
-            "type" => "wysiwyg",
+            "type" => "textarea",
             "label" => trans("backpack::site.notes")
         ]);
 
@@ -243,25 +251,36 @@ class OrderCrudController extends CrudController
 
         if($this->crud->getRequest()->isMethod("put")){
 
+
             $currentOrder = $this->crud->getEntry($this->crud->getCurrentEntryId());
-            $shopping_accumulate = 0;
-
-            foreach($currentOrder->user->orders as $order){
-                if($order->status != COMPLETED) continue;
-                $shopping_accumulate += $order->sub_total;
-            }
-
-            $old_state = $currentOrder->user->is_vip;
 
 
-            if($shopping_accumulate >= 4000){
-                $currentOrder->user->is_vip = true;
-            }
-            else{
-                $currentOrder->user->is_vip = false;
-            }
-            if($old_state != $currentOrder->user->is_vip){
+            if($currentOrder->user){
+                $currentOrder->user->is_vip = $currentOrder->user->consume >= 4000;
                 $currentOrder->user->save();
+            }
+
+            //Reward point
+            $payment_status = $this->crud->getRequest()->input("payment_status");
+            if($payment_status == PAID && $currentOrder->payment_status != PAID){
+
+                $currentOrder->payment_date = now();
+
+                //Reward
+                $reward_point = new UserPoint([
+                    "user_id" => $currentOrder->user->id,
+                    "amount" => $currentOrder->sub_total,
+                    "created_at" => now(),
+                    "notes" => "消費積分"
+                ]);
+
+                $reward_point->save();
+                $currentOrder->user->points += $reward_point->amount;
+
+                Log::info("Reward {$reward_point->amount} for user #{$currentOrder->user->id} on #{$currentOrder->order_id}");
+
+                $currentOrder->user->save();
+                $currentOrder->save();
             }
 
         }

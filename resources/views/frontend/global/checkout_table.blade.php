@@ -26,14 +26,33 @@
 (x{{ $item->qty }})</div>
             </td>
 
-            <td>${{ $item->product->sale_price*$item->qty }}</td>
+            <td>${{ $item->product->price*$item->qty }}</td>
+
+
 
         </tr>
     @endforeach
-    <tr>
-        <td><b>{{ __("Sub Total") }}</b></td>
-        <td colspan="2"><strong>${{ $shoppingCart['total'] }}</strong></td>
-    </tr>
+
+    @if(Session::get("member_discount") > 0)
+        @if(Auth::user()->isVip() )
+            <tr>
+                <td>
+                    {{--<b>{{ __("VIP Member Discount") }} ({{ Session::get("member_discount") }}%)</b>--}}
+                    <b>VIP折扣(72折)</b>
+                </td>
+                <td colspan="2"><strong>-${{ round((Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
+            </tr>
+        @else
+            <tr>
+                <td>
+                    {{--<b>會員折扣 ({{ Session::get("member_discount") }}%)</b>--}}
+                    <b>會員折扣(8折)</b>
+                </td>
+                <td colspan="2"><strong>-${{ round((Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
+            </tr>
+        @endif
+    @endif
+
     @if(Session::get("discount") > 0)
         <tr>
             <td>
@@ -43,23 +62,11 @@
         </tr>
     @endif
 
-    @if(Session::get("member_discount") > 0)
-        @if(\Illuminate\Support\Facades\Auth::user()->is_vip && \Illuminate\Support\Facades\Session::get("vip_verified"))
-            <tr>
-                <td>
-                    <b>{{ __("VIP Member Discount") }} ({{ Session::get("member_discount") }}%)</b>
-                </td>
-                <td colspan="2"><strong>-${{ round((Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
-            </tr>
-            @else
-        <tr>
-            <td>
-                <b>會員折扣 ({{ Session::get("member_discount") }}%)</b>
-            </td>
-            <td colspan="2"><strong>-${{ round((Session::get("member_discount")*$shoppingCart['total'])/100) }}</strong></td>
-        </tr>
-            @endif
-    @endif
+    <tr>
+        <td><b>{{ __("Sub Total") }}</b></td>
+        <td colspan="2"><strong>${{ $shoppingCart['total'] - Session::get("discount") - (Session::get("member_discount")*$shoppingCart['total'])/100}}</strong></td>
+    </tr>
+
 
     <tr>
         <td>{{ __("Shipping") }}  @error('delivery')<div class="alert alert-danger">{{ $message }}</div>@enderror</td>

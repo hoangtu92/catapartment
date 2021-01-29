@@ -42,12 +42,27 @@ class User extends Model
         return $this->hasMany("App\Models\UserPoint")->orderBy("id", "desc");
     }
 
+    public function completedOrders(){
+        return $this->orders()->where("payment_status", PAID);
+    }
+
     public function getConsumeAttribute(){
         $consume = 0;
-        foreach ($this->orders as $order){
-            $consume += $order->total_amount;
+        foreach ($this->completedOrders as $order){
+            $consume += $order->sub_total;
         }
         return $consume;
+    }
+
+    public function getTotalAttribute(){
+        $consume = 0;
+        foreach ($this->orders as $order){
+            $consume += $order->sub_total;
+        }
+        return $consume;
+    }
+    public function getIsVipAttribute(){
+        return $this->consume >= 4000;
     }
 
     /*
@@ -75,5 +90,6 @@ class User extends Model
     public function orderItem ($product_id){
         return $this->hasManyThrough("App\Models\OrderItem", "App\Models\Order")->where("product_id", "=", $product_id)->first();
     }
+
 
 }

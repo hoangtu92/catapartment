@@ -33,15 +33,9 @@ class ColorCrudController extends CrudController
         $this->crud->addColumn([
            'name' => "name",
            'type' => "text",
-           "label" => trans("backpack::site.product_color")
+           "label" => "材質"
         ]);
-
-        $this->crud->addColumn([
-            'name' => "value",
-            'type' => "color",
-
-            "label" => trans("backpack::site.product_color")
-        ]);
+        
 
         $this->crud->removeButton("show");
     }
@@ -58,14 +52,9 @@ class ColorCrudController extends CrudController
         $this->crud->addField([
             'name' => "name",
             'type' => "text",
-            "label" => trans("backpack::site.product_color")
+            "label" => "材質"
         ]);
 
-        $this->crud->addField([
-            'name' => "value",
-            'type' => "color_picker",
-            "label" => trans("backpack::site.product_color")
-        ]);
     }
 
     protected function setupUpdateOperation()

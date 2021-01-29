@@ -19,7 +19,7 @@ class CreateUserPointsTable extends Migration
             $table->foreignId('user_id');
             $table->foreign("user_id")->references("id")->on("users");
 
-            $table->decimal("amount")->default(0);
+            $table->integer("amount")->default(0);
             $table->string("notes")->collation("utf8_unicode_ci")->nullable(true);
             $table->timestamps();
         });

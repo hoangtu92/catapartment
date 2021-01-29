@@ -18,13 +18,13 @@ class CreateProductsTable extends Migration
             $table->foreignId("category_id")->nullable(true);
             $table->foreign("category_id")->references("id")->on("product_categories");
             $table->string("name")->nullable(false)->collation("utf8_unicode_ci");
-            $table->string("slug")->nullable(true)->collation("utf8_unicode_ci")->unique();
+            $table->string("slug", 255)->nullable(true)->collation("utf8_unicode_ci")->unique();
             $table->string("sku")->nullable(true);
             $table->enum("status", [PRE_ORDER, IN_STOCK])->default(PRE_ORDER);
             $table->integer("stock")->nullable(true)->default(0);
 
-            $table->decimal("price")->default(0);
-            $table->decimal("sale_price")->nullable(true)->default(null);
+            $table->integer("price")->default(0);
+            $table->integer("sale_price")->nullable(true)->default(null);
             $table->integer("view")->default(0);
 
             $table->string("image")->collation("utf8_unicode_ci");
@@ -42,10 +42,7 @@ class CreateProductsTable extends Migration
             $table->foreignId("piece_id")->nullable(true);
             $table->foreign("piece_id")->references("id")->on("pieces");
 
-            $table->integer("piece_value")->nullable(true);
-
-            $table->foreignId("material_id")->nullable(true);
-            $table->foreign("material_id")->references("id")->on("materials");
+            $table->string("piece_value")->nullable(true);
 
             $table->string("measures")->collation("utf8_unicode_ci")->nullable(true);
 
@@ -53,7 +50,7 @@ class CreateProductsTable extends Migration
 
             $table->string("barcode")->collation("utf8_unicode_ci")->nullable(true);
 
-            $table->integer("custom_rating")->default(1);
+            $table->integer("custom_rating")->default(0);
 
             $table->enum("type", [FRAME, NORMAL])->default(NORMAL);
             $table->decimal("time")->default(0);

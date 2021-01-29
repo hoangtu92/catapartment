@@ -28,7 +28,7 @@ class ProductRequest extends FormRequest
         return [
             // 'name' => 'required|min:5|max:255',
             'slug' => 'required',
-            'images' => 'array|max:4',
+//            'images' => 'array|max:4',
             'category_id' => 'required'
         ];
     }

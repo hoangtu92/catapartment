@@ -59,13 +59,9 @@ class LoginController extends CatController
      */
     protected function redirectTo(){
 
-        $user = Auth::user();
-        switch(true) {
-            case $user->isAdmin():
-                return RouteServiceProvider::ADMIN;
-            default:
-                return RouteServiceProvider::HOME;
-        }
+        //$user = Auth::user();
+
+        return RouteServiceProvider::HOME;
 
     }
 
@@ -287,5 +283,21 @@ class LoginController extends CatController
         }
 
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if($user->isAdmin()){
+            Auth::logout();
+            return \redirect(route("home"));
+        }
+        $usrObj = \App\Models\User::find($user->id);
+        //Log::info("User #{$usrObj->id}. Total spent: {$usrObj->total}");
+        if($usrObj->total >= 4000){
+            $usrObj->is_vip = true;
+            $usrObj->save();
+            Log::info("User #{$usrObj->id} has became vip member. Total spent: {$usrObj->total}");
+        }
+    }
+
 
 }

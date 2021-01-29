@@ -28,7 +28,7 @@
 
             <!--Product slide-->
                 <div class="col-lg-6 flex-column justify-content-center align-items-center">
-                    @if(count($product->images) > 0)
+                    @if($product->images && count($product->images) > 0)
                         <div id="thumbnail-slider" data-options="defaultOptions" style="float:left;">
                             <div class="inner">
                                 <ul>
@@ -50,22 +50,10 @@
                             </div>
                         </div>
                     @else
-                        <img alt="{{ $product->name }}" src="{{ asset($product->image) }}"
+                        <img onerror="this.src='/images/no-img.jpg'" alt="{{ $product->name }}" src="{{ asset($product->image) }}"
                              style="width:100%; object-fit: cover">
                     @endif
 
-                    <div class="p-badge">
-                        @if($product->is_hot)
-                            <div class="badge-hot">HOT</div>
-                        @endif
-
-                        @if($product->sale_price >=0 && $product->sale_price < $product->price)
-                            <div
-                                class="badge-sales-off">{{ round(( ($product->sale_price - $product->price)/$product->price)*100) }}
-                                %
-                            </div>
-                        @endif
-                    </div>
 
                 </div>
                 <!--Product slide-->
@@ -74,7 +62,30 @@
                 <div class="col-lg-6">
                     <div class="bread"><a href="#">首頁</a> / <a href="#">拼圖商店</a> / <span>{{ $product->name }}</span>
                     </div>
-                    <h1 class="product-name">{{ $product->name }}</h1>
+                    <h1 class="product-name">{{ $product->name }}
+                        <div class="p-badge">
+                            @if($product->isHot)
+                                <div class="badge-hot">HOT</div>
+                            @endif
+
+                            @if(Auth::check())
+                                @if(Auth::user()->isVip())
+
+
+                                    <div
+                                        class="badge-sales-off">{{ round(( ($product->price*0.8*0.9 - $product->price)/$product->price)*100) }}
+                                        %
+                                    </div>
+
+                                @else
+                                    <div
+                                        class="badge-sales-off">{{ round(( ($product->price*0.8 - $product->price)/$product->price)*100) }}
+                                        %
+                                    </div>
+                                @endif
+                            @endif
+
+                        </div></h1>
 
                     <p class="cre" data-rating="{{$product->averageRating}}">
                         @if($product->averageRating >= 0)
@@ -108,12 +119,25 @@
                         @endif
 
                                         ( {{ count($product->reviews) }} 個評論  )</p>
-                    <h3 class="price"><span>${{ $product->price }}</span> ${{ $product->sale_price }}</h3>
+
+
+                   {{-- @if(Auth::check())
+                        @if(Auth::user()->isVip())
+                        <h3 class="price"><span>${{ $product->price }}</span> ${{ $product->price*0.8*0.9 }}</h3>
+                        @else
+                            <h3 class="price"><span>${{ $product->price }}</span> ${{ $product->price*0.8}}</h3>
+                        @endif
+                    @else
+                        <h3 class="price">${{ $product->price }}</h3>
+                    @endif--}}
+
+                    <h3 class="price">市價 ${{$product->price}}    一般會員價 ${{$product->memberPrice}}      VIP會員價 ${{$product->vipPrice}}</h3>
+
                     {!! $product->short_description !!}
 
                     @if($product->colors != null)
                         <div class="color-div">
-                            <span>顏色 : </span>
+                            <span>效果 : </span>
                             @foreach($product->colors as $color)
                                 <span>
                                 <input id="color-{{$color->id}}" type="radio" value="{{ $color->name }}"
@@ -232,7 +256,7 @@
                             @endif
 
                             @if(count($product->shipping_methods) > 0)
-                                <li>{{ __("Shipping & Delivery") }}</li>
+                                <li>{{ __("運送方式") }}</li>
                             @endif
                         </ul>
                         <div class="resp-tabs-container">
@@ -255,6 +279,13 @@
                                                 <table class="table full-width" style="max-width:500px; margin:auto;">
                                                     <tbody>
 
+                                                    @if(!empty($product->piece_value))
+                                                        <tr>
+                                                            <td><b>片數</b></td>
+                                                            <td>{{ $product->piece_value }}</td>
+                                                        </tr>
+                                                        @endif
+
                                                     @if($product->brand)
                                                         <tr>
                                                             <td><b>品牌</b></td>
@@ -262,21 +293,28 @@
                                                         </tr>
                                                     @endif
 
-                                                    @if($product->colors)
+                                                    @if(!empty($product->colorname))
                                                         <tr>
-                                                            <td><b>顏色</b></td>
+                                                            <td><b>材質</b></td>
                                                             <td>{{ implode(", ", $product->colorname) }}</td>
                                                         </tr>
                                                     @endif
 
-                                                    @if($product->measures)
+                                                    @if(!empty($product->materialname))
+                                                        <tr>
+                                                            <td><b>效果</b></td>
+                                                            <td>{{ implode(", ", $product->materialname) }}</td>
+                                                        </tr>
+                                                    @endif
+
+                                                    @if(!empty($product->measures))
                                                         <tr>
                                                             <td><b>尺寸</b></td>
                                                             <td>{{ $product->measures }}</td>
                                                         </tr>
                                                     @endif
 
-                                                    @if($product->origin)
+                                                    @if(!empty($product->origin))
                                                         <tr>
                                                             <td><b>進口國家</b></td>
                                                             <td>{{ $product->origin->name }}</td>

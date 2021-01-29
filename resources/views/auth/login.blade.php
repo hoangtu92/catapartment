@@ -11,6 +11,7 @@
                     <h2 class="text-center">{{ __('Login') }}</h2>
                     <form method="POST" action="{{ route('login') }}" id="protectedForm">
                         @csrf
+                        <input type="hidden" id="token" name="_g_token">
                         <div class="form-group row">
                             <label for="email"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
