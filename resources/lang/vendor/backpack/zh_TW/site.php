@@ -73,6 +73,7 @@ return [
     "customer_phone" => "電話",
     "customer_message" => "留言內容",
     "customer_free_time" => "聯絡時間",
+    "customer_subject" => "主旨",
 
     "email" => "Email",
     "contact_message" => "留言管理",

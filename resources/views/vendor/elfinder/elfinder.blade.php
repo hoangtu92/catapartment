@@ -47,7 +47,7 @@
 
 @section('header')
     <section class="container-fluid">
-      <h2>{{ trans("backpack::crud.file_manager") }}</h2>
+      <h2>檔案總管</h2>
     </section>
 @endsection
 

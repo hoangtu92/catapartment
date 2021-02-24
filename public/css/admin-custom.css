@@ -7,7 +7,7 @@
 }
 
 .app-body .sidebar {
-    background: #fdcd00 !important;
+    background: #46b9c7 !important;
 }
 .sidebar-pills li {
     color: #000!important;
@@ -33,13 +33,17 @@
 }
 
 .btn-primary, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    color: #fdcd00;
+    color: #46b9c7;
     background-color: #000;
     border-color: #000;
 }
 
+.sidebar .nav-link .nav-icon{
+    color: white;
+}
+
 .btn-primary {
-    color: #fdcd00;
+    color: #46b9c7;
     background-color: #000;
     border-color: #000;
 }
@@ -56,7 +60,7 @@
 }
 
 .sidebar .nav-link {
-    color: #000;
+    color: white;
 }
 .app-footer {
     background: #000;

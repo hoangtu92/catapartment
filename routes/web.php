@@ -99,7 +99,7 @@ Route::get("/import-products", function (){
     $import_lists = [
         //"products.xlsx",
         //"Ensky excel.xlsx",
-        //"galison excel.xlsx",
+        "galison excel.xlsx",
 
         //"mudpuppy excel.xlsx",
         //"Tenyo excel.xlsx",
@@ -119,8 +119,8 @@ Route::get("/import-products", function (){
         //"new/dToys.xlsx",
         //"new/educa.xlsx",
         //"new/Gibsons.xlsx",
-        "new/OtterHouse.xlsx",
-        "new/SunsOut.xlsx",
+        //"new/OtterHouse.xlsx",
+        //"new/SunsOut.xlsx",
     ];
     foreach ($import_lists as $p){
 

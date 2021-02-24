@@ -7,6 +7,7 @@
     <title>{{ config('app.name', '貓公寓拼圖坊') }}</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="貓公寓拼圖，拼圖，Catsapt Puzzle，Puzzle，猫公寓拼图，拼图，雷諾瓦，海外拼圖代購，拼圖裱框服務，宮崎駿拼圖，歐美拼圖代購，動漫卡通拼圖，代客拼圖，台灣拼圖店，拼圖教學">
 
     <meta property="og:url"           content="{{ url($_SERVER["REQUEST_URI"]) }}" />
     <meta property="og:type"          content="website" />
@@ -90,6 +91,7 @@
              attribution=setup_tool
              page_id="{{ env("FACEBOOK_PAGE_ID") }}"
              theme_color="#0084ff"
+             greeting_dialog_display="hide"
              logged_in_greeting="歡迎來到貓公寓拼圖坊！有什麼我可以為您服務的嗎？"
              logged_out_greeting="歡迎來到貓公寓拼圖坊！有什麼我可以為您服務的嗎？">
         </div>

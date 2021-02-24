@@ -18,12 +18,12 @@
     width:100%;
 }
 .ui-widget-header {
-    background:#fdcd00;
+    background:#46b9c7;
 }
 
 .price-range-search {
-    width:100%; 
-    background-color: #f9f9f9; 
+    width:100%;
+    background-color: #f9f9f9;
     border: 1px solid #6e6666;
     min-width: 40%;
     display: inline-block;

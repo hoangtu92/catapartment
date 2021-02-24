@@ -193,10 +193,10 @@ class FrontController extends CatController
 
 
     public function faq(){
-        $payment_faqs = Faq::where("type", "付款資訊")->orderByDesc("created_at")->get();
-        $shopping_faqs = Faq::where("type", "購物資訊")->orderByDesc("created_at")->get();
-        $membership_faq = Faq::where("type", "會員問題")->orderByDesc("created_at")->get();
-        $service_faq = Faq::where("type", "客服諮詢")->orderByDesc("created_at")->get();
+        $payment_faqs = Faq::where("type", "付款資訊")->orderBy("created_at")->get();
+        $shopping_faqs = Faq::where("type", "購物資訊")->orderBy("created_at")->get();
+        $membership_faq = Faq::where("type", "會員問題")->orderBy("created_at")->get();
+        $service_faq = Faq::where("type", "客服諮詢")->orderBy("created_at")->get();
         return view("frontend.faq")->with(compact("payment_faqs", "shopping_faqs", "membership_faq", "service_faq"));
     }
 
@@ -273,8 +273,18 @@ class FrontController extends CatController
 
     public function contact(Request $request){
 
+
+
         if($request->isMethod("post") && $request->filled("action")){
-            $contact_info = (object) $request->only(["customer_name", "customer_email", "customer_phone", "customer_free_time", "customer_message"]);
+
+            $request->validate([
+                "action" => "required",
+                "customer_name" => "required",
+                "customer_email" => "required",
+                "customer_message" => "required",
+            ]);
+
+            $contact_info = (object) $request->only(["customer_name", "customer_email", "customer_phone", "customer_free_time", "customer_message", "customer_subject"]);
 
 
             try{
@@ -284,7 +294,8 @@ class FrontController extends CatController
                     "customer_email" => $contact_info->customer_email,
                     "customer_phone" => $contact_info->customer_phone,
                     "customer_free_time" => $contact_info->customer_free_time,
-                    "customer_message" => $contact_info->customer_message
+                    "customer_message" => $contact_info->customer_message,
+                    "customer_subject" => $contact_info->customer_subject,
                 ]);
             }
             catch(\Exception $e){

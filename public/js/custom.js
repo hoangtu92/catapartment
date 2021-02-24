@@ -59,47 +59,56 @@ $(document).ready(function () {
 $(document).ready(function () {
     var owl = $('#guide-slider');
 
-    owl.owlCarousel({
+    setTimeout(function (){
+        owl.owlCarousel({
 
-        margin: 30,
-        loop: true,
-        autoplay: false,
-        dots: false,
-        autoplayTimeout: 2000,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        navigation: true,
-        nav: true,
-        responsive: {
+            margin: 30,
+            loop: true,
+            autoplay: false,
+            dots: false,
+            autoplayTimeout: 2000,
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn',
+            navigation: true,
+            nav: true,
+            responsive: {
 
-            0: {
+                0: {
 
-                items: 1
+                    items: 1
 
-            },
+                },
 
-            480: {
+                480: {
 
-                items: 1
+                    items: 1
 
-            },
+                },
 
-            680: {
+                680: {
 
-                items: 2
+                    items: 2
 
-            },
+                },
 
-            1000: {
+                1000: {
 
-                items: 3
+                    items: 3
+
+                }
 
             }
 
-        }
+        });
+    }, 500)
 
+
+});
+
+$(document).ready(function () {
+    $(".category-list").click(function () {
+        $(".toggle-cat").slideToggle();
     });
-
 });
 
 $(document).ready(function () {
@@ -159,11 +168,7 @@ jQuery(document).ready(function () {
 
 // JavaScript Toggle Effect //
 
-$(document).ready(function () {
-    $(".category-list").click(function () {
-        $(".toggle-cat").slideToggle();
-    });
-});
+
 
 $(document).ready(function () {
     $(".msearch").click(function () {
@@ -271,7 +276,10 @@ app.controller("catCtrl", function ($scope, $http) {
         localStorage.catViewMode = view;
         $scope.currentView = view;
         console.log($scope.currentView)
-        document.querySelector(".plist > div").setAttribute("class", "d-grid grid-"+view);
+
+        var plist = document.querySelector(".plist > div");
+        if(plist)
+            plist.setAttribute("class", "d-grid grid-"+view);
     };
 
     $scope.changeView = function(view){
@@ -380,7 +388,7 @@ app.controller("catCtrl", function ($scope, $http) {
             thickness: $scope.product.thickness,
             totalLength: $scope.product.totalLength,
             shipping_fee: $scope.order.shipping_fee,
-            price: Math.round($scope.product.thickness + $scope.product.totalLength * 2 * 1.2)
+            price: $scope.product.frame ? Math.round(($scope.product.thickness + $scope.product.totalLength)*0.8 * $scope.product.frame.price + ($scope.product.thickness + $scope.product.totalLength)*0.11) : 0
         };
 
         if (typeof $scope.result.frame !== 'undefined')

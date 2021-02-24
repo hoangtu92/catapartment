@@ -19,7 +19,7 @@
                 <div class="col-md-12">
 
                     <!--top filter-->
-                @include("frontend.products.top_filter")
+                {{--@include("frontend.products.top_filter")--}}
                 <!--top filter-->
 
                     <div class="sprice"><h2><span>裱框訂製估價</span></h2></div>
@@ -80,7 +80,105 @@
 
                     </form>
 
-                    @include("frontend.products.list")
+                    {{--@include("frontend.products.list")--}}
+
+
+                    <div class=WordSection1>
+
+                        <p align=center><b><span lang=ZH-TW
+                                >收納拼圖之拼圖拆片圖解說明</span></b>
+                        </p>
+
+
+                        <p><span lang=ZH-TW>拼圖完拼後若面臨不知如何收納，或是想要帶去裱框卻不知如何處裡，以下拼圖的拆片方法可以幫助您將已完成的拼圖順利收妥在拼圖盒內。</span>
+                        </p>
+
+
+                        <p><span lang=ZH-TW>【步驟一】：</span></p>
+
+                        <p><img width=554 height=554 id="圖片 2"
+                                src="{{ asset('/images/image001.jpg') }}"></p>
+
+                        <p><span lang=ZH-TW>開始拼圖之前，請先準備一塊尺寸比拼圖完成後大一點的塑膠瓦楞板，除了可以直接在塑膠瓦楞板上拼圖之外，亦可在完拼好後將拼圖移到板子上。如圖所示，塑膠瓦楞板比拼圖完成後的尺寸大。</span>
+                        </p>
+
+                        <p><b><span lang=ZH-TW>※可至文具行選購不同尺寸的塑膠瓦楞板。</span></b></p>
+
+
+                        <p><span lang=ZH-TW>【步驟二】：</span></p>
+
+                        <p><img width=554 height=554 id="圖片 1"
+                                src="{{ asset('/images/image002.jpg') }}"></p>
+
+                        <p><span lang=ZH-TW>準備幾張比拼圖盒蓋小一些的乾淨紙張。</span></p>
+
+                        <p><span lang=JA>※</span><b><span
+                                    lang=ZH-TW>拆片後的拼圖會放在紙張上，建議要拿乾淨的紙張，不要拿報紙或有油墨的紙，以免油墨沾到拼圖）。</span></b></p>
+
+
+                        <p><span lang=ZH-TW>【步驟三】：</span></p>
+
+                        <p><img width=554 height=554 id="圖片 3"
+                                src="{{ asset('/images/image003.jpg') }}"></p>
+
+                        <p><span lang=ZH-TW>將已完拼的拼圖從原本的瓦楞板移至另一塊墊在下方的瓦楞板。</span></p>
+
+                        <p><span lang=ZH-TW>※<b>移動拼圖到另一塊瓦楞板前，可先數好拼片移動的位置，其拼圖大小是否可以完好的放在已準備好的乾淨紙張上面。</b></span>
+                        </p>
+
+
+                        <p><span lang=ZH-TW>【步驟四】</span></p>
+
+                        <p><img width=468 height=375 id="圖片 4"
+                                src="{{ asset('/images/image004.jpg') }}"></p>
+
+                        <p><img width=468 height=347 id="圖片 6"
+                                src="{{ asset('/images/image005.jpg') }}"></p>
+
+                        <p><span lang=ZH-TW>利用瓦楞板的高低落差，用手指下壓將拼片分開。</span></p>
+
+
+                        <p><span lang=ZH-TW>【步驟五】</span></p>
+
+                        <p><img width=554 height=554 id="圖片 7"
+                                src="{{ asset('/images/image006.jpg') }}"></p>
+
+                        <p><span lang=ZH-TW>重複以上步驟，將拆下來的拼片移到事先準備好的紙張上（拆片的拼圖要符合紙張大小，切勿超過紙張的範圍，以免拼圖散落）。</span>
+                        </p>
+
+
+                        <p><span lang=ZH-TW>【步驟五】</span></p>
+
+                        <p><img width=554 height=554 id="圖片 8"
+                                src="{{ asset('/images/image007.jpg') }}"></p>
+
+                        <p><span lang=ZH-TW>將拼圖依序拆片完成，並放在乾淨的紙張上。</span></p>
+
+
+                        <p><span lang=ZH-TW>【步驟六】</span></p>
+
+                        <p><img width=554 height=554 id="圖片 9"
+                                src="{{ asset('/images/image008.jpg') }}"></p>
+
+                        <p class=MsoListParagraph><span lang=ZH-TW
+                            >將拆好的拼圖連同底下的紙張一起放入拼圖盒蓋內，將盒底反過來壓在拼圖上放（務必將盒底反過來壓住拼圖，才能完整固定住拼圖，以免發生搖晃的情況而讓拼圖散開！）</span>
+                        </p>
+
+
+                        <p><span lang=ZH-TW>【步驟七】</span></p>
+
+                        <p><img width=554 height=554 id="圖片 10"
+                                src="{{ asset('/images/image009.jpg') }}"></p>
+
+                        <p class=MsoListParagraph><span lang=ZH-TW
+                            >如圖所示，用拼圖盒底反壓住拼圖，以確保拼圖不會因為移動或搖晃而散掉，後續使用橡皮筋，或是盒子四邊黏上無痕膠帶、用長尾夾夾住等方式讓拼圖完整固定住，就可以完好的收納，也可以把拼圖帶出門拿到拼圖店裱框了！</span>
+                        </p>
+
+                        <video style="width: 100%" autoplay muted controls src="{{ asset("/uploads/frame-videos/frame_video.mp4") }}"></video>
+
+
+                    </div>
+
                 </div>
             </div>
         </div>

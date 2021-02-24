@@ -1,5 +1,5 @@
 <div id="popup1" class="overlay">
-    <div class="popup" style="background:url({{ asset("images/newsletter_bg.jpg") }}) no-repeat; background-size:cover;">
+    <div class="popup" style="background:url({{ asset("images/catpopup.jpg") }}) no-repeat; background-size:cover;">
         <a class="close" href="#">&times;</a>
         <div class="content nl-pop">
 

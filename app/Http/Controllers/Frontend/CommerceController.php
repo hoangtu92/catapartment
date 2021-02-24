@@ -97,7 +97,7 @@ class CommerceController extends CatController
 
     public function customized_products($page = 1, Request $request){
 
-        return redirect(route("home"))->with("message", "請聯繫、洽詢貓公寓拼圖坊！");
+        //return redirect(route("home"))->with("message", "請聯繫、洽詢貓公寓拼圖坊！");
 
 
         $perPage = $request->filled("perPage") ? (int) $request->input("perPage") : 9;

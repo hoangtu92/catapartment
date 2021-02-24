@@ -50,6 +50,12 @@
                                 <input type="text" name="customer_free_time" class="form-control" id="free_time">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="free_time">{{ __("主旨") }}</label>
+                                <input type="text" name="customer_subject" class="form-control" id="customer_subject">
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="message">{{ __("Customer Message") }}</label>

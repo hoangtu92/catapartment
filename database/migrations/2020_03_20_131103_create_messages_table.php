@@ -21,6 +21,7 @@ class CreateMessagesTable extends Migration
             $table->string("customer_email")->collation("utf8_unicode_ci");
             $table->string("customer_free_time")->collation("utf8_unicode_ci");
             $table->text("customer_message")->collation("utf8_unicode_ci");
+            $table->string("customer_subject")->collation("utf8_unicode_ci");
             $table->timestamps();
         });
     }

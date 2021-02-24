@@ -3,7 +3,7 @@
 @section("content")
 
     <section class="inner-banner">
-        <img src="{{ asset(\Backpack\Settings\app\Models\Setting::get("banner_news")) }}" alt=""/>
+        <img src="{{ asset(Setting::get("banner_news")) }}" alt=""/>
     </section>
 
     <section>
@@ -17,7 +17,7 @@
                     <div class="plist">
                         <div class="row">
                             <div class="col-md-8"></div>
-                            <div class="col-xs-12 col-md-4 d-none d-md-block" style="position: absolute;
+                            <div class="col-xs-12 col-md-5 d-none d-md-block" style="position: absolute;
     right: 0;
     top: 0;">
                                 <!--top filter-->

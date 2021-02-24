@@ -61,6 +61,12 @@ class MessageCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
+            'name' => 'customer_subject',
+            'type' => 'text',
+            'label' => trans("backpack::site.customer_subject")
+        ]);
+
+        $this->crud->addColumn([
             'name' => 'customer_message',
             'type' => 'text',
             'label' => trans("backpack::site.customer_message")

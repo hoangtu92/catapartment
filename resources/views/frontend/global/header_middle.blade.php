@@ -19,15 +19,15 @@
 
             @auth
                 <a href="{{ route("account") }}">{{ Auth()->user()->name }}</a>
-                <a href="{{ route("points") }}"><img src="{{ asset("images/icon01.jpg") }}" alt="{{ __("Points") }}"/></a>
-                <a href="{{ route("wishlist") }}"><img src="{{ asset("images/icon02.jpg") }}" alt="{{ __("Wishlist") }}"/></a>
+                <a title="積分" href="{{ route("points") }}"><img src="{{ asset("images/icon01.jpg") }}" alt="{{ __("Points") }}"/></a>
+                <a title="收藏" href="{{ route("wishlist") }}"><img src="{{ asset("images/icon02.jpg") }}" alt="{{ __("Wishlist") }}"/></a>
             @else
                 <a href="#" onclick="openNav()">{{ __("Login/Register") }}</a>
-                <a href="#" onclick="openNav()"><img src="{{ asset("images/icon01.jpg") }}" alt="{{ __("Points") }}"/></a>
-                <a href="#" onclick="openNav()"><img src="{{ asset("images/icon02.jpg") }}" alt="{{ __("Wishlist") }}"/></a>
+                <a title="積分" href="#" onclick="openNav()"><img src="{{ asset("images/icon01.jpg") }}" alt="{{ __("Points") }}"/></a>
+                <a title="收藏" href="#" onclick="openNav()"><img src="{{ asset("images/icon02.jpg") }}" alt="{{ __("Wishlist") }}"/></a>
             @endauth
 
-            <a href="{{ route("cart") }}" class="hcart"><img src="{{ asset("images/icon03.jpg") }}" alt="{{ __("Cart") }}"/><em>{{ $shoppingCart['count'] }}</em> ${{ $shoppingCart['total'] }}</a>
+            <a title="購物袋" href="{{ route("cart") }}" class="hcart"><img src="{{ asset("images/icon03.jpg") }}" alt="{{ __("Cart") }}"/><em>{{ $shoppingCart['count'] }}</em> ${{ $shoppingCart['total'] }}</a>
         </div>
     </div>
 </div>

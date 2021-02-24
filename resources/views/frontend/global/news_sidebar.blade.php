@@ -16,7 +16,7 @@
     @endforeach
 
 
-    <h3 class="mt-3">Our Instagram</h3>
+<!--    <h3 class="mt-3">Our Instagram</h3>
     <ul class="insta">
         <li><img src="{{ asset("images/insta-img01.jpg") }}" alt=""/></li>
         <li><img src="{{ asset("images/insta-img02.jpg") }}" alt=""/></li>
@@ -29,6 +29,6 @@
         <li><img src="{{ asset("images/insta-img03.jpg") }}" alt=""/></li>
     </ul>
     <h5><a href="https://www.instagram.com/catsapartment_puzzle/" target="blank"><img
-                src="{{ asset("images/instagram-icon.png") }}" alt=""/> View Profile</a></h5>
+                src="{{ asset("images/instagram-icon.png") }}" alt=""/> View Profile</a></h5>-->
 
 </div>

@@ -249,7 +249,7 @@
                 jQuery('.overlay').hide()
             });
 
-            if ((sessionStorage.subscribed !== "1" && localStorage.subscribed !== "1")) {
+            if ((sessionStorage.subscribed !== "1")) {
                 jQuery('.overlay').css('visibility', 'visible').css('opacity', 1);
                 //sessionStorage.subscribed = '1';
             }
@@ -265,7 +265,7 @@
                     },
                     success: function () {
                         $("#infoModal .message").html("您已成功訂閱貓公寓電子報");
-                        localStorage.subscribed = "1";
+                        sessionStorage.subscribed = "1";
                     },
                     error: function () {
                         $("#infoModal .message").html("發生了一個錯誤。請稍後重試");

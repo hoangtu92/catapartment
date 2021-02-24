@@ -197,7 +197,7 @@
                     <hr>
                     <!--Product add to cart-->
 
-                    <h4><strong>貨號 :</strong> {{ $product->sku || "N/A" }}</h4>
+                    <h4><strong>貨號 :</strong> {{ $product->sku }}</h4>
 
                     @if($product->category)
                         <h4><strong>目錄 :</strong> {{ $product->category->name }}</h4>
